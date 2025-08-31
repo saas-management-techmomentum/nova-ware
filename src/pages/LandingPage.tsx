@@ -28,6 +28,8 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import WarehouseSphere from '@/components/WarehouseSphere';
+import AnimatedBackground from '@/components/backgrounds/AnimatedBackground';
+import { EnhancedButton } from '@/components/ui/enhanced-button';
 
 const LandingPage = () => {
   const coreFeatures = [
@@ -151,7 +153,8 @@ const LandingPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 overflow-hidden">
+    <div className="min-h-screen overflow-hidden relative">
+      <AnimatedBackground />
       {/* Navigation */}
       <nav className="border-b border-indigo-500/20 bg-slate-950/50 backdrop-blur-xl sticky top-0 z-50">
         <div className="w-full px-6 lg:px-8">
@@ -202,15 +205,15 @@ const LandingPage = () => {
               </Badge>
               
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight">
-                <span className="bg-gradient-to-r from-white via-orange-200 to-white bg-clip-text text-transparent">
+                <span className="text-gradient-animate animate-bounce-in block" style={{animationDelay: '0.5s'}}>
                   Streamline.
                 </span>
                 <br />
-                <span className="bg-gradient-to-r from-orange-400 via-blue-400 to-orange-400 bg-clip-text text-transparent">
+                <span className="text-gradient-animate animate-bounce-in block" style={{animationDelay: '1s'}}>
                   Optimize.
                 </span>
                 <br />
-                <span className="bg-gradient-to-r from-blue-400 via-green-400 to-blue-400 bg-clip-text text-transparent">
+                <span className="text-gradient-animate animate-bounce-in block" style={{animationDelay: '1.5s'}}>
                   Scale.
                 </span>
               </h1>
@@ -222,17 +225,17 @@ const LandingPage = () => {
               </p>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8 animate-slide-up" style={{animationDelay: '2s'}}>
               <Link to="/auth">
-                <Button size="lg" className="bg-gradient-to-r from-orange-600 to-blue-600 hover:from-orange-700 hover:to-blue-700 text-white border-0 px-12 py-6 text-lg rounded-2xl font-semibold shadow-2xl hover:shadow-orange-500/25 transition-all duration-300 transform hover:scale-105">
+                <EnhancedButton size="xl" variant="premium" className="px-12 py-6 text-lg rounded-2xl font-semibold shadow-2xl hover-lift">
                   <Calendar className="mr-3 h-6 w-6" />
                   Request a Demo
-                </Button>
+                </EnhancedButton>
               </Link>
               <Link to="/about">
-                <Button size="lg" variant="ghost" className="text-slate-300 hover:text-white hover:bg-slate-800/50 border border-slate-600 hover:border-indigo-500/50 px-12 py-6 text-lg rounded-2xl font-semibold transition-all duration-300">
+                <EnhancedButton size="xl" variant="glow" className="glass-card-enhanced text-white border-0 px-12 py-6 text-lg rounded-2xl font-semibold hover-lift">
                   Learn More
-                </Button>
+                </EnhancedButton>
               </Link>
             </div>
           </div>
@@ -253,13 +256,14 @@ const LandingPage = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
             {coreFeatures.map((feature, index) => (
-              <Card key={index} className="bg-slate-900/20 border-slate-700/30 backdrop-blur-xl hover:bg-slate-800/30 hover:border-indigo-500/40 transition-all duration-500 group">
+              <Card key={index} className="glass-card-enhanced hover-lift group animate-slide-up"
+                    style={{animationDelay: `${index * 0.2}s`}}>
                 <CardContent className="p-8">
-                  <div className="h-16 w-16 bg-gradient-to-r from-orange-600 to-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <div className="h-16 w-16 bg-gradient-to-r from-logistix-orange to-logistix-blue rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:animate-glow-pulse transition-all duration-300 shadow-lg">
                     <feature.icon className="h-8 w-8 text-white" />
                   </div>
                   <h3 className="text-xl font-semibold text-white mb-3">{feature.title}</h3>
-                  <p className="text-slate-400 leading-relaxed">{feature.description}</p>
+                  <p className="text-slate-300 leading-relaxed">{feature.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -292,19 +296,20 @@ const LandingPage = () => {
                   <p className="text-lg text-slate-300 leading-relaxed">
                     {feature.description}
                   </p>
-                  <Button className="bg-gradient-to-r from-orange-600 to-blue-600 hover:from-orange-700 hover:to-blue-700 text-white border-0 px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-orange-500/25 transition-all duration-300">
+                  <EnhancedButton variant="gradient" className="px-8 py-3 rounded-xl font-semibold shadow-lg hover-lift">
                     Learn More
                     <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
+                  </EnhancedButton>
                 </div>
                 <div className={`${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
-                  <div className="bg-slate-900/20 border border-slate-700/30 backdrop-blur-xl rounded-3xl p-8 hover:bg-slate-800/30 hover:border-indigo-500/40 transition-all duration-500">
-                    <div className="aspect-video bg-gradient-to-br from-indigo-900/50 via-purple-900/30 to-slate-900/50 rounded-2xl flex items-center justify-center">
+                  <div className="glass-card-enhanced rounded-3xl p-8 hover-lift hover-glow transition-all duration-500 animate-slide-up"
+                       style={{animationDelay: `${0.5 + index * 0.2}s`}}>
+                    <div className="aspect-video bg-gradient-to-br from-logistix-blue/20 via-logistix-orange/10 to-logistix-green/20 rounded-2xl flex items-center justify-center">
                       <div className="text-center space-y-4">
-                        <div className="h-16 w-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center mx-auto">
+                        <div className="h-16 w-16 bg-gradient-to-r from-logistix-blue to-logistix-green rounded-2xl flex items-center justify-center mx-auto animate-scale-pulse shadow-lg">
                           <Monitor className="h-8 w-8 text-white" />
                         </div>
-                        <p className="text-slate-400">Interactive Demo Available</p>
+                        <p className="text-slate-300">Interactive Demo Available</p>
                       </div>
                     </div>
                   </div>
@@ -331,13 +336,14 @@ const LandingPage = () => {
             {/* KPI Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
               {analyticsKPIs.map((kpi, index) => (
-                <Card key={index} className="bg-slate-900/20 border-slate-700/30 backdrop-blur-xl hover:bg-slate-800/30 hover:border-indigo-500/40 transition-all duration-500">
+                <Card key={index} className="glass-card-enhanced hover-lift animate-bounce-in"
+                      style={{animationDelay: `${index * 0.1}s`}}>
                   <CardContent className="p-6 text-center">
-                    <div className={`text-3xl font-bold ${kpi.color} mb-2`}>
+                    <div className={`text-3xl font-bold text-gradient-animate mb-2`}>
                       {kpi.value}
                     </div>
                     <div className="text-white font-semibold mb-1">{kpi.title}</div>
-                    <div className="text-slate-400 text-sm">{kpi.trend}</div>
+                    <div className="text-slate-300 text-sm">{kpi.trend}</div>
                   </CardContent>
                 </Card>
               ))}
