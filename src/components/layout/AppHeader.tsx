@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Bell, User, LogOut, Home, HelpCircle, Menu } from 'lucide-react';
 import { SidebarTrigger } from '@/components/ui/sidebar';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -107,6 +108,8 @@ const AppHeader = () => {
             <div data-onboarding="warehouse-selector">
               <WarehouseSelector />
             </div>
+            
+            <ThemeToggle />
             
             <Button 
               asChild

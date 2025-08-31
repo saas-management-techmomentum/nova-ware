@@ -15,12 +15,12 @@ import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { useUserPermissions } from "@/hooks/useUserPermissions";
 import UserManagement from "@/components/admin/UserManagement";
-import { BellRing, Moon, Sun, Globe, Bell, Shield, Eye, Lock, Users } from "lucide-react";
+import { BellRing, Globe, Bell, Shield, Eye, Lock, Users } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const Settings = () => {
   const { toast } = useToast();
   const { isAdmin } = useUserPermissions();
-  const [darkMode, setDarkMode] = useState(true);
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [pushNotifications, setPushNotifications] = useState(true);
   const [displayName, setDisplayName] = useState("John Doe");
@@ -40,27 +40,23 @@ const Settings = () => {
     });
   };
 
-  const handleToggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
   return (
     <div className="container max-w-4xl py-8">
-      <h1 className="text-3xl font-bold mb-6 text-white">Settings</h1>
+      <h1 className="text-3xl font-bold mb-6 text-foreground">Settings</h1>
       
       <Tabs defaultValue="general" className="w-full">
-        <TabsList className={`grid w-full ${isAdmin ? 'grid-cols-4' : 'grid-cols-3'} mb-8 bg-slate-800 text-white`}>
-          <TabsTrigger value="general" className="data-[state=active]:bg-indigo-600">
+        <TabsList className={`grid w-full ${isAdmin ? 'grid-cols-4' : 'grid-cols-3'} mb-8`}>
+          <TabsTrigger value="general">
             General
           </TabsTrigger>
-          <TabsTrigger value="notifications" className="data-[state=active]:bg-indigo-600">
+          <TabsTrigger value="notifications">
             Notifications
           </TabsTrigger>
-          <TabsTrigger value="security" className="data-[state=active]:bg-indigo-600">
+          <TabsTrigger value="security">
             Security
           </TabsTrigger>
           {isAdmin && (
-            <TabsTrigger value="users" className="data-[state=active]:bg-indigo-600">
+            <TabsTrigger value="users">
               <Users className="h-4 w-4 mr-2" />
               Users
             </TabsTrigger>
@@ -68,10 +64,10 @@ const Settings = () => {
         </TabsList>
         
         <TabsContent value="general">
-          <Card className="bg-slate-800 border-slate-700 text-white">
+          <Card className="bg-card border-border">
             <CardHeader>
               <CardTitle>General Settings</CardTitle>
-              <CardDescription className="text-slate-400">
+              <CardDescription>
                 Manage your account preferences
               </CardDescription>
             </CardHeader>
@@ -82,7 +78,7 @@ const Settings = () => {
                   id="displayName"
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
-                  className="bg-slate-700 border-slate-600 text-white"
+                  className="bg-background border-border"
                 />
               </div>
               
@@ -93,34 +89,26 @@ const Settings = () => {
                     id="language"
                     value={language}
                     onChange={(e) => setLanguage(e.target.value)}
-                    className="bg-slate-700 border-slate-600 text-white w-full h-10 rounded-md px-3 py-2 appearance-none focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="bg-background border-border w-full h-10 rounded-md px-3 py-2 appearance-none focus:outline-none focus:ring-2 focus:ring-primary"
                   >
                     <option value="English (US)">English (US)</option>
                     <option value="Spanish">Spanish</option>
                     <option value="French">French</option>
                     <option value="German">German</option>
                   </select>
-                  <Globe className="absolute right-3 top-2.5 h-5 w-5 text-slate-400 pointer-events-none" />
+                  <Globe className="absolute right-3 top-2.5 h-5 w-5 text-muted-foreground pointer-events-none" />
                 </div>
               </div>
               
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
-                  <Label>Dark Mode</Label>
-                  <p className="text-sm text-slate-400">Toggle between light and dark theme</p>
+                  <Label>Theme</Label>
+                  <p className="text-sm text-muted-foreground">Toggle between light and dark theme</p>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Sun className="h-4 w-4 text-slate-400" />
-                  <Switch 
-                    checked={darkMode}
-                    onCheckedChange={handleToggleDarkMode}
-                    className="data-[state=checked]:bg-indigo-600"
-                  />
-                  <Moon className="h-4 w-4 text-slate-400" />
-                </div>
+                <ThemeToggle />
               </div>
               
-              <Button onClick={handleSaveGeneral} className="mt-4 bg-indigo-600 hover:bg-indigo-700">
+              <Button onClick={handleSaveGeneral} className="mt-4">
                 Save Changes
               </Button>
             </CardContent>
@@ -128,10 +116,10 @@ const Settings = () => {
         </TabsContent>
         
         <TabsContent value="notifications">
-          <Card className="bg-slate-800 border-slate-700 text-white">
+          <Card className="bg-card border-border">
             <CardHeader>
               <CardTitle>Notification Settings</CardTitle>
-              <CardDescription className="text-slate-400">
+              <CardDescription>
                 Configure how you want to be notified
               </CardDescription>
             </CardHeader>
@@ -139,30 +127,28 @@ const Settings = () => {
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label className="text-base">Email Notifications</Label>
-                  <p className="text-sm text-slate-400">Receive email updates about your account activity</p>
+                  <p className="text-sm text-muted-foreground">Receive email updates about your account activity</p>
                 </div>
                 <Switch 
                   checked={emailNotifications}
                   onCheckedChange={setEmailNotifications}
-                  className="data-[state=checked]:bg-indigo-600"
                 />
               </div>
               
-              <Separator className="bg-slate-700" />
+              <Separator />
               
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label className="text-base">Push Notifications</Label>
-                  <p className="text-sm text-slate-400">Receive push notifications for important alerts</p>
+                  <p className="text-sm text-muted-foreground">Receive push notifications for important alerts</p>
                 </div>
                 <Switch 
                   checked={pushNotifications}
                   onCheckedChange={setPushNotifications}
-                  className="data-[state=checked]:bg-indigo-600"
                 />
               </div>
               
-              <Separator className="bg-slate-700" />
+              <Separator />
               
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
@@ -175,7 +161,7 @@ const Settings = () => {
                       type="checkbox"
                       id="orderUpdates"
                       defaultChecked
-                      className="rounded border-slate-600 text-indigo-600 focus:ring-indigo-500"
+                      className="rounded border-border text-primary focus:ring-primary"
                     />
                     <Label htmlFor="orderUpdates" className="text-sm font-normal">Order Updates</Label>
                   </div>
@@ -185,7 +171,7 @@ const Settings = () => {
                       type="checkbox"
                       id="inventoryAlerts"
                       defaultChecked
-                      className="rounded border-slate-600 text-indigo-600 focus:ring-indigo-500"
+                      className="rounded border-border text-primary focus:ring-primary"
                     />
                     <Label htmlFor="inventoryAlerts" className="text-sm font-normal">Inventory Alerts</Label>
                   </div>
@@ -195,14 +181,14 @@ const Settings = () => {
                       type="checkbox"
                       id="systemAnnouncements"
                       defaultChecked
-                      className="rounded border-slate-600 text-indigo-600 focus:ring-indigo-500"
+                      className="rounded border-border text-primary focus:ring-primary"
                     />
                     <Label htmlFor="systemAnnouncements" className="text-sm font-normal">System Announcements</Label>
                   </div>
                 </div>
               </div>
               
-              <Button onClick={handleSaveNotifications} className="mt-4 bg-indigo-600 hover:bg-indigo-700">
+              <Button onClick={handleSaveNotifications} className="mt-4">
                 Save Notification Settings
               </Button>
             </CardContent>
@@ -210,17 +196,17 @@ const Settings = () => {
         </TabsContent>
         
         <TabsContent value="security">
-          <Card className="bg-slate-800 border-slate-700 text-white">
+          <Card className="bg-card border-border">
             <CardHeader>
               <CardTitle>Security Settings</CardTitle>
-              <CardDescription className="text-slate-400">
+              <CardDescription>
                 Manage your account security preferences
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
                 <div className="flex items-center space-x-2">
-                  <Lock className="h-5 w-5 text-indigo-400" />
+                  <Lock className="h-5 w-5 text-primary" />
                   <Label className="text-base">Password</Label>
                 </div>
                 
@@ -228,47 +214,47 @@ const Settings = () => {
                   <Input
                     type="password"
                     placeholder="Current password"
-                    className="bg-slate-700 border-slate-600 text-white"
+                    className="bg-background border-border"
                   />
                   <Input
                     type="password"
                     placeholder="New password"
-                    className="bg-slate-700 border-slate-600 text-white"
+                    className="bg-background border-border"
                   />
                   <Input
                     type="password"
                     placeholder="Confirm new password"
-                    className="bg-slate-700 border-slate-600 text-white"
+                    className="bg-background border-border"
                   />
                 </div>
                 
-                <Button variant="default" className="mt-2 bg-indigo-600 hover:bg-indigo-700">
+                <Button variant="default" className="mt-2">
                   Change Password
                 </Button>
               </div>
               
-              <Separator className="bg-slate-700" />
+              <Separator />
               
               <div className="space-y-2">
                 <div className="flex items-center space-x-2">
-                  <Shield className="h-5 w-5 text-indigo-400" />
+                  <Shield className="h-5 w-5 text-primary" />
                   <Label className="text-base">Two-Factor Authentication</Label>
                 </div>
                 
-                <p className="text-sm text-slate-400">
+                <p className="text-sm text-muted-foreground">
                   Add an extra layer of security to your account by enabling two-factor authentication.
                 </p>
                 
-                <Button variant="outline" className="mt-2 border-slate-600 text-slate-300 hover:bg-slate-700">
+                <Button variant="outline" className="mt-2">
                   Set Up Two-Factor Authentication
                 </Button>
               </div>
               
-              <Separator className="bg-slate-700" />
+              <Separator />
               
               <div className="space-y-2">
                 <div className="flex items-center space-x-2">
-                  <Eye className="h-5 w-5 text-indigo-400" />
+                  <Eye className="h-5 w-5 text-primary" />
                   <Label className="text-base">Privacy Settings</Label>
                 </div>
                 
@@ -277,7 +263,6 @@ const Settings = () => {
                   <Switch
                     id="analytics"
                     defaultChecked
-                    className="data-[state=checked]:bg-indigo-600"
                   />
                 </div>
                 
@@ -285,7 +270,6 @@ const Settings = () => {
                   <Label htmlFor="marketing" className="text-sm">Receive Marketing Emails</Label>
                   <Switch
                     id="marketing"
-                    className="data-[state=checked]:bg-indigo-600"
                   />
                 </div>
               </div>
@@ -295,13 +279,13 @@ const Settings = () => {
 
         {isAdmin && (
           <TabsContent value="users">
-            <Card className="bg-slate-800 border-slate-700 text-white">
+            <Card className="bg-card border-border">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Shield className="h-5 w-5 text-indigo-400" />
+                  <Shield className="h-5 w-5 text-primary" />
                   User Management
                 </CardTitle>
-                <CardDescription className="text-slate-400">
+                <CardDescription>
                   Manage user assignments to companies and warehouses
                 </CardDescription>
               </CardHeader>

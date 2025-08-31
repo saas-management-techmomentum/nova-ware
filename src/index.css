@@ -5,105 +5,110 @@
 
 @layer base {
   :root {
-    --background: 0 0% 98%;
-    --foreground: 210 9% 26%;
+    /* Professional Light Mode */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 13%;
 
     --card: 0 0% 100%;
-    --card-foreground: 210 9% 26%;
+    --card-foreground: 0 0% 13%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 9% 26%;
+    --popover-foreground: 0 0% 13%;
 
-    --primary: 217 91% 33%;
+    --primary: 210 100% 56%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 9% 96%;
-    --secondary-foreground: 210 9% 26%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 13%;
 
-    --muted: 210 9% 96%;
-    --muted-foreground: 0 0% 62%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 46%;
 
-    --accent: 210 9% 96%;
-    --accent-foreground: 210 9% 26%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 13%;
 
-    --destructive: 0 72% 40%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 217 91% 33%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 210 100% 56%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 229 84% 12%;
-    --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 217 91% 50%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 13%;
+    --sidebar-primary: 210 100% 56%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 229 84% 18%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 229 84% 18%;
-    --sidebar-ring: 217 91% 50%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 13%;
+    --sidebar-border: 0 0% 88%;
+    --sidebar-ring: 210 100% 56%;
     
-    /* Professional Brand Colors */
-    --corp-navy: 229 84% 12%;
-    --corp-charcoal: 200 18% 22%;
-    --corp-steel: 200 14% 31%;
-    --corp-slate: 200 12% 39%;
-    --corp-blue: 217 91% 33%;
-
-    /* Professional System */
-    --success: 122 67% 18%;
+    /* Professional System Colors */
+    --success: 142 71% 45%;
     --success-foreground: 0 0% 100%;
-    --warning: 35 100% 50%;
+    --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
-    --error: 0 72% 40%;
+    --error: 0 84% 60%;
     --error-foreground: 0 0% 100%;
     
+    /* Shadows */
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     
+    /* Transitions */
     --transition-fast: all 0.15s ease-in-out;
     --transition-normal: all 0.2s ease-in-out;
   }
 
   .dark {
-    --background: 210 11% 15%;
-    --foreground: 0 0% 98%;
+    /* Professional All-Black Dark Mode with Blue Accents */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
 
-    --card: 210 11% 15%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 210 11% 15%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 217 91% 50%;
+    --primary: 210 100% 56%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 200 18% 22%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 0 0% 7%;
+    --secondary-foreground: 0 0% 88%;
 
-    --muted: 200 18% 22%;
-    --muted-foreground: 0 0% 62%;
+    --muted: 0 0% 7%;
+    --muted-foreground: 0 0% 63%;
 
-    --accent: 200 18% 22%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 0 0% 7%;
+    --accent-foreground: 0 0% 88%;
 
-    --destructive: 0 72% 40%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 200 18% 22%;
-    --input: 200 18% 22%;
-    --ring: 217 91% 50%;
+    --border: 0 0% 20%;
+    --input: 0 0% 7%;
+    --ring: 210 100% 56%;
     
-    --sidebar-background: 229 84% 12%;
+    --sidebar-background: 0 0% 0%;
     --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 217 91% 50%;
+    --sidebar-primary: 210 100% 56%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 229 84% 18%;
+    --sidebar-accent: 0 0% 7%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 229 84% 18%;
-    --sidebar-ring: 217 91% 50%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 210 100% 56%;
+
+    /* Professional System Colors */
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --error: 0 84% 60%;
+    --error-foreground: 0 0% 100%;
   }
 }
 
