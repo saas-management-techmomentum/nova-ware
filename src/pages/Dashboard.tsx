@@ -187,22 +187,20 @@ const Dashboard = () => {
     return `Last Updated: ${lastActivity.relativeTime}`;
   };
 
-  // Component to render top stats cards with conditional linking
   const TopStatsCard = ({ stat }: { stat: typeof topStats[0] }) => {
     const cardContent = (
-      <Card className={`glass-card-enhanced hover-lift group relative overflow-hidden ${
+      <Card className={`professional-card hover:shadow-md transition-shadow ${
         selectedWarehouse ? 'cursor-pointer' : ''
       }`}>
-        <CardContent className="p-6 relative z-10 flex items-center space-x-4">
-          <div className={`metric-icon-primary p-3 rounded-full shadow-lg transition-all duration-300 group-hover:scale-110`}>
-            <stat.icon className="h-6 w-6 text-white" />
+        <CardContent className="p-6 flex items-center space-x-4">
+          <div className={`p-3 rounded-lg metric-icon-primary`}>
+            <stat.icon className="h-6 w-6" />
           </div>
           <div>
             <p className="metric-label text-sm font-medium">{stat.title}</p>
             <h3 className="metric-value text-2xl font-bold">{stat.value}</h3>
           </div>
         </CardContent>
-        <div className="h-0.5 w-full bg-gradient-to-r from-logistix-orange via-logistix-blue to-logistix-green opacity-60"></div>
       </Card>
     );
 
@@ -248,14 +246,15 @@ const Dashboard = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       <OnboardingTrigger triggerOn="first-visit" delay={2000} />
-      {/* Header */}
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-3">
-          <h1 className="text-3xl font-roboto font-bold text-gradient-animate animate-gradient-text">Command Center</h1>
-          <span className="text-xs font-normal text-white px-2 py-0.5 rounded-full bg-logistix-orange shadow-glow-primary animate-pulse-slow">Live</span>
+          <h1 className="text-3xl font-roboto font-bold text-foreground">Command Center</h1>
+          <Badge variant="secondary" className="bg-success text-success-foreground">
+            Live
+          </Badge>
         </div>
-        <div className="flex items-center gap-2 text-sm text-slate-400">
-          <div className="glass-metric-card px-3 py-1.5 rounded-md">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <div className="professional-card px-3 py-1.5 rounded-md">
             <span>{getLastUpdatedText()}</span>
           </div>
         </div>
@@ -277,14 +276,14 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
         {warehouseMetrics.map((metric, index) => (
           <Link key={metric.title} to={metric.route} className="block group">
-            <Card className="glass-metric-card hover-lift cursor-pointer overflow-hidden animate-fade-in" style={{animationDelay: `${(index + 3) * 100}ms`}}>
-              <CardContent className="p-5 relative">
+            <Card className="professional-card hover:shadow-md cursor-pointer overflow-hidden">
+              <CardContent className="p-5">
                 <div className="flex items-center justify-between mb-2">
-                  <div className={`metric-icon-${metric.color.includes('blue') ? 'primary' : metric.color.includes('emerald') ? 'success' : metric.color.includes('purple') ? 'primary' : 'warning'} p-2 rounded-lg transition-all duration-300 group-hover:scale-110`}>
-                    <metric.icon className="h-5 w-5 text-white" />
+                  <div className={`p-2 rounded-lg metric-icon-${metric.color.includes('blue') ? 'primary' : metric.color.includes('emerald') ? 'success' : metric.color.includes('purple') ? 'primary' : 'warning'}`}>
+                    <metric.icon className="h-5 w-5" />
                   </div>
                   <div className={`text-sm flex items-center gap-1 ${
-                    metric.change >= 0 ? 'text-logistix-green' : 'text-coral'
+                    metric.change >= 0 ? 'text-success' : 'text-error'
                   }`}>
                     <TrendingUp className="h-3.5 w-3.5" />
                     {metric.change >= 0 ? '+' : ''}{metric.change}%
@@ -292,13 +291,13 @@ const Dashboard = () => {
                 </div>
                 <p className="metric-label text-sm font-medium">{metric.title}</p>
                 <h3 className="metric-value text-2xl font-bold mb-2">{metric.value}%</h3>
-                <div className="h-1.5 bg-slate-700 rounded-full overflow-hidden">
+                <div className="h-1.5 bg-muted rounded-full overflow-hidden">
                   <div 
                     className={`h-full rounded-full transition-all duration-1000 ease-out ${
-                      metric.color.includes('blue') ? 'bg-gradient-to-r from-logistix-blue to-violet shadow-glow-primary' :
-                      metric.color.includes('emerald') ? 'bg-gradient-to-r from-logistix-green to-emerald shadow-glow-success' :
-                      metric.color.includes('purple') ? 'bg-gradient-to-r from-violet to-logistix-blue shadow-glow-primary' :
-                      'bg-gradient-to-r from-logistix-orange to-amber shadow-glow-warning'
+                      metric.color.includes('blue') ? 'bg-primary' :
+                      metric.color.includes('emerald') ? 'bg-success' :
+                      metric.color.includes('purple') ? 'bg-primary' :
+                      'bg-warning'
                     }`}
                     style={{ width: `${metric.value}%` }}
                   />

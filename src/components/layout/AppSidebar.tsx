@@ -240,51 +240,49 @@ const AppSidebar = () => {
   const shouldShowDropdown = isUserAdmin || warehouses.length > 1;
 
   return (
-    <Sidebar>
-      <div className="h-16 flex items-center px-5 border-b border-logistix-orange/20 bg-gradient-to-r from-logistix-dark-gray to-slate-900 backdrop-blur-sm relative">
-        <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-logistix-orange via-logistix-blue to-logistix-green"></div>
+    <Sidebar className="border-r border-sidebar-border bg-sidebar">
+      <div className="h-16 flex items-center px-5 border-b border-sidebar-border">
         <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
-          <span className="text-xl font-roboto font-bold text-gradient-animate">LogistiX</span>
+          <span className="text-xl font-roboto font-bold text-sidebar-foreground">LogistiX</span>
         </Link>
-        <SidebarTrigger className="ml-auto lg:hidden text-slate-300 hover:text-logistix-orange transition-colors" />
+        <SidebarTrigger className="ml-auto lg:hidden text-sidebar-foreground hover:bg-sidebar-accent transition-colors" />
       </div>
-      <SidebarContent className="bg-gradient-to-b from-logistix-dark-gray to-slate-900 h-full border-r border-logistix-orange/20 relative">
-        <div className="absolute right-0 top-0 h-full w-px bg-gradient-to-b from-logistix-orange/50 via-transparent to-logistix-blue/50"></div>
+      <SidebarContent className="bg-sidebar h-full border-r border-sidebar-border">
         {shouldShowDropdown && (
           <SidebarGroup>
             <SidebarGroupContent>
               <div className="px-2 mb-2">
                 <DropdownMenu>
                    <DropdownMenuTrigger asChild>
-                     <button className="w-full flex items-center justify-between p-2 rounded-md glass-metric-card hover:bg-logistix-orange/10 text-slate-300 hover:text-white transition-all duration-200 group">
+                     <button className="w-full flex items-center justify-between p-2 rounded-md hover:bg-sidebar-accent text-sidebar-foreground transition-colors">
                        <div className="flex items-center gap-2">
                          {getSelectionIcon()}
                          <span className="text-sm font-roboto font-medium">{getCurrentSelectionText()}</span>
                          {isUserAdmin && !selectedWarehouse && (
-                           <Shield className="h-3 w-3 text-logistix-blue" />
+                           <Shield className="h-3 w-3 text-sidebar-primary" />
                          )}
                        </div>
-                       <ChevronDown className="h-4 w-4 group-hover:text-logistix-orange transition-colors" />
+                       <ChevronDown className="h-4 w-4" />
                      </button>
                    </DropdownMenuTrigger>
                    <DropdownMenuContent 
                      align="start" 
-                     className="w-64 glass-card-enhanced text-slate-300 z-50"
+                     className="w-64 bg-popover border border-border z-50"
                    >
                     {isUserAdmin && (
                       <>
                         <DropdownMenuItem 
                           onClick={() => handleWarehouseChange(null)}
-                          className="flex items-center gap-2 hover:bg-slate-700/50 focus:bg-slate-700/50"
+                          className="flex items-center gap-2 hover:bg-accent focus:bg-accent"
                         >
-                          <Globe className="h-4 w-4 text-indigo-400" />
+                          <Globe className="h-4 w-4 text-primary" />
                           <div className="flex flex-col">
                             <span className="font-medium">Corporate Overview</span>
-                            <span className="text-xs text-slate-400">All warehouses & data</span>
+                            <span className="text-xs text-muted-foreground">All warehouses & data</span>
                           </div>
-                          {!selectedWarehouse && <Activity className="h-3 w-3 ml-auto text-emerald-400" />}
+                          {!selectedWarehouse && <Activity className="h-3 w-3 ml-auto text-success" />}
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator className="bg-slate-700/50" />
+                        <DropdownMenuSeparator className="bg-border" />
                       </>
                     )}
                     
@@ -292,16 +290,16 @@ const AppSidebar = () => {
                       <>
                         <DropdownMenuItem 
                           onClick={() => handleWarehouseChange(null)}
-                          className="flex items-center gap-2 hover:bg-slate-700/50 focus:bg-slate-700/50"
+                          className="flex items-center gap-2 hover:bg-accent focus:bg-accent"
                         >
-                          <Building2 className="h-4 w-4 text-emerald-400" />
+                          <Building2 className="h-4 w-4 text-success" />
                           <div className="flex flex-col">
                             <span className="font-medium">All Locations</span>
-                            <span className="text-xs text-slate-400">Combined view</span>
+                            <span className="text-xs text-muted-foreground">Combined view</span>
                           </div>
-                          {!selectedWarehouse && <Activity className="h-3 w-3 ml-auto text-emerald-400" />}
+                          {!selectedWarehouse && <Activity className="h-3 w-3 ml-auto text-success" />}
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator className="bg-slate-700/50" />
+                        <DropdownMenuSeparator className="bg-border" />
                       </>
                     )}
                     
@@ -311,20 +309,20 @@ const AppSidebar = () => {
                         <DropdownMenuItem 
                           key={warehouse.warehouse_id}
                           onClick={() => handleWarehouseChange(warehouse.warehouse_id)}
-                          className="flex items-center gap-2 hover:bg-slate-700/50 focus:bg-slate-700/50"
+                          className="flex items-center gap-2 hover:bg-accent focus:bg-accent"
                         >
-                          <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
+                          <div className="w-2 h-2 bg-success rounded-full"></div>
                           <div className="flex flex-col flex-1">
                             <div className="flex items-center gap-2">
                               <span className="font-medium">{warehouse.warehouse_code}</span>
                               {assignment?.role === 'manager' && (
-                                <Shield className="h-3 w-3 text-amber-400" />
+                                <Shield className="h-3 w-3 text-warning" />
                               )}
                             </div>
-                            <span className="text-xs text-slate-400">{warehouse.warehouse_name}</span>
+                            <span className="text-xs text-muted-foreground">{warehouse.warehouse_name}</span>
                           </div>
                           {selectedWarehouse === warehouse.warehouse_id && (
-                            <Activity className="h-3 w-3 ml-auto text-emerald-400" />
+                            <Activity className="h-3 w-3 ml-auto text-success" />
                           )}
                         </DropdownMenuItem>
                       );
@@ -332,7 +330,7 @@ const AppSidebar = () => {
                     
                     {isUserAdmin && (
                       <>
-                        <DropdownMenuSeparator className="bg-slate-700/50" />
+                        <DropdownMenuSeparator className="bg-border" />
                         <div className="p-2">
                           <AddWarehouseDialog onWarehouseAdded={handleWarehouseAdded} />
                         </div>
@@ -340,7 +338,7 @@ const AppSidebar = () => {
                     )}
                     
                     {warehouses.length === 0 && (
-                      <DropdownMenuItem disabled className="text-slate-500 text-xs">
+                      <DropdownMenuItem disabled className="text-muted-foreground text-xs">
                         No warehouses assigned
                       </DropdownMenuItem>
                     )}
@@ -352,7 +350,7 @@ const AppSidebar = () => {
         )}
         
         <SidebarGroup>
-          <SidebarGroupLabel className="text-xs uppercase tracking-wider font-roboto font-medium text-gradient-animate">
+          <SidebarGroupLabel className="text-xs uppercase tracking-wider font-roboto font-medium text-sidebar-foreground/70">
             {selectedWarehouse ? 
               warehouses.find(w => w.warehouse_id === selectedWarehouse)?.warehouse_code || 'Warehouse' : 
               (isUserAdmin ? 'Corporate' : 'Menu')
@@ -362,8 +360,8 @@ const AppSidebar = () => {
             <SidebarMenu>
               {permissionsLoading ? (
                 <div className="flex items-center justify-center py-4">
-                  <Loader2 className="h-5 w-5 animate-spin text-slate-400" />
-                  <span className="ml-2 text-sm text-slate-400">Loading permissions...</span>
+                  <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                  <span className="ml-2 text-sm text-muted-foreground">Loading permissions...</span>
                 </div>
               ) : (
                 menuItems.map((item) => (
@@ -371,20 +369,16 @@ const AppSidebar = () => {
                     <SidebarMenuButton asChild>
                        <Link 
                          to={item.path}
-                         className={`transition-all duration-300 relative ${
+                         className={`transition-colors ${
                            location.pathname === item.path 
-                             ? 'bg-gradient-to-r from-logistix-orange/20 to-transparent text-white border-l-2 border-logistix-orange shadow-glow-primary backdrop-blur-sm'
-                             : 'hover:bg-logistix-orange/5 border-l-2 border-transparent text-slate-300 hover:text-white hover:border-logistix-orange/50'
+                             ? 'bg-sidebar-primary text-sidebar-primary-foreground border-l-2 border-sidebar-primary'
+                             : 'hover:bg-sidebar-accent border-l-2 border-transparent text-sidebar-foreground/80 hover:text-sidebar-foreground'
                          }`}
                        >
-                         <item.icon className={`w-5 h-5 transition-all duration-200 ${
-                           location.pathname === item.path ? 'text-logistix-orange icon-glow' : 'hover:text-logistix-blue'
+                         <item.icon className={`w-5 h-5 ${
+                           location.pathname === item.path ? 'text-sidebar-primary-foreground' : ''
                          }`} />
                          <span className="font-roboto">{item.title}</span>
-                         
-                         {location.pathname === item.path && (
-                           <span className="ml-auto h-1.5 w-1.5 rounded-full bg-logistix-orange shadow-glow-warning animate-pulse-slow"></span>
-                         )}
                        </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -395,18 +389,17 @@ const AppSidebar = () => {
         </SidebarGroup>
         
         <div className="absolute bottom-0 left-0 right-0 p-4">
-          <div className="glass-metric-card p-3 rounded-lg text-slate-300 text-xs font-roboto relative">
-            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-logistix-orange to-transparent"></div>
+          <div className="professional-card p-3 rounded-lg text-sidebar-foreground text-xs font-roboto">
             <div className="flex items-center justify-between mb-2">
               <span>System Status</span>
               <span className="flex items-center gap-1">
-                <Circle className={`h-2 w-2 fill-current ${getSystemStatusColor()} animate-pulse`} />
+                <Circle className={`h-2 w-2 fill-current ${getSystemStatusColor()}`} />
                 <span className={`${getSystemStatusColor()} font-medium`}>{getSystemStatusText()}</span>
               </span>
             </div>
             <div className="flex items-center justify-between">
               <span>Last Update</span>
-              <span className="text-logistix-blue font-medium">{getMinutesAgo()} min ago</span>
+              <span className="text-sidebar-primary font-medium">{getMinutesAgo()} min ago</span>
             </div>
           </div>
         </div>

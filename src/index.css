@@ -5,117 +5,105 @@
 
 @layer base {
   :root {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 0 0% 98%;
+    --foreground: 210 9% 26%;
 
-    --card: 217.2 32.6% 17.5%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 210 9% 26%;
 
-    --popover: 217.2 32.6% 17.5%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 9% 26%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 217 91% 33%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 210 9% 96%;
+    --secondary-foreground: 210 9% 26%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 210 9% 96%;
+    --muted-foreground: 0 0% 62%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 210 9% 96%;
+    --accent-foreground: 210 9% 26%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 40%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 217 91% 33%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-background: 229 84% 12%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 217 91% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 229 84% 18%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 229 84% 18%;
+    --sidebar-ring: 217 91% 50%;
     
-    /* LogistiX Brand Colors */
-    --logistix-orange: 14 100% 60%;
-    --logistix-blue: 222 100% 35%;
-    --logistix-green: 158 64% 52%;
-    --logistix-dark-gray: 210 11% 15%;
-    --logistix-light-gray: 220 14% 96%;
+    /* Professional Brand Colors */
+    --corp-navy: 229 84% 12%;
+    --corp-charcoal: 200 18% 22%;
+    --corp-steel: 200 14% 31%;
+    --corp-slate: 200 12% 39%;
+    --corp-blue: 217 91% 33%;
 
-    /* LogistiX Gradient System */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--logistix-orange)) 0%, hsl(var(--logistix-blue)) 50%, hsl(var(--logistix-dark-gray)) 100%);
-    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-    --gradient-success: linear-gradient(135deg, hsl(var(--logistix-green)) 0%, hsl(147 75% 57%) 100%);
-    --gradient-warning: linear-gradient(135deg, hsl(var(--logistix-orange)) 0%, hsl(47 100% 68%) 100%);
-    --gradient-danger: linear-gradient(135deg, hsl(354 84% 57%) 0%, hsl(4 90% 58%) 100%);
+    /* Professional System */
+    --success: 122 67% 18%;
+    --success-foreground: 0 0% 100%;
+    --warning: 35 100% 50%;
+    --warning-foreground: 0 0% 100%;
+    --error: 0 72% 40%;
+    --error-foreground: 0 0% 100%;
     
-    --glass-border: rgba(255, 255, 255, 0.15);
-    --glass-bg: rgba(255, 255, 255, 0.08);
-    --glass-hover: rgba(255, 255, 255, 0.12);
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     
-    --glow-primary: 0 0 20px hsla(var(--logistix-orange) / 0.3);
-    --glow-success: 0 0 20px hsla(var(--logistix-green) / 0.3);
-    --glow-warning: 0 0 20px hsla(var(--logistix-orange) / 0.3);
-    --glow-danger: 0 0 20px hsla(354 84% 57% / 0.3);
-    
-    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2);
-    --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.3);
-    
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-
-    /* LogistiX accent colors */
-    --emerald: 158 64% 52%;
-    --amber: 14 100% 60%;
-    --coral: 354 84% 57%;
-    --violet: 222 100% 35%;
+    --transition-fast: all 0.15s ease-in-out;
+    --transition-normal: all 0.2s ease-in-out;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 210 11% 15%;
+    --foreground: 0 0% 98%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 210 11% 15%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 210 11% 15%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 217 91% 50%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 200 18% 22%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 200 18% 22%;
+    --muted-foreground: 0 0% 62%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 200 18% 22%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 40%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --border: 200 18% 22%;
+    --input: 200 18% 22%;
+    --ring: 217 91% 50%;
+    
+    --sidebar-background: 229 84% 12%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 217 91% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 229 84% 18%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 229 84% 18%;
+    --sidebar-ring: 217 91% 50%;
   }
 }
 
@@ -135,104 +123,79 @@
 }
 
 @layer components {
-  /* Glassmorphism Dashboard Components */
-  .fintech-gradient-bg {
-    background: var(--gradient-primary);
+  /* Professional Dashboard Components */
+  .professional-bg {
+    background: hsl(var(--background));
     position: relative;
-    overflow: hidden;
   }
   
-  .fintech-gradient-bg::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 30% 20%, hsla(262 83% 58% / 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 70% 80%, hsla(217 87% 63% / 0.15) 0%, transparent 50%);
-    pointer-events: none;
+  .professional-card {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-fast);
   }
   
-  .glass-metric-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--shadow-glass);
-    transition: var(--transition-smooth);
-  }
-  
-  .glass-metric-card:hover {
-    background: var(--glass-hover);
-    box-shadow: var(--shadow-hover);
-    transform: translateY(-4px);
+  .professional-card:hover {
+    box-shadow: var(--shadow-md);
   }
   
   .metric-icon-success {
-    background: var(--gradient-success);
-    box-shadow: var(--glow-success);
+    background: hsl(var(--success));
+    color: hsl(var(--success-foreground));
   }
   
   .metric-icon-warning {
-    background: var(--gradient-warning);
-    box-shadow: var(--glow-warning);
+    background: hsl(var(--warning));
+    color: hsl(var(--warning-foreground));
   }
   
-  .metric-icon-danger {
-    background: var(--gradient-danger);
-    box-shadow: var(--glow-danger);
+  .metric-icon-error {
+    background: hsl(var(--error));
+    color: hsl(var(--error-foreground));
   }
   
   .metric-icon-primary {
-    background: linear-gradient(135deg, hsl(var(--violet)) 0%, hsl(var(--primary)) 100%);
-    box-shadow: var(--glow-primary);
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
   }
   
   .metric-value {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Roboto', system-ui, sans-serif;
     font-weight: 700;
     letter-spacing: -0.025em;
-    background: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--foreground) / 0.8) 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: hsl(var(--foreground));
   }
   
   .metric-label {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Roboto', system-ui, sans-serif;
     font-weight: 500;
-    color: hsl(var(--foreground) / 0.7);
+    color: hsl(var(--muted-foreground));
     font-size: 0.875rem;
-    letter-spacing: 0.025em;
   }
   
   .metric-description {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Roboto', system-ui, sans-serif;
     font-weight: 400;
-    color: hsl(var(--foreground) / 0.5);
+    color: hsl(var(--muted-foreground));
     font-size: 0.75rem;
   }
   
-  .icon-glow {
-    filter: drop-shadow(0 0 8px currentColor);
-    transition: var(--transition-bounce);
+  .professional-button {
+    transition: var(--transition-fast);
   }
   
-  .icon-glow:hover {
-    filter: drop-shadow(0 0 12px currentColor);
-    transform: scale(1.1);
+  .professional-button:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
   }
   
   .card-hover {
-    @apply transition-all duration-200 hover:shadow-md hover:translate-y-[-2px];
+    @apply transition-all duration-200 hover:shadow-md;
   }
   
-  .glass-card {
-    @apply bg-white/80 backdrop-blur-sm border border-white/90 shadow-sm;
-  }
-  
-  .btn-hover {
-    @apply transition-all duration-200 hover:shadow hover:translate-y-[-1px];
+  .clean-card {
+    @apply bg-card border border-border shadow-sm;
   }
   
   .animate-fade-in {
