@@ -374,8 +374,8 @@ const Locations = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent flex items-center">
-          <MapPin className="h-6 w-6 mr-2 text-indigo-400" />
+        <h1 className="text-2xl font-bold theme-text-primary flex items-center">
+          <MapPin className="h-6 w-6 mr-2 text-primary" />
           Enhanced Location Management
         </h1>
         <div className="flex gap-2">
@@ -388,7 +388,7 @@ const Locations = () => {
             Quick Scan
           </Button>
           <Button 
-            className="gap-2 bg-indigo-500 hover:bg-indigo-600 text-white shadow-md hover:shadow-lg transition-all"
+            className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:shadow-lg transition-all"
             onClick={() => setAddPalletOpen(true)}
           >
             <Plus className="h-4 w-4" />
@@ -416,38 +416,38 @@ const Locations = () => {
       {/* Automatic Adjustment Panel */}
       <AutomaticAdjustmentPanel />
 
-      <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 shadow-md overflow-hidden">
-        <CardHeader className="pb-3 border-b border-slate-700">
-          <CardTitle className="text-lg flex items-center text-white">
-            <MapPin className="h-5 w-5 mr-2 text-indigo-400" />
+      <Card className="theme-card shadow-md overflow-hidden">
+        <CardHeader className="pb-3 theme-border border-b">
+          <CardTitle className="text-lg flex items-center theme-text-primary">
+            <MapPin className="h-5 w-5 mr-2 text-primary" />
             Smart Warehouse Location Tracking
           </CardTitle>
-          <CardDescription className="text-slate-400">
+          <CardDescription className="theme-text-secondary">
             Real-time location tracking with intelligent suggestions and analytics
           </CardDescription>
         </CardHeader>
         <CardContent className="p-0">
-          <div className="p-4 bg-slate-800/70 border-b border-slate-700">
+          <div className="p-4 theme-card theme-border border-b">
             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
               <div className="flex space-x-2">
                 <Button
                   variant={activeTab === 'pallets' ? 'default' : 'outline'}
                   onClick={() => setActiveTab('pallets')}
-                  className={activeTab === 'pallets' ? 'bg-indigo-500 hover:bg-indigo-600' : 'border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white'}
+                  className={activeTab === 'pallets' ? '' : 'theme-button-secondary'}
                 >
                   Locations
                 </Button>
                 <Button
                   variant={activeTab === 'products' ? 'default' : 'outline'}
                   onClick={() => setActiveTab('products')}
-                  className={activeTab === 'products' ? 'bg-indigo-500 hover:bg-indigo-600' : 'border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white'}
+                  className={activeTab === 'products' ? '' : 'theme-button-secondary'}
                 >
                   Products
                 </Button>
                 <Button
                   variant={activeTab === 'analytics' ? 'default' : 'outline'}
                   onClick={() => setActiveTab('analytics')}
-                  className={activeTab === 'analytics' ? 'bg-indigo-500 hover:bg-indigo-600' : 'border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white'}
+                  className={activeTab === 'analytics' ? '' : 'theme-button-secondary'}
                 >
                   Analytics
                 </Button>
@@ -456,10 +456,10 @@ const Locations = () => {
               {activeTab !== 'analytics' && (
                 <div className="flex space-x-2 w-full md:w-auto">
                   <div className="relative w-full md:w-72">
-                    <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                    <Search className="absolute left-3 top-2.5 h-4 w-4 theme-text-secondary" />
                     <Input
                       placeholder={activeTab === 'pallets' ? "Search locations, products, or UPC..." : "Search products, UPC, or location..."}
-                      className="pl-9 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30"
+                      className="pl-9 theme-input"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -481,19 +481,19 @@ const Locations = () => {
           ) : (
             <div className="rounded-md">
               {loading ? (
-                <div className="p-8 text-center text-slate-400">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-400 mx-auto mb-4"></div>
+                <div className="p-8 text-center theme-text-secondary">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
                   Loading enhanced location data...
                 </div>
               ) : activeTab === 'pallets' ? (
                 <div className="overflow-x-auto">
                   <Table>
-                    <TableHeader className="bg-slate-800/90">
-                      <TableRow className="border-slate-700">
-                        <TableHead className="font-medium text-slate-300">Location ID</TableHead>
-                        <TableHead className="font-medium text-slate-300">Zone</TableHead>
-                        <TableHead className="font-medium text-slate-300">Products</TableHead>
-                        <TableHead className="font-medium text-slate-300">Utilization</TableHead>
+                    <TableHeader className="theme-table-header">
+                      <TableRow className="theme-table-row">
+                        <TableHead className="font-medium theme-text-secondary">Location ID</TableHead>
+                        <TableHead className="font-medium theme-text-secondary">Zone</TableHead>
+                        <TableHead className="font-medium theme-text-secondary">Products</TableHead>
+                        <TableHead className="font-medium theme-text-secondary">Utilization</TableHead>
                         <TableHead className="w-[80px]">Actions</TableHead>
                       </TableRow>
                     </TableHeader>
@@ -506,26 +506,26 @@ const Locations = () => {
                           return (
                             <TableRow 
                               key={pallet.id} 
-                              className="border-slate-700 hover:bg-slate-700/30 transition-colors"
+                              className="theme-table-row transition-colors"
                             >
                               <TableCell>
                                 <Badge 
                                   variant="outline" 
-                                  className="font-medium bg-indigo-500/20 border-indigo-500/30 text-indigo-300 py-1"
+                                  className="font-medium bg-primary/20 border-primary/30 text-primary py-1"
                                 >
                                   {pallet.id}
                                 </Badge>
                               </TableCell>
-                              <TableCell className="text-white">{pallet.location}</TableCell>
+                              <TableCell className="theme-text-primary">{pallet.location}</TableCell>
                               <TableCell>
                                 <div className="flex flex-col gap-1">
                                   {pallet.products.slice(0, 2).map((product: any) => (
-                                    <div key={product.sku} className="text-sm text-slate-300">
+                                    <div key={product.sku} className="text-sm theme-text-primary">
                                       {product.name} ({product.qty})
                                     </div>
                                   ))}
                                   {pallet.products.length > 2 && (
-                                    <div className="text-xs text-slate-400">
+                                    <div className="text-xs theme-text-secondary">
                                       +{pallet.products.length - 2} more
                                     </div>
                                   )}
@@ -533,17 +533,17 @@ const Locations = () => {
                               </TableCell>
                               <TableCell>
                                 <div className="flex items-center gap-2">
-                                  <div className="w-full bg-slate-700 rounded-full h-2">
+                                  <div className="w-full bg-muted rounded-full h-2">
                                     <div 
                                       className={cn(
                                         "h-2 rounded-full transition-all",
-                                        utilization > 90 ? "bg-red-500" :
-                                        utilization > 70 ? "bg-yellow-500" : "bg-green-500"
+                                        utilization > 90 ? "bg-error" :
+                                        utilization > 70 ? "bg-warning" : "bg-success"
                                       )}
                                       style={{ width: `${Math.min(utilization, 100)}%` }}
                                     />
                                   </div>
-                                  <span className="text-xs text-slate-300 whitespace-nowrap">
+                                  <span className="text-xs theme-text-secondary whitespace-nowrap">
                                     {utilization.toFixed(0)}%
                                   </span>
                                 </div>
@@ -551,41 +551,41 @@ const Locations = () => {
                               <TableCell>
                                 <DropdownMenu>
                                   <DropdownMenuTrigger asChild>
-                                    <Button variant="ghost" className="h-8 w-8 p-0 text-slate-300 hover:text-white hover:bg-slate-700/60">
+                                    <Button variant="ghost" className="h-8 w-8 p-0 theme-text-secondary hover:theme-text-primary hover:bg-muted">
                                       <MoreHorizontal className="h-4 w-4" />
                                     </Button>
                                   </DropdownMenuTrigger>
-                                  <DropdownMenuContent align="end" className="bg-slate-800 border-slate-700 text-white">
+                                  <DropdownMenuContent align="end" className="theme-dropdown">
                                     <DropdownMenuItem 
-                                      className="hover:bg-slate-700 focus:bg-slate-700 cursor-pointer"
+                                      className="hover:bg-muted focus:bg-muted cursor-pointer theme-text-primary"
                                       onClick={() => handleViewDetails(pallet)}
                                     >
                                       <Eye className="mr-2 h-4 w-4" />
                                       View details
                                     </DropdownMenuItem>
                                     <DropdownMenuItem 
-                                      className="hover:bg-slate-700 focus:bg-slate-700 cursor-pointer"
+                                      className="hover:bg-muted focus:bg-muted cursor-pointer theme-text-primary"
                                       onClick={() => handleEditLocation(pallet.id)}
                                     >
                                       <Edit className="mr-2 h-4 w-4" />
                                       Edit location
                                     </DropdownMenuItem>
                                     <DropdownMenuItem 
-                                      className="hover:bg-slate-700 focus:bg-slate-700 cursor-pointer"
+                                      className="hover:bg-muted focus:bg-muted cursor-pointer theme-text-primary"
                                       onClick={() => handleMoveItems(pallet.id)}
                                     >
                                       <Package className="mr-2 h-4 w-4" />
                                       Move items
                                     </DropdownMenuItem>
                                     <DropdownMenuItem 
-                                      className="hover:bg-slate-700 focus:bg-slate-700 cursor-pointer"
+                                      className="hover:bg-muted focus:bg-muted cursor-pointer theme-text-primary"
                                       onClick={() => handleMarkEmpty(pallet.id)}
                                     >
                                       <Trash2 className="mr-2 h-4 w-4" />
                                       Mark empty
                                     </DropdownMenuItem>
                                     <DropdownMenuItem 
-                                      className="hover:bg-red-700 focus:bg-red-700 cursor-pointer text-red-400 hover:text-red-300"
+                                      className="hover:bg-destructive/80 focus:bg-destructive/80 cursor-pointer text-destructive hover:text-destructive-foreground"
                                       onClick={() => handleDeleteLocation(pallet.id)}
                                     >
                                       <Trash2 className="mr-2 h-4 w-4" />
@@ -598,13 +598,13 @@ const Locations = () => {
                           );
                         })
                       ) : (
-                        <TableRow className="border-slate-700">
-                          <TableCell colSpan={5} className="text-center py-12 text-slate-400">
+                        <TableRow className="theme-table-row">
+                          <TableCell colSpan={5} className="text-center py-12 theme-text-secondary">
                             <div className="flex flex-col items-center justify-center gap-3">
-                              <Boxes className="h-8 w-8 text-slate-400" />
+                              <Boxes className="h-8 w-8 theme-text-secondary" />
                               <div className="space-y-1 text-center">
-                                <h3 className="text-lg font-medium text-slate-300">No locations found</h3>
-                                <p className="text-sm text-slate-400">
+                                <h3 className="text-lg font-medium theme-text-primary">No locations found</h3>
+                                <p className="text-sm theme-text-secondary">
                                   Add your first warehouse location to get started
                                 </p>
                               </div>
@@ -619,26 +619,26 @@ const Locations = () => {
                 // ... keep existing code (products table rendering) the same
                 <div className="overflow-x-auto">
                   <Table>
-                    <TableHeader className="bg-slate-800/90">
-                      <TableRow className="border-slate-700">
-                        <TableHead className="font-medium text-slate-300">Product</TableHead>
-                        <TableHead className="font-medium text-slate-300">SKU</TableHead>
-                        <TableHead className="font-medium text-slate-300">UPC</TableHead>
-                        <TableHead className="font-medium text-slate-300">Locations</TableHead>
-                        <TableHead className="font-medium text-slate-300">Total Quantity</TableHead>
+                    <TableHeader className="theme-table-header">
+                      <TableRow className="theme-table-row">
+                        <TableHead className="font-medium theme-text-secondary">Product</TableHead>
+                        <TableHead className="font-medium theme-text-secondary">SKU</TableHead>
+                        <TableHead className="font-medium theme-text-secondary">UPC</TableHead>
+                        <TableHead className="font-medium theme-text-secondary">Locations</TableHead>
+                        <TableHead className="font-medium theme-text-secondary">Total Quantity</TableHead>
                         <TableHead className="w-[80px]">Actions</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {filteredProducts.length > 0 ? (
                         filteredProducts.map((product) => (
-                          <TableRow key={product.sku} className="border-slate-700 hover:bg-slate-700/30 transition-colors">
-                            <TableCell className="font-medium text-white">{product.name}</TableCell>
+                          <TableRow key={product.sku} className="theme-table-row transition-colors">
+                            <TableCell className="font-medium theme-text-primary">{product.name}</TableCell>
                             <TableCell>
-                              <code className="bg-slate-700/70 px-2 py-0.5 rounded text-indigo-300 font-mono text-xs">{product.sku}</code>
+                              <code className="bg-primary/20 px-2 py-0.5 rounded text-primary font-mono text-xs">{product.sku}</code>
                             </TableCell>
                             <TableCell>
-                              <code className="bg-slate-700/70 px-2 py-0.5 rounded text-indigo-300 font-mono text-xs">{product.upc}</code>
+                              <code className="bg-primary/20 px-2 py-0.5 rounded text-primary font-mono text-xs">{product.upc}</code>
                             </TableCell>
                             <TableCell>
                               <div className="flex flex-wrap gap-1">
@@ -646,7 +646,7 @@ const Locations = () => {
                                   <Badge 
                                     key={location} 
                                     variant="outline" 
-                                    className="text-xs bg-indigo-500/20 border-indigo-500/30 text-indigo-300 hover:bg-indigo-500/30 transition-colors cursor-pointer"
+                                    className="text-xs bg-primary/20 border-primary/30 text-primary hover:bg-primary/30 transition-colors cursor-pointer"
                                   >
                                     {location}
                                   </Badge>
@@ -654,25 +654,25 @@ const Locations = () => {
                               </div>
                             </TableCell>
                             <TableCell>
-                              <Badge className="bg-indigo-500 shadow-md">{product.totalQty} units</Badge>
+                              <Badge className="bg-primary">{product.totalQty} units</Badge>
                             </TableCell>
                             <TableCell>
                               <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                  <Button variant="ghost" className="h-8 w-8 p-0 text-slate-300 hover:text-white hover:bg-slate-700/60">
+                                  <Button variant="ghost" className="h-8 w-8 p-0 theme-text-secondary hover:theme-text-primary hover:bg-muted">
                                     <MoreHorizontal className="h-4 w-4" />
                                   </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end" className="bg-slate-800 border-slate-700 text-white">
-                                  <DropdownMenuItem className="hover:bg-slate-700 focus:bg-slate-700 cursor-pointer">
+                                <DropdownMenuContent align="end" className="theme-dropdown">
+                                  <DropdownMenuItem className="hover:bg-muted focus:bg-muted cursor-pointer theme-text-primary">
                                     <Eye className="mr-2 h-4 w-4" />
                                     View details
                                   </DropdownMenuItem>
-                                  <DropdownMenuItem className="hover:bg-slate-700 focus:bg-slate-700 cursor-pointer">
+                                  <DropdownMenuItem className="hover:bg-muted focus:bg-muted cursor-pointer theme-text-primary">
                                     <Plus className="mr-2 h-4 w-4" />
                                     Add location
                                   </DropdownMenuItem>
-                                  <DropdownMenuItem className="hover:bg-slate-700 focus:bg-slate-700 cursor-pointer">
+                                  <DropdownMenuItem className="hover:bg-muted focus:bg-muted cursor-pointer theme-text-primary">
                                     <Package className="mr-2 h-4 w-4" />
                                     Move product
                                   </DropdownMenuItem>
@@ -682,13 +682,13 @@ const Locations = () => {
                           </TableRow>
                         ))
                       ) : (
-                        <TableRow className="border-slate-700">
-                          <TableCell colSpan={6} className="text-center py-12 text-slate-400">
+                        <TableRow className="theme-table-row">
+                          <TableCell colSpan={6} className="text-center py-12 theme-text-secondary">
                             <div className="flex flex-col items-center justify-center gap-3">
-                              <Package className="h-8 w-8 text-slate-400" />
+                              <Package className="h-8 w-8 theme-text-secondary" />
                               <div className="space-y-1 text-center">
-                                <h3 className="text-lg font-medium text-slate-300">No products found</h3>
-                                <p className="text-sm text-slate-400">
+                                <h3 className="text-lg font-medium theme-text-primary">No products found</h3>
+                                <p className="text-sm theme-text-secondary">
                                   Products will appear here once you assign locations
                                 </p>
                               </div>
