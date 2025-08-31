@@ -190,19 +190,19 @@ const Dashboard = () => {
   // Component to render top stats cards with conditional linking
   const TopStatsCard = ({ stat }: { stat: typeof topStats[0] }) => {
     const cardContent = (
-      <Card className={`relative overflow-hidden bg-slate-800/50 backdrop-blur-md border border-slate-700/50 hover:shadow-lg card-hover ${
+      <Card className={`glass-card-enhanced hover-lift group relative overflow-hidden ${
         selectedWarehouse ? 'cursor-pointer' : ''
       }`}>
         <CardContent className="p-6 relative z-10 flex items-center space-x-4">
-          <div className={`p-3 rounded-full ${stat.color} shadow-md`}>
-            <stat.icon className="h-6 w-6" />
+          <div className={`metric-icon-primary p-3 rounded-full shadow-lg transition-all duration-300 group-hover:scale-110`}>
+            <stat.icon className="h-6 w-6 text-white" />
           </div>
           <div>
-            <p className="text-sm font-medium text-slate-400">{stat.title}</p>
-            <h3 className="text-2xl font-bold text-white">{stat.value}</h3>
+            <p className="metric-label text-sm font-medium">{stat.title}</p>
+            <h3 className="metric-value text-2xl font-bold">{stat.value}</h3>
           </div>
         </CardContent>
-        <div className="h-0.5 w-full bg-gradient-to-r from-indigo-500/50 via-indigo-500/20 to-transparent"></div>
+        <div className="h-0.5 w-full bg-gradient-to-r from-logistix-orange via-logistix-blue to-logistix-green opacity-60"></div>
       </Card>
     );
 
@@ -251,11 +251,11 @@ const Dashboard = () => {
       {/* Header */}
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-3">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">Command Center</h1>
-          <span className="text-xs font-normal text-white px-2 py-0.5 rounded-full bg-red-500/90 shadow-sm shadow-red-500/40">Live</span>
+          <h1 className="text-3xl font-roboto font-bold text-gradient-animate animate-gradient-text">Command Center</h1>
+          <span className="text-xs font-normal text-white px-2 py-0.5 rounded-full bg-logistix-orange shadow-glow-primary animate-pulse-slow">Live</span>
         </div>
         <div className="flex items-center gap-2 text-sm text-slate-400">
-          <div className="flex items-center gap-1.5 bg-slate-800/60 px-3 py-1.5 rounded-md border border-slate-700/50">
+          <div className="glass-metric-card px-3 py-1.5 rounded-md">
             <span>{getLastUpdatedText()}</span>
           </div>
         </div>
@@ -266,38 +266,40 @@ const Dashboard = () => {
 
       {/* Top Stats - 3 Cards - Conditionally Clickable */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {topStats.map((stat) => (
-          <TopStatsCard key={stat.title} stat={stat} />
+        {topStats.map((stat, index) => (
+          <div key={stat.title} className="animate-fade-in" style={{animationDelay: `${index * 100}ms`}}>
+            <TopStatsCard stat={stat} />
+          </div>
         ))}
       </div>
 
       {/* Warehouse Metrics - 1x4 Grid - Enhanced Design */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
-        {warehouseMetrics.map((metric) => (
+        {warehouseMetrics.map((metric, index) => (
           <Link key={metric.title} to={metric.route} className="block group">
-            <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 overflow-hidden cursor-pointer transition-all duration-200 hover:bg-slate-700/50 hover:border-indigo-500/30 hover:shadow-lg hover:scale-[1.02]">
+            <Card className="glass-metric-card hover-lift cursor-pointer overflow-hidden animate-fade-in" style={{animationDelay: `${(index + 3) * 100}ms`}}>
               <CardContent className="p-5 relative">
                 <div className="flex items-center justify-between mb-2">
-                  <div className={`p-2 rounded-lg bg-gradient-to-br from-${metric.color.split('-')[1]}-500/20 to-${metric.color.split('-')[1]}-500/5 shadow-md`}>
-                    <metric.icon className={`h-5 w-5 ${metric.color.replace('text-', 'text-')}`} />
+                  <div className={`metric-icon-${metric.color.includes('blue') ? 'primary' : metric.color.includes('emerald') ? 'success' : metric.color.includes('purple') ? 'primary' : 'warning'} p-2 rounded-lg transition-all duration-300 group-hover:scale-110`}>
+                    <metric.icon className="h-5 w-5 text-white" />
                   </div>
                   <div className={`text-sm flex items-center gap-1 ${
-                    metric.change >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                    metric.change >= 0 ? 'text-logistix-green' : 'text-coral'
                   }`}>
                     <TrendingUp className="h-3.5 w-3.5" />
                     {metric.change >= 0 ? '+' : ''}{metric.change}%
                   </div>
                 </div>
-                <p className="text-sm font-medium text-slate-400">{metric.title}</p>
-                <h3 className="text-2xl font-bold text-white mb-2">{metric.value}%</h3>
+                <p className="metric-label text-sm font-medium">{metric.title}</p>
+                <h3 className="metric-value text-2xl font-bold mb-2">{metric.value}%</h3>
                 <div className="h-1.5 bg-slate-700 rounded-full overflow-hidden">
                   <div 
-                    className={`h-full bg-${metric.color.split('-')[1]}-500 shadow-[0_0_5px_rgba(${
-                      metric.color.includes('blue') ? '99,102,241' :
-                      metric.color.includes('emerald') ? '16,185,129' :
-                      metric.color.includes('purple') ? '147,51,234' :
-                      '99,102,241'
-                    },0.5)] rounded-full transition-all duration-1000 ease-out`}
+                    className={`h-full rounded-full transition-all duration-1000 ease-out ${
+                      metric.color.includes('blue') ? 'bg-gradient-to-r from-logistix-blue to-violet shadow-glow-primary' :
+                      metric.color.includes('emerald') ? 'bg-gradient-to-r from-logistix-green to-emerald shadow-glow-success' :
+                      metric.color.includes('purple') ? 'bg-gradient-to-r from-violet to-logistix-blue shadow-glow-primary' :
+                      'bg-gradient-to-r from-logistix-orange to-amber shadow-glow-warning'
+                    }`}
                     style={{ width: `${metric.value}%` }}
                   />
                 </div>

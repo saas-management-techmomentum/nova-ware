@@ -92,16 +92,17 @@ const AppHeader = () => {
   };
 
   return (
-    <header className="h-16 border-b border-slate-800 bg-slate-900/80 backdrop-blur-sm z-20">
+    <header className="h-16 border-b border-logistix-orange/20 bg-gradient-to-r from-logistix-dark-gray/90 to-slate-900/90 backdrop-blur-md z-20 relative">
+      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-logistix-orange to-transparent"></div>
       <div className="h-full px-6">
         <div className="flex items-center justify-between h-full">
           <div className="flex items-center gap-3">
             {/* Sidebar Toggle Button */}
-            <SidebarTrigger className="h-10 w-10 rounded-full border border-slate-700 bg-slate-800/50 text-slate-400 hover:text-white hover:bg-slate-700/50 transition-colors">
-              <Menu className="h-5 w-5" />
+            <SidebarTrigger className="h-10 w-10 rounded-full glass-metric-card text-slate-400 hover:text-logistix-orange hover:bg-logistix-orange/10 transition-all duration-200 group">
+              <Menu className="h-5 w-5 group-hover:scale-110 transition-transform" />
             </SidebarTrigger>
             
-            <h1 className="text-lg font-semibold text-white">
+            <h1 className="text-lg font-roboto font-bold text-gradient-animate">
               {companyName}
             </h1>
           </div>
@@ -117,10 +118,10 @@ const AppHeader = () => {
               asChild
               variant="ghost" 
               size="icon"
-              className="h-10 w-10 rounded-full border border-slate-700 bg-slate-800/50 text-slate-400 hover:text-white"
+              className="h-10 w-10 rounded-full glass-metric-card text-slate-400 hover:text-logistix-blue hover:bg-logistix-blue/10 transition-all duration-200 group"
             >
               <Link to="/">
-                <Home className="h-5 w-5" />
+                <Home className="h-5 w-5 group-hover:scale-110 transition-transform" />
               </Link>
             </Button>
 
@@ -130,9 +131,10 @@ const AppHeader = () => {
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  className="h-10 w-10 rounded-full border border-slate-700 bg-slate-800/50"
+                  className="h-10 w-10 rounded-full glass-metric-card text-slate-400 hover:text-logistix-green hover:bg-logistix-green/10 transition-all duration-200 group relative"
                 >
-                  <Bell className="h-5 w-5 text-slate-400" />
+                  <Bell className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-logistix-orange rounded-full animate-pulse"></div>
                 </Button>
               </DropdownMenuTrigger>
                <DropdownMenuContent align="end" className="w-80">
@@ -155,14 +157,14 @@ const AppHeader = () => {
             {/* User Profile */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-10 px-2 rounded-full border border-slate-700 bg-slate-800/50">
+                <Button variant="ghost" className="h-10 px-2 rounded-full glass-metric-card hover:bg-logistix-orange/10 transition-all duration-200 group">
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={user?.user_metadata?.avatar_url} />
-                    <AvatarFallback className="bg-indigo-600 text-white text-sm">
+                    <AvatarFallback className="bg-gradient-to-br from-logistix-orange to-logistix-blue text-white text-sm font-roboto font-bold">
                       {getUserInitials()}
                     </AvatarFallback>
                   </Avatar>
-                  <span className="ml-2 text-sm text-white hidden sm:block">
+                  <span className="ml-2 text-sm text-white hidden sm:block font-roboto group-hover:text-logistix-orange transition-colors">
                     {getUserName()}
                   </span>
                 </Button>

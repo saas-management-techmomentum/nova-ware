@@ -241,34 +241,36 @@ const AppSidebar = () => {
 
   return (
     <Sidebar>
-      <div className="h-16 flex items-center px-5 border-b border-slate-800 bg-slate-900 backdrop-blur-sm">
+      <div className="h-16 flex items-center px-5 border-b border-logistix-orange/20 bg-gradient-to-r from-logistix-dark-gray to-slate-900 backdrop-blur-sm relative">
+        <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-logistix-orange via-logistix-blue to-logistix-green"></div>
         <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
-          <span className="text-xl font-semibold text-white"></span>
+          <span className="text-xl font-roboto font-bold text-gradient-animate">LogistiX</span>
         </Link>
-        <SidebarTrigger className="ml-auto lg:hidden text-slate-300 hover:text-white transition-colors" />
+        <SidebarTrigger className="ml-auto lg:hidden text-slate-300 hover:text-logistix-orange transition-colors" />
       </div>
-      <SidebarContent className="bg-slate-900 h-full border-r border-slate-800">
+      <SidebarContent className="bg-gradient-to-b from-logistix-dark-gray to-slate-900 h-full border-r border-logistix-orange/20 relative">
+        <div className="absolute right-0 top-0 h-full w-px bg-gradient-to-b from-logistix-orange/50 via-transparent to-logistix-blue/50"></div>
         {shouldShowDropdown && (
           <SidebarGroup>
             <SidebarGroupContent>
               <div className="px-2 mb-2">
                 <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <button className="w-full flex items-center justify-between p-2 rounded-md bg-slate-800/50 border border-slate-700/50 text-slate-300 hover:bg-slate-700/50 hover:text-white transition-colors">
-                      <div className="flex items-center gap-2">
-                        {getSelectionIcon()}
-                        <span className="text-sm font-medium">{getCurrentSelectionText()}</span>
-                        {isUserAdmin && !selectedWarehouse && (
-                          <Shield className="h-3 w-3 text-indigo-400" />
-                        )}
-                      </div>
-                      <ChevronDown className="h-4 w-4" />
-                    </button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent 
-                    align="start" 
-                    className="w-64 bg-slate-800/95 backdrop-blur-md border border-slate-700/50 text-slate-300 z-50"
-                  >
+                   <DropdownMenuTrigger asChild>
+                     <button className="w-full flex items-center justify-between p-2 rounded-md glass-metric-card hover:bg-logistix-orange/10 text-slate-300 hover:text-white transition-all duration-200 group">
+                       <div className="flex items-center gap-2">
+                         {getSelectionIcon()}
+                         <span className="text-sm font-roboto font-medium">{getCurrentSelectionText()}</span>
+                         {isUserAdmin && !selectedWarehouse && (
+                           <Shield className="h-3 w-3 text-logistix-blue" />
+                         )}
+                       </div>
+                       <ChevronDown className="h-4 w-4 group-hover:text-logistix-orange transition-colors" />
+                     </button>
+                   </DropdownMenuTrigger>
+                   <DropdownMenuContent 
+                     align="start" 
+                     className="w-64 glass-card-enhanced text-slate-300 z-50"
+                   >
                     {isUserAdmin && (
                       <>
                         <DropdownMenuItem 
@@ -350,7 +352,7 @@ const AppSidebar = () => {
         )}
         
         <SidebarGroup>
-          <SidebarGroupLabel className="text-xs uppercase tracking-wider font-medium text-slate-400">
+          <SidebarGroupLabel className="text-xs uppercase tracking-wider font-roboto font-medium text-gradient-animate">
             {selectedWarehouse ? 
               warehouses.find(w => w.warehouse_id === selectedWarehouse)?.warehouse_code || 'Warehouse' : 
               (isUserAdmin ? 'Corporate' : 'Menu')
@@ -367,21 +369,23 @@ const AppSidebar = () => {
                 menuItems.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <Link 
-                        to={item.path}
-                        className={`transition-all duration-200 ${
-                          location.pathname === item.path 
-                            ? 'bg-gradient-to-r from-indigo-500/20 to-transparent text-white border-l-2 border-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.2)] backdrop-blur-sm'
-                            : 'hover:bg-slate-800 border-l-2 border-transparent text-slate-300 hover:text-white'
-                        }`}
-                      >
-                        <item.icon className={`w-5 h-5 ${location.pathname === item.path ? 'text-indigo-400' : ''}`} />
-                        <span>{item.title}</span>
-                        
-                        {location.pathname === item.path && (
-                          <span className="ml-auto h-1.5 w-1.5 rounded-full bg-indigo-500 shadow-[0_0_5px_rgba(99,102,241,0.7)]"></span>
-                        )}
-                      </Link>
+                       <Link 
+                         to={item.path}
+                         className={`transition-all duration-300 relative ${
+                           location.pathname === item.path 
+                             ? 'bg-gradient-to-r from-logistix-orange/20 to-transparent text-white border-l-2 border-logistix-orange shadow-glow-primary backdrop-blur-sm'
+                             : 'hover:bg-logistix-orange/5 border-l-2 border-transparent text-slate-300 hover:text-white hover:border-logistix-orange/50'
+                         }`}
+                       >
+                         <item.icon className={`w-5 h-5 transition-all duration-200 ${
+                           location.pathname === item.path ? 'text-logistix-orange icon-glow' : 'hover:text-logistix-blue'
+                         }`} />
+                         <span className="font-roboto">{item.title}</span>
+                         
+                         {location.pathname === item.path && (
+                           <span className="ml-auto h-1.5 w-1.5 rounded-full bg-logistix-orange shadow-glow-warning animate-pulse-slow"></span>
+                         )}
+                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))
@@ -391,17 +395,18 @@ const AppSidebar = () => {
         </SidebarGroup>
         
         <div className="absolute bottom-0 left-0 right-0 p-4">
-          <div className="p-3 rounded-lg bg-slate-800/50 border border-slate-700 text-slate-300 text-xs">
+          <div className="glass-metric-card p-3 rounded-lg text-slate-300 text-xs font-roboto relative">
+            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-logistix-orange to-transparent"></div>
             <div className="flex items-center justify-between mb-2">
               <span>System Status</span>
               <span className="flex items-center gap-1">
-                <Circle className={`h-2 w-2 fill-current ${getSystemStatusColor()}`} />
-                <span className={getSystemStatusColor()}>{getSystemStatusText()}</span>
+                <Circle className={`h-2 w-2 fill-current ${getSystemStatusColor()} animate-pulse`} />
+                <span className={`${getSystemStatusColor()} font-medium`}>{getSystemStatusText()}</span>
               </span>
             </div>
             <div className="flex items-center justify-between">
               <span>Last Update</span>
-              <span>{getMinutesAgo()} min ago</span>
+              <span className="text-logistix-blue font-medium">{getMinutesAgo()} min ago</span>
             </div>
           </div>
         </div>
