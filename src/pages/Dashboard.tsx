@@ -25,7 +25,6 @@ import { useUserTaskMetrics } from "@/hooks/useUserTaskMetrics";
 import { useWarehouseScopedOrders } from "@/hooks/useWarehouseScopedOrders";
 import { useWarehouseScopedInventory } from "@/hooks/useWarehouseScopedInventory";
 import { useInventory } from "@/contexts/InventoryContext";
-import { useLastActivity } from "@/hooks/useLastActivity";
 import { useWarehouse } from "@/contexts/WarehouseContext";
 import { checkDataSufficiency, mapTransactionsForPrediction, getBestSellersFromPredictions, getSlowMoversFromPredictions } from "@/utils/inventoryPrediction";
 import { useOrderVolumeData } from "@/hooks/useOrderVolumeData";
@@ -41,7 +40,6 @@ const Dashboard = () => {
   const { orders } = useWarehouseScopedOrders();
   const { inventoryItems } = useWarehouseScopedInventory();
   const { generatePredictions } = useInventory();
-  const { lastActivity, isLoading: activityLoading } = useLastActivity();
   const { transactions, isLoading: transactionsLoading } = useInventory();
   const { orderVolumeData, isLoading: volumeLoading } = useOrderVolumeData();
 
@@ -180,12 +178,6 @@ const Dashboard = () => {
     }
   ];
 
-  // Format the last updated text
-  const getLastUpdatedText = () => {
-    if (activityLoading) return "Loading...";
-    if (!lastActivity) return "No recent activity";
-    return `Last Updated: ${lastActivity.relativeTime}`;
-  };
 
   const TopStatsCard = ({ stat }: { stat: typeof topStats[0] }) => {
     const cardContent = (
@@ -252,11 +244,6 @@ const Dashboard = () => {
           <Badge variant="secondary" className="bg-success text-success-foreground">
             Live
           </Badge>
-        </div>
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <div className="professional-card px-3 py-1.5 rounded-md">
-            <span>{getLastUpdatedText()}</span>
-          </div>
         </div>
       </div>
 
