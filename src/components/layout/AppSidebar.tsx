@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   Sidebar, 
@@ -38,7 +38,6 @@ import {
   Activity,
   Shield,
   Globe,
-  Circle,
   Loader2
 } from 'lucide-react';
 import { useWarehouse } from '@/contexts/WarehouseContext';
@@ -52,56 +51,6 @@ const AppSidebar = () => {
   const { warehouseAssignments } = useUserPermissions();
   const { getFilteredMenuItems, isLoading: permissionsLoading } = usePagePermissions();
   
-  // System status state
-  const [systemStatus] = useState<'operational' | 'warning' | 'error'>('operational');
-  const [lastUpdateTime, setLastUpdateTime] = useState<Date>(new Date());
-  
-  // Update last update time periodically
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // In a real app, this would be updated when actual system updates occur
-      // For now, we'll just update it every few minutes to simulate activity
-      const now = new Date();
-      const timeDiff = now.getTime() - lastUpdateTime.getTime();
-      if (timeDiff > 5 * 60 * 1000) { // Update every 5 minutes
-        setLastUpdateTime(new Date());
-      }
-    }, 60000); // Check every minute
-
-    return () => clearInterval(interval);
-  }, [lastUpdateTime]);
-
-  const getMinutesAgo = () => {
-    const now = new Date();
-    const diffInMinutes = Math.floor((now.getTime() - lastUpdateTime.getTime()) / (1000 * 60));
-    return diffInMinutes;
-  };
-
-  const getSystemStatusColor = () => {
-    switch (systemStatus) {
-      case 'operational':
-        return 'text-emerald-400';
-      case 'warning':
-        return 'text-amber-400';
-      case 'error':
-        return 'text-red-400';
-      default:
-        return 'text-emerald-400';
-    }
-  };
-
-  const getSystemStatusText = () => {
-    switch (systemStatus) {
-      case 'operational':
-        return 'Operational';
-      case 'warning':
-        return 'Warning';
-      case 'error':
-        return 'Error';
-      default:
-        return 'Operational';
-    }
-  };
   
   // Debug logging
   console.log('AppSidebar Debug:', {
@@ -387,22 +336,6 @@ const AppSidebar = () => {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        
-        <div className="absolute bottom-0 left-0 right-0 p-4">
-          <div className="professional-card p-3 rounded-lg text-sidebar-foreground text-xs font-roboto">
-            <div className="flex items-center justify-between mb-2">
-              <span>System Status</span>
-              <span className="flex items-center gap-1">
-                <Circle className={`h-2 w-2 fill-current ${getSystemStatusColor()}`} />
-                <span className={`${getSystemStatusColor()} font-medium`}>{getSystemStatusText()}</span>
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span>Last Update</span>
-              <span className="text-sidebar-primary font-medium">{getMinutesAgo()} min ago</span>
-            </div>
-          </div>
-        </div>
       </SidebarContent>
     </Sidebar>
   );
