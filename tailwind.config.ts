@@ -20,7 +20,8 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Inter', 'system-ui', 'sans-serif'],
+				sans: ['Roboto', 'Inter', 'system-ui', 'sans-serif'],
+				roboto: ['Roboto', 'system-ui', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -66,11 +67,12 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				cargo: {
-					blue: 'hsl(var(--cargo-blue))',
-					darkBlue: 'hsl(var(--cargo-darkBlue))',
-					lightBlue: 'hsl(var(--cargo-lightBlue))',
-					green: 'hsl(var(--cargo-green))'
+				logistix: {
+					orange: 'hsl(var(--logistix-orange))',
+					blue: 'hsl(var(--logistix-blue))',
+					green: 'hsl(var(--logistix-green))',
+					darkGray: 'hsl(var(--logistix-dark-gray))',
+					lightGray: 'hsl(var(--logistix-light-gray))'
 				}
 			},
 			borderRadius: {

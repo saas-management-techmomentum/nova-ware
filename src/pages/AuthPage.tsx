@@ -164,9 +164,9 @@ const AuthPage = () => {
             alt="Logo" 
             className="h-16 w-16 mx-auto mb-4 opacity-90"
           />
-          <CardTitle className="text-2xl font-bold text-white">Welcome to Quantra</CardTitle>
+          <CardTitle className="text-2xl font-bold text-white">Welcome to LogistiX</CardTitle>
           <CardDescription className="text-white/70">
-            Sign in to your account or create a new company account
+            Advanced warehouse management for modern businesses
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -223,7 +223,7 @@ const AuthPage = () => {
                     
                     <Button 
                       type="submit" 
-                      className="w-full bg-cargo-blue hover:bg-cargo-lightBlue text-white" 
+                      className="w-full bg-logistix-orange hover:bg-logistix-blue text-white" 
                       disabled={isLoading}
                     >
                       {isLoading ? 'Signing In...' : 'Sign In'}
@@ -270,7 +270,7 @@ const AuthPage = () => {
                     
                     <Button 
                       type="submit" 
-                      className="w-full bg-cargo-blue hover:bg-cargo-lightBlue text-white" 
+                      className="w-full bg-logistix-orange hover:bg-logistix-blue text-white" 
                       disabled={isLoading}
                     >
                       {isLoading ? 'Sending Reset Email...' : 'Send Reset Email'}
@@ -465,7 +465,7 @@ const AuthPage = () => {
                   
                   <Button 
                     type="submit" 
-                    className="w-full bg-cargo-blue hover:bg-cargo-lightBlue text-white" 
+                    className="w-full bg-logistix-orange hover:bg-logistix-blue text-white" 
                     disabled={isLoading}
                   >
                     {isLoading ? 'Creating Admin Account...' : 'Create Admin Account'}

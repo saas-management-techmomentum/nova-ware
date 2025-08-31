@@ -92,12 +92,12 @@ const AboutPage = () => {
 
   const faqs = [
     {
-      question: "What types of businesses is Quantra designed for?",
-      answer: "Quantra is built for businesses that need comprehensive warehouse management - from small distribution centers to large multi-warehouse operations. It's particularly effective for companies managing complex inventory with batch tracking, expiration dates, and multiple client requirements."
+      question: "What types of businesses is LogistiX designed for?",
+      answer: "LogistiX is built for businesses that need comprehensive warehouse management - from small distribution centers to large multi-warehouse operations. It's particularly effective for companies managing complex inventory with batch tracking, expiration dates, and multiple client requirements."
     },
     {
       question: "How does the multi-company architecture work?",
-      answer: "Quantra supports true multi-tenant operations where users can be assigned to multiple companies and warehouses with different permission levels. Each company's data is completely isolated while allowing for corporate-level oversight when needed."
+      answer: "LogistiX supports true multi-tenant operations where users can be assigned to multiple companies and warehouses with different permission levels. Each company's data is completely isolated while allowing for corporate-level oversight when needed."
     },
     {
       question: "What inventory tracking methods are supported?",
@@ -109,7 +109,7 @@ const AboutPage = () => {
     },
     {
       question: "What financial features are included?",
-      answer: "Quantra includes complete accounting integration with automatic journal entries, invoice generation with customizable templates, billing rate management, expense tracking, and comprehensive financial reporting - all tied directly to warehouse operations."
+      answer: "LogistiX includes complete accounting integration with automatic journal entries, invoice generation with customizable templates, billing rate management, expense tracking, and comprehensive financial reporting - all tied directly to warehouse operations."
     },
     {
       question: "Can I track performance metrics?",
@@ -143,11 +143,11 @@ const AboutPage = () => {
           </div>
           <div className="text-center">
             <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-white via-slate-200 to-slate-300 bg-clip-text text-transparent mb-6">
-              About Quantra
+              About LogistiX
             </h1>
             <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-              Advanced warehouse management software designed for modern businesses. 
-              Streamline operations, track inventory intelligently, and scale your business with confidence.
+              Advanced warehouse management software designed for modern logistics operations. 
+              Streamline processes, optimize inventory control, and scale your business with confidence.
             </p>
           </div>
         </div>
@@ -278,7 +278,7 @@ const AboutPage = () => {
                 Frequently Asked Questions
               </h2>
               <p className="text-lg text-slate-300">
-                Learn more about Quantra's capabilities and features
+                Learn more about LogistiX's capabilities and features
               </p>
             </div>
             
@@ -304,10 +304,10 @@ const AboutPage = () => {
               Ready to Transform Your Warehouse Operations?
             </h2>
             <p className="text-xl mb-8 text-slate-300">
-              Experience the power of modern warehouse management with Quantra's comprehensive platform.
+              Experience the power of modern warehouse management with LogistiX's comprehensive platform.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button asChild size="lg" className="bg-indigo-600 text-white hover:bg-indigo-700 transition-all duration-200 hover:scale-105">
+              <Button asChild size="lg" className="bg-orange-600 text-white hover:bg-orange-700 transition-all duration-200 hover:scale-105">
                 <Link to="/app">Get Started Now</Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white transition-all duration-200">
@@ -323,10 +323,10 @@ const AboutPage = () => {
         <div className="max-w-7xl mx-auto text-center">
           <div className="flex items-center justify-center mb-4">
             <Package className="h-6 w-6 text-indigo-400 mr-2" />
-            <div className="text-xl font-bold">Quantra</div>
+            <div className="text-xl font-bold">LogistiX</div>
           </div>
           <div className="text-slate-400 text-sm">
-            &copy; {new Date().getFullYear()} Quantra. Advanced Warehouse Management Software.
+            &copy; {new Date().getFullYear()} LogistiX. Advanced Warehouse Management Software.
           </div>
         </div>
       </footer>

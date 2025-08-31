@@ -44,26 +44,27 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
     
-    /* Custom cargo colors */
-    --cargo-blue: 196 96% 48%;
-    --cargo-lightBlue: 200 98% 60%;
-    --cargo-darkBlue: 210 100% 25%;
-    --cargo-green: 142 72% 50%;
+    /* LogistiX Brand Colors */
+    --logistix-orange: 14 100% 60%;
+    --logistix-blue: 222 100% 35%;
+    --logistix-green: 158 64% 52%;
+    --logistix-dark-gray: 210 11% 15%;
+    --logistix-light-gray: 220 14% 96%;
 
-    /* Glassmorphism fintech design system */
-    --gradient-primary: linear-gradient(135deg, hsl(262 83% 12%) 0%, hsl(239 84% 17%) 50%, hsl(217 87% 25%) 100%);
+    /* LogistiX Gradient System */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--logistix-orange)) 0%, hsl(var(--logistix-blue)) 50%, hsl(var(--logistix-dark-gray)) 100%);
     --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-    --gradient-success: linear-gradient(135deg, hsl(158 64% 52%) 0%, hsl(147 75% 57%) 100%);
-    --gradient-warning: linear-gradient(135deg, hsl(36 100% 60%) 0%, hsl(47 100% 68%) 100%);
+    --gradient-success: linear-gradient(135deg, hsl(var(--logistix-green)) 0%, hsl(147 75% 57%) 100%);
+    --gradient-warning: linear-gradient(135deg, hsl(var(--logistix-orange)) 0%, hsl(47 100% 68%) 100%);
     --gradient-danger: linear-gradient(135deg, hsl(354 84% 57%) 0%, hsl(4 90% 58%) 100%);
     
     --glass-border: rgba(255, 255, 255, 0.15);
     --glass-bg: rgba(255, 255, 255, 0.08);
     --glass-hover: rgba(255, 255, 255, 0.12);
     
-    --glow-primary: 0 0 20px hsla(217 87% 63% / 0.3);
-    --glow-success: 0 0 20px hsla(158 64% 52% / 0.3);
-    --glow-warning: 0 0 20px hsla(36 100% 60% / 0.3);
+    --glow-primary: 0 0 20px hsla(var(--logistix-orange) / 0.3);
+    --glow-success: 0 0 20px hsla(var(--logistix-green) / 0.3);
+    --glow-warning: 0 0 20px hsla(var(--logistix-orange) / 0.3);
     --glow-danger: 0 0 20px hsla(354 84% 57% / 0.3);
     
     --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -72,11 +73,11 @@
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 
-    /* Fintech accent colors */
+    /* LogistiX accent colors */
     --emerald: 158 64% 52%;
-    --amber: 36 100% 60%;
+    --amber: 14 100% 60%;
     --coral: 354 84% 57%;
-    --violet: 262 83% 58%;
+    --violet: 222 100% 35%;
   }
 
   .dark {
@@ -124,7 +125,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-roboto;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
   }
   

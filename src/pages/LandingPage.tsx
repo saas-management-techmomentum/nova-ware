@@ -100,16 +100,16 @@ const LandingPage = () => {
 
   const testimonials = [
     {
-      quote: "Quantra transformed our warehouse operations. We've seen a 40% improvement in order processing speed and near-perfect inventory accuracy.",
+      quote: "LogistiX revolutionized our warehouse operations. We've seen a 45% improvement in order processing speed and perfect inventory accuracy.",
       author: "Sarah Chen",
-      role: "Warehouse Manager",
-      company: "LogiFlow Solutions"
+      role: "Operations Director",
+      company: "SupplyChain Pro"
     },
     {
-      quote: "The real-time visibility and integrated financials have been game-changers for our multi-location operations.",
+      quote: "The real-time visibility and integrated financial tools have been game-changers for our multi-location distribution network.",
       author: "Michael Rodriguez", 
-      role: "Supply Chain Director",
-      company: "Global Logistics Corp"
+      role: "Logistics Manager",
+      company: "FastFlow Logistics"
     }
   ];
 
@@ -160,10 +160,10 @@ const LandingPage = () => {
               <div className="h-10 w-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
                 <Building2 className="h-6 w-6 text-white" />
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent">
-                Quantra
+              <span className="text-2xl font-bold bg-gradient-to-r from-white to-orange-200 bg-clip-text text-transparent">
+                LogistiX
               </span>
-              <Badge className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0 ml-2">
+              <Badge className="bg-gradient-to-r from-orange-600 to-blue-600 text-white border-0 ml-2">
                 WMS
               </Badge>
             </div>
@@ -179,7 +179,7 @@ const LandingPage = () => {
                 Sign In
               </Link>
               <Link to="/auth">
-                <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white border-0 px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-indigo-500/25 transition-all duration-300">
+                <Button className="bg-gradient-to-r from-orange-600 to-blue-600 hover:from-orange-700 hover:to-blue-700 text-white border-0 px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-orange-500/25 transition-all duration-300">
                   Get Started
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -196,35 +196,35 @@ const LandingPage = () => {
         <div className="w-full px-6 lg:px-8 py-24 relative z-10">
           <div className="text-center space-y-8 max-w-6xl mx-auto">
             <div className="space-y-6">
-              <Badge className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0 px-6 py-2 text-base rounded-full shadow-lg">
+              <Badge className="bg-gradient-to-r from-orange-600 to-blue-600 text-white border-0 px-6 py-2 text-base rounded-full shadow-lg">
                 <Package className="h-5 w-5 mr-2" />
-                Warehouse Management System
+                Advanced Warehouse Management
               </Badge>
               
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight">
-                <span className="bg-gradient-to-r from-white via-indigo-200 to-white bg-clip-text text-transparent">
-                  Modern Warehouse
+                <span className="bg-gradient-to-r from-white via-orange-200 to-white bg-clip-text text-transparent">
+                  Streamline.
                 </span>
                 <br />
-                <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
-                  Management.
+                <span className="bg-gradient-to-r from-orange-400 via-blue-400 to-orange-400 bg-clip-text text-transparent">
+                  Optimize.
                 </span>
                 <br />
-                <span className="bg-gradient-to-r from-purple-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
-                  Real-Time Precision.
+                <span className="bg-gradient-to-r from-blue-400 via-green-400 to-blue-400 bg-clip-text text-transparent">
+                  Scale.
                 </span>
               </h1>
               
               <p className="text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto leading-relaxed">
-                Quantra is a next-generation WMS designed for 
-                <span className="text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text font-semibold"> speed, accuracy, and control</span> — 
-                across every warehouse you manage.
+                LogistiX is next-generation warehouse management software designed for 
+                <span className="text-transparent bg-gradient-to-r from-orange-400 to-blue-400 bg-clip-text font-semibold"> efficiency, control, and growth</span> — 
+                across every warehouse you operate.
               </p>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8">
               <Link to="/auth">
-                <Button size="lg" className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white border-0 px-12 py-6 text-lg rounded-2xl font-semibold shadow-2xl hover:shadow-indigo-500/25 transition-all duration-300 transform hover:scale-105">
+                <Button size="lg" className="bg-gradient-to-r from-orange-600 to-blue-600 hover:from-orange-700 hover:to-blue-700 text-white border-0 px-12 py-6 text-lg rounded-2xl font-semibold shadow-2xl hover:shadow-orange-500/25 transition-all duration-300 transform hover:scale-105">
                   <Calendar className="mr-3 h-6 w-6" />
                   Request a Demo
                 </Button>
@@ -244,7 +244,7 @@ const LandingPage = () => {
         <div className="w-full px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Built for <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">High-Performance Operations</span>
+              Built for <span className="bg-gradient-to-r from-orange-400 to-blue-400 bg-clip-text text-transparent">Peak Performance</span>
             </h2>
             <p className="text-xl text-slate-400 max-w-3xl mx-auto">
               Powerful functionality designed for speed, accuracy, and control.
@@ -255,7 +255,7 @@ const LandingPage = () => {
             {coreFeatures.map((feature, index) => (
               <Card key={index} className="bg-slate-900/20 border-slate-700/30 backdrop-blur-xl hover:bg-slate-800/30 hover:border-indigo-500/40 transition-all duration-500 group">
                 <CardContent className="p-8">
-                  <div className="h-16 w-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <div className="h-16 w-16 bg-gradient-to-r from-orange-600 to-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <feature.icon className="h-8 w-8 text-white" />
                   </div>
                   <h3 className="text-xl font-semibold text-white mb-3">{feature.title}</h3>
@@ -272,7 +272,7 @@ const LandingPage = () => {
         <div className="w-full px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              See Quantra in <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Action</span>
+              See LogistiX in <span className="bg-gradient-to-r from-orange-400 to-blue-400 bg-clip-text text-transparent">Action</span>
             </h2>
             <p className="text-xl text-slate-400 max-w-3xl mx-auto">
               Discover how our WMS transforms warehouse operations with real-world scenarios.
@@ -283,7 +283,7 @@ const LandingPage = () => {
             {visualFeatures.map((feature, index) => (
               <div key={index} className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
                 <div className={`space-y-8 ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
-                  <Badge className="bg-gradient-to-r from-indigo-600/20 to-purple-600/20 text-indigo-300 border-indigo-500/30 px-4 py-2">
+                  <Badge className="bg-gradient-to-r from-orange-600/20 to-blue-600/20 text-orange-300 border-orange-500/30 px-4 py-2">
                     {feature.highlight}
                   </Badge>
                   <h3 className="text-3xl md:text-4xl font-bold text-white leading-tight">
@@ -292,7 +292,7 @@ const LandingPage = () => {
                   <p className="text-lg text-slate-300 leading-relaxed">
                     {feature.description}
                   </p>
-                  <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white border-0 px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-indigo-500/25 transition-all duration-300">
+                  <Button className="bg-gradient-to-r from-orange-600 to-blue-600 hover:from-orange-700 hover:to-blue-700 text-white border-0 px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-orange-500/25 transition-all duration-300">
                     Learn More
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
@@ -368,7 +368,7 @@ const LandingPage = () => {
         <div className="w-full px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Trusted by <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Industry Leaders</span>
+              Trusted by <span className="bg-gradient-to-r from-orange-400 to-blue-400 bg-clip-text text-transparent">Industry Leaders</span>
             </h2>
           </div>
           
@@ -467,7 +467,7 @@ const LandingPage = () => {
           <div className="max-w-5xl mx-auto space-y-8">
             <Badge className="bg-gradient-to-r from-indigo-600/20 to-purple-600/20 text-indigo-300 border-indigo-500/30 px-6 py-3 text-lg rounded-full">
               <Target className="h-5 w-5 mr-2" />
-              Upgrade Your Warehouse with Quantra
+              Upgrade Your Warehouse with LogistiX
             </Badge>
             
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
@@ -479,7 +479,7 @@ const LandingPage = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center pt-8">
-              <Button size="lg" className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white border-0 px-12 py-6 text-lg rounded-2xl font-semibold shadow-2xl hover:shadow-indigo-500/25 transition-all duration-300 transform hover:scale-105">
+              <Button size="lg" className="bg-gradient-to-r from-orange-600 to-blue-600 hover:from-orange-700 hover:to-blue-700 text-white border-0 px-12 py-6 text-lg rounded-2xl font-semibold shadow-2xl hover:shadow-orange-500/25 transition-all duration-300 transform hover:scale-105">
                 <Calendar className="mr-3 h-6 w-6" />
                 Book a Demo
               </Button>
@@ -504,27 +504,27 @@ const LandingPage = () => {
                   <div className="h-10 w-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
                     <Building2 className="h-6 w-6 text-white" />
                   </div>
-                  <span className="text-2xl font-bold bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent">
-                    Quantra
+                  <span className="text-2xl font-bold bg-gradient-to-r from-white to-orange-200 bg-clip-text text-transparent">
+                    LogistiX
                   </span>
-                  <Badge className="bg-gradient-to-r from-indigo-600/20 to-purple-600/20 text-indigo-300 border-indigo-500/30">
+                  <Badge className="bg-gradient-to-r from-orange-600/20 to-blue-600/20 text-orange-300 border-orange-500/30">
                     WMS
                   </Badge>
                 </div>
                 <p className="text-slate-400 max-w-md leading-relaxed">
-                  Next-generation warehouse management system designed for speed, accuracy, and control across every warehouse you manage.
+                  Next-generation warehouse management system designed for efficiency, control, and growth across every warehouse you operate.
                 </p>
                 
                 {/* Email Capture */}
                 <div className="space-y-3">
-                  <h4 className="text-white font-semibold">Stay updated on Quantra releases</h4>
+                  <h4 className="text-white font-semibold">Stay updated on LogistiX releases</h4>
                   <div className="flex max-w-md">
                     <input 
                       type="email" 
                       placeholder="Enter your email"
                       className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-l-xl text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500"
                     />
-                    <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white border-0 px-6 py-3 rounded-r-xl font-semibold">
+                    <Button className="bg-gradient-to-r from-orange-600 to-blue-600 hover:from-orange-700 hover:to-blue-700 text-white border-0 px-6 py-3 rounded-r-xl font-semibold">
                       Subscribe
                     </Button>
                   </div>
@@ -558,7 +558,7 @@ const LandingPage = () => {
             <div className="pt-8 border-t border-slate-800">
               <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                 <p className="text-slate-500">
-                  &copy; 2024 Quantra. Warehouse Management System for modern operations.
+                  &copy; 2024 LogistiX. Advanced Warehouse Management System for modern operations.
                 </p>
                 <div className="flex space-x-6">
                   <div className="text-slate-500 hover:text-indigo-400 transition-colors cursor-pointer">
