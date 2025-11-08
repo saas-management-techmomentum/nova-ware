@@ -615,7 +615,7 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
             </Button>
             <Button 
               type="submit" 
-              className="bg-gray-800 hover:bg-gray-900"
+              className="bg-white text-black hover:bg-neutral-200"
               disabled={inventoryWarnings.length > 0 || isProcessing}
             >
               {isProcessing ? (
