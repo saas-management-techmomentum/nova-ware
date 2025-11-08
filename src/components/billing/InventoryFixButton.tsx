@@ -133,9 +133,9 @@ export const InventoryFixButton = () => {
                 </div>
               </>
             ) : (
-              <Alert className="border-blue-500/20 bg-blue-500/10">
-                <CheckCircle className="h-4 w-4 text-blue-400" />
-                <AlertDescription className="text-blue-200">
+              <Alert className="border-gray-700/20 bg-gray-800/10">
+                <CheckCircle className="h-4 w-4 text-gray-400" />
+                <AlertDescription className="text-gray-200">
                   All existing invoices have already been processed correctly. No changes were needed.
                 </AlertDescription>
               </Alert>

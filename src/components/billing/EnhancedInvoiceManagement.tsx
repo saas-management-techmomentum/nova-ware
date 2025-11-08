@@ -178,7 +178,7 @@ export const EnhancedInvoiceManagement = () => {
             </Button>
           )}
           {!isInCorporateOverview && (
-            <Button onClick={() => setShowCreateDialog(true)} className="bg-indigo-600 hover:bg-indigo-700">
+            <Button onClick={() => setShowCreateDialog(true)} className="bg-gray-800 hover:bg-gray-900">
               <Plus className="h-4 w-4 mr-2" />
               Create Invoice
             </Button>
@@ -189,7 +189,7 @@ export const EnhancedInvoiceManagement = () => {
       <Card className="bg-slate-800/50 border-slate-700">
         <CardHeader>
           <CardTitle className="text-white flex items-center">
-            <FileText className="h-5 w-5 mr-2 text-indigo-400" />
+            <FileText className="h-5 w-5 mr-2 text-gray-400" />
             Invoices
             {selectedWarehouse && (
               <span className="ml-2 text-sm text-slate-400">
@@ -210,7 +210,7 @@ export const EnhancedInvoiceManagement = () => {
                 }
               </p>
               {!isInCorporateOverview && (
-                <Button onClick={() => setShowCreateDialog(true)} className="bg-indigo-600 hover:bg-indigo-700">
+                <Button onClick={() => setShowCreateDialog(true)} className="bg-gray-800 hover:bg-gray-900">
                   <Plus className="h-4 w-4 mr-2" />
                   Create First Invoice
                 </Button>
@@ -360,7 +360,7 @@ export const EnhancedInvoiceManagement = () => {
                             size="sm"
                             variant="outline"
                             onClick={() => handleSendEmail(invoice.id)}
-                            className="border-blue-600 text-blue-400 hover:bg-blue-600/10"
+                            className="border-gray-700 text-gray-400 hover:bg-gray-800/10"
                             title="Send Invoice Email"
                           >
                             <Send className="h-4 w-4" />

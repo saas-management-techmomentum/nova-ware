@@ -536,7 +536,7 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
               type="button"
               variant="ghost"
               onClick={addItem}
-              className="text-blue-400 hover:text-blue-300 w-full justify-start"
+              className="text-gray-400 hover:text-gray-300 w-full justify-start"
             >
               <Plus className="h-4 w-4 mr-2" />
               Add an item
@@ -615,7 +615,7 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
             </Button>
             <Button 
               type="submit" 
-              className="bg-indigo-600 hover:bg-indigo-700"
+              className="bg-gray-800 hover:bg-gray-900"
               disabled={inventoryWarnings.length > 0 || isProcessing}
             >
               {isProcessing ? (
