@@ -174,7 +174,7 @@ export const BalanceSheet = () => {
           {/* Equity */}
           <Card className="bg-slate-800/50 border-slate-700/50">
             <CardHeader>
-              <CardTitle className="flex items-center text-blue-400">
+              <CardTitle className="flex items-center text-gray-400">
                 <DollarSign className="h-5 w-5 mr-2" />
                 Equity
               </CardTitle>
@@ -201,7 +201,7 @@ export const BalanceSheet = () => {
                 </div>
               ))}
               <div className="border-t border-slate-600 pt-2 mt-4">
-                <div className="flex justify-between font-medium text-blue-400">
+                <div className="flex justify-between font-medium text-gray-400">
                   <span>Total Equity</span>
                   <span>{formatCurrency(equityTotal)}</span>
                 </div>

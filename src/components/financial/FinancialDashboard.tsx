@@ -200,17 +200,17 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = () => {
           <Card className="hover:shadow-md transition-shadow">
             <CardContent className="p-4 h-full">
               <div className="flex flex-col justify-center items-center text-center space-y-3 h-full min-h-[120px]">
-                <div className="bg-cargo-blue/10 p-2 rounded-full">
-                  <Package className="h-5 w-5 text-cargo-blue" />
+                <div className="bg-gray-700/10 p-2 rounded-full">
+                  <Package className="h-5 w-5 text-gray-500" />
                 </div>
                 <div className="space-y-1">
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Cash & Bank</p>
-                  <p className="text-xl md:text-2xl font-bold text-cargo-blue break-all">
+                  <p className="text-xl md:text-2xl font-bold text-gray-500 break-all">
                     {formatCurrency(metrics.cashBalance)}
                   </p>
                   <div className="flex items-center justify-center gap-1">
-                    <DollarSign className="h-3 w-3 text-cargo-blue" />
-                    <span className="text-xs text-cargo-blue">Available funds</span>
+                    <DollarSign className="h-3 w-3 text-gray-500" />
+                    <span className="text-xs text-gray-500">Available funds</span>
                   </div>
                 </div>
               </div>
@@ -379,7 +379,7 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = () => {
             </div>
             <div className="flex justify-between items-center py-2 border-b">
               <span className="text-sm font-medium">Equity</span>
-              <span className="text-sm font-bold text-cargo-blue">{formatCurrency(metrics.equity)}</span>
+              <span className="text-sm font-bold text-gray-500">{formatCurrency(metrics.equity)}</span>
             </div>
             <div className="flex justify-between items-center py-2 border-b">
               <span className="text-sm font-medium">Outstanding Invoices</span>

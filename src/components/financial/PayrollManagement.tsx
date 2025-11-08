@@ -73,7 +73,7 @@ export const PayrollManagement: React.FC = () => {
       case 'paid':
         return <Badge className="bg-green-500/20 text-green-400 border-green-500/30">Paid</Badge>;
       case 'processed':
-        return <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30">Processed</Badge>;
+        return <Badge className="bg-gray-700/20 text-gray-400 border-gray-600/30">Processed</Badge>;
       case 'draft':
         return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">Draft</Badge>;
       default:

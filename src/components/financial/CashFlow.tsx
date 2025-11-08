@@ -105,7 +105,7 @@ export const CashFlow = () => {
         {/* Operating Activities */}
         <Card className="bg-slate-800/50 border-slate-700/50">
           <CardHeader>
-            <CardTitle className="flex items-center text-blue-400">
+            <CardTitle className="flex items-center text-gray-400">
               <TrendingUp className="h-5 w-5 mr-2" />
               Cash Flow from Operating Activities
             </CardTitle>

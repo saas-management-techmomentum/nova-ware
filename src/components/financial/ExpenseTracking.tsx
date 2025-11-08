@@ -101,7 +101,7 @@ export const ExpenseTracking = () => {
           </p>
         </div>
         {!isInCorporateOverview && (
-          <Button className="bg-indigo-600 hover:bg-indigo-700">
+          <Button className="bg-gray-800 hover:bg-gray-900">
             <Plus className="h-4 w-4 mr-2" />
             Add Expense
           </Button>
@@ -145,8 +145,8 @@ export const ExpenseTracking = () => {
                 <p className="text-slate-400 text-sm">Categories</p>
                 <p className="text-2xl font-bold text-white">{Object.keys(expensesByCategory).length}</p>
               </div>
-              <div className="bg-blue-500/10 p-3 rounded-lg">
-                <Briefcase className="h-6 w-6 text-blue-400" />
+              <div className="bg-gray-700/10 p-3 rounded-lg">
+                <Briefcase className="h-6 w-6 text-gray-400" />
               </div>
             </div>
           </CardContent>

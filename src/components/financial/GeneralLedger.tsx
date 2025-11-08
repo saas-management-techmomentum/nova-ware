@@ -190,11 +190,11 @@ export const GeneralLedger = () => {
     <div className="space-y-6">
       {/* Corporate Overview Banner */}
       {isInCorporateOverview && (
-        <Card className="bg-indigo-900/20 border-indigo-700/50">
+        <Card className="bg-gray-800/20 border-gray-700/50">
           <CardContent className="p-4">
             <div className="flex items-center space-x-2">
-              <Building className="h-5 w-5 text-indigo-400" />
-              <span className="text-indigo-300 font-medium">Corporate Overview</span>
+              <Building className="h-5 w-5 text-gray-400" />
+              <span className="text-gray-300 font-medium">Corporate Overview</span>
               <span className="text-slate-400">•</span>
               <span className="text-slate-300">General ledger across all warehouses</span>
             </div>
@@ -210,7 +210,7 @@ export const GeneralLedger = () => {
             {isInCorporateOverview && " across all warehouses"}
           </p>
         </div>
-        <Button onClick={exportToCSV} className="bg-indigo-600 hover:bg-indigo-700">
+        <Button onClick={exportToCSV} className="bg-gray-800 hover:bg-gray-900">
           <Download className="h-4 w-4 mr-2" />
           Export CSV
         </Button>
@@ -433,7 +433,7 @@ export const GeneralLedger = () => {
                         <Badge 
                           variant="secondary" 
                           className={`text-xs ${
-                            entry.module === 'invoice' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' :
+                            entry.module === 'invoice' ? 'bg-gray-700/10 text-gray-400 border-gray-600/20' :
                             entry.module === 'purchase_order' ? 'bg-orange-500/10 text-orange-400 border-orange-500/20' :
                             entry.module === 'bank_transaction' ? 'bg-green-500/10 text-green-400 border-green-500/20' :
                             entry.module === 'inventory' ? 'bg-purple-500/10 text-purple-400 border-purple-500/20' :

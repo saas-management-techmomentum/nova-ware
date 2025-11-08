@@ -240,7 +240,7 @@ export const ProfitLossStatement: React.FC<ProfitLossStatementProps> = () => {
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-2xl font-bold text-white flex items-center">
-            <FileText className="h-6 w-6 mr-2 text-indigo-400" />
+            <FileText className="h-6 w-6 mr-2 text-gray-400" />
             Profit & Loss Statement
           </h2>
           <p className="text-slate-400 mt-1">

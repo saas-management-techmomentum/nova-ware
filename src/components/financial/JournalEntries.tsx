@@ -96,11 +96,11 @@ export const JournalEntries = () => {
     <div className="space-y-6">
       {/* Corporate Overview Banner */}
       {isInCorporateOverview && (
-        <Card className="bg-indigo-900/20 border-indigo-700/50">
+        <Card className="bg-gray-800/20 border-gray-700/50">
           <CardContent className="p-4">
             <div className="flex items-center space-x-2">
-              <Building className="h-5 w-5 text-indigo-400" />
-              <span className="text-indigo-300 font-medium">Corporate Overview</span>
+              <Building className="h-5 w-5 text-gray-400" />
+              <span className="text-gray-300 font-medium">Corporate Overview</span>
               <span className="text-slate-400">•</span>
               <span className="text-slate-300">Journal entries from all warehouses</span>
             </div>
@@ -133,7 +133,7 @@ export const JournalEntries = () => {
           {!isInCorporateOverview && (
             <Button 
               onClick={() => setShowAddDialog(true)}
-              className="bg-indigo-600 hover:bg-indigo-700"
+              className="bg-gray-800 hover:bg-gray-900"
             >
               <Plus className="h-4 w-4 mr-2" />
               New Entry
@@ -174,7 +174,7 @@ export const JournalEntries = () => {
                         <span className="ml-1 capitalize">{entry.status}</span>
                       </Badge>
                       {isAutomaticEntry(entry) && (
-                        <Badge variant="secondary" className="bg-blue-500/10 text-blue-400 border-blue-500/20">
+                        <Badge variant="secondary" className="bg-gray-700/10 text-gray-400 border-gray-600/20">
                           Auto-Generated
                         </Badge>
                       )}

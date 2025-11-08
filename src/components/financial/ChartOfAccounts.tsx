@@ -186,7 +186,7 @@ const ChartOfAccounts = () => {
     switch (category) {
       case 'assets': return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
       case 'liabilities': return 'bg-rose-500/10 text-rose-400 border-rose-500/20';
-      case 'equity': return 'bg-blue-500/10 text-blue-400 border-blue-500/20';
+      case 'equity': return 'bg-gray-700/10 text-gray-400 border-gray-600/20';
       case 'revenue': return 'bg-green-500/10 text-green-400 border-green-500/20';
       case 'expenses': return 'bg-amber-500/10 text-amber-400 border-amber-500/20';
       default: return 'bg-slate-500/10 text-slate-400 border-slate-500/20';
@@ -241,7 +241,7 @@ const ChartOfAccounts = () => {
         {!isInCorporateOverview && (
           <Button 
             onClick={() => setShowAddDialog(true)}
-            className="bg-indigo-600 hover:bg-indigo-700"
+            className="bg-gray-800 hover:bg-gray-900"
           >
             <Plus className="h-4 w-4 mr-2" />
             Add Account
@@ -260,7 +260,7 @@ const ChartOfAccounts = () => {
             {!isInCorporateOverview && (
               <Button 
                 onClick={() => setShowAddDialog(true)}
-                className="bg-indigo-600 hover:bg-indigo-700"
+                className="bg-gray-800 hover:bg-gray-900"
               >
                 <Plus className="h-4 w-4 mr-2" />
                 Create Your First Account
@@ -346,7 +346,7 @@ const ChartOfAccounts = () => {
                                 variant="ghost"
                                 size="sm"
                                 onClick={() => handleViewTransactions(account)}
-                                className="h-8 w-8 p-0 hover:bg-blue-600/20 text-blue-400"
+                                className="h-8 w-8 p-0 hover:bg-gray-700/20 text-gray-400"
                                 title="View Transaction History"
                               >
                                 <Eye className="h-3 w-3" />
