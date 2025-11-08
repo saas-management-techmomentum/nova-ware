@@ -178,7 +178,7 @@ export const EnhancedInvoiceManagement = () => {
             </Button>
           )}
           {!isInCorporateOverview && (
-            <Button onClick={() => setShowCreateDialog(true)} className="bg-gray-800 hover:bg-gray-900">
+            <Button onClick={() => setShowCreateDialog(true)}>
               <Plus className="h-4 w-4 mr-2" />
               Create Invoice
             </Button>
