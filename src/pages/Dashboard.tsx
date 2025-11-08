@@ -163,9 +163,9 @@ const Dashboard = () => {
       value: metricsData?.order_processing_speed || 0,
       change: metricsData?.processing_speed_change || 0,
       icon: Zap,
-      color: "text-purple-500",
-      bgColor: "bg-purple-500/10",
-      borderColor: "border-l-purple-500",
+      color: "text-gray-500",
+      bgColor: "bg-gray-700/10",
+      borderColor: "border-l-gray-700",
       route: "/app/metrics/order-processing"
     },
     {
@@ -295,7 +295,6 @@ const Dashboard = () => {
                     className={`h-full bg-${metric.color.split('-')[1]}-500 shadow-[0_0_5px_rgba(${
                       metric.color.includes('gray') ? '107,114,128' :
                       metric.color.includes('emerald') ? '16,185,129' :
-                      metric.color.includes('purple') ? '147,51,234' :
                       '107,114,128'
                     },0.5)] rounded-full transition-all duration-1000 ease-out`}
                     style={{ width: `${metric.value}%` }}

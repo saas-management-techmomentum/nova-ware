@@ -37,7 +37,7 @@
 
     --sidebar-background: 0 0% 8%;
     --sidebar-foreground: 0 0% 96%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary: 220 9% 46%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 0 0% 14%;
     --sidebar-accent-foreground: 0 0% 96%;
@@ -109,7 +109,7 @@
     --ring: 0 0% 70%;
     --sidebar-background: 0 0% 8%;
     --sidebar-foreground: 0 0% 96%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary: 220 9% 46%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 0 0% 14%;
     --sidebar-accent-foreground: 0 0% 96%;
@@ -149,7 +149,7 @@
     right: 0;
     bottom: 0;
     background: radial-gradient(circle at 30% 20%, hsla(262 83% 58% / 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 70% 80%, hsla(217 87% 63% / 0.15) 0%, transparent 50%);
+                radial-gradient(circle at 70% 80%, hsla(220 9% 46% / 0.15) 0%, transparent 50%);
     pointer-events: none;
   }
   
