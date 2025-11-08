@@ -273,7 +273,7 @@ const PredictiveInventory = () => {
             Machine learning predictions based on historical distribution patterns and demand trends
           </p>
         </div>
-        <Button onClick={handleRefreshPredictions} className="gap-2 bg-gray-800 hover:bg-gray-900">
+        <Button onClick={handleRefreshPredictions} className="gap-2">
           <RefreshCw className="h-4 w-4" />
           Refresh AI Analysis
         </Button>
