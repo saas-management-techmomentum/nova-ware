@@ -437,7 +437,7 @@ const ShipmentsPage = () => {
                   </Select>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Button className="gap-2 bg-green-600 hover:bg-green-700 text-white" onClick={handleNewShipment}>
+                  <Button className="gap-2" onClick={handleNewShipment}>
                     <Plus className="h-4 w-4" />
                     Manage Shipments
                   </Button>
