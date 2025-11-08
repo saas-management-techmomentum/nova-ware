@@ -295,7 +295,7 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-slate-800 border-slate-700 text-white max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="bg-neutral-900 border-neutral-800 text-white max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-xl font-semibold">Create New Invoice</DialogTitle>
         </DialogHeader>
@@ -368,7 +368,7 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
           {/* Header Section */}
           <div className="grid grid-cols-2 gap-8">
             {/* Customer Section */}
-            <Card className="bg-slate-700/30 border-slate-600">
+            <Card className="bg-neutral-800/30 border-neutral-700">
               <CardContent className="p-4">
                 <div className="mb-4">
                   <AddClientDialog 
@@ -384,10 +384,10 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
                   />
                 </div>
                 <Select value={formData.client_id} onValueChange={(value) => setFormData({...formData, client_id: value})}>
-                  <SelectTrigger className="bg-slate-700/50 border-slate-600">
+                  <SelectTrigger className="bg-neutral-800/50 border-neutral-700">
                     <SelectValue placeholder="Select customer" />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-700">
+                  <SelectContent className="bg-neutral-900 border-neutral-800">
                     {clients.map((client) => (
                       <SelectItem key={client.id} value={client.id}>{client.name}</SelectItem>
                     ))}
@@ -400,49 +400,49 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-slate-300">Invoice number</Label>
+                  <Label className="text-neutral-300">Invoice number</Label>
                   <Input
                     value={formData.invoice_number}
                     onChange={(e) => setFormData({...formData, invoice_number: e.target.value})}
                     placeholder="(e.g., INV-001)"
-                    className="bg-slate-700/50 border-slate-600 text-white"
+                    className="bg-neutral-800/50 border-neutral-700 text-white"
                   />
                 </div>
                 <div>
-                  <Label className="text-slate-300">P.O./S.O. number</Label>
+                  <Label className="text-neutral-300">P.O./S.O. number</Label>
                   <Input
                     value={formData.po_so_number}
                     onChange={(e) => setFormData({...formData, po_so_number: e.target.value})}
-                    className="bg-slate-700/50 border-slate-600 text-white"
+                    className="bg-neutral-800/50 border-neutral-700 text-white"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-slate-300">Invoice date</Label>
+                  <Label className="text-neutral-300">Invoice date</Label>
                   <div className="relative">
                     <Input
                       type="date"
                       value={formData.invoice_date}
                       onChange={(e) => setFormData({...formData, invoice_date: e.target.value})}
-                      className="bg-slate-700/50 border-slate-600 text-white"
+                      className="bg-neutral-800/50 border-neutral-700 text-white"
                     />
-                    <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
+                    <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400 pointer-events-none" />
                   </div>
                 </div>
                 <div>
-                  <Label className="text-slate-300">Payment due</Label>
+                  <Label className="text-neutral-300">Payment due</Label>
                   <div className="relative">
                     <Input
                       type="date"
                       value={formData.due_date}
                       onChange={(e) => setFormData({...formData, due_date: e.target.value})}
-                      className="bg-slate-700/50 border-slate-600 text-white"
+                      className="bg-neutral-800/50 border-neutral-700 text-white"
                     />
-                    <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
+                    <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400 pointer-events-none" />
                   </div>
-                  <span className="text-xs text-slate-400 mt-1">On Receipt</span>
+                  <span className="text-xs text-neutral-400 mt-1">On Receipt</span>
                 </div>
               </div>
             </div>
@@ -451,12 +451,12 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
           {/* Items Section */}
           <div className="space-y-4">
             {/* Items Header */}
-            <div className="grid grid-cols-12 gap-4 p-3 bg-slate-700/20 rounded-lg">
-              <div className="col-span-4 text-slate-300 font-medium">Items</div>
-              <div className="col-span-2 text-slate-300 font-medium text-center">Stock</div>
-              <div className="col-span-2 text-slate-300 font-medium text-center">Quantity</div>
-              <div className="col-span-2 text-slate-300 font-medium text-center">Price</div>
-              <div className="col-span-1 text-slate-300 font-medium text-right">Amount</div>
+            <div className="grid grid-cols-12 gap-4 p-3 bg-neutral-800/20 rounded-lg">
+              <div className="col-span-4 text-neutral-300 font-medium">Items</div>
+              <div className="col-span-2 text-neutral-300 font-medium text-center">Stock</div>
+              <div className="col-span-2 text-neutral-300 font-medium text-center">Quantity</div>
+              <div className="col-span-2 text-neutral-300 font-medium text-center">Price</div>
+              <div className="col-span-1 text-neutral-300 font-medium text-right">Amount</div>
               <div className="col-span-1"></div>
             </div>
 

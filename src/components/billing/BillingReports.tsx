@@ -48,13 +48,13 @@ export const BillingReports = () => {
     <div className="space-y-6">
       {/* Corporate Overview Banner */}
       {isInCorporateOverview && (
-        <Card className="bg-slate-800/50 border-slate-700">
+        <Card className="bg-neutral-900/50 border-neutral-800">
           <CardContent className="p-4">
             <div className="flex items-center space-x-2">
-              <Building className="h-5 w-5 text-slate-400" />
-              <span className="text-slate-300 font-medium">Corporate Overview</span>
-              <span className="text-slate-400">•</span>
-              <span className="text-slate-300">Consolidated billing reports across all warehouses</span>
+              <Building className="h-5 w-5 text-neutral-400" />
+              <span className="text-neutral-300 font-medium">Corporate Overview</span>
+              <span className="text-neutral-400">•</span>
+              <span className="text-neutral-300">Consolidated billing reports across all warehouses</span>
             </div>
           </CardContent>
         </Card>
@@ -64,12 +64,12 @@ export const BillingReports = () => {
         <div>
           <h2 className="text-2xl font-bold text-white">Billing Reports</h2>
           {isInCorporateOverview && (
-            <p className="text-slate-400 mt-1">Showing consolidated reports from all warehouses</p>
+            <p className="text-neutral-400 mt-1">Showing consolidated reports from all warehouses</p>
           )}
         </div>
         <div className="flex items-center space-x-4">
           <Select value={timeRange} onValueChange={setTimeRange}>
-            <SelectTrigger className="w-32 bg-slate-700/50 border-slate-600">
+            <SelectTrigger className="w-32 bg-neutral-800/50 border-neutral-700">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -79,7 +79,7 @@ export const BillingReports = () => {
               <SelectItem value="365">Last year</SelectItem>
             </SelectContent>
           </Select>
-          <Button variant="outline" className="border-slate-600">
+          <Button variant="outline" className="border-neutral-700">
             <Download className="h-4 w-4 mr-2" />
             Export
           </Button>
@@ -88,13 +88,13 @@ export const BillingReports = () => {
 
       <div className="grid gap-6 md:grid-cols-2">
         {/* Revenue Chart */}
-        <Card className="bg-slate-800/50 border-slate-700">
+        <Card className="bg-neutral-900/50 border-neutral-800">
           <CardHeader>
             <CardTitle className="text-white flex items-center">
               <BarChart3 className="h-5 w-5 mr-2 text-gray-400" />
               Monthly Revenue
               {isInCorporateOverview && (
-                <span className="ml-2 text-sm text-slate-400">(All Warehouses)</span>
+                <span className="ml-2 text-sm text-neutral-400">(All Warehouses)</span>
               )}
             </CardTitle>
           </CardHeader>
@@ -116,10 +116,10 @@ export const BillingReports = () => {
                 </BarChart>
               </ResponsiveContainer>
             ) : (
-              <div className="flex flex-col items-center justify-center py-16 text-slate-400">
-                <BarChart3 className="h-12 w-12 mb-3 text-slate-500" />
+              <div className="flex flex-col items-center justify-center py-16 text-neutral-400">
+                <BarChart3 className="h-12 w-12 mb-3 text-neutral-500" />
                 <p className="text-sm">No revenue data available</p>
-                <p className="text-xs text-slate-500 mt-1">
+                <p className="text-xs text-neutral-500 mt-1">
                   {isInCorporateOverview 
                     ? "No invoices found across all warehouses"
                     : "Create invoices to see revenue trends"
@@ -131,13 +131,13 @@ export const BillingReports = () => {
         </Card>
 
         {/* Service Breakdown */}
-        <Card className="bg-slate-800/50 border-slate-700">
+        <Card className="bg-neutral-900/50 border-neutral-800">
           <CardHeader>
             <CardTitle className="text-white flex items-center">
               <PieChartIcon className="h-5 w-5 mr-2 text-emerald-400" />
               Revenue by Service
               {isInCorporateOverview && (
-                <span className="ml-2 text-sm text-slate-400">(All Warehouses)</span>
+                <span className="ml-2 text-sm text-neutral-400">(All Warehouses)</span>
               )}
             </CardTitle>
           </CardHeader>
@@ -176,7 +176,7 @@ export const BillingReports = () => {
                           className="w-3 h-3 rounded-full mr-2"
                           style={{ backgroundColor: COLORS[index % COLORS.length] }}
                         />
-                        <span className="text-slate-300 capitalize">{item.service}</span>
+                        <span className="text-neutral-300 capitalize">{item.service}</span>
                       </div>
                       <span className="text-white">${item.value.toLocaleString()}</span>
                     </div>
@@ -184,10 +184,10 @@ export const BillingReports = () => {
                 </div>
               </>
             ) : (
-              <div className="flex flex-col items-center justify-center py-16 text-slate-400">
-                <PieChartIcon className="h-12 w-12 mb-3 text-slate-500" />
+              <div className="flex flex-col items-center justify-center py-16 text-neutral-400">
+                <PieChartIcon className="h-12 w-12 mb-3 text-neutral-500" />
                 <p className="text-sm">No service data available</p>
-                <p className="text-xs text-slate-500 mt-1">
+                <p className="text-xs text-neutral-500 mt-1">
                   {isInCorporateOverview 
                     ? "Add service details to invoices across warehouses to see breakdown"
                     : "Add service details to invoices to see breakdown"
@@ -201,41 +201,41 @@ export const BillingReports = () => {
 
       {/* Summary Stats */}
       <div className="grid gap-4 md:grid-cols-4">
-        <Card className="bg-slate-800/50 border-slate-700">
+        <Card className="bg-neutral-900/50 border-neutral-800">
           <CardContent className="p-4">
             <div className="text-2xl font-bold text-white">
               ${invoices.reduce((sum, inv) => sum + inv.total_amount, 0).toLocaleString()}
             </div>
-            <p className="text-slate-400 text-sm">
+            <p className="text-neutral-400 text-sm">
               Total Revenue {isInCorporateOverview && "(All Warehouses)"}
             </p>
           </CardContent>
         </Card>
         
-        <Card className="bg-slate-800/50 border-slate-700">
+        <Card className="bg-neutral-900/50 border-neutral-800">
           <CardContent className="p-4">
             <div className="text-2xl font-bold text-white">{invoices.length}</div>
-            <p className="text-slate-400 text-sm">
+            <p className="text-neutral-400 text-sm">
               Total Invoices {isInCorporateOverview && "(All Warehouses)"}
             </p>
           </CardContent>
         </Card>
         
-        <Card className="bg-slate-800/50 border-slate-700">
+        <Card className="bg-neutral-900/50 border-neutral-800">
           <CardContent className="p-4">
             <div className="text-2xl font-bold text-white">
               ${invoices.length > 0 ? (invoices.reduce((sum, inv) => sum + inv.total_amount, 0) / invoices.length).toFixed(0) : '0'}
             </div>
-            <p className="text-slate-400 text-sm">Avg Invoice</p>
+            <p className="text-neutral-400 text-sm">Avg Invoice</p>
           </CardContent>
         </Card>
         
-        <Card className="bg-slate-800/50 border-slate-700">
+        <Card className="bg-neutral-900/50 border-neutral-800">
           <CardContent className="p-4">
             <div className="text-2xl font-bold text-white">
               {invoices.length > 0 ? ((invoices.filter(i => i.status === 'paid').length / invoices.length) * 100).toFixed(1) : '0.0'}%
             </div>
-            <p className="text-slate-400 text-sm">Collection Rate</p>
+            <p className="text-neutral-400 text-sm">Collection Rate</p>
           </CardContent>
         </Card>
       </div>

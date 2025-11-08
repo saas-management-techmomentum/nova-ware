@@ -144,11 +144,11 @@ export const EnhancedInvoiceManagement = () => {
 
   if (!selectedWarehouse && !canViewAllWarehouses) {
     return (
-      <Card className="bg-slate-800/50 border-slate-700">
+      <Card className="bg-neutral-900/50 border-neutral-800">
         <CardContent className="flex flex-col items-center justify-center py-16">
-          <FileText className="h-16 w-16 mb-4 text-slate-500" />
+          <FileText className="h-16 w-16 mb-4 text-neutral-500" />
           <p className="text-lg font-medium mb-2 text-white">Select a Warehouse</p>
-          <p className="text-sm text-slate-400 text-center max-w-md">
+          <p className="text-sm text-neutral-400 text-center max-w-md">
             Please select a warehouse to manage invoices for that location. Invoices are warehouse-specific.
           </p>
         </CardContent>
@@ -162,9 +162,9 @@ export const EnhancedInvoiceManagement = () => {
         <div>
           <h2 className="text-2xl font-bold text-white">Enhanced Invoice Management</h2>
           {isInCorporateOverview ? (
-            <p className="text-slate-400 mt-1">Showing invoices from all warehouses</p>
+            <p className="text-neutral-400 mt-1">Showing invoices from all warehouses</p>
           ) : (
-            <div className="flex items-center mt-1 text-slate-400">
+            <div className="flex items-center mt-1 text-neutral-400">
               <Building2 className="h-4 w-4 mr-1" />
               <span>Warehouse: {getWarehouseName(selectedWarehouse)}</span>
             </div>
@@ -172,7 +172,7 @@ export const EnhancedInvoiceManagement = () => {
         </div>
         <div className="flex space-x-3">
           {!isInCorporateOverview && (
-            <Button onClick={() => setShowRecurringDialog(true)} variant="outline" className="border-slate-600">
+            <Button onClick={() => setShowRecurringDialog(true)} variant="outline" className="border-neutral-700">
               <Plus className="h-4 w-4 mr-2" />
               Recurring Invoice
             </Button>
@@ -186,13 +186,13 @@ export const EnhancedInvoiceManagement = () => {
         </div>
       </div>
 
-      <Card className="bg-slate-800/50 border-slate-700">
+      <Card className="bg-neutral-900/50 border-neutral-800">
         <CardHeader>
           <CardTitle className="text-white flex items-center">
             <FileText className="h-5 w-5 mr-2 text-gray-400" />
             Invoices
             {selectedWarehouse && (
-              <span className="ml-2 text-sm text-slate-400">
+              <span className="ml-2 text-sm text-neutral-400">
                 ({totalInvoices} invoice{totalInvoices !== 1 ? 's' : ''} for this warehouse)
               </span>
             )}
@@ -200,10 +200,10 @@ export const EnhancedInvoiceManagement = () => {
         </CardHeader>
         <CardContent>
           {totalInvoices === 0 ? (
-            <div className="flex flex-col items-center justify-center py-12 text-slate-400">
-              <FileText className="h-16 w-16 mb-4 text-slate-500" />
+            <div className="flex flex-col items-center justify-center py-12 text-neutral-400">
+              <FileText className="h-16 w-16 mb-4 text-neutral-500" />
               <p className="text-lg font-medium mb-2">No invoices found</p>
-              <p className="text-sm text-slate-500 text-center max-w-md mb-4">
+              <p className="text-sm text-neutral-500 text-center max-w-md mb-4">
                 {isInCorporateOverview 
                   ? "No invoices found across all warehouses."
                   : `No invoices found for warehouse ${getWarehouseName(selectedWarehouse)}. Create your first invoice to start billing clients.`
@@ -220,16 +220,16 @@ export const EnhancedInvoiceManagement = () => {
             <div className="space-y-4">
               <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-4">
-                  <div className="text-sm text-slate-400">
+                  <div className="text-sm text-neutral-400">
                     Showing {startIndex + 1}-{Math.min(endIndex, totalInvoices)} of {totalInvoices} invoices
                   </div>
                   <div className="flex items-center space-x-2">
-                    <span className="text-sm text-slate-400">Items per page:</span>
+                    <span className="text-sm text-neutral-400">Items per page:</span>
                     <Select value={itemsPerPage.toString()} onValueChange={handleItemsPerPageChange}>
-                      <SelectTrigger className="w-20 bg-slate-700/50 border-slate-600">
+                      <SelectTrigger className="w-20 bg-neutral-800/50 border-neutral-700">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-slate-700">
+                      <SelectContent className="bg-neutral-900 border-neutral-800">
                         <SelectItem value="10">10</SelectItem>
                         <SelectItem value="25">25</SelectItem>
                         <SelectItem value="50">50</SelectItem>
@@ -242,12 +242,12 @@ export const EnhancedInvoiceManagement = () => {
               
             <Table>
               <TableHeader>
-                <TableRow className="border-slate-700">
-                  <TableHead className="text-slate-300">Invoice #</TableHead>
-                  <TableHead className="text-slate-300">Client</TableHead>
-                  <TableHead className="text-slate-300">Date</TableHead>
-                  <TableHead className="text-slate-300">Due Date</TableHead>
-                  <TableHead className="text-slate-300">Amount</TableHead>
+                <TableRow className="border-neutral-800">
+                  <TableHead className="text-neutral-300">Invoice #</TableHead>
+                  <TableHead className="text-neutral-300">Client</TableHead>
+                  <TableHead className="text-neutral-300">Date</TableHead>
+                  <TableHead className="text-neutral-300">Due Date</TableHead>
+                  <TableHead className="text-neutral-300">Amount</TableHead>
                   <TableHead className="text-slate-300">Items</TableHead>
                   <TableHead className="text-slate-300">Inventory Impact</TableHead>
                   <TableHead className="text-slate-300">Email Status</TableHead>
