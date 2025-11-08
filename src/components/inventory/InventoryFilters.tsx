@@ -35,27 +35,27 @@ const InventoryFilters = ({ filters, onFilterChange }: InventoryFiltersProps) =>
           Filter
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 theme-dropdown">
-        <DropdownMenuLabel className="theme-text-secondary">Filter by Status</DropdownMenuLabel>
-        <DropdownMenuSeparator className="theme-border" />
+      <DropdownMenuContent className="w-56 bg-slate-800 border-slate-700">
+        <DropdownMenuLabel className="text-slate-300">Filter by Status</DropdownMenuLabel>
+        <DropdownMenuSeparator className="bg-slate-700" />
         <DropdownMenuCheckboxItem
           checked={filters.lowStock}
           onCheckedChange={() => onFilterChange('lowStock')}
-          className="theme-text-primary"
+          className="text-slate-300"
         >
           Low Stock Items
         </DropdownMenuCheckboxItem>
         <DropdownMenuCheckboxItem
           checked={filters.expiringSoon}
           onCheckedChange={() => onFilterChange('expiringSoon')}
-          className="theme-text-primary"
+          className="text-slate-300"
         >
           Expiring Soon
         </DropdownMenuCheckboxItem>
         <DropdownMenuCheckboxItem
           checked={filters.noLocation}
           onCheckedChange={() => onFilterChange('noLocation')}
-          className="theme-text-primary"
+          className="text-slate-300"
         >
           No Location Assigned
         </DropdownMenuCheckboxItem>

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Bell, User, LogOut, Home, HelpCircle, Menu } from 'lucide-react';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { ThemeToggle } from '@/components/ui/theme-toggle';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,7 +20,7 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 import ApprovalStatusIndicator from '@/components/user/ApprovalStatusIndicator';
 
 const AppHeader = () => {
-  const [companyName] = useState("LogistiX");
+  const [companyName] = useState("Quantra");
   const { user, employee, signOut } = useAuth(); // Add employee from context
   const navigate = useNavigate();
   const { 
@@ -93,51 +92,56 @@ const AppHeader = () => {
   };
 
   return (
-    <header className="h-16 border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-40">
+    <header className="h-16 border-b border-slate-800 bg-slate-900/80 backdrop-blur-sm z-20">
       <div className="h-full px-6">
         <div className="flex items-center justify-between h-full">
           <div className="flex items-center gap-3">
-            <SidebarTrigger className="h-10 w-10 text-muted-foreground hover:text-foreground hover:bg-accent transition-colors" />
+            {/* Sidebar Toggle Button */}
+            <SidebarTrigger className="h-10 w-10 rounded-full border border-slate-700 bg-slate-800/50 text-slate-400 hover:text-white hover:bg-slate-700/50 transition-colors">
+              <Menu className="h-5 w-5" />
+            </SidebarTrigger>
             
-            <h1 className="text-lg font-roboto font-bold text-foreground">
+            <h1 className="text-lg font-semibold text-white">
               {companyName}
             </h1>
           </div>
           
           <div className="flex items-center gap-4">
+            {/* Warehouse Selector */}
             <div data-onboarding="warehouse-selector">
               <WarehouseSelector />
             </div>
             
-            <ThemeToggle />
-            
+            {/* Back to Landing Page */}
             <Button 
               asChild
               variant="ghost" 
               size="icon"
-              className="h-10 w-10 text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+              className="h-10 w-10 rounded-full border border-slate-700 bg-slate-800/50 text-slate-400 hover:text-white"
             >
               <Link to="/">
                 <Home className="h-5 w-5" />
               </Link>
             </Button>
 
+            {/* Notifications */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  className="h-10 w-10 text-muted-foreground hover:text-foreground hover:bg-accent transition-colors relative"
+                  className="h-10 w-10 rounded-full border border-slate-700 bg-slate-800/50"
                 >
-                  <Bell className="h-5 w-5" />
+                  <Bell className="h-5 w-5 text-slate-400" />
                 </Button>
               </DropdownMenuTrigger>
-               <DropdownMenuContent align="end" className="w-80 bg-popover border border-border">
+               <DropdownMenuContent align="end" className="w-80">
                 <div className="py-2 px-4">
-                  <h3 className="font-medium text-sm text-popover-foreground">Notifications</h3>
+                  <h3 className="font-medium text-sm">Notifications</h3>
                 </div>
-                <DropdownMenuSeparator className="bg-border" />
+                <DropdownMenuSeparator />
                 
+                {/* Approval Status Indicator */}
                 <div className="px-4 py-2">
                   <ApprovalStatusIndicator />
                 </div>
@@ -148,33 +152,35 @@ const AppHeader = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
+            {/* User Profile */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-10 px-2 hover:bg-accent transition-colors">
+                <Button variant="ghost" className="h-10 px-2 rounded-full border border-slate-700 bg-slate-800/50">
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={user?.user_metadata?.avatar_url} />
-                    <AvatarFallback className="bg-primary text-primary-foreground text-sm font-roboto font-bold">
+                    <AvatarFallback className="bg-indigo-600 text-white text-sm">
                       {getUserInitials()}
                     </AvatarFallback>
                   </Avatar>
-                  <span className="ml-2 text-sm text-foreground hidden sm:block font-roboto">
+                  <span className="ml-2 text-sm text-white hidden sm:block">
                     {getUserName()}
                   </span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56 bg-popover border border-border">
+              <DropdownMenuContent align="end" className="w-56">
                 <div className="py-2 px-4">
-                  <p className="text-sm font-medium text-popover-foreground">{getUserName()}</p>
+                  <p className="text-sm font-medium">{getUserName()}</p>
                   <p className="text-xs text-muted-foreground">{user?.email}</p>
                 </div>
-                <DropdownMenuSeparator className="bg-border" />
-                <DropdownMenuItem asChild className="hover:bg-accent">
-                  <Link to="/app/profile" className="cursor-pointer text-popover-foreground">
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/app/profile" className="cursor-pointer">
                     <User className="mr-2 h-4 w-4" />
                     <span>Profile</span>
                   </Link>
                 </DropdownMenuItem>
                 
+                {/* Onboarding Toggle */}
                 <div className="px-2 py-1.5">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -190,15 +196,16 @@ const AppHeader = () => {
                   </div>
                 </div>
                 
+                {/* Start Onboarding Option */}
                 {isOnboardingEnabled && (
-                  <DropdownMenuItem onClick={handleStartOnboarding} className="cursor-pointer hover:bg-accent text-popover-foreground">
+                  <DropdownMenuItem onClick={handleStartOnboarding} className="cursor-pointer">
                     <HelpCircle className="mr-2 h-4 w-4" />
                     <span>Start Tour</span>
                   </DropdownMenuItem>
                 )}
                 
-                <DropdownMenuSeparator className="bg-border" />
-                <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-destructive hover:bg-destructive/10 focus:text-destructive">
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-red-600 focus:text-red-600">
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Sign out</span>
                 </DropdownMenuItem>

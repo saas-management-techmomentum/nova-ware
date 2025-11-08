@@ -28,8 +28,6 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import WarehouseSphere from '@/components/WarehouseSphere';
-import AnimatedBackground from '@/components/backgrounds/AnimatedBackground';
-import { EnhancedButton } from '@/components/ui/enhanced-button';
 
 const LandingPage = () => {
   const coreFeatures = [
@@ -102,16 +100,16 @@ const LandingPage = () => {
 
   const testimonials = [
     {
-      quote: "LogistiX revolutionized our warehouse operations. We've seen a 45% improvement in order processing speed and perfect inventory accuracy.",
+      quote: "Quantra transformed our warehouse operations. We've seen a 40% improvement in order processing speed and near-perfect inventory accuracy.",
       author: "Sarah Chen",
-      role: "Operations Director",
-      company: "SupplyChain Pro"
+      role: "Warehouse Manager",
+      company: "LogiFlow Solutions"
     },
     {
-      quote: "The real-time visibility and integrated financial tools have been game-changers for our multi-location distribution network.",
+      quote: "The real-time visibility and integrated financials have been game-changers for our multi-location operations.",
       author: "Michael Rodriguez", 
-      role: "Logistics Manager",
-      company: "FastFlow Logistics"
+      role: "Supply Chain Director",
+      company: "Global Logistics Corp"
     }
   ];
 
@@ -153,8 +151,7 @@ const LandingPage = () => {
   ];
 
   return (
-    <div className="min-h-screen overflow-hidden relative">
-      <AnimatedBackground />
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 overflow-hidden">
       {/* Navigation */}
       <nav className="border-b border-indigo-500/20 bg-slate-950/50 backdrop-blur-xl sticky top-0 z-50">
         <div className="w-full px-6 lg:px-8">
@@ -163,10 +160,10 @@ const LandingPage = () => {
               <div className="h-10 w-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
                 <Building2 className="h-6 w-6 text-white" />
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-white to-orange-200 bg-clip-text text-transparent">
-                LogistiX
+              <span className="text-2xl font-bold bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent">
+                Quantra
               </span>
-              <Badge className="bg-gradient-to-r from-orange-600 to-blue-600 text-white border-0 ml-2">
+              <Badge className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0 ml-2">
                 WMS
               </Badge>
             </div>
@@ -182,7 +179,7 @@ const LandingPage = () => {
                 Sign In
               </Link>
               <Link to="/auth">
-                <Button className="bg-gradient-to-r from-orange-600 to-blue-600 hover:from-orange-700 hover:to-blue-700 text-white border-0 px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-orange-500/25 transition-all duration-300">
+                <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white border-0 px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-indigo-500/25 transition-all duration-300">
                   Get Started
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -199,43 +196,43 @@ const LandingPage = () => {
         <div className="w-full px-6 lg:px-8 py-24 relative z-10">
           <div className="text-center space-y-8 max-w-6xl mx-auto">
             <div className="space-y-6">
-              <Badge className="bg-gradient-to-r from-orange-600 to-blue-600 text-white border-0 px-6 py-2 text-base rounded-full shadow-lg">
+              <Badge className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0 px-6 py-2 text-base rounded-full shadow-lg">
                 <Package className="h-5 w-5 mr-2" />
-                Advanced Warehouse Management
+                Warehouse Management System
               </Badge>
               
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight">
-                <span className="text-gradient-animate animate-bounce-in block" style={{animationDelay: '0.5s'}}>
-                  Streamline.
+                <span className="bg-gradient-to-r from-white via-indigo-200 to-white bg-clip-text text-transparent">
+                  Modern Warehouse
                 </span>
                 <br />
-                <span className="text-gradient-animate animate-bounce-in block" style={{animationDelay: '1s'}}>
-                  Optimize.
+                <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
+                  Management.
                 </span>
                 <br />
-                <span className="text-gradient-animate animate-bounce-in block" style={{animationDelay: '1.5s'}}>
-                  Scale.
+                <span className="bg-gradient-to-r from-purple-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                  Real-Time Precision.
                 </span>
               </h1>
               
               <p className="text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto leading-relaxed">
-                LogistiX is next-generation warehouse management software designed for 
-                <span className="text-transparent bg-gradient-to-r from-orange-400 to-blue-400 bg-clip-text font-semibold"> efficiency, control, and growth</span> — 
-                across every warehouse you operate.
+                Quantra is a next-generation WMS designed for 
+                <span className="text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text font-semibold"> speed, accuracy, and control</span> — 
+                across every warehouse you manage.
               </p>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8 animate-slide-up" style={{animationDelay: '2s'}}>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8">
               <Link to="/auth">
-                <EnhancedButton size="xl" variant="premium" className="px-12 py-6 text-lg rounded-2xl font-semibold shadow-2xl hover-lift">
+                <Button size="lg" className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white border-0 px-12 py-6 text-lg rounded-2xl font-semibold shadow-2xl hover:shadow-indigo-500/25 transition-all duration-300 transform hover:scale-105">
                   <Calendar className="mr-3 h-6 w-6" />
                   Request a Demo
-                </EnhancedButton>
+                </Button>
               </Link>
               <Link to="/about">
-                <EnhancedButton size="xl" variant="glow" className="glass-card-enhanced text-white border-0 px-12 py-6 text-lg rounded-2xl font-semibold hover-lift">
+                <Button size="lg" variant="ghost" className="text-slate-300 hover:text-white hover:bg-slate-800/50 border border-slate-600 hover:border-indigo-500/50 px-12 py-6 text-lg rounded-2xl font-semibold transition-all duration-300">
                   Learn More
-                </EnhancedButton>
+                </Button>
               </Link>
             </div>
           </div>
@@ -247,7 +244,7 @@ const LandingPage = () => {
         <div className="w-full px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Built for <span className="bg-gradient-to-r from-orange-400 to-blue-400 bg-clip-text text-transparent">Peak Performance</span>
+              Built for <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">High-Performance Operations</span>
             </h2>
             <p className="text-xl text-slate-400 max-w-3xl mx-auto">
               Powerful functionality designed for speed, accuracy, and control.
@@ -256,14 +253,13 @@ const LandingPage = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
             {coreFeatures.map((feature, index) => (
-              <Card key={index} className="glass-card-enhanced hover-lift group animate-slide-up"
-                    style={{animationDelay: `${index * 0.2}s`}}>
+              <Card key={index} className="bg-slate-900/20 border-slate-700/30 backdrop-blur-xl hover:bg-slate-800/30 hover:border-indigo-500/40 transition-all duration-500 group">
                 <CardContent className="p-8">
-                  <div className="h-16 w-16 bg-gradient-to-r from-logistix-orange to-logistix-blue rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:animate-glow-pulse transition-all duration-300 shadow-lg">
+                  <div className="h-16 w-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <feature.icon className="h-8 w-8 text-white" />
                   </div>
                   <h3 className="text-xl font-semibold text-white mb-3">{feature.title}</h3>
-                  <p className="text-slate-300 leading-relaxed">{feature.description}</p>
+                  <p className="text-slate-400 leading-relaxed">{feature.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -276,7 +272,7 @@ const LandingPage = () => {
         <div className="w-full px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              See LogistiX in <span className="bg-gradient-to-r from-orange-400 to-blue-400 bg-clip-text text-transparent">Action</span>
+              See Quantra in <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Action</span>
             </h2>
             <p className="text-xl text-slate-400 max-w-3xl mx-auto">
               Discover how our WMS transforms warehouse operations with real-world scenarios.
@@ -287,7 +283,7 @@ const LandingPage = () => {
             {visualFeatures.map((feature, index) => (
               <div key={index} className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
                 <div className={`space-y-8 ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
-                  <Badge className="bg-gradient-to-r from-orange-600/20 to-blue-600/20 text-orange-300 border-orange-500/30 px-4 py-2">
+                  <Badge className="bg-gradient-to-r from-indigo-600/20 to-purple-600/20 text-indigo-300 border-indigo-500/30 px-4 py-2">
                     {feature.highlight}
                   </Badge>
                   <h3 className="text-3xl md:text-4xl font-bold text-white leading-tight">
@@ -296,20 +292,19 @@ const LandingPage = () => {
                   <p className="text-lg text-slate-300 leading-relaxed">
                     {feature.description}
                   </p>
-                  <EnhancedButton variant="gradient" className="px-8 py-3 rounded-xl font-semibold shadow-lg hover-lift">
+                  <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white border-0 px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-indigo-500/25 transition-all duration-300">
                     Learn More
                     <ArrowRight className="ml-2 h-4 w-4" />
-                  </EnhancedButton>
+                  </Button>
                 </div>
                 <div className={`${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
-                  <div className="glass-card-enhanced rounded-3xl p-8 hover-lift hover-glow transition-all duration-500 animate-slide-up"
-                       style={{animationDelay: `${0.5 + index * 0.2}s`}}>
-                    <div className="aspect-video bg-gradient-to-br from-logistix-blue/20 via-logistix-orange/10 to-logistix-green/20 rounded-2xl flex items-center justify-center">
+                  <div className="bg-slate-900/20 border border-slate-700/30 backdrop-blur-xl rounded-3xl p-8 hover:bg-slate-800/30 hover:border-indigo-500/40 transition-all duration-500">
+                    <div className="aspect-video bg-gradient-to-br from-indigo-900/50 via-purple-900/30 to-slate-900/50 rounded-2xl flex items-center justify-center">
                       <div className="text-center space-y-4">
-                        <div className="h-16 w-16 bg-gradient-to-r from-logistix-blue to-logistix-green rounded-2xl flex items-center justify-center mx-auto animate-scale-pulse shadow-lg">
+                        <div className="h-16 w-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center mx-auto">
                           <Monitor className="h-8 w-8 text-white" />
                         </div>
-                        <p className="text-slate-300">Interactive Demo Available</p>
+                        <p className="text-slate-400">Interactive Demo Available</p>
                       </div>
                     </div>
                   </div>
@@ -336,14 +331,13 @@ const LandingPage = () => {
             {/* KPI Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
               {analyticsKPIs.map((kpi, index) => (
-                <Card key={index} className="glass-card-enhanced hover-lift animate-bounce-in"
-                      style={{animationDelay: `${index * 0.1}s`}}>
+                <Card key={index} className="bg-slate-900/20 border-slate-700/30 backdrop-blur-xl hover:bg-slate-800/30 hover:border-indigo-500/40 transition-all duration-500">
                   <CardContent className="p-6 text-center">
-                    <div className={`text-3xl font-bold text-gradient-animate mb-2`}>
+                    <div className={`text-3xl font-bold ${kpi.color} mb-2`}>
                       {kpi.value}
                     </div>
                     <div className="text-white font-semibold mb-1">{kpi.title}</div>
-                    <div className="text-slate-300 text-sm">{kpi.trend}</div>
+                    <div className="text-slate-400 text-sm">{kpi.trend}</div>
                   </CardContent>
                 </Card>
               ))}
@@ -374,7 +368,7 @@ const LandingPage = () => {
         <div className="w-full px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Trusted by <span className="bg-gradient-to-r from-orange-400 to-blue-400 bg-clip-text text-transparent">Industry Leaders</span>
+              Trusted by <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Industry Leaders</span>
             </h2>
           </div>
           
@@ -473,7 +467,7 @@ const LandingPage = () => {
           <div className="max-w-5xl mx-auto space-y-8">
             <Badge className="bg-gradient-to-r from-indigo-600/20 to-purple-600/20 text-indigo-300 border-indigo-500/30 px-6 py-3 text-lg rounded-full">
               <Target className="h-5 w-5 mr-2" />
-              Upgrade Your Warehouse with LogistiX
+              Upgrade Your Warehouse with Quantra
             </Badge>
             
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
@@ -485,7 +479,7 @@ const LandingPage = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center pt-8">
-              <Button size="lg" className="bg-gradient-to-r from-orange-600 to-blue-600 hover:from-orange-700 hover:to-blue-700 text-white border-0 px-12 py-6 text-lg rounded-2xl font-semibold shadow-2xl hover:shadow-orange-500/25 transition-all duration-300 transform hover:scale-105">
+              <Button size="lg" className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white border-0 px-12 py-6 text-lg rounded-2xl font-semibold shadow-2xl hover:shadow-indigo-500/25 transition-all duration-300 transform hover:scale-105">
                 <Calendar className="mr-3 h-6 w-6" />
                 Book a Demo
               </Button>
@@ -510,27 +504,27 @@ const LandingPage = () => {
                   <div className="h-10 w-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
                     <Building2 className="h-6 w-6 text-white" />
                   </div>
-                  <span className="text-2xl font-bold bg-gradient-to-r from-white to-orange-200 bg-clip-text text-transparent">
-                    LogistiX
+                  <span className="text-2xl font-bold bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent">
+                    Quantra
                   </span>
-                  <Badge className="bg-gradient-to-r from-orange-600/20 to-blue-600/20 text-orange-300 border-orange-500/30">
+                  <Badge className="bg-gradient-to-r from-indigo-600/20 to-purple-600/20 text-indigo-300 border-indigo-500/30">
                     WMS
                   </Badge>
                 </div>
                 <p className="text-slate-400 max-w-md leading-relaxed">
-                  Next-generation warehouse management system designed for efficiency, control, and growth across every warehouse you operate.
+                  Next-generation warehouse management system designed for speed, accuracy, and control across every warehouse you manage.
                 </p>
                 
                 {/* Email Capture */}
                 <div className="space-y-3">
-                  <h4 className="text-white font-semibold">Stay updated on LogistiX releases</h4>
+                  <h4 className="text-white font-semibold">Stay updated on Quantra releases</h4>
                   <div className="flex max-w-md">
                     <input 
                       type="email" 
                       placeholder="Enter your email"
                       className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-l-xl text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500"
                     />
-                    <Button className="bg-gradient-to-r from-orange-600 to-blue-600 hover:from-orange-700 hover:to-blue-700 text-white border-0 px-6 py-3 rounded-r-xl font-semibold">
+                    <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white border-0 px-6 py-3 rounded-r-xl font-semibold">
                       Subscribe
                     </Button>
                   </div>
@@ -564,7 +558,7 @@ const LandingPage = () => {
             <div className="pt-8 border-t border-slate-800">
               <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                 <p className="text-slate-500">
-                  &copy; 2024 LogistiX. Advanced Warehouse Management System for modern operations.
+                  &copy; 2024 Quantra. Warehouse Management System for modern operations.
                 </p>
                 <div className="flex space-x-6">
                   <div className="text-slate-500 hover:text-indigo-400 transition-colors cursor-pointer">

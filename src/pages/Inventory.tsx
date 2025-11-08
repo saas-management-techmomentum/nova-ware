@@ -236,11 +236,11 @@ const Inventory = () => {
   }
 
   return (
-    <div className="space-y-6 bg-background min-h-screen p-6">
+    <div className="space-y-6 bg-slate-900 min-h-screen p-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold theme-text-primary">Inventory Management</h1>
-          <p className="theme-text-secondary">Track and manage your product inventory</p>
+          <h1 className="text-3xl font-bold text-white">Inventory Management</h1>
+          <p className="text-slate-400">Track and manage your product inventory</p>
         </div>
         <div className="flex gap-2">
           {!isCorporateOverview && (
@@ -248,7 +248,7 @@ const Inventory = () => {
               mode="lookup"
               onScan={handleBarcodeAction}
               variant="outline"
-              className="theme-button-secondary"
+              className="bg-slate-700 border-slate-600 text-white hover:bg-slate-600"
             />
           )}
           {(isCorporateOverview || selectedWarehouse) && (
@@ -299,17 +299,17 @@ const Inventory = () => {
       )}
 
       <Tabs defaultValue="all" className="space-y-4">
-        <TabsList className="theme-card theme-border">
+        <TabsList className="bg-slate-800 border-slate-700">
           <TabsTrigger value="all">All Products</TabsTrigger>
           <TabsTrigger value="low-stock">Low Stock</TabsTrigger>
           <TabsTrigger value="out-of-stock">Out of Stock</TabsTrigger>
         </TabsList>
 
         <TabsContent value="all" className="space-y-4">
-          <Card className="theme-card">
+          <Card className="bg-slate-800 border-slate-700">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="theme-text-primary">Product Inventory</CardTitle>
+                <CardTitle className="text-white">Product Inventory</CardTitle>
                 <div className="flex items-center gap-4">
                   {hasUnassignedItems && (
                     <Button 
@@ -331,12 +331,12 @@ const Inventory = () => {
             <CardContent>
               <div className="flex items-center gap-4 mb-6">
                 <div className="relative flex-1">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 theme-text-secondary h-4 w-4" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-4 w-4" />
                   <Input
                     placeholder="Search products..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 theme-input"
+                    className="pl-10 bg-slate-700 border-slate-600 text-white placeholder-slate-400"
                   />
                 </div>
                 <InventoryFilters
@@ -345,21 +345,21 @@ const Inventory = () => {
                 />
               </div>
 
-              <div className="rounded-md theme-border border overflow-hidden">
+              <div className="rounded-md border border-slate-600 overflow-hidden">
                 <Table>
                   <TableHeader>
-                    <TableRow className="theme-table-header">
-                       <TableHead className="theme-text-secondary w-48">Product</TableHead>
-                       <TableHead className="theme-text-secondary w-28">Product ID</TableHead>
-                       <TableHead className="theme-text-secondary w-32">Stock</TableHead>
-                       {isCorporateOverview && <TableHead className="theme-text-secondary w-20">Unit Price</TableHead>}
-                       {isCorporateOverview && <TableHead className="theme-text-secondary w-20">Case Price</TableHead>}
-                       {isCorporateOverview && <TableHead className="theme-text-secondary w-24">Stock Value</TableHead>}
-                        {!isCorporateOverview && <TableHead className="theme-text-secondary w-20">Case Size</TableHead>}
-                        {!isCorporateOverview && <TableHead className="theme-text-secondary w-24">Dimensions</TableHead>}
-                        {!isCorporateOverview && <TableHead className="theme-text-secondary w-20">Weight</TableHead>}
-                       {!isCorporateOverview && <TableHead className="theme-text-secondary w-32">Expiration</TableHead>}
-                       <TableHead className="theme-text-secondary w-20">Actions</TableHead>
+                    <TableRow className="bg-slate-700/50 border-slate-600">
+                       <TableHead className="text-slate-300 w-48">Product</TableHead>
+                       <TableHead className="text-slate-300 w-28">Product ID</TableHead>
+                       <TableHead className="text-slate-300 w-32">Stock</TableHead>
+                       {isCorporateOverview && <TableHead className="text-slate-300 w-20">Unit Price</TableHead>}
+                       {isCorporateOverview && <TableHead className="text-slate-300 w-20">Case Price</TableHead>}
+                       {isCorporateOverview && <TableHead className="text-slate-300 w-24">Stock Value</TableHead>}
+                        {!isCorporateOverview && <TableHead className="text-slate-300 w-20">Case Size</TableHead>}
+                        {!isCorporateOverview && <TableHead className="text-slate-300 w-24">Dimensions</TableHead>}
+                        {!isCorporateOverview && <TableHead className="text-slate-300 w-20">Weight</TableHead>}
+                       {!isCorporateOverview && <TableHead className="text-slate-300 w-32">Expiration</TableHead>}
+                       <TableHead className="text-slate-300 w-20">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -504,28 +504,28 @@ const Inventory = () => {
         </TabsContent>
 
         <TabsContent value="low-stock">
-          <Card className="theme-card">
+          <Card className="bg-slate-800 border-slate-700">
             <CardHeader>
-              <CardTitle className="theme-text-primary">Low Stock Items</CardTitle>
-              <CardDescription className="theme-text-secondary">
+              <CardTitle className="text-white">Low Stock Items</CardTitle>
+              <CardDescription className="text-slate-400">
                 Items below their customizable low stock thresholds
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {lowStockItems.map((item) => (
-                  <div key={item.id} className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
+                  <div key={item.id} className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-muted rounded flex items-center justify-center">
-                        <Package className="h-6 w-6 theme-text-secondary" />
+                      <div className="w-12 h-12 bg-slate-600 rounded flex items-center justify-center">
+                        <Package className="h-6 w-6 text-slate-400" />
                       </div>
                       <div>
-                        <h3 className="font-medium theme-text-primary">{item.name}</h3>
-                        <p className="text-sm theme-text-secondary">SKU: {item.sku}</p>
+                        <h3 className="font-medium text-white">{item.name}</h3>
+                        <p className="text-sm text-slate-400">SKU: {item.sku}</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-lg font-semibold theme-text-primary">{item.stock} units</p>
+                      <p className="text-lg font-semibold text-white">{item.stock} units</p>
                       {getStockBadge(item.stock)}
                     </div>
                   </div>
@@ -536,28 +536,28 @@ const Inventory = () => {
         </TabsContent>
 
         <TabsContent value="out-of-stock">
-          <Card className="theme-card">
+          <Card className="bg-slate-800 border-slate-700">
             <CardHeader>
-              <CardTitle className="theme-text-primary">Out of Stock Items</CardTitle>
-              <CardDescription className="theme-text-secondary">
+              <CardTitle className="text-white">Out of Stock Items</CardTitle>
+              <CardDescription className="text-slate-400">
                 Items that are currently out of stock
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {outOfStockItems.map((item) => (
-                  <div key={item.id} className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
+                  <div key={item.id} className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-muted rounded flex items-center justify-center">
-                        <Package className="h-6 w-6 theme-text-secondary" />
+                      <div className="w-12 h-12 bg-slate-600 rounded flex items-center justify-center">
+                        <Package className="h-6 w-6 text-slate-400" />
                       </div>
                       <div>
-                        <h3 className="font-medium theme-text-primary">{item.name}</h3>
-                        <p className="text-sm theme-text-secondary">SKU: {item.sku}</p>
+                        <h3 className="font-medium text-white">{item.name}</h3>
+                        <p className="text-sm text-slate-400">SKU: {item.sku}</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-lg font-semibold theme-text-primary">0 units</p>
+                      <p className="text-lg font-semibold text-white">0 units</p>
                       {getStockBadge(0)}
                     </div>
                   </div>
