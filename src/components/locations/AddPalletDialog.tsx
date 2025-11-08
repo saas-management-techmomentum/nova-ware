@@ -278,22 +278,22 @@ const AddPalletDialog: React.FC<AddPalletDialogProps> = ({
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="locationType" className="flex items-center gap-1 text-slate-300">
+                <Label htmlFor="locationType" className="flex items-center gap-1 text-neutral-300">
                   Location Type *
                   {!locationType && <AlertCircle className="h-3 w-3 text-red-400" />}
                 </Label>
                 <Select value={locationType} onValueChange={setLocationType}>
-                  <SelectTrigger className={`bg-slate-700/50 border-slate-600 text-white ${!locationType ? "border-red-500/50" : ""}`}>
-                    <SelectValue placeholder="Select type" className="text-slate-400" />
+                  <SelectTrigger className={`bg-neutral-800/50 border-neutral-700 text-white ${!locationType ? "border-red-500/50" : ""}`}>
+                    <SelectValue placeholder="Select type" className="text-neutral-400" />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-700 text-white">
-                    <SelectItem value="pallet" className="hover:bg-slate-700 focus:bg-slate-700">Pallet Location</SelectItem>
-                    <SelectItem value="shelf" className="hover:bg-slate-700 focus:bg-slate-700">Shelf Location</SelectItem>
-                    <SelectItem value="bin" className="hover:bg-slate-700 focus:bg-slate-700">Bin Location</SelectItem>
-                    <SelectItem value="floor" className="hover:bg-slate-700 focus:bg-slate-700">Floor Location</SelectItem>
-                    <SelectItem value="rack" className="hover:bg-slate-700 focus:bg-slate-700">Rack Location</SelectItem>
-                    <SelectItem value="cooler" className="hover:bg-slate-700 focus:bg-slate-700">Cooler Location</SelectItem>
-                    <SelectItem value="freezer" className="hover:bg-slate-700 focus:bg-slate-700">Freezer Location</SelectItem>
+                  <SelectContent className="bg-neutral-900 border-neutral-800 text-white">
+                    <SelectItem value="pallet" className="hover:bg-neutral-800 focus:bg-neutral-800">Pallet Location</SelectItem>
+                    <SelectItem value="shelf" className="hover:bg-neutral-800 focus:bg-neutral-800">Shelf Location</SelectItem>
+                    <SelectItem value="bin" className="hover:bg-neutral-800 focus:bg-neutral-800">Bin Location</SelectItem>
+                    <SelectItem value="floor" className="hover:bg-neutral-800 focus:bg-neutral-800">Floor Location</SelectItem>
+                    <SelectItem value="rack" className="hover:bg-neutral-800 focus:bg-neutral-800">Rack Location</SelectItem>
+                    <SelectItem value="cooler" className="hover:bg-neutral-800 focus:bg-neutral-800">Cooler Location</SelectItem>
+                    <SelectItem value="freezer" className="hover:bg-neutral-800 focus:bg-neutral-800">Freezer Location</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -302,34 +302,34 @@ const AddPalletDialog: React.FC<AddPalletDialogProps> = ({
 
           {/* Location Details */}
           <div className="space-y-4">
-            <div className="border-b border-slate-700 pb-2">
-              <h3 className="text-sm font-semibold text-slate-300">Location Coordinates</h3>
+            <div className="border-b border-neutral-800 pb-2">
+              <h3 className="text-sm font-semibold text-neutral-300">Location Coordinates</h3>
             </div>
             
             <div className="grid grid-cols-3 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="zone" className="flex items-center gap-1 text-slate-300">
+                <Label htmlFor="zone" className="flex items-center gap-1 text-neutral-300">
                   Zone *
                   {!zone && <AlertCircle className="h-3 w-3 text-red-400" />}
                 </Label>
                 <Select value={zone} onValueChange={setZone}>
-                  <SelectTrigger className={`bg-slate-700/50 border-slate-600 text-white ${!zone ? "border-red-500/50" : ""}`}>
-                    <SelectValue placeholder="Zone" className="text-slate-400" />
+                  <SelectTrigger className={`bg-neutral-800/50 border-neutral-700 text-white ${!zone ? "border-red-500/50" : ""}`}>
+                    <SelectValue placeholder="Zone" className="text-neutral-400" />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-700 text-white">
-                    <SelectItem value="A" className="hover:bg-slate-700 focus:bg-slate-700">Zone A</SelectItem>
-                    <SelectItem value="B" className="hover:bg-slate-700 focus:bg-slate-700">Zone B</SelectItem>
-                    <SelectItem value="C" className="hover:bg-slate-700 focus:bg-slate-700">Zone C</SelectItem>
-                    <SelectItem value="D" className="hover:bg-slate-700 focus:bg-slate-700">Zone D</SelectItem>
-                    <SelectItem value="PICK" className="hover:bg-slate-700 focus:bg-slate-700">Pick Zone</SelectItem>
-                    <SelectItem value="RECV" className="hover:bg-slate-700 focus:bg-slate-700">Receiving</SelectItem>
-                    <SelectItem value="SHIP" className="hover:bg-slate-700 focus:bg-slate-700">Shipping</SelectItem>
+                  <SelectContent className="bg-neutral-900 border-neutral-800 text-white">
+                    <SelectItem value="A" className="hover:bg-neutral-800 focus:bg-neutral-800">Zone A</SelectItem>
+                    <SelectItem value="B" className="hover:bg-neutral-800 focus:bg-neutral-800">Zone B</SelectItem>
+                    <SelectItem value="C" className="hover:bg-neutral-800 focus:bg-neutral-800">Zone C</SelectItem>
+                    <SelectItem value="D" className="hover:bg-neutral-800 focus:bg-neutral-800">Zone D</SelectItem>
+                    <SelectItem value="PICK" className="hover:bg-neutral-800 focus:bg-neutral-800">Pick Zone</SelectItem>
+                    <SelectItem value="RECV" className="hover:bg-neutral-800 focus:bg-neutral-800">Receiving</SelectItem>
+                    <SelectItem value="SHIP" className="hover:bg-neutral-800 focus:bg-neutral-800">Shipping</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="aisle" className="flex items-center gap-1 text-slate-300">
+                <Label htmlFor="aisle" className="flex items-center gap-1 text-neutral-300">
                   Aisle *
                   {!aisle && <AlertCircle className="h-3 w-3 text-red-400" />}
                 </Label>
@@ -338,12 +338,12 @@ const AddPalletDialog: React.FC<AddPalletDialogProps> = ({
                   placeholder="01" 
                   value={aisle} 
                   onChange={(e) => setAisle(e.target.value)}
-                  className={`bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30 ${!aisle ? "border-red-500/50" : ""}`}
+                  className={`bg-neutral-800/50 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-neutral-600/50 focus:ring-1 focus:ring-neutral-500/30 ${!aisle ? "border-red-500/50" : ""}`}
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="section" className="flex items-center gap-1 text-slate-300">
+                <Label htmlFor="section" className="flex items-center gap-1 text-neutral-300">
                   Section *
                   {!section && <AlertCircle className="h-3 w-3 text-red-400" />}
                 </Label>
@@ -352,40 +352,40 @@ const AddPalletDialog: React.FC<AddPalletDialogProps> = ({
                   placeholder="A" 
                   value={section} 
                   onChange={(e) => setSection(e.target.value)}
-                  className={`bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30 ${!section ? "border-red-500/50" : ""}`}
+                  className={`bg-neutral-800/50 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-neutral-600/50 focus:ring-1 focus:ring-neutral-500/30 ${!section ? "border-red-500/50" : ""}`}
                 />
               </div>
             </div>
             
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="shelf" className="text-slate-300">Shelf/Level</Label>
+                <Label htmlFor="shelf" className="text-neutral-300">Shelf/Level</Label>
                 <Input 
                   id="shelf" 
                   placeholder="01" 
                   value={shelf} 
                   onChange={(e) => setShelf(e.target.value)}
-                  className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30"
+                  className="bg-neutral-800/50 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-neutral-600/50 focus:ring-1 focus:ring-neutral-500/30"
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="bin" className="text-slate-300">Bin/Position</Label>
+                <Label htmlFor="bin" className="text-neutral-300">Bin/Position</Label>
                 <Input 
                   id="bin" 
                   placeholder="01" 
                   value={bin} 
                   onChange={(e) => setBin(e.target.value)}
-                  className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30"
+                  className="bg-neutral-800/50 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-neutral-600/50 focus:ring-1 focus:ring-neutral-500/30"
                 />
               </div>
             </div>
             
             {/* Generated Location Preview */}
             {generateLocationString() && (
-              <div className="bg-slate-700/50 p-3 rounded-md border border-slate-600">
-                <Label className="text-sm font-medium text-slate-300">Generated Location Code:</Label>
-                <div className="text-lg font-mono font-bold text-indigo-400 mt-1">
+              <div className="bg-neutral-800/50 p-3 rounded-md border border-neutral-700">
+                <Label className="text-sm font-medium text-neutral-300">Generated Location Code:</Label>
+                <div className="text-lg font-mono font-bold text-neutral-300 mt-1">
                   {generateLocationString()}
                 </div>
               </div>
@@ -394,33 +394,33 @@ const AddPalletDialog: React.FC<AddPalletDialogProps> = ({
 
           {/* Location Properties */}
           <div className="space-y-4">
-            <div className="border-b border-slate-700 pb-2">
-              <h3 className="text-sm font-semibold text-slate-300">Location Properties</h3>
+            <div className="border-b border-neutral-800 pb-2">
+              <h3 className="text-sm font-semibold text-neutral-300">Location Properties</h3>
             </div>
             
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="capacity" className="text-slate-300">Capacity (cubic ft)</Label>
+                <Label htmlFor="capacity" className="text-neutral-300">Capacity (cubic ft)</Label>
                 <Input 
                   id="capacity" 
                   type="number"
                   placeholder="100" 
                   value={capacity} 
                   onChange={(e) => setCapacity(e.target.value)}
-                  className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30"
+                  className="bg-neutral-800/50 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-neutral-600/50 focus:ring-1 focus:ring-neutral-500/30"
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="temperature" className="text-slate-300">Temperature (°F)</Label>
+                <Label htmlFor="temperature" className="text-neutral-300">Temperature (°F)</Label>
                 <Select value={temperature} onValueChange={setTemperature}>
-                  <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
-                    <SelectValue placeholder="Select temp" className="text-slate-400" />
+                  <SelectTrigger className="bg-neutral-800/50 border-neutral-700 text-white">
+                    <SelectValue placeholder="Select temp" className="text-neutral-400" />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-700 text-white">
-                    <SelectItem value="ambient" className="hover:bg-slate-700 focus:bg-slate-700">Ambient (65-75°F)</SelectItem>
-                    <SelectItem value="cool" className="hover:bg-slate-700 focus:bg-slate-700">Cool (45-65°F)</SelectItem>
-                    <SelectItem value="cold" className="hover:bg-slate-700 focus:bg-slate-700">Cold (32-45°F)</SelectItem>
+                  <SelectContent className="bg-neutral-900 border-neutral-800 text-white">
+                    <SelectItem value="ambient" className="hover:bg-neutral-800 focus:bg-neutral-800">Ambient (65-75°F)</SelectItem>
+                    <SelectItem value="cool" className="hover:bg-neutral-800 focus:bg-neutral-800">Cool (45-65°F)</SelectItem>
+                    <SelectItem value="cold" className="hover:bg-neutral-800 focus:bg-neutral-800">Cold (32-45°F)</SelectItem>
                     <SelectItem value="frozen" className="hover:bg-slate-700 focus:bg-slate-700">Frozen (0-32°F)</SelectItem>
                   </SelectContent>
                 </Select>

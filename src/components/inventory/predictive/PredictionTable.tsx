@@ -62,7 +62,7 @@ const PredictionTable = ({ predictions, getUrgencyBadge, isLowStockContext = fal
       );
     } else {
       return (
-        <div className="flex items-center text-slate-400">
+        <div className="flex items-center text-neutral-400">
           <Minus className="h-4 w-4 mr-1" />
           <span>{percentageChange >= 0 ? '+' : ''}{percentageChange.toFixed(1)}%</span>
         </div>
@@ -73,32 +73,32 @@ const PredictionTable = ({ predictions, getUrgencyBadge, isLowStockContext = fal
   return (
     <div className="overflow-x-auto">
       <Table>
-        <TableHeader className="bg-slate-800/90">
-          <TableRow className="border-slate-700">
-            <TableHead className="text-slate-300 font-medium">Product</TableHead>
-            <TableHead className="text-slate-300 font-medium">Current Stock</TableHead>
-            <TableHead className="text-slate-300 font-medium">AI Usage Rate</TableHead>
-            <TableHead className="text-slate-300 font-medium">Trend Analysis</TableHead>
-            <TableHead className="text-slate-300 font-medium">AI Forecast</TableHead>
-            <TableHead className="text-slate-300 font-medium">Restock Date</TableHead>
-            <TableHead className="text-slate-300 font-medium">AI Status</TableHead>
-            <TableHead className="text-slate-300 font-medium">ML Confidence</TableHead>
-            <TableHead className="text-slate-300 font-medium">Smart Order Qty</TableHead>
+        <TableHeader className="bg-neutral-900/90">
+          <TableRow className="border-neutral-800">
+            <TableHead className="text-neutral-300 font-medium">Product</TableHead>
+            <TableHead className="text-neutral-300 font-medium">Current Stock</TableHead>
+            <TableHead className="text-neutral-300 font-medium">AI Usage Rate</TableHead>
+            <TableHead className="text-neutral-300 font-medium">Trend Analysis</TableHead>
+            <TableHead className="text-neutral-300 font-medium">AI Forecast</TableHead>
+            <TableHead className="text-neutral-300 font-medium">Restock Date</TableHead>
+            <TableHead className="text-neutral-300 font-medium">AI Status</TableHead>
+            <TableHead className="text-neutral-300 font-medium">ML Confidence</TableHead>
+            <TableHead className="text-neutral-300 font-medium">Smart Order Qty</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {predictions.length > 0 ? (
             predictions.map((prediction) => (
-              <TableRow key={prediction.itemId} className="border-slate-700 hover:bg-slate-700/30 transition-colors">
+              <TableRow key={prediction.itemId} className="border-neutral-800 hover:bg-neutral-800/30 transition-colors">
                 <TableCell className="text-white">
                   <div className="font-medium flex items-center">
                     {prediction.name}
-                    <Badge className="ml-2 bg-indigo-500/20 text-indigo-300 border-indigo-500/30 text-xs">
+                    <Badge className="ml-2 bg-gray-700/20 text-neutral-300 border-neutral-600/30 text-xs">
                       <Brain className="h-3 w-3 mr-1" />
                       AI
                     </Badge>
                   </div>
-                  <div className="text-xs text-slate-400 mt-1">SKU: {prediction.sku}</div>
+                  <div className="text-xs text-neutral-400 mt-1">SKU: {prediction.sku}</div>
                 </TableCell>
                 <TableCell>
                   {isLowStockContext ? (
@@ -117,7 +117,7 @@ const PredictionTable = ({ predictions, getUrgencyBadge, isLowStockContext = fal
                   )}
                 </TableCell>
                 <TableCell>
-                  <span className="text-indigo-300 font-medium">
+                  <span className="text-neutral-300 font-medium">
                     {prediction.weeklyUsageRate > 0 ? prediction.weeklyUsageRate.toFixed(1) : '0.0'}/week
                   </span>
                 </TableCell>
@@ -135,7 +135,7 @@ const PredictionTable = ({ predictions, getUrgencyBadge, isLowStockContext = fal
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  <span className="text-slate-300">
+                  <span className="text-neutral-300">
                     {formatPredictedDate(prediction.predictedRestockDate)}
                   </span>
                 </TableCell>
@@ -145,19 +145,19 @@ const PredictionTable = ({ predictions, getUrgencyBadge, isLowStockContext = fal
                 <TableCell>
                   <div className="flex items-center gap-2">
                     <Progress value={prediction.confidence} className="h-2 w-16" />
-                    <span className="text-slate-300">{prediction.confidence}%</span>
+                    <span className="text-neutral-300">{prediction.confidence}%</span>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <Badge variant="outline" className="bg-indigo-500/20 text-indigo-300 border-indigo-500/30 font-medium">
+                  <Badge variant="outline" className="bg-gray-700/20 text-neutral-300 border-neutral-600/30 font-medium">
                     {prediction.suggestedOrderQuantity} units
                   </Badge>
                 </TableCell>
               </TableRow>
             ))
           ) : (
-            <TableRow className="border-slate-700">
-              <TableCell colSpan={9} className="text-center py-8 text-slate-400">
+            <TableRow className="border-neutral-800">
+              <TableCell colSpan={9} className="text-center py-8 text-neutral-400">
                 No products match your current filters.
               </TableCell>
             </TableRow>

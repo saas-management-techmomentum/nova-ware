@@ -36,23 +36,23 @@ const SearchFilters = ({
   setSortBy,
 }: SearchFiltersProps) => {
   return (
-    <div className="p-4 bg-slate-800/70 border-b border-slate-700">
+    <div className="p-4 bg-neutral-900/70 border-b border-neutral-800">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
         <div className="relative w-full md:w-72">
-          <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+          <Search className="absolute left-3 top-2.5 h-4 w-4 text-neutral-400" />
           <Input
             placeholder="Search by product, SKU..."
-            className="pl-9 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30"
+            className="pl-9 bg-neutral-800/50 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-neutral-600/50 focus:ring-1 focus:ring-neutral-500/30"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           <Select value={timeFilter} onValueChange={setTimeFilter}>
-            <SelectTrigger className="w-[180px] bg-slate-700/50 border-slate-600 text-white">
+            <SelectTrigger className="w-[180px] bg-neutral-800/50 border-neutral-700 text-white">
               <SelectValue placeholder="Filter by time" />
             </SelectTrigger>
-            <SelectContent className="bg-slate-800 border-slate-700 text-white">
+            <SelectContent className="bg-neutral-900 border-neutral-800 text-white">
               <SelectItem value="all">All products</SelectItem>
               <SelectItem value="critical">Critical levels</SelectItem>
               <SelectItem value="warning">Replenishment due</SelectItem>
@@ -63,10 +63,10 @@ const SearchFilters = ({
           </Select>
 
           <Select value={monthFilter} onValueChange={setMonthFilter}>
-            <SelectTrigger className="w-[150px] bg-slate-700/50 border-slate-600 text-white">
+            <SelectTrigger className="w-[150px] bg-neutral-800/50 border-neutral-700 text-white">
               <SelectValue placeholder="Month" />
             </SelectTrigger>
-            <SelectContent className="bg-slate-800 border-slate-700 text-white">
+            <SelectContent className="bg-neutral-900 border-neutral-800 text-white">
               <SelectItem value="all">All Months</SelectItem>
               <SelectItem value="january">January</SelectItem>
               <SelectItem value="february">February</SelectItem>
@@ -84,10 +84,10 @@ const SearchFilters = ({
           </Select>
 
           <Select value={weekFilter} onValueChange={setWeekFilter}>
-            <SelectTrigger className="w-[140px] bg-slate-700/50 border-slate-600 text-white">
+            <SelectTrigger className="w-[140px] bg-neutral-800/50 border-neutral-700 text-white">
               <SelectValue placeholder="Week" />
             </SelectTrigger>
-            <SelectContent className="bg-slate-800 border-slate-700 text-white">
+            <SelectContent className="bg-neutral-900 border-neutral-800 text-white">
               <SelectItem value="all">All Weeks</SelectItem>
               <SelectItem value="week1">Week 1-4</SelectItem>
               <SelectItem value="week5">Week 5-8</SelectItem>
@@ -106,10 +106,10 @@ const SearchFilters = ({
           </Select>
           
           <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="w-[180px] bg-slate-700/50 border-slate-600 text-white">
+            <SelectTrigger className="w-[180px] bg-neutral-800/50 border-neutral-700 text-white">
               <SelectValue placeholder="Sort by" />
             </SelectTrigger>
-            <SelectContent className="bg-slate-800 border-slate-700 text-white">
+            <SelectContent className="bg-neutral-900 border-neutral-800 text-white">
               <SelectItem value="urgency">Priority (Default)</SelectItem>
               <SelectItem value="name">Product Name</SelectItem>
               <SelectItem value="stock">Current Stock</SelectItem>

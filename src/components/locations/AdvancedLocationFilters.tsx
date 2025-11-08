@@ -151,7 +151,7 @@ const AdvancedLocationFilters: React.FC<AdvancedLocationFiltersProps> = ({
 
           {/* Utilization Range */}
           <div className="space-y-2">
-            <Label className="text-slate-300">
+            <Label className="text-neutral-300">
               Utilization Rate: {filters.utilizationRange[0]}% - {filters.utilizationRange[1]}%
             </Label>
             <Slider
@@ -167,14 +167,14 @@ const AdvancedLocationFilters: React.FC<AdvancedLocationFiltersProps> = ({
           {/* Toggle Switches */}
           <div className="grid grid-cols-2 gap-4">
             <div className="flex items-center justify-between">
-              <Label className="text-slate-300 text-sm">Show Empty Locations</Label>
+              <Label className="text-neutral-300 text-sm">Show Empty Locations</Label>
               <Switch
                 checked={filters.showEmpty}
                 onCheckedChange={(checked) => updateFilter('showEmpty', checked)}
               />
             </div>
             <div className="flex items-center justify-between">
-              <Label className="text-slate-300 text-sm">Show Overstocked</Label>
+              <Label className="text-neutral-300 text-sm">Show Overstocked</Label>
               <Switch
                 checked={filters.showOverstocked}
                 onCheckedChange={(checked) => updateFilter('showOverstocked', checked)}
@@ -184,12 +184,12 @@ const AdvancedLocationFilters: React.FC<AdvancedLocationFiltersProps> = ({
 
           {/* Category Filter */}
           <div className="space-y-2">
-            <Label className="text-slate-300">Product Category</Label>
+            <Label className="text-neutral-300">Product Category</Label>
             <Select value={filters.category} onValueChange={(value) => updateFilter('category', value)}>
-              <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+              <SelectTrigger className="bg-neutral-800/50 border-neutral-700 text-white">
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
-              <SelectContent className="bg-slate-800 border-slate-700">
+              <SelectContent className="bg-neutral-900 border-neutral-800">
                 <SelectItem value="all">All Categories</SelectItem>
                 <SelectItem value="electronics">Electronics</SelectItem>
                 <SelectItem value="clothing">Clothing</SelectItem>
@@ -202,7 +202,7 @@ const AdvancedLocationFilters: React.FC<AdvancedLocationFiltersProps> = ({
 
           {/* Last Moved Filter */}
           <div className="space-y-2">
-            <Label className="text-slate-300">
+            <Label className="text-neutral-300">
               Last Moved Within: {filters.lastMovedDays} days
             </Label>
             <Slider

@@ -18,11 +18,11 @@ const LoadingOverlay = ({ dataAge, transactionCount, daysUntilReady, message }: 
   const strokeDashoffset = circumference - (progressPercentage / 100) * circumference;
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-xl flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-950/20 via-slate-950/40 to-gray-900/20" />
+    <div className="fixed inset-0 z-50 bg-neutral-950/95 backdrop-blur-xl flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-950/20 via-neutral-950/40 to-gray-900/20" />
       
       <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg max-h-screen overflow-y-auto">
-        <Card className="bg-slate-900/40 border-slate-700/50 backdrop-blur-md shadow-2xl">
+        <Card className="bg-neutral-900/40 border-neutral-800/50 backdrop-blur-md shadow-2xl">
           <CardContent className="p-4 sm:p-6 text-center">
             {/* AI Brain Icon with Pulse Animation */}
             <div className="relative mx-auto w-16 h-16 sm:w-20 sm:h-20 mb-4 sm:mb-6">
@@ -75,48 +75,48 @@ const LoadingOverlay = ({ dataAge, transactionCount, daysUntilReady, message }: 
                 Training Predictive Models
               </h2>
               
-              <p className="text-slate-300 text-sm sm:text-base max-w-sm mx-auto leading-relaxed">
+              <p className="text-neutral-300 text-sm sm:text-base max-w-sm mx-auto leading-relaxed">
                 {message}
               </p>
             </div>
 
             {/* Progress Stats - Responsive Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-2 mb-4 sm:mb-6">
-              <div className="bg-slate-800/50 rounded-lg p-3 sm:p-2 border border-slate-700/30">
+              <div className="bg-neutral-900/50 rounded-lg p-3 sm:p-2 border border-neutral-800/30">
                 <div className="flex items-center justify-center mb-1 sm:mb-1">
-                  <Clock className="h-3 w-3 text-indigo-400 mr-1" />
-                  <span className="text-slate-400 text-xs">Data Collection</span>
+                  <Clock className="h-3 w-3 text-gray-400 mr-1" />
+                  <span className="text-neutral-400 text-xs">Data Collection</span>
                 </div>
                 <div className="text-xl sm:text-lg font-bold text-white">{dataAge}</div>
-                <div className="text-slate-400 text-xs">of 30 days</div>
+                <div className="text-neutral-400 text-xs">of 30 days</div>
               </div>
 
-              <div className="bg-slate-800/50 rounded-lg p-3 sm:p-2 border border-slate-700/30">
+              <div className="bg-neutral-900/50 rounded-lg p-3 sm:p-2 border border-neutral-800/30">
                 <div className="flex items-center justify-center mb-1 sm:mb-1">
                   <TrendingUp className="h-3 w-3 text-gray-400 mr-1" />
-                  <span className="text-slate-400 text-xs">Transactions</span>
+                  <span className="text-neutral-400 text-xs">Transactions</span>
                 </div>
                 <div className="text-xl sm:text-lg font-bold text-white">{transactionCount}</div>
-                <div className="text-slate-400 text-xs">data points</div>
+                <div className="text-neutral-400 text-xs">data points</div>
               </div>
 
-              <div className="bg-slate-800/50 rounded-lg p-3 sm:p-2 border border-slate-700/30">
+              <div className="bg-neutral-900/50 rounded-lg p-3 sm:p-2 border border-neutral-800/30">
                 <div className="flex items-center justify-center mb-1 sm:mb-1">
                   <BarChart3 className="h-3 w-3 text-emerald-400 mr-1" />
-                  <span className="text-slate-400 text-xs">Time Remaining</span>
+                  <span className="text-neutral-400 text-xs">Time Remaining</span>
                 </div>
                 <div className="text-xl sm:text-lg font-bold text-white">{daysUntilReady}</div>
-                <div className="text-slate-400 text-xs">days</div>
+                <div className="text-neutral-400 text-xs">days</div>
               </div>
             </div>
 
             {/* Progress Bar */}
             <div className="mb-4 sm:mb-6">
               <div className="flex justify-between items-center mb-2">
-                <span className="text-slate-400 text-xs">Learning Progress</span>
-                <span className="text-indigo-400 font-medium text-xs">{progressPercentage.toFixed(1)}%</span>
+                <span className="text-neutral-400 text-xs">Learning Progress</span>
+                <span className="text-gray-400 font-medium text-xs">{progressPercentage.toFixed(1)}%</span>
               </div>
-              <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+              <div className="w-full bg-neutral-900 rounded-full h-2 overflow-hidden">
                 <div 
                   className="h-full bg-gradient-to-r from-gray-600 to-gray-700 rounded-full transition-all duration-700 ease-out"
                   style={{ width: `${progressPercentage}%` }}
@@ -130,26 +130,26 @@ const LoadingOverlay = ({ dataAge, transactionCount, daysUntilReady, message }: 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-left">
                 <div className="flex items-center">
                   <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 animate-pulse flex-shrink-0" />
-                  <span className="text-slate-300 text-xs">Inventory patterns</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 animate-pulse flex-shrink-0" />
-                  <span className="text-slate-300 text-xs">Demand fluctuations</span>
+                  <span className="text-neutral-300 text-xs">Inventory patterns</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-1.5 h-1.5 bg-gray-500 rounded-full mr-2 animate-pulse flex-shrink-0" />
-                  <span className="text-slate-300 text-xs">Seasonal trends</span>
+                  <span className="text-neutral-300 text-xs">Demand fluctuations</span>
                 </div>
                 <div className="flex items-center">
-                  <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2 animate-pulse flex-shrink-0" />
-                  <span className="text-slate-300 text-xs">Reorder points</span>
+                  <div className="w-1.5 h-1.5 bg-gray-500 rounded-full mr-2 animate-pulse flex-shrink-0" />
+                  <span className="text-neutral-300 text-xs">Seasonal trends</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-1.5 h-1.5 bg-gray-500 rounded-full mr-2 animate-pulse flex-shrink-0" />
+                  <span className="text-neutral-300 text-xs">Reorder points</span>
                 </div>
               </div>
             </div>
 
             {/* Note */}
-            <div className="p-3 bg-indigo-950/30 rounded border border-indigo-500/20">
-              <p className="text-indigo-200 text-xs text-left">
+            <div className="p-3 bg-neutral-900/30 rounded border border-neutral-700/20">
+              <p className="text-neutral-300 text-xs text-left">
                 <strong>Note:</strong> AI requires comprehensive historical data for accurate predictions.
               </p>
             </div>

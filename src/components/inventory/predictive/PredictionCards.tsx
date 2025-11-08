@@ -60,7 +60,7 @@ const PredictionCards = ({ predictions, getUrgencyBadge, isLowStockContext = fal
       );
     } else {
       return (
-        <div className="flex items-center text-slate-400">
+        <div className="flex items-center text-neutral-400">
           <Minus className="h-4 w-4 mr-1" />
           <span>{percentageChange >= 0 ? '+' : ''}{percentageChange.toFixed(1)}%</span>
         </div>
@@ -77,19 +77,19 @@ const PredictionCards = ({ predictions, getUrgencyBadge, isLowStockContext = fal
               ${prediction.restockUrgency === 'critical' ? 'border-red-700/30' : 
               prediction.restockUrgency === 'warning' ? 'border-amber-700/30' : 
               'border-emerald-700/30'} 
-              bg-slate-800/80 overflow-hidden hover:border-indigo-500/30 transition-colors`}
+              bg-neutral-900/80 overflow-hidden hover:border-neutral-600/30 transition-colors`}
             >
               <CardHeader className="p-4 pb-2">
                 <div className="flex justify-between items-start">
                   <CardTitle className="text-md text-white">{prediction.name}</CardTitle>
                   {getUrgencyBadge(prediction.restockUrgency)}
                 </div>
-                <div className="text-xs text-slate-400 mt-1">SKU: {prediction.sku}</div>
+                <div className="text-xs text-neutral-400 mt-1">SKU: {prediction.sku}</div>
               </CardHeader>
               <CardContent className="p-4 pt-2">
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-slate-400">Warehouse Stock:</span>
+                    <span className="text-sm text-neutral-400">Warehouse Stock:</span>
                     {isLowStockContext ? (
                       <Badge className="bg-amber-500/90 shadow-sm font-medium">
                         Low Stock
@@ -107,19 +107,19 @@ const PredictionCards = ({ predictions, getUrgencyBadge, isLowStockContext = fal
                   </div>
                   
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-slate-400">Weekly Distribution:</span>
-                    <span className="text-indigo-300 font-medium">
+                    <span className="text-sm text-neutral-400">Weekly Distribution:</span>
+                    <span className="text-neutral-300 font-medium">
                       {prediction.weeklyUsageRate > 0 ? prediction.weeklyUsageRate.toFixed(1) : '0.0'}/week
                     </span>
                   </div>
                   
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-slate-400">Usage Trend:</span>
+                    <span className="text-sm text-neutral-400">Usage Trend:</span>
                     {getTrendIndicator(prediction)}
                   </div>
                   
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-slate-400">Replenish In:</span>
+                    <span className="text-sm text-neutral-400">Replenish In:</span>
                     <Badge variant="outline" className={`
                       ${prediction.daysUntilRestock <= 7 ? 'bg-red-500/20 text-red-300 border-red-500/30' : 
                        prediction.daysUntilRestock <= 14 ? 'bg-amber-500/20 text-amber-300 border-amber-500/30' : 
@@ -131,23 +131,23 @@ const PredictionCards = ({ predictions, getUrgencyBadge, isLowStockContext = fal
                   </div>
                   
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-slate-400">Procurement Date:</span>
-                    <span className="text-slate-300 text-sm">
+                    <span className="text-sm text-neutral-400">Procurement Date:</span>
+                    <span className="text-neutral-300 text-sm">
                       {formatPredictedDate(prediction.predictedRestockDate)}
                     </span>
                   </div>
                   
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-slate-400">Forecast Accuracy:</span>
+                    <span className="text-sm text-neutral-400">Forecast Accuracy:</span>
                     <div className="flex items-center gap-2">
                       <Progress value={prediction.confidence} className="h-2 w-16" />
-                      <span className="text-slate-300 text-sm">{prediction.confidence}%</span>
+                      <span className="text-neutral-300 text-sm">{prediction.confidence}%</span>
                     </div>
                   </div>
                   
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-slate-400">Order Quantity:</span>
-                    <Badge variant="outline" className="bg-indigo-500/20 text-indigo-300 border-indigo-500/30 font-medium">
+                    <span className="text-sm text-neutral-400">Order Quantity:</span>
+                    <Badge variant="outline" className="bg-gray-700/20 text-neutral-300 border-neutral-600/30 font-medium">
                       {prediction.suggestedOrderQuantity} units
                     </Badge>
                   </div>
@@ -157,7 +157,7 @@ const PredictionCards = ({ predictions, getUrgencyBadge, isLowStockContext = fal
           ))}
         </div>
       ) : (
-        <div className="text-center py-12 text-slate-400">
+        <div className="text-center py-12 text-neutral-400">
           No products match your current filters.
         </div>
       )}
