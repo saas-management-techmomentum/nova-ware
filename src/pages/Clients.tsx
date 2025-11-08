@@ -117,11 +117,11 @@ const Clients = () => {
         
         <WarehouseContextIndicator />
         
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-neutral-900 border-neutral-800">
           <CardContent className="flex flex-col items-center justify-center py-16">
-            <AlertCircle className="h-16 w-16 mb-4 text-slate-500" />
+            <AlertCircle className="h-16 w-16 mb-4 text-neutral-500" />
             <p className="text-lg font-medium mb-2 text-white">Select a Warehouse</p>
-            <p className="text-sm text-slate-400 text-center max-w-md">
+            <p className="text-sm text-neutral-400 text-center max-w-md">
               Please select a warehouse from the header to view and manage clients for that location. Clients are now warehouse-specific.
             </p>
           </CardContent>
@@ -140,7 +140,7 @@ const Clients = () => {
               onClientAdded={handleAddClient}
               trigger={
                 <Button 
-                  className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700"
+                  className="flex items-center gap-2 bg-gray-800 hover:bg-gray-900"
                 >
                   <PlusCircle size={16} />
                   <span>Add Client</span>
@@ -154,39 +154,39 @@ const Clients = () => {
         
         <div className="flex items-center max-w-sm space-x-2">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-neutral-400" />
             <Input
               placeholder="Search clients..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-9 bg-slate-800 border-slate-700 text-white"
+              className="pl-9 bg-neutral-900 border-neutral-800 text-white"
             />
           </div>
         </div>
         
-        <div className="rounded-lg border border-slate-800 overflow-hidden">
+        <div className="rounded-lg border border-neutral-900 overflow-hidden">
           {isLoading ? (
-            <div className="flex items-center justify-center py-16 bg-slate-800">
+            <div className="flex items-center justify-center py-16 bg-neutral-900">
               <div className="text-white">Loading clients...</div>
             </div>
           ) : filteredClients.length > 0 ? (
             <Table>
-              <TableHeader className="bg-slate-900">
-                <TableRow className="border-slate-800">
-                  <TableHead className="text-slate-300">Company</TableHead>
-                  <TableHead className="text-slate-300">Contact Person</TableHead>
-                  <TableHead className="text-slate-300">Email</TableHead>
-                  <TableHead className="text-slate-300">Phone</TableHead>
-                  <TableHead className="text-slate-300">Business Type</TableHead>
-                  <TableHead className="text-slate-300">Payment Terms</TableHead>
-                  <TableHead className="text-slate-300 w-20">Actions</TableHead>
+              <TableHeader className="bg-neutral-950">
+                <TableRow className="border-neutral-900">
+                  <TableHead className="text-neutral-300">Company</TableHead>
+                  <TableHead className="text-neutral-300">Contact Person</TableHead>
+                  <TableHead className="text-neutral-300">Email</TableHead>
+                  <TableHead className="text-neutral-300">Phone</TableHead>
+                  <TableHead className="text-neutral-300">Business Type</TableHead>
+                  <TableHead className="text-neutral-300">Payment Terms</TableHead>
+                  <TableHead className="text-neutral-300 w-20">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filteredClients.map((client) => (
                   <TableRow 
                     key={client.id} 
-                    className="border-slate-800 hover:bg-slate-800/30"
+                    className="border-neutral-900 hover:bg-neutral-900/30"
                   >
                     <TableCell 
                       className="font-medium text-white cursor-pointer"
@@ -195,26 +195,26 @@ const Clients = () => {
                       <div className="flex items-center gap-2">
                         {client.name}
                         {!selectedWarehouse && (
-                          <Warehouse className="h-3 w-3 text-slate-400" />
+                          <Warehouse className="h-3 w-3 text-neutral-400" />
                         )}
                       </div>
                     </TableCell>
-                    <TableCell className="text-slate-300">{client.contact_person || 'N/A'}</TableCell>
-                    <TableCell className="text-slate-300">{client.contact_email}</TableCell>
-                    <TableCell className="text-slate-300">{client.contact_phone}</TableCell>
-                    <TableCell className="text-slate-300">{client.business_type || 'Not specified'}</TableCell>
-                    <TableCell className="text-slate-300">{client.payment_terms || 'Not specified'}</TableCell>
+                    <TableCell className="text-neutral-300">{client.contact_person || 'N/A'}</TableCell>
+                    <TableCell className="text-neutral-300">{client.contact_email}</TableCell>
+                    <TableCell className="text-neutral-300">{client.contact_phone}</TableCell>
+                    <TableCell className="text-neutral-300">{client.business_type || 'Not specified'}</TableCell>
+                    <TableCell className="text-neutral-300">{client.payment_terms || 'Not specified'}</TableCell>
                     <TableCell>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon" className="text-slate-400 hover:text-white hover:bg-slate-800">
+                          <Button variant="ghost" size="icon" className="text-neutral-400 hover:text-white hover:bg-neutral-900">
                             <ChevronDown className="h-4 w-4" />
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="bg-slate-900 border-slate-700 text-white min-w-[160px]">
+                        <DropdownMenuContent align="end" className="bg-neutral-950 border-neutral-800 text-white min-w-[160px]">
                           <DropdownMenuItem 
                             onClick={() => handleViewClient(client)}
-                            className="cursor-pointer hover:bg-slate-800 focus:bg-slate-800"
+                            className="cursor-pointer hover:bg-neutral-900 focus:bg-neutral-900"
                           >
                             <User className="h-4 w-4 mr-2" />
                             View Details

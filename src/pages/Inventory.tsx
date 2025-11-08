@@ -229,18 +229,18 @@ const Inventory = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-64 bg-slate-900">
+      <div className="flex items-center justify-center h-64 bg-neutral-900">
         <div className="text-lg text-white">Loading inventory data...</div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6 bg-slate-900 min-h-screen p-6">
+    <div className="space-y-6 bg-neutral-900 min-h-screen p-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-white">Inventory Management</h1>
-          <p className="text-slate-400">Track and manage your product inventory</p>
+          <p className="text-neutral-400">Track and manage your product inventory</p>
         </div>
         <div className="flex gap-2">
           {!isCorporateOverview && (
@@ -248,13 +248,13 @@ const Inventory = () => {
               mode="lookup"
               onScan={handleBarcodeAction}
               variant="outline"
-              className="bg-slate-700 border-slate-600 text-white hover:bg-slate-600"
+              className="bg-neutral-800 border-neutral-700 text-white hover:bg-neutral-700"
             />
           )}
           {(isCorporateOverview || selectedWarehouse) && (
             <Button
               onClick={() => setShowTransferDialog(true)}
-              className="bg-purple-600 hover:bg-purple-700 gap-2"
+              className="bg-gray-800 hover:bg-gray-900 gap-2"
             >
               <ArrowRight className="h-4 w-4" />
               Transfer Products
@@ -299,14 +299,14 @@ const Inventory = () => {
       )}
 
       <Tabs defaultValue="all" className="space-y-4">
-        <TabsList className="bg-slate-800 border-slate-700">
+        <TabsList className="bg-neutral-900 border-neutral-800">
           <TabsTrigger value="all">All Products</TabsTrigger>
           <TabsTrigger value="low-stock">Low Stock</TabsTrigger>
           <TabsTrigger value="out-of-stock">Out of Stock</TabsTrigger>
         </TabsList>
 
         <TabsContent value="all" className="space-y-4">
-          <Card className="bg-slate-800 border-slate-700">
+          <Card className="bg-neutral-900 border-neutral-800">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle className="text-white">Product Inventory</CardTitle>
@@ -331,12 +331,12 @@ const Inventory = () => {
             <CardContent>
               <div className="flex items-center gap-4 mb-6">
                 <div className="relative flex-1">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-4 w-4" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 h-4 w-4" />
                   <Input
                     placeholder="Search products..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 bg-slate-700 border-slate-600 text-white placeholder-slate-400"
+                    className="pl-10 bg-neutral-800 border-neutral-700 text-white placeholder-neutral-400"
                   />
                 </div>
                 <InventoryFilters
@@ -345,13 +345,13 @@ const Inventory = () => {
                 />
               </div>
 
-              <div className="rounded-md border border-slate-600 overflow-hidden">
+              <div className="rounded-md border border-neutral-700 overflow-hidden">
                 <Table>
                   <TableHeader>
-                    <TableRow className="bg-slate-700/50 border-slate-600">
-                       <TableHead className="text-slate-300 w-48">Product</TableHead>
-                       <TableHead className="text-slate-300 w-28">Product ID</TableHead>
-                       <TableHead className="text-slate-300 w-32">Stock</TableHead>
+                    <TableRow className="bg-neutral-800/90 border-neutral-700">
+                       <TableHead className="text-neutral-300 w-48">Product</TableHead>
+                       <TableHead className="text-neutral-300 w-28">Product ID</TableHead>
+                       <TableHead className="text-neutral-300 w-32">Stock</TableHead>
                        {isCorporateOverview && <TableHead className="text-slate-300 w-20">Unit Price</TableHead>}
                        {isCorporateOverview && <TableHead className="text-slate-300 w-20">Case Price</TableHead>}
                        {isCorporateOverview && <TableHead className="text-slate-300 w-24">Stock Value</TableHead>}

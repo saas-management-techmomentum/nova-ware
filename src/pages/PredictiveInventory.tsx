@@ -205,20 +205,20 @@ const PredictiveInventory = () => {
         {/* Render the underlying page content (dimmed) */}
         <div className="space-y-6 animate-fade-in opacity-20 pointer-events-none">
           <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-            <div className="flex flex-col gap-2">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent flex items-center">
-                <Brain className="h-6 w-6 mr-2 text-indigo-400" />
-                AI-Powered Inventory Forecasting
-                <Badge className="ml-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white border-0">
-                  <Sparkles className="h-3 w-3 mr-1" />
-                  AI Engine
-                </Badge>
-              </h1>
-              <p className="text-slate-400 text-sm">
-                Machine learning predictions based on historical distribution patterns and demand trends
-              </p>
-            </div>
-            <Button onClick={handleRefreshPredictions} className="gap-2 bg-indigo-600 hover:bg-indigo-700" disabled>
+          <div className="flex flex-col gap-2">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-neutral-300 bg-clip-text text-transparent flex items-center">
+              <Brain className="h-6 w-6 mr-2 text-neutral-400" />
+              AI-Powered Inventory Forecasting
+              <Badge className="ml-3 bg-gradient-to-r from-neutral-700 to-neutral-800 text-white border-0">
+                <Sparkles className="h-3 w-3 mr-1" />
+                AI Engine
+              </Badge>
+            </h1>
+            <p className="text-neutral-400 text-sm">
+              Machine learning predictions based on historical distribution patterns and demand trends
+            </p>
+          </div>
+          <Button onClick={handleRefreshPredictions} className="gap-2 bg-gray-800 hover:bg-gray-900" disabled>
               <RefreshCw className="h-4 w-4" />
               Refresh AI Analysis
             </Button>
@@ -226,19 +226,19 @@ const PredictiveInventory = () => {
           
           {/* Placeholder content */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50">
+            <Card className="bg-neutral-900/50 backdrop-blur-md border border-neutral-800/50">
               <CardContent className="p-6">
-                <div className="h-20 bg-slate-700/30 rounded animate-pulse"></div>
+                <div className="h-20 bg-neutral-800/30 rounded animate-pulse"></div>
               </CardContent>
             </Card>
-            <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50">
+            <Card className="bg-neutral-900/50 backdrop-blur-md border border-neutral-800/50">
               <CardContent className="p-6">
-                <div className="h-20 bg-slate-700/30 rounded animate-pulse"></div>
+                <div className="h-20 bg-neutral-800/30 rounded animate-pulse"></div>
               </CardContent>
             </Card>
-            <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50">
+            <Card className="bg-neutral-900/50 backdrop-blur-md border border-neutral-800/50">
               <CardContent className="p-6">
-                <div className="h-20 bg-slate-700/30 rounded animate-pulse"></div>
+                <div className="h-20 bg-neutral-800/30 rounded animate-pulse"></div>
               </CardContent>
             </Card>
           </div>
@@ -261,19 +261,19 @@ const PredictiveInventory = () => {
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
         <div className="flex flex-col gap-2">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent flex items-center">
-            <Brain className="h-6 w-6 mr-2 text-indigo-400" />
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-neutral-300 bg-clip-text text-transparent flex items-center">
+            <Brain className="h-6 w-6 mr-2 text-neutral-400" />
             AI-Powered Inventory Forecasting
-            <Badge className="ml-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white border-0">
+            <Badge className="ml-3 bg-gradient-to-r from-neutral-700 to-neutral-800 text-white border-0">
               <Sparkles className="h-3 w-3 mr-1" />
               AI Engine
             </Badge>
           </h1>
-          <p className="text-slate-400 text-sm">
+          <p className="text-neutral-400 text-sm">
             Machine learning predictions based on historical distribution patterns and demand trends
           </p>
         </div>
-        <Button onClick={handleRefreshPredictions} className="gap-2 bg-indigo-600 hover:bg-indigo-700">
+        <Button onClick={handleRefreshPredictions} className="gap-2 bg-gray-800 hover:bg-gray-900">
           <RefreshCw className="h-4 w-4" />
           Refresh AI Analysis
         </Button>
@@ -287,16 +287,16 @@ const PredictiveInventory = () => {
       />
       
       {/* Main content */}
-      <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 shadow-md overflow-hidden">
-        <CardHeader className="pb-3 border-b border-slate-700">
+      <Card className="bg-neutral-900/50 backdrop-blur-md border border-neutral-800/50 shadow-md overflow-hidden">
+        <CardHeader className="pb-3 border-b border-neutral-800">
           <CardTitle className="text-lg flex items-center text-white">
-            <BarChart className="h-5 w-5 mr-2 text-indigo-400" />
+            <BarChart className="h-5 w-5 mr-2 text-neutral-400" />
             AI Supply Chain Intelligence
-            <Badge variant="outline" className="ml-2 bg-indigo-500/20 text-indigo-300 border-indigo-500/30">
+            <Badge variant="outline" className="ml-2 bg-neutral-700/20 text-neutral-300 border-neutral-600/30">
               Machine Learning
             </Badge>
           </CardTitle>
-          <CardDescription className="text-slate-400">
+          <CardDescription className="text-neutral-400">
             Advanced analytics powered by AI algorithms analyzing {transactions.length}+ historical transactions
           </CardDescription>
         </CardHeader>
@@ -316,8 +316,8 @@ const PredictiveInventory = () => {
         />
         
         <Tabs defaultValue="table" className="w-full">
-          <div className="px-4 pt-4 border-b border-slate-700">
-            <TabsList className="bg-slate-700/50">
+          <div className="px-4 pt-4 border-b border-neutral-800">
+            <TabsList className="bg-neutral-800/50">
               <TabsTrigger value="table">AI Analysis Table</TabsTrigger>
               <TabsTrigger value="cards">Smart Cards View</TabsTrigger>
             </TabsList>
@@ -340,13 +340,13 @@ const PredictiveInventory = () => {
           </TabsContent>
         </Tabs>
         
-        <CardFooter className="p-4 bg-slate-800/70 border-t border-slate-700 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div className="text-sm text-slate-400 flex items-center">
-            <Brain className="h-4 w-4 mr-2 text-indigo-400" />
+        <CardFooter className="p-4 bg-neutral-900/70 border-t border-neutral-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div className="text-sm text-neutral-400 flex items-center">
+            <Brain className="h-4 w-4 mr-2 text-neutral-400" />
             AI analyzing {sortedPredictions.length} of {predictions.length} products
           </div>
-          <div className="text-sm text-slate-400 flex items-center">
-            <Info className="h-4 w-4 mr-2 text-indigo-400" />
+          <div className="text-sm text-neutral-400 flex items-center">
+            <Info className="h-4 w-4 mr-2 text-neutral-400" />
             Machine learning model trained on {transactions.length} shipment records
           </div>
         </CardFooter>

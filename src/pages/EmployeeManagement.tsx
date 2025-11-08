@@ -65,11 +65,11 @@ const EmployeeManagement = () => {
         
         <WarehouseContextIndicator />
         
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-neutral-900 border-neutral-800">
           <CardContent className="flex flex-col items-center justify-center py-16">
-            <Factory className="h-16 w-16 mb-4 text-slate-500" />
+            <Factory className="h-16 w-16 mb-4 text-neutral-500" />
             <p className="text-lg font-medium mb-2 text-white">Select a Warehouse</p>
-            <p className="text-sm text-slate-400 text-center max-w-md">
+            <p className="text-sm text-neutral-400 text-center max-w-md">
               Please select a warehouse from the header to view and manage employees for that location.
             </p>
           </CardContent>
@@ -126,15 +126,15 @@ const EmployeeManagement = () => {
       {/* Metrics Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Task Metrics */}
-        <Card className="bg-slate-800 border-slate-700 border-l-4 border-l-gray-700">
+        <Card className="bg-neutral-900 border-neutral-800 border-l-4 border-l-gray-800">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-gray-800/10">
+                <div className="p-2 rounded-lg bg-gray-900/10">
                   <ClipboardList className="h-5 w-5 text-gray-500" />
                 </div>
                 <div>
-                  <p className="text-slate-300 text-sm font-medium">Total Tasks</p>
+                  <p className="text-neutral-300 text-sm font-medium">Total Tasks</p>
                   <p className="text-2xl font-bold text-white">{taskMetrics.totalTasks}</p>
                 </div>
               </div>
@@ -142,7 +142,7 @@ const EmployeeManagement = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-800 border-slate-700 border-l-4 border-l-emerald-500">
+        <Card className="bg-neutral-900 border-neutral-800 border-l-4 border-l-emerald-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -150,7 +150,7 @@ const EmployeeManagement = () => {
                   <CheckCircle2 className="h-5 w-5 text-emerald-500" />
                 </div>
                 <div>
-                  <p className="text-slate-300 text-sm font-medium">Completed Tasks</p>
+                  <p className="text-neutral-300 text-sm font-medium">Completed Tasks</p>
                   <p className="text-2xl font-bold text-white">{taskMetrics.completedTasks}</p>
                 </div>
               </div>
@@ -158,7 +158,7 @@ const EmployeeManagement = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-800 border-slate-700 border-l-4 border-l-red-500">
+        <Card className="bg-neutral-900 border-neutral-800 border-l-4 border-l-red-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -166,7 +166,7 @@ const EmployeeManagement = () => {
                   <AlertTriangle className="h-5 w-5 text-red-500" />
                 </div>
                 <div>
-                  <p className="text-slate-300 text-sm font-medium">Overdue Tasks</p>
+                  <p className="text-neutral-300 text-sm font-medium">Overdue Tasks</p>
                   <p className="text-2xl font-bold text-white">{taskMetrics.overdueTasks}</p>
                 </div>
               </div>
@@ -174,7 +174,7 @@ const EmployeeManagement = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-800 border-slate-700 border-l-4 border-l-green-500">
+        <Card className="bg-neutral-900 border-neutral-800 border-l-4 border-l-green-500">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -182,7 +182,7 @@ const EmployeeManagement = () => {
                   <Percent className="h-5 w-5 text-green-500" />
                 </div>
                 <div>
-                  <p className="text-slate-300 text-sm font-medium">Completion Rate</p>
+                  <p className="text-neutral-300 text-sm font-medium">Completion Rate</p>
                   <p className="text-2xl font-bold text-white">{taskMetrics.completionRate}%</p>
                 </div>
               </div>

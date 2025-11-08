@@ -190,9 +190,9 @@ const ShipmentsPage = () => {
     if (shipments.length === 0) {
       return (
         <div className="flex flex-col items-center justify-center p-8 text-center">
-          <Truck className="h-12 w-12 text-slate-600 opacity-30 mb-2" />
+          <Truck className="h-12 w-12 text-neutral-600 opacity-30 mb-2" />
           <h3 className="text-lg font-medium text-white">No pending or in-transit shipments</h3>
-          <p className="text-sm text-slate-400 mb-4">
+          <p className="text-sm text-neutral-400 mb-4">
             All shipments are up to date
           </p>
         </div>
@@ -202,16 +202,16 @@ const ShipmentsPage = () => {
     return (
       <div className="rounded-md overflow-hidden">
         <Table>
-          <TableHeader className="bg-slate-800/90">
-            <TableRow className="border-slate-700">
-              <TableHead className="font-medium text-slate-300 w-[50px]"></TableHead>
-              <TableHead className="font-medium text-slate-300">PO Number</TableHead>
-              <TableHead className="font-medium text-slate-300">Source PO</TableHead>
-              <TableHead className="font-medium text-slate-300">Supplier</TableHead>
-              <TableHead className="font-medium text-slate-300">Expected Arrival</TableHead>
-              <TableHead className="font-medium text-slate-300">Status</TableHead>
-              <TableHead className="font-medium text-slate-300">Items</TableHead>
-              <TableHead className="font-medium text-slate-300">Actions</TableHead>
+          <TableHeader className="bg-neutral-900/90">
+            <TableRow className="border-neutral-800">
+              <TableHead className="font-medium text-neutral-300 w-[50px]"></TableHead>
+              <TableHead className="font-medium text-neutral-300">PO Number</TableHead>
+              <TableHead className="font-medium text-neutral-300">Source PO</TableHead>
+              <TableHead className="font-medium text-neutral-300">Supplier</TableHead>
+              <TableHead className="font-medium text-neutral-300">Expected Arrival</TableHead>
+              <TableHead className="font-medium text-neutral-300">Status</TableHead>
+              <TableHead className="font-medium text-neutral-300">Items</TableHead>
+              <TableHead className="font-medium text-neutral-300">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -220,16 +220,16 @@ const ShipmentsPage = () => {
               
               return (
                 <React.Fragment key={shipment.id}>
-                  <TableRow className="border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <TableRow className="border-neutral-800 hover:bg-neutral-800/30 transition-colors">
                     <TableCell>
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="h-6 w-6 p-0 hover:bg-slate-600"
+                        className="h-6 w-6 p-0 hover:bg-neutral-700"
                         onClick={() => toggleShipmentExpansion(shipment.id)}
                       >
                         <ChevronRight 
-                          className={`h-4 w-4 text-slate-400 transition-transform ${
+                          className={`h-4 w-4 text-neutral-400 transition-transform ${
                             expandedShipments.has(shipment.id) ? 'rotate-90' : ''
                           }`} 
                         />
@@ -242,7 +242,7 @@ const ShipmentsPage = () => {
                           <Button
                             variant="ghost"
                             size="sm"
-                            className="h-auto p-1 hover:bg-gray-700/20 text-gray-300"
+                            className="h-auto p-1 hover:bg-gray-800/20 text-gray-300"
                             onClick={() => handleViewPO(relatedPO.id)}
                           >
                             <ShoppingCart className="h-3 w-3 mr-1" />
@@ -251,10 +251,10 @@ const ShipmentsPage = () => {
                           </Button>
                         </div>
                       ) : (
-                        <span className="text-slate-500">-</span>
+                        <span className="text-neutral-500">-</span>
                       )}
                     </TableCell>
-                    <TableCell className="text-slate-300">{shipment.supplier}</TableCell>
+                    <TableCell className="text-neutral-300">{shipment.supplier}</TableCell>
                     <TableCell>
                       <ShipmentExpectedDateEditor
                         shipmentId={shipment.id}
@@ -264,14 +264,14 @@ const ShipmentsPage = () => {
                     </TableCell>
                     <TableCell>{getStatusBadge(shipment.status)}</TableCell>
                     <TableCell>
-                      <div className="text-slate-300">
+                      <div className="text-neutral-300">
                         {shipment.items?.length || 0} {(shipment.items?.length || 0) === 1 ? 'item' : 'items'}
                       </div>
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <Select onValueChange={(value) => handleStatusUpdate(shipment.id, value)}>
-                          <SelectTrigger className="w-auto h-8 bg-slate-700/50 border-slate-600 text-white">
+                          <SelectTrigger className="w-auto h-8 bg-neutral-800/50 border-neutral-700 text-white">
                             <SelectValue placeholder="Update Status" />
                           </SelectTrigger>
                           <SelectContent>
@@ -284,18 +284,18 @@ const ShipmentsPage = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="h-8 w-8 p-0 hover:bg-slate-600"
+                          className="h-8 w-8 p-0 hover:bg-neutral-700"
                           onClick={() => handleViewShipment(shipment)}
                         >
-                          <Eye className="h-4 w-4 text-slate-400" />
+                          <Eye className="h-4 w-4 text-neutral-400" />
                         </Button>
                       </div>
                     </TableCell>
                   </TableRow>
                   {expandedShipments.has(shipment.id) && (
-                    <TableRow className="border-slate-700">
+                    <TableRow className="border-neutral-800">
                       <TableCell colSpan={8} className="p-0">
-                        <div className="bg-slate-700/20 border-l-2 border-emerald-500/50 p-6 ml-6 space-y-4">
+                        <div className="bg-neutral-800/20 border-l-2 border-emerald-500/50 p-6 ml-6 space-y-4">
                           {/* Shipment Items */}
                           <div>
                             <div className="flex items-center gap-2 mb-3">

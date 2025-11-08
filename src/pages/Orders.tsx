@@ -204,9 +204,9 @@ const Orders = () => {
     if (ordersList.length === 0) {
       return (
         <div className="flex flex-col items-center justify-center p-8 text-center">
-          <ClipboardList className="h-12 w-12 text-slate-600 opacity-30 mb-2" />
+          <ClipboardList className="h-12 w-12 text-neutral-600 opacity-30 mb-2" />
           <h3 className="text-lg font-medium text-white">No orders found</h3>
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-neutral-400">
             Try adjusting your search criteria
           </p>
         </div>
@@ -216,16 +216,16 @@ const Orders = () => {
     return (
       <div className="rounded-md overflow-hidden">
         <Table>
-          <TableHeader className="bg-slate-800/90">
-            <TableRow className="border-slate-700">
-              <TableHead className="font-medium text-slate-300 w-[50px]"></TableHead>
-              <TableHead className="font-medium text-slate-300">Invoice #</TableHead>
-              <TableHead className="font-medium text-slate-300">Client</TableHead>
-              <TableHead className="font-medium text-slate-300">Date</TableHead>
-              <TableHead className="font-medium text-slate-300">Total</TableHead>
-              <TableHead className="font-medium text-slate-300 w-[250px]">Status</TableHead>
-              <TableHead className="font-medium text-slate-300">Progress</TableHead>
-              <TableHead className="font-medium text-slate-300">Documents</TableHead>
+          <TableHeader className="bg-neutral-900/90">
+            <TableRow className="border-neutral-800">
+              <TableHead className="font-medium text-neutral-300 w-[50px]"></TableHead>
+              <TableHead className="font-medium text-neutral-300">Invoice #</TableHead>
+              <TableHead className="font-medium text-neutral-300">Client</TableHead>
+              <TableHead className="font-medium text-neutral-300">Date</TableHead>
+              <TableHead className="font-medium text-neutral-300">Total</TableHead>
+              <TableHead className="font-medium text-neutral-300 w-[250px]">Status</TableHead>
+              <TableHead className="font-medium text-neutral-300">Progress</TableHead>
+              <TableHead className="font-medium text-neutral-300">Documents</TableHead>
               <TableHead className="w-[120px]"></TableHead>
             </TableRow>
           </TableHeader>
@@ -375,7 +375,7 @@ const Orders = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+        <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-neutral-300 bg-clip-text text-transparent">
           Order Management
         </h1>
         <div className="flex gap-2">
@@ -387,13 +387,13 @@ const Orders = () => {
       <WarehouseContextIndicator />
 
       {/* Orders Section */}
-      <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 shadow-md overflow-hidden">
-        <CardHeader className="pb-3 border-b border-slate-700">
+      <Card className="bg-neutral-900/50 backdrop-blur-md border border-neutral-800/50 shadow-md overflow-hidden">
+        <CardHeader className="pb-3 border-b border-neutral-800">
           <CardTitle className="text-lg flex items-center justify-between text-white">
             <div className="flex items-center">
               <ClipboardList className="h-5 w-5 mr-2 text-gray-400" />
               Order Management
-              <span className="ml-2 text-xs bg-gray-700/30 text-gray-200 py-0.5 px-2 rounded-full border border-gray-600/50">
+              <span className="ml-2 text-xs bg-gray-800/30 text-gray-200 py-0.5 px-2 rounded-full border border-gray-700/50">
                 {inProgressOrders.length + readyOrders.length} Orders
               </span>
             </div>
@@ -402,10 +402,10 @@ const Orders = () => {
         <CardContent>
           <div className="flex justify-between items-center mb-4 py-3">
             <div className="relative w-72">
-              <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+              <Search className="absolute left-3 top-2.5 h-4 w-4 text-neutral-400" />
               <Input
                 placeholder="Search by invoice # or client..."
-                className="pl-9 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-gray-600/50 focus:ring-1 focus:ring-gray-600/30"
+                className="pl-9 bg-neutral-800/50 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-gray-700/50 focus:ring-1 focus:ring-gray-700/30"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />

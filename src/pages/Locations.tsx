@@ -374,8 +374,8 @@ const Locations = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent flex items-center">
-          <MapPin className="h-6 w-6 mr-2 text-indigo-400" />
+        <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-neutral-300 bg-clip-text text-transparent flex items-center">
+          <MapPin className="h-6 w-6 mr-2 text-neutral-400" />
           Enhanced Location Management
         </h1>
         <div className="flex gap-2">
@@ -388,7 +388,7 @@ const Locations = () => {
             Quick Scan
           </Button>
           <Button 
-            className="gap-2 bg-indigo-500 hover:bg-indigo-600 text-white shadow-md hover:shadow-lg transition-all"
+            className="gap-2 bg-gray-800 hover:bg-gray-900 text-white shadow-md hover:shadow-lg transition-all"
             onClick={() => setAddPalletOpen(true)}
           >
             <Plus className="h-4 w-4" />
@@ -416,38 +416,38 @@ const Locations = () => {
       {/* Automatic Adjustment Panel */}
       <AutomaticAdjustmentPanel />
 
-      <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 shadow-md overflow-hidden">
-        <CardHeader className="pb-3 border-b border-slate-700">
+      <Card className="bg-neutral-900/50 backdrop-blur-md border border-neutral-800/50 shadow-md overflow-hidden">
+        <CardHeader className="pb-3 border-b border-neutral-800">
           <CardTitle className="text-lg flex items-center text-white">
-            <MapPin className="h-5 w-5 mr-2 text-indigo-400" />
+            <MapPin className="h-5 w-5 mr-2 text-neutral-400" />
             Smart Warehouse Location Tracking
           </CardTitle>
-          <CardDescription className="text-slate-400">
+          <CardDescription className="text-neutral-400">
             Real-time location tracking with intelligent suggestions and analytics
           </CardDescription>
         </CardHeader>
         <CardContent className="p-0">
-          <div className="p-4 bg-slate-800/70 border-b border-slate-700">
+          <div className="p-4 bg-neutral-900/70 border-b border-neutral-800">
             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
               <div className="flex space-x-2">
                 <Button
                   variant={activeTab === 'pallets' ? 'default' : 'outline'}
                   onClick={() => setActiveTab('pallets')}
-                  className={activeTab === 'pallets' ? 'bg-indigo-500 hover:bg-indigo-600' : 'border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white'}
+                  className={activeTab === 'pallets' ? 'bg-gray-800 hover:bg-gray-900' : 'border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white'}
                 >
                   Locations
                 </Button>
                 <Button
                   variant={activeTab === 'products' ? 'default' : 'outline'}
                   onClick={() => setActiveTab('products')}
-                  className={activeTab === 'products' ? 'bg-indigo-500 hover:bg-indigo-600' : 'border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white'}
+                  className={activeTab === 'products' ? 'bg-gray-800 hover:bg-gray-900' : 'border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white'}
                 >
                   Products
                 </Button>
                 <Button
                   variant={activeTab === 'analytics' ? 'default' : 'outline'}
                   onClick={() => setActiveTab('analytics')}
-                  className={activeTab === 'analytics' ? 'bg-indigo-500 hover:bg-indigo-600' : 'border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white'}
+                  className={activeTab === 'analytics' ? 'bg-gray-800 hover:bg-gray-900' : 'border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white'}
                 >
                   Analytics
                 </Button>
@@ -456,10 +456,10 @@ const Locations = () => {
               {activeTab !== 'analytics' && (
                 <div className="flex space-x-2 w-full md:w-auto">
                   <div className="relative w-full md:w-72">
-                    <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                    <Search className="absolute left-3 top-2.5 h-4 w-4 text-neutral-400" />
                     <Input
                       placeholder={activeTab === 'pallets' ? "Search locations, products, or UPC..." : "Search products, UPC, or location..."}
-                      className="pl-9 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30"
+                      className="pl-9 bg-neutral-800/50 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-gray-700/50 focus:ring-1 focus:ring-gray-700/30"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
