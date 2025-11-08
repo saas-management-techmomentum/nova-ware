@@ -18,7 +18,7 @@ interface SummaryCardsProps {
 const SummaryCards = ({ criticalCount, warningCount, normalCount }: SummaryCardsProps) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <Card className="bg-slate-800/50 backdrop-blur-md border border-red-700/30 shadow-md overflow-hidden relative">
+      <Card className="bg-neutral-800/50 backdrop-blur-md border border-red-700/30 shadow-md overflow-hidden relative">
         <div className="absolute top-2 right-2">
           <Badge className="bg-red-500/20 text-red-300 border-red-500/30 text-xs">
             <Brain className="h-3 w-3 mr-1" />
@@ -35,14 +35,14 @@ const SummaryCards = ({ criticalCount, warningCount, normalCount }: SummaryCards
           <div className="flex items-center justify-between">
             <span className="text-3xl font-bold text-red-400">{criticalCount}</span>
             <div className="text-right">
-              <div className="text-slate-400 text-sm">AI Detected</div>
-              <div className="text-slate-400 text-xs">Immediate action required</div>
+              <div className="text-neutral-400 text-sm">AI Detected</div>
+              <div className="text-neutral-400 text-xs">Immediate action required</div>
             </div>
           </div>
         </CardContent>
       </Card>
       
-      <Card className="bg-slate-800/50 backdrop-blur-md border border-amber-700/30 shadow-md overflow-hidden relative">
+      <Card className="bg-neutral-800/50 backdrop-blur-md border border-amber-700/30 shadow-md overflow-hidden relative">
         <div className="absolute top-2 right-2">
           <Badge className="bg-amber-500/20 text-amber-300 border-amber-500/30 text-xs">
             <Zap className="h-3 w-3 mr-1" />
@@ -59,14 +59,14 @@ const SummaryCards = ({ criticalCount, warningCount, normalCount }: SummaryCards
           <div className="flex items-center justify-between">
             <span className="text-3xl font-bold text-amber-400">{warningCount}</span>
             <div className="text-right">
-              <div className="text-slate-400 text-sm">Predicted</div>
-              <div className="text-slate-400 text-xs">Schedule procurement</div>
+              <div className="text-neutral-400 text-sm">Predicted</div>
+              <div className="text-neutral-400 text-xs">Schedule procurement</div>
             </div>
           </div>
         </CardContent>
       </Card>
       
-      <Card className="bg-slate-800/50 backdrop-blur-md border border-emerald-700/30 shadow-md overflow-hidden relative">
+      <Card className="bg-neutral-800/50 backdrop-blur-md border border-emerald-700/30 shadow-md overflow-hidden relative">
         <div className="absolute top-2 right-2">
           <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/30 text-xs">
             <Target className="h-3 w-3 mr-1" />
@@ -83,8 +83,8 @@ const SummaryCards = ({ criticalCount, warningCount, normalCount }: SummaryCards
           <div className="flex items-center justify-between">
             <span className="text-3xl font-bold text-emerald-400">{normalCount}</span>
             <div className="text-right">
-              <div className="text-slate-400 text-sm">AI Verified</div>
-              <div className="text-slate-400 text-xs">Balanced inventory</div>
+              <div className="text-neutral-400 text-sm">AI Verified</div>
+              <div className="text-neutral-400 text-xs">Balanced inventory</div>
             </div>
           </div>
         </CardContent>
