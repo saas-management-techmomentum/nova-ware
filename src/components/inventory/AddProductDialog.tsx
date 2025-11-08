@@ -148,36 +148,36 @@ const AddProductDialog: React.FC<AddProductDialogProps> = ({ onAddProduct, disab
           Add Product
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto bg-slate-800 border-slate-700">
+      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto bg-neutral-900 border-neutral-800">
         <DialogHeader>
           <DialogTitle className="text-white">Add New Product</DialogTitle>
-          <DialogDescription className="text-slate-400">
+          <DialogDescription className="text-neutral-400">
             Enter product details including cost and selling prices for financial tracking
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
+          <div className="grid gap-4 py-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="name" className="text-slate-300">Product Name *</Label>
+              <Label htmlFor="name" className="text-neutral-300">Product Name *</Label>
               <Input
                 id="name"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Wireless Headphones"
-                className="bg-slate-700 border-slate-600 text-white placeholder-slate-400"
+                className="bg-neutral-800 border-neutral-700 text-white placeholder-neutral-400"
                 disabled={isSubmitting}
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="sku" className="text-slate-300">SKU *</Label>
+              <Label htmlFor="sku" className="text-neutral-300">SKU *</Label>
               <Input
                 id="sku"
                 name="sku"
                 value={formData.sku}
                 onChange={handleChange}
                 placeholder="SKU-12345"
-                className="bg-slate-700 border-slate-600 text-white placeholder-slate-400"
+                className="bg-neutral-800 border-neutral-700 text-white placeholder-neutral-400"
                 disabled={isSubmitting}
               />
             </div>
@@ -190,20 +190,20 @@ const AddProductDialog: React.FC<AddProductDialogProps> = ({ onAddProduct, disab
                   id="include-upc" 
                   checked={includeUPC}
                   onCheckedChange={(checked) => setIncludeUPC(checked === true)}
-                  className="border-slate-600 data-[state=checked]:bg-cargo-blue data-[state=checked]:border-cargo-blue"
+                  className="border-neutral-700 data-[state=checked]:bg-cargo-blue data-[state=checked]:border-cargo-blue"
                   disabled={isSubmitting}
                 />
-                <Label htmlFor="include-upc" className="text-slate-300">Include UPC</Label>
+                <Label htmlFor="include-upc" className="text-neutral-300">Include UPC</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox 
                   id="include-asin" 
                   checked={includeASIN}
                   onCheckedChange={(checked) => setIncludeASIN(checked === true)}
-                  className="border-slate-600 data-[state=checked]:bg-cargo-blue data-[state=checked]:border-cargo-blue"
+                  className="border-neutral-700 data-[state=checked]:bg-cargo-blue data-[state=checked]:border-cargo-blue"
                   disabled={isSubmitting}
                 />
-                <Label htmlFor="include-asin" className="text-slate-300">Include ASIN</Label>
+                <Label htmlFor="include-asin" className="text-neutral-300">Include ASIN</Label>
               </div>
             </div>
             
@@ -288,8 +288,8 @@ const AddProductDialog: React.FC<AddProductDialogProps> = ({ onAddProduct, disab
           </div>
           
           {/* Pricing Section */}
-          <div className="border-t border-slate-600 pt-4">
-            <h3 className="text-sm font-medium mb-3 text-slate-300">Pricing Information</h3>
+          <div className="border-t border-neutral-700 pt-4">
+            <h3 className="text-sm font-medium mb-3 text-neutral-300">Pricing Information</h3>
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="cost_price" className="text-slate-300">Buy Price - Unit ($)</Label>
@@ -391,8 +391,8 @@ const AddProductDialog: React.FC<AddProductDialogProps> = ({ onAddProduct, disab
                   id="expiration"
                   variant={"outline"}
                   className={cn(
-                    "w-full justify-start text-left font-normal bg-slate-700 border-slate-600 text-white hover:bg-slate-600",
-                    !expirationDate && "text-slate-400"
+                    "w-full justify-start text-left font-normal bg-neutral-800 border-neutral-700 text-white hover:bg-neutral-700",
+                    !expirationDate && "text-neutral-400"
                   )}
                   disabled={isSubmitting}
                 >
@@ -404,23 +404,23 @@ const AddProductDialog: React.FC<AddProductDialogProps> = ({ onAddProduct, disab
                   )}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-0 bg-slate-800 border-slate-700">
+              <PopoverContent className="w-auto p-0 bg-neutral-900 border-neutral-800">
                 <Calendar
                   mode="single"
                   selected={expirationDate || undefined}
                   onSelect={setExpirationDate}
                   initialFocus
-                  className="bg-slate-800 text-white"
+                  className="bg-neutral-900 text-white"
                 />
               </PopoverContent>
             </Popover>
           </div>
         </div>
-        <DialogFooter className="bg-slate-800 border-t border-slate-700 pt-4">
+        <DialogFooter className="bg-neutral-900 border-t border-neutral-800 pt-4">
           <Button 
             variant="outline" 
             onClick={() => setOpen(false)} 
-            className="bg-slate-700 border-slate-600 text-white hover:bg-slate-600"
+            className="bg-neutral-800 border-neutral-700 text-white hover:bg-neutral-700"
             disabled={isSubmitting}
           >
             Cancel

@@ -199,10 +199,10 @@ export const ProductTransferDialog: React.FC<ProductTransferDialogProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-slate-800 border-slate-700">
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-neutral-900 border-neutral-800">
         <DialogHeader>
           <DialogTitle className="text-white flex items-center gap-2">
-            <Package className="h-5 w-5 text-indigo-400" />
+            <Package className="h-5 w-5 text-neutral-400" />
             Transfer Products Between Warehouses
           </DialogTitle>
         </DialogHeader>
@@ -217,10 +217,10 @@ export const ProductTransferDialog: React.FC<ProductTransferDialogProps> = ({
                  onValueChange={setSourceWarehouse}
                  disabled={!!currentWarehouse && !isInCorporateOverview}
                >
-                <SelectTrigger className="bg-slate-700 border-slate-600 text-white">
+                <SelectTrigger className="bg-neutral-800 border-neutral-700 text-white">
                   <SelectValue placeholder="Select source warehouse" />
                 </SelectTrigger>
-                <SelectContent className="bg-slate-800 border-slate-700">
+                <SelectContent className="bg-neutral-900 border-neutral-800">
                   {warehouses.map(warehouse => (
                     <SelectItem key={warehouse.warehouse_id} value={warehouse.warehouse_id}>
                       <div className="flex items-center gap-2">
@@ -236,10 +236,10 @@ export const ProductTransferDialog: React.FC<ProductTransferDialogProps> = ({
             <div>
               <Label className="text-white">To Warehouse</Label>
               <Select value={destinationWarehouse} onValueChange={setDestinationWarehouse}>
-                <SelectTrigger className="bg-slate-700 border-slate-600 text-white">
+                <SelectTrigger className="bg-neutral-800 border-neutral-700 text-white">
                   <SelectValue placeholder="Select destination warehouse" />
                 </SelectTrigger>
-                <SelectContent className="bg-slate-800 border-slate-700">
+                <SelectContent className="bg-neutral-900 border-neutral-800">
                   {warehouses
                     .filter(w => w.warehouse_id !== sourceWarehouse)
                     .map(warehouse => (
@@ -260,12 +260,12 @@ export const ProductTransferDialog: React.FC<ProductTransferDialogProps> = ({
             <div>
               <Label className="text-white">Search Products</Label>
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-4 w-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 h-4 w-4" />
                 <Input
                   placeholder="Search products in selected warehouse..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 bg-slate-700 border-slate-600 text-white placeholder-slate-400"
+                  className="pl-10 bg-neutral-800 border-neutral-700 text-white placeholder-neutral-400"
                 />
               </div>
             </div>
@@ -273,7 +273,7 @@ export const ProductTransferDialog: React.FC<ProductTransferDialogProps> = ({
 
           {/* Available Products */}
           {sourceWarehouse && availableProducts.length > 0 && (
-            <Card className="bg-slate-700/50 border-slate-600">
+            <Card className="bg-neutral-800/50 border-neutral-700">
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className="text-white text-sm">Available Products</CardTitle>
                 <div className="flex gap-2">
@@ -281,14 +281,14 @@ export const ProductTransferDialog: React.FC<ProductTransferDialogProps> = ({
                     size="sm"
                     variant="outline"
                     onClick={addAllProducts}
-                    className="border-indigo-600 text-indigo-400 hover:bg-indigo-600/10"
+                    className="border-gray-700 text-gray-300 hover:bg-gray-800/10"
                   >
                     Add All
                   </Button>
                   <Button
                     size="sm"
                     onClick={transferEverything}
-                    className="bg-indigo-600 hover:bg-indigo-700"
+                    className="bg-gray-800 hover:bg-gray-900"
                   >
                     Transfer Everything
                   </Button>
@@ -299,38 +299,38 @@ export const ProductTransferDialog: React.FC<ProductTransferDialogProps> = ({
                    const reservedQuantity = productReservations[product.id] || 0;
                    const maxTransferQuantity = Math.max(0, product.stock - reservedQuantity);
                    
-                   return (
-                     <div key={product.id} className="flex items-center justify-between p-2 bg-slate-600/50 rounded">
-                       <div className="flex-1">
-                         <p className="text-white font-medium">{product.name}</p>
-                         <div className="flex items-center gap-4 text-slate-400 text-sm">
-                           <span>SKU: {product.sku}</span>
-                           <span>Stock: {product.stock}</span>
-                           {reservedQuantity > 0 && (
-                             <span className="text-amber-400">
-                               Reserved: {reservedQuantity} • Available: {maxTransferQuantity}
-                             </span>
-                           )}
-                         </div>
-                       </div>
-                       <Button
-                         size="sm"
-                         onClick={() => addProductToTransfer(product.id)}
-                         disabled={selectedProducts.some(p => p.productId === product.id) || maxTransferQuantity === 0}
-                         className="bg-indigo-600 hover:bg-indigo-700"
-                       >
-                         {maxTransferQuantity === 0 ? 'Reserved' : 'Add'}
-                       </Button>
-                     </div>
-                   );
-                 })}
+                     return (
+                      <div key={product.id} className="flex items-center justify-between p-2 bg-neutral-700/50 rounded">
+                        <div className="flex-1">
+                          <p className="text-white font-medium">{product.name}</p>
+                          <div className="flex items-center gap-4 text-neutral-400 text-sm">
+                            <span>SKU: {product.sku}</span>
+                            <span>Stock: {product.stock}</span>
+                            {reservedQuantity > 0 && (
+                              <span className="text-amber-400">
+                                Reserved: {reservedQuantity} • Available: {maxTransferQuantity}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <Button
+                          size="sm"
+                          onClick={() => addProductToTransfer(product.id)}
+                          disabled={selectedProducts.some(p => p.productId === product.id) || maxTransferQuantity === 0}
+                          className="bg-gray-800 hover:bg-gray-900"
+                        >
+                          {maxTransferQuantity === 0 ? 'Reserved' : 'Add'}
+                        </Button>
+                      </div>
+                    );
+                  })}
               </CardContent>
             </Card>
           )}
 
           {/* Selected Products for Transfer */}
           {selectedProducts.length > 0 && (
-            <Card className="bg-slate-700/50 border-slate-600">
+            <Card className="bg-neutral-800/50 border-neutral-700">
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className="text-white text-sm flex items-center gap-2">
                   Products to Transfer
@@ -341,7 +341,7 @@ export const ProductTransferDialog: React.FC<ProductTransferDialogProps> = ({
                     size="sm"
                     variant="outline"
                     onClick={setAllToMax}
-                    className="border-indigo-600 text-indigo-400 hover:bg-indigo-600/10"
+                    className="border-gray-700 text-gray-300 hover:bg-gray-800/10"
                   >
                     Set All to Max
                   </Button>
@@ -357,10 +357,10 @@ export const ProductTransferDialog: React.FC<ProductTransferDialogProps> = ({
               </CardHeader>
               <CardContent className="space-y-3">
                 {selectedProducts.map(item => (
-                  <div key={item.productId} className="flex items-center justify-between p-3 bg-slate-600/50 rounded">
+                  <div key={item.productId} className="flex items-center justify-between p-3 bg-neutral-700/50 rounded">
                      <div className="flex-1">
                        <p className="text-white font-medium">{item.productName}</p>
-                       <div className="text-slate-400 text-sm space-y-1">
+                       <div className="text-neutral-400 text-sm space-y-1">
                          <div>SKU: {item.sku} • Stock: {item.currentStock}</div>
                          {item.reservedQuantity && item.reservedQuantity > 0 && (
                            <div className="text-amber-400">
@@ -372,14 +372,14 @@ export const ProductTransferDialog: React.FC<ProductTransferDialogProps> = ({
                     
                     <div className="flex items-center gap-2">
                       <div>
-                        <Label className="text-slate-400 text-xs">Quantity</Label>
+                        <Label className="text-neutral-400 text-xs">Quantity</Label>
                          <Input
                            type="number"
                            min="1"
                            max={item.maxTransferQuantity || item.currentStock}
                            value={item.transferQuantity}
                            onChange={(e) => updateTransferQuantity(item.productId, parseInt(e.target.value) || 1)}
-                           className="w-20 bg-slate-700 border-slate-600 text-white"
+                           className="w-20 bg-neutral-800 border-neutral-700 text-white"
                          />
                       </div>
                       
@@ -400,23 +400,23 @@ export const ProductTransferDialog: React.FC<ProductTransferDialogProps> = ({
 
           {/* Transfer Summary */}
           {canTransfer && (
-            <Card className="bg-indigo-600/20 border-indigo-600">
+            <Card className="bg-gray-800/20 border-gray-700">
               <CardContent className="p-4">
                 <div className="flex items-center justify-center gap-4 text-white">
                   <div className="text-center">
-                    <Warehouse className="h-8 w-8 mx-auto mb-1 text-indigo-400" />
+                    <Warehouse className="h-8 w-8 mx-auto mb-1 text-neutral-400" />
                     <p className="font-medium">{getWarehouseName(sourceWarehouse)}</p>
                   </div>
                   
-                  <ArrowRight className="h-6 w-6 text-indigo-400" />
+                  <ArrowRight className="h-6 w-6 text-neutral-400" />
                   
                   <div className="text-center">
-                    <Warehouse className="h-8 w-8 mx-auto mb-1 text-indigo-400" />
+                    <Warehouse className="h-8 w-8 mx-auto mb-1 text-neutral-400" />
                     <p className="font-medium">{getWarehouseName(destinationWarehouse)}</p>
                   </div>
                 </div>
                 
-                <p className="text-center text-slate-300 mt-2">
+                <p className="text-center text-neutral-300 mt-2">
                   Transferring {selectedProducts.length} product(s) • 
                   Total items: {selectedProducts.reduce((sum, item) => sum + item.transferQuantity, 0)}
                 </p>
