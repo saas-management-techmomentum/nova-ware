@@ -173,11 +173,11 @@ export const GeneralLedger = () => {
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold text-white">General Ledger</h2>
         </div>
-        <Card className="bg-slate-800/50 border-slate-700/50">
+        <Card className="bg-neutral-900/50 border-neutral-800/50">
           <CardContent className="p-6">
             <div className="animate-pulse space-y-4">
               {[1, 2, 3, 4, 5].map((i) => (
-                <div key={i} className="h-4 bg-slate-600 rounded w-full"></div>
+                <div key={i} className="h-4 bg-neutral-700 rounded w-full"></div>
               ))}
             </div>
           </CardContent>
@@ -195,8 +195,8 @@ export const GeneralLedger = () => {
             <div className="flex items-center space-x-2">
               <Building className="h-5 w-5 text-gray-400" />
               <span className="text-gray-300 font-medium">Corporate Overview</span>
-              <span className="text-slate-400">•</span>
-              <span className="text-slate-300">General ledger across all warehouses</span>
+              <span className="text-neutral-400">•</span>
+              <span className="text-neutral-300">General ledger across all warehouses</span>
             </div>
           </CardContent>
         </Card>
@@ -205,7 +205,7 @@ export const GeneralLedger = () => {
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-2xl font-bold text-white">General Ledger</h2>
-          <p className="text-slate-400 mt-1">
+          <p className="text-neutral-400 mt-1">
             Complete transaction history and audit trail
             {isInCorporateOverview && " across all warehouses"}
           </p>
@@ -217,7 +217,7 @@ export const GeneralLedger = () => {
       </div>
 
       {/* Filters */}
-      <Card className="bg-slate-800/50 border-slate-700/50">
+      <Card className="bg-neutral-900/50 border-neutral-800/50">
         <CardHeader>
           <CardTitle className="text-lg text-white flex items-center">
             <Filter className="h-5 w-5 mr-2" />
@@ -228,12 +228,12 @@ export const GeneralLedger = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
             {/* Search */}
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400" />
               <Input
                 placeholder="Search transactions..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-9 bg-slate-700/50 border-slate-600"
+                className="pl-9 bg-neutral-800/50 border-neutral-700"
               />
             </div>
 
@@ -283,7 +283,7 @@ export const GeneralLedger = () => {
 
             {/* Account Type Filter */}
             <Select value={accountFilter} onValueChange={setAccountFilter}>
-              <SelectTrigger className="bg-slate-700/50 border-slate-600">
+              <SelectTrigger className="bg-neutral-800/50 border-neutral-700">
                 <SelectValue placeholder="Account Type" />
               </SelectTrigger>
               <SelectContent>
@@ -298,7 +298,7 @@ export const GeneralLedger = () => {
 
             {/* Module Filter */}
             <Select value={moduleFilter} onValueChange={setModuleFilter}>
-              <SelectTrigger className="bg-slate-700/50 border-slate-600">
+              <SelectTrigger className="bg-neutral-800/50 border-neutral-700">
                 <SelectValue placeholder="Transaction Type" />
               </SelectTrigger>
               <SelectContent>
@@ -316,7 +316,7 @@ export const GeneralLedger = () => {
             {/* Warehouse Filter */}
             {isInCorporateOverview && (
               <Select value={warehouseFilter} onValueChange={setWarehouseFilter}>
-                <SelectTrigger className="bg-slate-700/50 border-slate-600">
+                <SelectTrigger className="bg-neutral-800/50 border-neutral-700">
                   <SelectValue placeholder="Warehouse" />
                 </SelectTrigger>
                 <SelectContent>
@@ -344,7 +344,7 @@ export const GeneralLedger = () => {
                 setModuleFilter('all');
                 setSearchTerm('');
               }}
-              className="border-slate-600 text-slate-300"
+              className="border-neutral-700 text-neutral-300"
             >
               Clear Filters
             </Button>
@@ -353,22 +353,22 @@ export const GeneralLedger = () => {
       </Card>
 
       {/* Ledger Table */}
-      <Card className="bg-slate-800/50 border-slate-700/50">
+      <Card className="bg-neutral-900/50 border-neutral-800/50">
         <CardContent className="p-0">
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
-                <TableRow className="border-slate-700/50">
-                  <TableHead className="text-slate-300">Date</TableHead>
-                  <TableHead className="text-slate-300">Transaction ID</TableHead>
-                  <TableHead className="text-slate-300">Reference</TableHead>
-                  <TableHead className="text-slate-300">Description</TableHead>
-                  <TableHead className="text-slate-300">Account</TableHead>
-                  <TableHead className="text-slate-300 text-right">Debit</TableHead>
-                  <TableHead className="text-slate-300 text-right">Credit</TableHead>
-                  <TableHead className="text-slate-300">Module</TableHead>
+                <TableRow className="border-neutral-800/50">
+                  <TableHead className="text-neutral-300">Date</TableHead>
+                  <TableHead className="text-neutral-300">Transaction ID</TableHead>
+                  <TableHead className="text-neutral-300">Reference</TableHead>
+                  <TableHead className="text-neutral-300">Description</TableHead>
+                  <TableHead className="text-neutral-300">Account</TableHead>
+                  <TableHead className="text-neutral-300 text-right">Debit</TableHead>
+                  <TableHead className="text-neutral-300 text-right">Credit</TableHead>
+                  <TableHead className="text-neutral-300">Module</TableHead>
                   {isInCorporateOverview && (
-                    <TableHead className="text-slate-300">Warehouse</TableHead>
+                    <TableHead className="text-neutral-300">Warehouse</TableHead>
                   )}
                 </TableRow>
               </TableHeader>
@@ -377,12 +377,12 @@ export const GeneralLedger = () => {
                   <TableRow>
                     <TableCell 
                       colSpan={isInCorporateOverview ? 9 : 8} 
-                      className="text-center py-8 text-slate-400"
+                      className="text-center py-8 text-neutral-400"
                     >
                       <div className="flex flex-col items-center space-y-2">
-                        <FileText className="h-8 w-8 text-slate-500" />
+                        <FileText className="h-8 w-8 text-neutral-500" />
                         <span>No journal entries found for this period</span>
-                        <span className="text-sm text-slate-500">
+                        <span className="text-sm text-neutral-500">
                           Financial transactions will automatically appear here when invoices, POs, or payments are processed
                         </span>
                       </div>
@@ -390,23 +390,23 @@ export const GeneralLedger = () => {
                   </TableRow>
                 ) : (
                   filteredEntries.map((entry) => (
-                    <TableRow key={entry.id} className="border-slate-700/50 hover:bg-slate-700/30">
-                      <TableCell className="text-slate-300">
+                    <TableRow key={entry.id} className="border-neutral-800/50 hover:bg-neutral-800/30">
+                      <TableCell className="text-neutral-300">
                         {format(new Date(entry.date), 'MMM dd, yyyy')}
                       </TableCell>
-                      <TableCell className="font-mono text-slate-300">
+                      <TableCell className="font-mono text-neutral-300">
                         {entry.transactionId}
                       </TableCell>
-                      <TableCell className="text-slate-400 max-w-32 truncate">
+                      <TableCell className="text-neutral-400 max-w-32 truncate">
                         {entry.reference}
                       </TableCell>
-                      <TableCell className="text-slate-300 max-w-48 truncate">
+                      <TableCell className="text-neutral-300 max-w-48 truncate">
                         {entry.description}
                       </TableCell>
-                      <TableCell className="text-slate-300">
+                      <TableCell className="text-neutral-300">
                         <div className="flex flex-col">
                           <span className="font-medium">{entry.account}</span>
-                          <span className="text-xs text-slate-500 font-mono">
+                          <span className="text-xs text-neutral-500 font-mono">
                             {entry.accountCode}
                           </span>
                         </div>
@@ -417,7 +417,7 @@ export const GeneralLedger = () => {
                             {formatCurrency(entry.debitAmount)}
                           </span>
                         ) : (
-                          <span className="text-slate-500">—</span>
+                          <span className="text-neutral-500">—</span>
                         )}
                       </TableCell>
                       <TableCell className="text-right font-mono">
@@ -426,7 +426,7 @@ export const GeneralLedger = () => {
                             {formatCurrency(entry.creditAmount)}
                           </span>
                         ) : (
-                          <span className="text-slate-500">—</span>
+                          <span className="text-neutral-500">—</span>
                         )}
                       </TableCell>
                       <TableCell>

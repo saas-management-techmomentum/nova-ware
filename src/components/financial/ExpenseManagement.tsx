@@ -331,8 +331,8 @@ export const ExpenseManagement: React.FC = () => {
                   {metrics.topVendor ? formatCurrency(metrics.topVendor.amount) : 'N/A'}
                 </p>
               </div>
-              <div className="bg-blue-500/10 p-3 rounded-xl">
-                <DollarSign className="h-5 w-5 text-blue-500" />
+              <div className="bg-gray-700/10 p-3 rounded-xl">
+                <DollarSign className="h-5 w-5 text-gray-500" />
               </div>
             </div>
           </CardContent>

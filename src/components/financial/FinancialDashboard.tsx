@@ -391,7 +391,7 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = () => {
             </div>
             <div className="flex justify-between items-center py-2">
               <span className="text-sm font-medium">COGS This Month</span>
-              <span className="text-sm font-bold text-slate-600">{formatCurrency(metrics.monthlyCOGS)}</span>
+              <span className="text-sm font-bold text-neutral-600">{formatCurrency(metrics.monthlyCOGS)}</span>
             </div>
           </CardContent>
         </Card>

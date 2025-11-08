@@ -120,7 +120,7 @@ export const AccountsPayable: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-slate-400">Loading accounts payable data...</div>
+        <div className="text-neutral-400">Loading accounts payable data...</div>
       </div>
     );
   }
@@ -130,7 +130,7 @@ export const AccountsPayable: React.FC = () => {
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-2xl font-bold text-white">Accounts Payable</h2>
-          <p className="text-slate-400 mt-1">Manage vendor bills and payment schedules</p>
+          <p className="text-neutral-400 mt-1">Manage vendor bills and payment schedules</p>
         </div>
         <Button 
           onClick={() => setAddBillDialogOpen(true)}
@@ -143,11 +143,11 @@ export const AccountsPayable: React.FC = () => {
 
       {/* AP Summary Cards */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
-        <Card className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50">
+        <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <p className="text-slate-400 text-xs font-medium">Total Payable</p>
+                <p className="text-neutral-400 text-xs font-medium">Total Payable</p>
                 <p className="text-lg font-bold text-white">
                   {formatCurrency(apSummary?.totalPayable || 0)}
                 </p>
@@ -159,7 +159,7 @@ export const AccountsPayable: React.FC = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50">
+        <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
@@ -175,7 +175,7 @@ export const AccountsPayable: React.FC = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50">
+        <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
@@ -191,7 +191,7 @@ export const AccountsPayable: React.FC = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50">
+        <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
@@ -207,7 +207,7 @@ export const AccountsPayable: React.FC = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50">
+        <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
@@ -226,39 +226,39 @@ export const AccountsPayable: React.FC = () => {
 
       {/* Main Content with Tabs */}
       <Tabs defaultValue="bills" className="space-y-6">
-        <TabsList className="bg-slate-800 border-slate-700">
-          <TabsTrigger value="bills" className="data-[state=active]:bg-slate-700">
+        <TabsList className="bg-neutral-900 border-neutral-800">
+          <TabsTrigger value="bills" className="data-[state=active]:bg-neutral-800">
             Vendor Bills
           </TabsTrigger>
-          <TabsTrigger value="aging" className="data-[state=active]:bg-slate-700">
+          <TabsTrigger value="aging" className="data-[state=active]:bg-neutral-800">
             Aging Report
           </TabsTrigger>
-          <TabsTrigger value="forecast" className="data-[state=active]:bg-slate-700">
+          <TabsTrigger value="forecast" className="data-[state=active]:bg-neutral-800">
             Cash Forecast
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value="bills" className="space-y-6">
           {/* Filters and Search */}
-          <Card className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50">
+          <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
             <CardContent className="p-6">
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div className="flex flex-col gap-4 md:flex-row md:items-center">
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400" />
                     <Input
                       placeholder="Search bills, vendors, or PO numbers..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10 bg-slate-800 border-slate-600 text-white"
+                      className="pl-10 bg-neutral-900 border-neutral-700 text-white"
                     />
                   </div>
                   
                   <Select value={statusFilter} onValueChange={setStatusFilter}>
-                    <SelectTrigger className="w-[180px] bg-slate-800 border-slate-600 text-white">
+                    <SelectTrigger className="w-[180px] bg-neutral-900 border-neutral-700 text-white">
                       <SelectValue placeholder="Filter by status" />
                     </SelectTrigger>
-                    <SelectContent className="bg-slate-800 border-slate-600">
+                    <SelectContent className="bg-neutral-900 border-neutral-700">
                       <SelectItem value="all">All Status</SelectItem>
                       <SelectItem value="unpaid">Unpaid</SelectItem>
                       <SelectItem value="partially_paid">Partially Paid</SelectItem>
@@ -268,10 +268,10 @@ export const AccountsPayable: React.FC = () => {
                   </Select>
 
                   <Select value={vendorFilter} onValueChange={setVendorFilter}>
-                    <SelectTrigger className="w-[180px] bg-slate-800 border-slate-600 text-white">
+                    <SelectTrigger className="w-[180px] bg-neutral-900 border-neutral-700 text-white">
                       <SelectValue placeholder="Filter by vendor" />
                     </SelectTrigger>
-                    <SelectContent className="bg-slate-800 border-slate-600">
+                    <SelectContent className="bg-neutral-900 border-neutral-700">
                       <SelectItem value="all">All Vendors</SelectItem>
                       {uniqueVendors.map(vendor => (
                         <SelectItem key={vendor} value={vendor}>{vendor}</SelectItem>
@@ -297,41 +297,41 @@ export const AccountsPayable: React.FC = () => {
           </Card>
 
           {/* Bills Table */}
-          <Card className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50">
+          <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
             <CardHeader>
               <CardTitle className="text-white flex items-center gap-2">
                 <Building className="h-5 w-5 text-gray-400" />
                 Vendor Bills ({filteredBills.length})
               </CardTitle>
-              <CardDescription className="text-slate-400">
+              <CardDescription className="text-neutral-400">
                 Track vendor bills and payment due dates
               </CardDescription>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
-                  <TableRow className="border-slate-700">
+                  <TableRow className="border-neutral-800">
                     <TableHead className="w-12">
                       <Checkbox
                         checked={selectedBills.length === filteredBills.length && filteredBills.length > 0}
                         onCheckedChange={handleSelectAll}
                       />
                     </TableHead>
-                    <TableHead className="text-slate-300">Bill #</TableHead>
-                    <TableHead className="text-slate-300">PO #</TableHead>
-                    <TableHead className="text-slate-300">Vendor</TableHead>
-                    <TableHead className="text-slate-300">Issue Date</TableHead>
-                    <TableHead className="text-slate-300">Due Date</TableHead>
-                    <TableHead className="text-slate-300">Amount</TableHead>
-                    <TableHead className="text-slate-300">Paid</TableHead>
-                    <TableHead className="text-slate-300">Outstanding</TableHead>
-                    <TableHead className="text-slate-300">Status</TableHead>
-                    <TableHead className="text-slate-300">Actions</TableHead>
+                    <TableHead className="text-neutral-300">Bill #</TableHead>
+                    <TableHead className="text-neutral-300">PO #</TableHead>
+                    <TableHead className="text-neutral-300">Vendor</TableHead>
+                    <TableHead className="text-neutral-300">Issue Date</TableHead>
+                    <TableHead className="text-neutral-300">Due Date</TableHead>
+                    <TableHead className="text-neutral-300">Amount</TableHead>
+                    <TableHead className="text-neutral-300">Paid</TableHead>
+                    <TableHead className="text-neutral-300">Outstanding</TableHead>
+                    <TableHead className="text-neutral-300">Status</TableHead>
+                    <TableHead className="text-neutral-300">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {filteredBills.map((bill) => (
-                    <TableRow key={bill.id} className="border-slate-700 hover:bg-slate-800/30">
+                    <TableRow key={bill.id} className="border-neutral-800 hover:bg-neutral-800/30">
                       <TableCell>
                         <Checkbox
                           checked={selectedBills.includes(bill.id)}
@@ -350,10 +350,10 @@ export const AccountsPayable: React.FC = () => {
                           {bill.vendor_name}
                         </button>
                       </TableCell>
-                      <TableCell className="text-slate-300">
+                      <TableCell className="text-neutral-300">
                         {new Date(bill.issue_date).toLocaleDateString()}
                       </TableCell>
-                      <TableCell className="text-slate-300">
+                      <TableCell className="text-neutral-300">
                         {new Date(bill.due_date).toLocaleDateString()}
                       </TableCell>
                       <TableCell className="text-white font-medium">
@@ -390,7 +390,7 @@ export const AccountsPayable: React.FC = () => {
               </Table>
 
               {filteredBills.length === 0 && (
-                <div className="text-center py-8 text-slate-400">
+                <div className="text-center py-8 text-neutral-400">
                   No bills found matching your criteria
                 </div>
               )}
@@ -400,13 +400,13 @@ export const AccountsPayable: React.FC = () => {
 
         <TabsContent value="aging" className="space-y-6">
           {/* AP Aging Report */}
-          <Card className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50">
+          <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
             <CardHeader>
               <CardTitle className="text-white flex items-center gap-2">
                 <BarChart3 className="h-5 w-5 text-gray-400" />
                 AP Aging Report
               </CardTitle>
-              <CardDescription className="text-slate-400">
+              <CardDescription className="text-neutral-400">
                 Accounts payable breakdown by aging buckets
               </CardDescription>
             </CardHeader>

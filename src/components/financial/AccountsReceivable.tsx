@@ -118,7 +118,7 @@ export const AccountsReceivable: React.FC = () => {
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-2xl font-bold text-white">Accounts Receivable</h2>
-          <p className="text-slate-400 mt-1">Track outstanding payments and customer receivables</p>
+          <p className="text-neutral-400 mt-1">Track outstanding payments and customer receivables</p>
         </div>
         <div className="flex gap-3">
           {selectedInvoices.length > 0 && (
@@ -127,7 +127,7 @@ export const AccountsReceivable: React.FC = () => {
               Send Bulk Reminders ({selectedInvoices.length})
             </Button>
           )}
-          <Button onClick={() => refreshData()} variant="outline" className="bg-slate-800 border-slate-600 text-slate-300 hover:bg-slate-700">
+          <Button onClick={() => refreshData()} variant="outline" className="bg-neutral-900 border-neutral-700 text-neutral-300 hover:bg-neutral-800">
             <TrendingUp className="h-4 w-4 mr-2" />
             Refresh Data
           </Button>
@@ -137,13 +137,13 @@ export const AccountsReceivable: React.FC = () => {
       {/* AR Summary Cards */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         <Card 
-          className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 cursor-pointer hover:bg-slate-800/60 transition-colors"
+          className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50 cursor-pointer hover:bg-neutral-800/60 transition-colors"
           onClick={() => handleWidgetClick('total')}
         >
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="space-y-2">
-                <p className="text-slate-400 text-sm font-medium">Total Outstanding</p>
+                <p className="text-neutral-400 text-sm font-medium">Total Outstanding</p>
                 <p className="text-2xl font-bold text-white">
                   {formatCurrency(enhancedMetrics.accountsReceivable || arSummary.total_outstanding)}
                 </p>
@@ -156,7 +156,7 @@ export const AccountsReceivable: React.FC = () => {
         </Card>
 
         <Card 
-          className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 cursor-pointer hover:bg-slate-800/60 transition-colors"
+          className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50 cursor-pointer hover:bg-neutral-800/60 transition-colors"
           onClick={() => handleWidgetClick('current')}
         >
           <CardContent className="p-6">
@@ -175,7 +175,7 @@ export const AccountsReceivable: React.FC = () => {
         </Card>
 
         <Card 
-          className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 cursor-pointer hover:bg-slate-800/60 transition-colors"
+          className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50 cursor-pointer hover:bg-neutral-800/60 transition-colors"
           onClick={() => handleWidgetClick('overdue')}
         >
           <CardContent className="p-6">
@@ -194,7 +194,7 @@ export const AccountsReceivable: React.FC = () => {
         </Card>
 
         <Card 
-          className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 cursor-pointer hover:bg-slate-800/60 transition-colors"
+          className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50 cursor-pointer hover:bg-neutral-800/60 transition-colors"
           onClick={() => handleWidgetClick('overdue')}
         >
           <CardContent className="p-6">
@@ -214,14 +214,14 @@ export const AccountsReceivable: React.FC = () => {
       </div>
 
       <Tabs defaultValue="invoices" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3 bg-slate-800/50">
+        <TabsList className="grid w-full grid-cols-3 bg-neutral-900/50">
           <TabsTrigger value="invoices" className="text-sm">Invoice Management</TabsTrigger>
           <TabsTrigger value="aging" className="text-sm">Aging Report</TabsTrigger>
           <TabsTrigger value="forecast" className="text-sm">Collection Forecast</TabsTrigger>
         </TabsList>
 
         <TabsContent value="invoices">
-          <Card className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50">
+          <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
             <CardHeader>
               <div className="flex justify-between items-center">
                 <div>
@@ -229,7 +229,7 @@ export const AccountsReceivable: React.FC = () => {
                     <FileText className="h-5 w-5 text-gray-400" />
                     Outstanding Invoices
                   </CardTitle>
-                  <CardDescription className="text-slate-400">
+                  <CardDescription className="text-neutral-400">
                     Manage payment collections and customer receivables
                   </CardDescription>
                 </div>
@@ -238,20 +238,20 @@ export const AccountsReceivable: React.FC = () => {
               {/* Filters and Search */}
               <div className="flex flex-wrap gap-4 mt-4">
                 <div className="flex items-center gap-2">
-                  <Search className="h-4 w-4 text-slate-400" />
+                  <Search className="h-4 w-4 text-neutral-400" />
                   <Input
                     placeholder="Search invoices or customers..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-64 bg-slate-800 border-slate-600 text-white"
+                    className="w-64 bg-neutral-900 border-neutral-700 text-white"
                   />
                 </div>
                 
                 <Select value={filter.status} onValueChange={(value) => setFilter(prev => ({ ...prev, status: value }))}>
-                  <SelectTrigger className="w-40 bg-slate-800 border-slate-600 text-white">
+                  <SelectTrigger className="w-40 bg-neutral-900 border-neutral-700 text-white">
                     <SelectValue placeholder="Status" />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-600">
+                  <SelectContent className="bg-neutral-900 border-neutral-700">
                     <SelectItem value="all">All Statuses</SelectItem>
                     <SelectItem value="sent">Sent</SelectItem>
                     <SelectItem value="overdue">Overdue</SelectItem>
@@ -262,7 +262,7 @@ export const AccountsReceivable: React.FC = () => {
                 <Button 
                   variant={filter.overdue ? "default" : "outline"}
                   onClick={() => setFilter(prev => ({ ...prev, overdue: !prev.overdue }))}
-                  className={filter.overdue ? "bg-red-600 hover:bg-red-700" : "bg-slate-800 border-slate-600 text-slate-300 hover:bg-slate-700"}
+                  className={filter.overdue ? "bg-red-600 hover:bg-red-700" : "bg-neutral-900 border-neutral-700 text-neutral-300 hover:bg-neutral-800"}
                 >
                   <AlertTriangle className="h-4 w-4 mr-2" />
                   Overdue Only
@@ -272,7 +272,7 @@ export const AccountsReceivable: React.FC = () => {
             <CardContent>
               <Table>
                 <TableHeader>
-                  <TableRow className="border-slate-700">
+                  <TableRow className="border-neutral-800">
                     <TableHead className="w-12">
                       <Checkbox 
                         checked={selectedInvoices.length === filteredInvoices.length && filteredInvoices.length > 0}
@@ -285,32 +285,32 @@ export const AccountsReceivable: React.FC = () => {
                         }}
                       />
                     </TableHead>
-                    <TableHead className="text-slate-300">Invoice #</TableHead>
-                    <TableHead className="text-slate-300">Customer</TableHead>
-                    <TableHead className="text-slate-300">Issue Date</TableHead>
-                    <TableHead className="text-slate-300">Due Date</TableHead>
-                    <TableHead className="text-slate-300">Amount</TableHead>
-                    <TableHead className="text-slate-300">Paid</TableHead>
-                    <TableHead className="text-slate-300">Status</TableHead>
-                    <TableHead className="text-slate-300">Actions</TableHead>
+                    <TableHead className="text-neutral-300">Invoice #</TableHead>
+                    <TableHead className="text-neutral-300">Customer</TableHead>
+                    <TableHead className="text-neutral-300">Issue Date</TableHead>
+                    <TableHead className="text-neutral-300">Due Date</TableHead>
+                    <TableHead className="text-neutral-300">Amount</TableHead>
+                    <TableHead className="text-neutral-300">Paid</TableHead>
+                    <TableHead className="text-neutral-300">Status</TableHead>
+                    <TableHead className="text-neutral-300">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {isLoading ? (
                     <TableRow>
-                      <TableCell colSpan={9} className="text-center text-slate-400 py-8">
+                      <TableCell colSpan={9} className="text-center text-neutral-400 py-8">
                         Loading invoices...
                       </TableCell>
                     </TableRow>
                   ) : filteredInvoices.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={9} className="text-center text-slate-400 py-8">
+                      <TableCell colSpan={9} className="text-center text-neutral-400 py-8">
                         No invoices found
                       </TableCell>
                     </TableRow>
                   ) : (
                     filteredInvoices.map((invoice) => (
-                      <TableRow key={invoice.id} className="border-slate-700 hover:bg-slate-800/30">
+                      <TableRow key={invoice.id} className="border-neutral-800 hover:bg-neutral-800/30">
                         <TableCell>
                           <Checkbox 
                             checked={selectedInvoices.includes(invoice.id)}
@@ -334,10 +334,10 @@ export const AccountsReceivable: React.FC = () => {
                         >
                           {invoice.client_name}
                         </TableCell>
-                        <TableCell className="text-slate-300">
+                        <TableCell className="text-neutral-300">
                           {new Date(invoice.invoice_date).toLocaleDateString()}
                         </TableCell>
-                        <TableCell className="text-slate-300">
+                        <TableCell className="text-neutral-300">
                           {new Date(invoice.due_date).toLocaleDateString()}
                         </TableCell>
                         <TableCell className="text-white font-medium">
@@ -354,7 +354,7 @@ export const AccountsReceivable: React.FC = () => {
                             <Button 
                               size="sm" 
                               variant="outline" 
-                              className="h-8 w-8 p-0 bg-slate-800 border-slate-600 hover:bg-slate-700"
+                              className="h-8 w-8 p-0 bg-neutral-900 border-neutral-700 hover:bg-neutral-800"
                               onClick={() => sendPaymentReminder(invoice.id)}
                             >
                               <Send className="h-4 w-4" />
@@ -362,7 +362,7 @@ export const AccountsReceivable: React.FC = () => {
                             <Button 
                               size="sm" 
                               variant="outline" 
-                              className="h-8 w-8 p-0 bg-slate-800 border-slate-600 hover:bg-slate-700"
+                              className="h-8 w-8 p-0 bg-neutral-900 border-neutral-700 hover:bg-neutral-800"
                               onClick={() => handleRecordPayment(invoice)}
                             >
                               <CreditCard className="h-4 w-4" />
@@ -379,24 +379,24 @@ export const AccountsReceivable: React.FC = () => {
         </TabsContent>
 
         <TabsContent value="aging">
-          <Card className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50">
+          <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
             <CardHeader>
               <CardTitle className="text-white flex items-center gap-2">
                 <Clock className="h-5 w-5 text-orange-400" />
                 AR Aging Report
               </CardTitle>
-              <CardDescription className="text-slate-400">
+              <CardDescription className="text-neutral-400">
                 Breakdown of receivables by aging periods
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                <div className="bg-slate-800/50 p-6 rounded-lg border border-slate-700/30">
+                <div className="bg-neutral-900/50 p-6 rounded-lg border border-neutral-800/30">
                   <div className="text-sm text-gray-400 font-medium">Current (0-30)</div>
                   <div className="text-2xl font-bold text-white mt-2">
                     {formatCurrency(arSummary.current_ar)}
                   </div>
-                  <div className="text-xs text-slate-400 mt-1">
+                  <div className="text-xs text-neutral-400 mt-1">
                     {arSummary.total_outstanding > 0 ? 
                       Math.round((arSummary.current_ar / arSummary.total_outstanding) * 100) : 0}% of total
                   </div>
