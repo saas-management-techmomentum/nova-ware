@@ -140,7 +140,7 @@ const Clients = () => {
               onClientAdded={handleAddClient}
               trigger={
                 <Button 
-                  className="flex items-center gap-2 bg-gray-800 hover:bg-gray-900"
+                  className="flex items-center gap-2"
                 >
                   <PlusCircle size={16} />
                   <span>Add Client</span>
