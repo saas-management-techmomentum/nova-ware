@@ -140,7 +140,7 @@ const AddProductDialog: React.FC<AddProductDialogProps> = ({ onAddProduct, disab
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button 
-          className="gap-2 bg-cargo-blue hover:bg-cargo-darkBlue" 
+          className="gap-2" 
           disabled={disabled}
           style={{ opacity: disabled ? 0.5 : 1, cursor: disabled ? 'not-allowed' : 'pointer' }}
         >
