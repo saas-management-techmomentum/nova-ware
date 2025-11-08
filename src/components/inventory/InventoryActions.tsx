@@ -473,7 +473,7 @@ const InventoryActions: React.FC<InventoryActionsProps> = ({ item, onUpdate, onD
             </Button>
             <Button 
               onClick={handleSaveProductDetails}
-              className="bg-gray-800 hover:bg-gray-900"
+              className="bg-white text-black hover:bg-neutral-200"
             >
               Save Changes
             </Button>
