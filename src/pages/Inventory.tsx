@@ -254,7 +254,7 @@ const Inventory = () => {
           {(isCorporateOverview || selectedWarehouse) && (
             <Button
               onClick={() => setShowTransferDialog(true)}
-              className="bg-gray-800 hover:bg-gray-900 gap-2"
+              className="bg-gray-800 hover:bg-gray-900 gap-2 text-white"
             >
               <ArrowRight className="h-4 w-4" />
               Transfer Products
