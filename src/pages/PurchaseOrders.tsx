@@ -71,8 +71,8 @@ const PurchaseOrdersPage = () => {
         color: 'text-slate-400'
       },
       approved: { 
-        badge: <Badge className="bg-blue-500/20 text-blue-300 border border-blue-500/30 gap-1"><AlertCircle className="h-3 w-3" />Approved</Badge>,
-        color: 'text-blue-400'
+        badge: <Badge className="bg-gray-700/20 text-gray-300 border border-gray-600/30 gap-1"><AlertCircle className="h-3 w-3" />Approved</Badge>,
+        color: 'text-gray-400'
       },
       confirmed: { 
         badge: <Badge className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 gap-1"><CheckCircle className="h-3 w-3" />Confirmed</Badge>,
@@ -206,7 +206,7 @@ const PurchaseOrdersPage = () => {
                 <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
                 <Input
                   placeholder="Search PO number or vendor..."
-                  className="pl-9 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30"
+                  className="pl-9 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-gray-600/50 focus:ring-1 focus:ring-gray-600/30"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -238,11 +238,11 @@ const PurchaseOrdersPage = () => {
       <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 shadow-md overflow-hidden">
         <CardHeader className="pb-3 border-b border-slate-700">
           <CardTitle className="text-lg flex items-center text-white">
-            <div className="bg-indigo-500/20 p-1 rounded-md mr-2">
-              <ShoppingCart className="h-5 w-5 text-indigo-400" />
+            <div className="bg-gray-700/20 p-1 rounded-md mr-2">
+              <ShoppingCart className="h-5 w-5 text-gray-400" />
             </div>
             Purchase Orders
-            <span className="ml-2 text-xs bg-indigo-500/30 text-indigo-200 py-0.5 px-2 rounded-full border border-indigo-500/50">
+            <span className="ml-2 text-xs bg-gray-700/30 text-gray-200 py-0.5 px-2 rounded-full border border-gray-600/50">
               {filteredPOs.length}
             </span>
           </CardTitle>
@@ -322,7 +322,7 @@ const PurchaseOrdersPage = () => {
                                 <Button
                                   variant="outline"
                                   size="sm"
-                                  className="gap-2 h-8 bg-blue-600/20 border-blue-500/30 text-blue-300 hover:bg-blue-600/30"
+                                  className="gap-2 h-8 bg-gray-700/20 border-gray-600/30 text-gray-300 hover:bg-gray-700/30"
                                   onClick={() => handleConfirmPO(po)}
                                 >
                                   <Send className="h-4 w-4" />
@@ -352,11 +352,11 @@ const PurchaseOrdersPage = () => {
                         {expandedPOs.has(po.id) && (
                           <TableRow className="border-slate-700">
                             <TableCell colSpan={8} className="p-0">
-                              <div className="bg-slate-700/20 border-l-2 border-indigo-500/50 p-6 ml-6 space-y-4">
+                              <div className="bg-slate-700/20 border-l-2 border-gray-700/50 p-6 ml-6 space-y-4">
                                 {/* PO Items */}
                                 <div>
                                   <div className="flex items-center gap-2 mb-3">
-                                    <Package className="h-4 w-4 text-indigo-400" />
+                                    <Package className="h-4 w-4 text-gray-400" />
                                     <span className="text-sm font-medium text-white">PO Items</span>
                                     <Badge variant="outline" className="text-xs bg-slate-600/50 text-slate-300 border-slate-500">
                                       {po.po_items?.length || 0} {(po.po_items?.length || 0) === 1 ? 'item' : 'items'}
@@ -373,7 +373,7 @@ const PurchaseOrdersPage = () => {
                                             <span className="text-sm font-medium text-white">
                                               {item.item_name}
                                             </span>
-                                            <Badge className="bg-indigo-500/20 text-indigo-300 border-indigo-500/30">
+                                            <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30">
                                               Qty: {item.quantity}
                                             </Badge>
                                           </div>
@@ -382,7 +382,7 @@ const PurchaseOrdersPage = () => {
                                             ${item.unit_price.toFixed(2)} × {item.quantity} = ${item.subtotal.toFixed(2)}
                                           </div>
                                           {item.received_quantity > 0 && (
-                                            <div className="text-xs text-blue-400 mt-1">
+                                            <div className="text-xs text-gray-400 mt-1">
                                               Received: {item.received_quantity}
                                             </div>
                                           )}
@@ -427,9 +427,9 @@ const PurchaseOrdersPage = () => {
 
                                 {/* Workflow Instructions */}
                                 {po.status === 'approved' && (
-                                  <div className="bg-blue-600/10 rounded-lg p-4 border border-blue-500/20">
-                                    <div className="flex items-center gap-2 mb-2">
-                                      <AlertCircle className="h-4 w-4 text-blue-400" />
+                               <div className="bg-gray-700/10 rounded-lg p-4 border border-gray-600/20">
+                                 <div className="flex items-center gap-2 mb-2">
+                                   <AlertCircle className="h-4 w-4 text-gray-400" />
                                       <span className="text-sm font-medium text-white">Next Step</span>
                                     </div>
                                     <p className="text-sm text-slate-300">

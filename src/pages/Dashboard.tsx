@@ -75,7 +75,7 @@ const Dashboard = () => {
           <p className="text-white font-medium mb-2">{label}</p>
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-blue-500 rounded"></div>
+              <div className="w-3 h-3 bg-gray-500 rounded"></div>
               <span className="text-slate-300 text-sm">Processed Orders: </span>
               <span className="text-white font-medium">{data.processedOrders}</span>
             </div>
@@ -96,13 +96,13 @@ const Dashboard = () => {
       title: "Total Tasks",
       value: userTaskMetrics?.total_tasks?.toString() || "0",
       icon: Clipboard,
-      color: "bg-indigo-500/10 text-indigo-500",
+      color: "bg-gray-700/10 text-gray-500",
       route: "/app/todos"
     } : {
       title: "Active Orders",
       value: activeOrders.toString(),
       icon: Clipboard,
-      color: "bg-indigo-500/10 text-indigo-500",
+      color: "bg-gray-700/10 text-gray-500",
       route: "/app/orders"
     },
     shouldUseUserSpecificTasks ? {
@@ -141,9 +141,9 @@ const Dashboard = () => {
       value: metricsData?.warehouse_efficiency || 0,
       change: metricsData?.efficiency_change || 0,
       icon: Factory,
-      color: "text-blue-500",
-      bgColor: "bg-blue-500/10",
-      borderColor: "border-l-blue-500",
+      color: "text-gray-500",
+      bgColor: "bg-gray-700/10",
+      borderColor: "border-l-gray-700",
       route: "/app/metrics/warehouse-efficiency"
     },
     {
@@ -173,9 +173,9 @@ const Dashboard = () => {
       value: metricsData?.inventory_accuracy || 0,
       change: metricsData?.accuracy_change || 0,
       icon: Target,
-      color: "text-indigo-500",
-      bgColor: "bg-indigo-500/10",
-      borderColor: "border-l-indigo-500",
+      color: "text-gray-500",
+      bgColor: "bg-gray-700/10",
+      borderColor: "border-l-gray-700",
       route: "/app/metrics/inventory-accuracy"
     }
   ];
@@ -202,7 +202,7 @@ const Dashboard = () => {
             <h3 className="text-2xl font-bold text-white">{stat.value}</h3>
           </div>
         </CardContent>
-        <div className="h-0.5 w-full bg-gradient-to-r from-indigo-500/50 via-indigo-500/20 to-transparent"></div>
+        <div className="h-0.5 w-full bg-gradient-to-r from-gray-600/50 via-gray-600/20 to-transparent"></div>
       </Card>
     );
 
@@ -275,7 +275,7 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
         {warehouseMetrics.map((metric) => (
           <Link key={metric.title} to={metric.route} className="block group">
-            <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 overflow-hidden cursor-pointer transition-all duration-200 hover:bg-slate-700/50 hover:border-indigo-500/30 hover:shadow-lg hover:scale-[1.02]">
+            <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 overflow-hidden cursor-pointer transition-all duration-200 hover:bg-slate-700/50 hover:border-gray-700/30 hover:shadow-lg hover:scale-[1.02]">
               <CardContent className="p-5 relative">
                 <div className="flex items-center justify-between mb-2">
                   <div className={`p-2 rounded-lg bg-gradient-to-br from-${metric.color.split('-')[1]}-500/20 to-${metric.color.split('-')[1]}-500/5 shadow-md`}>
@@ -293,10 +293,10 @@ const Dashboard = () => {
                 <div className="h-1.5 bg-slate-700 rounded-full overflow-hidden">
                   <div 
                     className={`h-full bg-${metric.color.split('-')[1]}-500 shadow-[0_0_5px_rgba(${
-                      metric.color.includes('blue') ? '99,102,241' :
+                      metric.color.includes('gray') ? '107,114,128' :
                       metric.color.includes('emerald') ? '16,185,129' :
                       metric.color.includes('purple') ? '147,51,234' :
-                      '99,102,241'
+                      '107,114,128'
                     },0.5)] rounded-full transition-all duration-1000 ease-out`}
                     style={{ width: `${metric.value}%` }}
                   />
@@ -456,10 +456,10 @@ const Dashboard = () => {
 
       {/* Monthly Order Volume Chart - Only show in Corporate Overview */}
       {selectedWarehouse === null && (
-        <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 overflow-hidden cursor-pointer hover:bg-slate-700/50 hover:border-indigo-500/30 hover:shadow-lg transition-all duration-200">
+        <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 overflow-hidden cursor-pointer hover:bg-slate-700/50 hover:border-gray-700/30 hover:shadow-lg transition-all duration-200">
           <CardHeader className="pb-2 relative z-10 border-b border-slate-700">
             <CardTitle className="text-lg flex items-center text-white">
-              <BarChart3 className="h-5 w-5 mr-2 text-indigo-400" />
+              <BarChart3 className="h-5 w-5 mr-2 text-gray-400" />
               Order Volume Analytics
             </CardTitle>
           </CardHeader>

@@ -105,7 +105,7 @@ const Orders = () => {
       case 'pending':
         return <Badge className="bg-amber-500">Pending</Badge>;
       case 'processing':
-        return <Badge className="bg-blue-500">Processing</Badge>;
+        return <Badge className="bg-gray-700">Processing</Badge>;
       case 'ready-to-ship':
       case 'order-ready':
         return <Badge className="bg-green-500">Ready to Ship</Badge>;
@@ -122,7 +122,7 @@ const Orders = () => {
       case 'pending':
         return <ClockIcon className="h-4 w-4 text-amber-500" />;
       case 'processing':
-        return <Package className="h-4 w-4 text-blue-500" />;
+        return <Package className="h-4 w-4 text-gray-500" />;
       case 'ready-to-ship':
       case 'order-ready':
         return <CheckCircle className="h-4 w-4 text-green-500" />;
@@ -266,7 +266,7 @@ const Orders = () => {
                         <Progress 
                           value={getProgressPercentage(order.status)} 
                           className="h-2 bg-slate-700" 
-                          indicatorClassName={getProgressPercentage(order.status) === 100 ? "bg-gradient-to-r from-emerald-500 to-sky-500" : "bg-gradient-to-r from-indigo-500 to-purple-500"} 
+                          indicatorClassName={getProgressPercentage(order.status) === 100 ? "bg-gradient-to-r from-emerald-500 to-sky-500" : "bg-gradient-to-r from-gray-600 to-gray-700"} 
                         />
                         <span className="text-sm text-slate-400 w-8">{getProgressPercentage(order.status)}%</span>
                       </div>
@@ -296,11 +296,11 @@ const Orders = () => {
                   {expandedOrders.has(order.id) && (
                     <TableRow className="border-slate-700">
                       <TableCell colSpan={9} className="p-0">
-                        <div className="bg-slate-700/20 border-l-2 border-indigo-500/50 p-6 ml-6 space-y-6">
+                        <div className="bg-slate-700/20 border-l-2 border-gray-700/50 p-6 ml-6 space-y-6">
                           {/* Order Items Section */}
                           <div>
                             <div className="flex items-center gap-2 mb-3">
-                              <Package className="h-4 w-4 text-indigo-400" />
+                              <Package className="h-4 w-4 text-gray-400" />
                               <span className="text-sm font-medium text-white">Order Items</span>
                               <Badge variant="outline" className="text-xs bg-slate-600/50 text-slate-300 border-slate-500">
                                 {order.items?.length || 0} {order.items?.length === 1 ? 'item' : 'items'}
@@ -314,16 +314,16 @@ const Orders = () => {
                                 {order.items.map((item: any, index: number) => (
                                   <div 
                                     key={index} 
-                                    className="bg-slate-600/30 rounded-lg p-3 border border-slate-600/50 hover:border-indigo-500/30 transition-colors"
+                                    className="bg-slate-600/30 rounded-lg p-3 border border-slate-600/50 hover:border-gray-700/30 transition-colors"
                                   >
                                     <div className="flex items-center justify-between mb-2">
                                       <div className="flex items-center gap-2">
-                                        <div className="w-2 h-2 bg-indigo-400 rounded-full"></div>
+                                        <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
                                         <span className="text-sm font-medium text-white">
                                           {item.products?.name || item.sku}
                                         </span>
                                       </div>
-                                      <Badge className="bg-indigo-500/20 text-indigo-300 border-indigo-500/30">
+                                      <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30">
                                         Qty: {item.quantity}
                                       </Badge>
                                     </div>
@@ -391,9 +391,9 @@ const Orders = () => {
         <CardHeader className="pb-3 border-b border-slate-700">
           <CardTitle className="text-lg flex items-center justify-between text-white">
             <div className="flex items-center">
-              <ClipboardList className="h-5 w-5 mr-2 text-indigo-400" />
+              <ClipboardList className="h-5 w-5 mr-2 text-gray-400" />
               Order Management
-              <span className="ml-2 text-xs bg-indigo-500/30 text-indigo-200 py-0.5 px-2 rounded-full border border-indigo-500/50">
+              <span className="ml-2 text-xs bg-gray-700/30 text-gray-200 py-0.5 px-2 rounded-full border border-gray-600/50">
                 {inProgressOrders.length + readyOrders.length} Orders
               </span>
             </div>
@@ -405,7 +405,7 @@ const Orders = () => {
               <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
               <Input
                 placeholder="Search by invoice # or client..."
-                className="pl-9 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30"
+                className="pl-9 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-gray-600/50 focus:ring-1 focus:ring-gray-600/30"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -423,11 +423,11 @@ const Orders = () => {
           {/* In Progress Orders Section */}
           <div className="mb-6">
             <div className="text-lg font-semibold text-white mb-3 flex items-center">
-              <div className="bg-indigo-500/20 p-1 rounded-md mr-2">
-                <ClipboardList className="h-5 w-5 text-indigo-400" />
+              <div className="bg-gray-700/20 p-1 rounded-md mr-2">
+                <ClipboardList className="h-5 w-5 text-gray-400" />
               </div>
               Orders In Progress
-              <span className="ml-2 text-xs bg-indigo-500/30 text-indigo-200 py-0.5 px-2 rounded-full border border-indigo-500/50">
+              <span className="ml-2 text-xs bg-gray-700/30 text-gray-200 py-0.5 px-2 rounded-full border border-gray-600/50">
                 {inProgressOrders.length}
               </span>
             </div>

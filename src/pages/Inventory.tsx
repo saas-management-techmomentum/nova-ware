@@ -270,9 +270,9 @@ const Inventory = () => {
 
       {/* Show loading indicator when adding product */}
       {isAddingProduct && (
-        <div className="bg-blue-600/20 border border-blue-600 rounded-lg p-3 text-blue-300">
+        <div className="bg-gray-700/20 border border-gray-600 rounded-lg p-3 text-gray-300">
           <div className="flex items-center gap-2">
-            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-300"></div>
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-300"></div>
             Adding product to inventory...
           </div>
         </div>
@@ -390,17 +390,17 @@ const Inventory = () => {
                         <TableCell className="text-slate-300">
                           <div className="space-y-1">
                             {item.upc && (
-                              <Badge className="bg-indigo-500/20 text-indigo-300 border-indigo-500/30 border rounded px-3 py-1 whitespace-nowrap font-mono block">
+                              <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30 border rounded px-3 py-1 whitespace-nowrap font-mono block">
                                 UPC: {item.upc}
                               </Badge>
                             )}
                             {item.asin && (
-                              <Badge className="bg-indigo-500/20 text-indigo-300 border-indigo-500/30 border rounded px-3 py-1 whitespace-nowrap font-mono block">
+                              <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30 border rounded px-3 py-1 whitespace-nowrap font-mono block">
                                 ASIN: {item.asin}
                               </Badge>
                             )}
                             {!item.upc && !item.asin && (
-                              <Badge className="bg-indigo-500/20 text-indigo-300 border-indigo-500/30 border rounded px-3 py-1 whitespace-nowrap font-mono">
+                              <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30 border rounded px-3 py-1 whitespace-nowrap font-mono">
                                 N/A
                               </Badge>
                             )}
@@ -430,7 +430,7 @@ const Inventory = () => {
                         {isCorporateOverview && (
                           <TableCell className="text-slate-300">
                             <div className="whitespace-nowrap">
-                              <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 border rounded-full px-3 py-1">
+                              <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30 border rounded-full px-3 py-1">
                                 $ {(item.case_price || 0).toFixed(2)}
                               </Badge>
                             </div>
@@ -448,7 +448,7 @@ const Inventory = () => {
                         {!isCorporateOverview && (
                           <TableCell className="text-slate-300">
                              {item.casesize ? (
-                               <Badge className="bg-indigo-500/20 text-indigo-300 border-indigo-500/30 border rounded-full px-3 py-1">
+                              <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30 border rounded-full px-3 py-1">
                                  {item.casesize}
                                </Badge>
                              ) : (
@@ -459,7 +459,7 @@ const Inventory = () => {
                          {!isCorporateOverview && (
                            <TableCell className="text-slate-300">
                               {item.dimensions ? (
-                                <Badge className="bg-indigo-500/20 text-indigo-300 border-indigo-500/30 border rounded-full px-3 py-1">
+                              <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30 border rounded-full px-3 py-1">
                                   {item.dimensions}
                                 </Badge>
                               ) : (
@@ -470,7 +470,7 @@ const Inventory = () => {
                          {!isCorporateOverview && (
                           <TableCell className="text-slate-300">
                             {item.weight ? (
-                              <Badge className="bg-indigo-500/20 text-indigo-300 border-indigo-500/30 border rounded-full px-3 py-1">
+                              <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30 border rounded-full px-3 py-1">
                                 {item.weight}
                               </Badge>
                             ) : (

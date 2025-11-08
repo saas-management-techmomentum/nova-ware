@@ -117,7 +117,7 @@ const ShipmentsPage = () => {
       case 'received':
         return <Badge className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 gap-1"><CheckCircle className="h-3 w-3" />Received</Badge>;
       case 'inspected':
-        return <Badge className="bg-blue-500/20 text-blue-300 border border-blue-500/30 gap-1"><CheckCircle className="h-3 w-3" />Inspected</Badge>;
+        return <Badge className="bg-gray-700/20 text-gray-300 border border-gray-600/30 gap-1"><CheckCircle className="h-3 w-3" />Inspected</Badge>;
       default:
         return <Badge variant="secondary">{status}</Badge>;
     }
@@ -242,7 +242,7 @@ const ShipmentsPage = () => {
                           <Button
                             variant="ghost"
                             size="sm"
-                            className="h-auto p-1 hover:bg-blue-600/20 text-blue-300"
+                            className="h-auto p-1 hover:bg-gray-700/20 text-gray-300"
                             onClick={() => handleViewPO(relatedPO.id)}
                           >
                             <ShoppingCart className="h-3 w-3 mr-1" />
@@ -338,10 +338,10 @@ const ShipmentsPage = () => {
                           {relatedPO && (
                             <div>
                               <div className="flex items-center gap-2 mb-3">
-                                <ShoppingCart className="h-4 w-4 text-blue-400" />
+                                <ShoppingCart className="h-4 w-4 text-gray-400" />
                                 <span className="text-sm font-medium text-white">Source Purchase Order</span>
                               </div>
-                              <div className="bg-blue-600/10 rounded-lg p-4 border border-blue-500/20">
+                              <div className="bg-gray-700/10 rounded-lg p-4 border border-gray-600/20">
                                 <div className="flex items-center justify-between">
                                   <div>
                                     <div className="text-sm text-white font-medium">
@@ -354,7 +354,7 @@ const ShipmentsPage = () => {
                                   <Button
                                     variant="outline"
                                     size="sm"
-                                    className="gap-2 bg-blue-600/20 border-blue-500/30 text-blue-300 hover:bg-blue-600/30"
+                                    className="gap-2 bg-gray-700/20 border-gray-600/30 text-gray-300 hover:bg-gray-700/30"
                                     onClick={() => handleViewPO(relatedPO.id)}
                                   >
                                     <ExternalLink className="h-4 w-4" />
