@@ -234,7 +234,7 @@ const AddClientDialog: React.FC<AddClientDialogProps> = ({ onClientAdded, trigge
           <Button variant="outline" className="w-full border-slate-600 text-white hover:bg-slate-700">Add New Client</Button>
         </DialogTrigger>
       )}
-      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto bg-slate-800 border-slate-700">
+      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto bg-neutral-900 border-neutral-800">
         <DialogHeader>
           <DialogTitle className="text-white">Add New Client</DialogTitle>
           {!selectedWarehouse && (
@@ -249,7 +249,7 @@ const AddClientDialog: React.FC<AddClientDialogProps> = ({ onClientAdded, trigge
         <form onSubmit={handleAdd} className="space-y-4 pt-2">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="client-name" className="text-slate-300">Client Name *</Label>
+              <Label htmlFor="client-name" className="text-neutral-300">Client Name *</Label>
               <Input
                 id="client-name"
                 name="name"
@@ -257,7 +257,7 @@ const AddClientDialog: React.FC<AddClientDialogProps> = ({ onClientAdded, trigge
                 onChange={handleInputChange}
                 required
                 placeholder="Company Name"
-                className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
+                className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400"
               />
             </div>
             
@@ -324,14 +324,14 @@ const AddClientDialog: React.FC<AddClientDialogProps> = ({ onClientAdded, trigge
                 id="same-billing"
                 checked={sameBillingAddress}
                 onCheckedChange={handleSameBillingAddressChange}
-                className="border-slate-600 data-[state=checked]:bg-indigo-600 data-[state=checked]:border-indigo-600"
+                className="border-neutral-700 data-[state=checked]:bg-gray-800 data-[state=checked]:border-gray-800"
               />
-              <Label htmlFor="same-billing" className="text-slate-300">Billing address same as shipping address</Label>
+              <Label htmlFor="same-billing" className="text-neutral-300">Billing address same as shipping address</Label>
             </div>
             
             {!sameBillingAddress && (
               <div>
-                <Label htmlFor="billing-address" className="text-slate-300">Billing Address</Label>
+                <Label htmlFor="billing-address" className="text-neutral-300">Billing Address</Label>
                 <Textarea
                   id="billing-address"
                   name="billingAddress"
@@ -339,7 +339,7 @@ const AddClientDialog: React.FC<AddClientDialogProps> = ({ onClientAdded, trigge
                   onChange={handleInputChange}
                   placeholder="Full billing address"
                   rows={3}
-                  className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
+                  className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400"
                 />
               </div>
             )}
@@ -347,44 +347,44 @@ const AddClientDialog: React.FC<AddClientDialogProps> = ({ onClientAdded, trigge
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="tax-id" className="text-slate-300">Tax ID #</Label>
+              <Label htmlFor="tax-id" className="text-neutral-300">Tax ID #</Label>
               <Input
                 id="tax-id"
                 name="taxId"
                 value={formData.taxId}
                 onChange={handleInputChange}
                 placeholder="Tax ID Number"
-                className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
+                className="bg-neutral-800 border-neutral-700 text-white placeholder:text-neutral-400"
               />
             </div>
             
             <div>
-              <Label htmlFor="business-type" className="text-slate-300">Type of Business</Label>
+              <Label htmlFor="business-type" className="text-neutral-300">Type of Business</Label>
               <Select value={formData.businessType} onValueChange={(value) => handleSelectChange('businessType', value)}>
-                <SelectTrigger className="bg-slate-700 border-slate-600 text-white">
+                <SelectTrigger className="bg-neutral-800 border-neutral-700 text-white">
                   <SelectValue placeholder="Select business type" />
                 </SelectTrigger>
-                <SelectContent className="bg-slate-800 border-slate-700">
-                  <SelectItem value="LLC" className="text-white hover:bg-slate-700 focus:bg-slate-700">LLC</SelectItem>
-                  <SelectItem value="Partnership" className="text-white hover:bg-slate-700 focus:bg-slate-700">Partnership</SelectItem>
-                  <SelectItem value="Corporation" className="text-white hover:bg-slate-700 focus:bg-slate-700">Corporation</SelectItem>
-                  <SelectItem value="Proprietorship" className="text-white hover:bg-slate-700 focus:bg-slate-700">Proprietorship</SelectItem>
+                <SelectContent className="bg-neutral-900 border-neutral-800">
+                  <SelectItem value="LLC" className="text-white hover:bg-neutral-800 focus:bg-neutral-800">LLC</SelectItem>
+                  <SelectItem value="Partnership" className="text-white hover:bg-neutral-800 focus:bg-neutral-800">Partnership</SelectItem>
+                  <SelectItem value="Corporation" className="text-white hover:bg-neutral-800 focus:bg-neutral-800">Corporation</SelectItem>
+                  <SelectItem value="Proprietorship" className="text-white hover:bg-neutral-800 focus:bg-neutral-800">Proprietorship</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
           <div>
-            <Label htmlFor="payment-terms" className="text-slate-300">Payment Terms</Label>
+            <Label htmlFor="payment-terms" className="text-neutral-300">Payment Terms</Label>
             <Select value={formData.paymentTerms} onValueChange={(value) => handleSelectChange('paymentTerms', value)}>
-              <SelectTrigger className="bg-slate-700 border-slate-600 text-white">
+              <SelectTrigger className="bg-neutral-800 border-neutral-700 text-white">
                 <SelectValue placeholder="Select payment terms" />
               </SelectTrigger>
-              <SelectContent className="bg-slate-800 border-slate-700">
-                <SelectItem value="ACH Payments" className="text-white hover:bg-slate-700 focus:bg-slate-700">ACH Payments</SelectItem>
-                <SelectItem value="Credit Card" className="text-white hover:bg-slate-700 focus:bg-slate-700">Credit Card</SelectItem>
-                <SelectItem value="COD Cash" className="text-white hover:bg-slate-700 focus:bg-slate-700">COD Cash</SelectItem>
-                <SelectItem value="Net Terms" className="text-white hover:bg-slate-700 focus:bg-slate-700">Net Terms</SelectItem>
+              <SelectContent className="bg-neutral-900 border-neutral-800">
+                <SelectItem value="ACH Payments" className="text-white hover:bg-neutral-800 focus:bg-neutral-800">ACH Payments</SelectItem>
+                <SelectItem value="Credit Card" className="text-white hover:bg-neutral-800 focus:bg-neutral-800">Credit Card</SelectItem>
+                <SelectItem value="COD Cash" className="text-white hover:bg-neutral-800 focus:bg-neutral-800">COD Cash</SelectItem>
+                <SelectItem value="Net Terms" className="text-white hover:bg-neutral-800 focus:bg-neutral-800">Net Terms</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -438,7 +438,7 @@ const AddClientDialog: React.FC<AddClientDialogProps> = ({ onClientAdded, trigge
             <Button 
               type="submit" 
               disabled={loading || uploadingFile || !selectedWarehouse} 
-              className="gap-2 bg-indigo-600 hover:bg-indigo-700 text-white"
+              className="gap-2 bg-gray-800 hover:bg-gray-900 text-white"
             >
               {loading ? "Adding..." : uploadingFile ? "Uploading..." : "Add Client"}
             </Button>

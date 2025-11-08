@@ -66,7 +66,7 @@ const AdvancedLocationFilters: React.FC<AdvancedLocationFiltersProps> = ({
   };
 
   return (
-    <Card className={cn("bg-slate-800/50 backdrop-blur-md border-slate-700/50", className)}>
+    <Card className={cn("bg-neutral-900/50 backdrop-blur-md border-neutral-800/50", className)}>
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="text-sm flex items-center text-white">
@@ -116,12 +116,12 @@ const AdvancedLocationFilters: React.FC<AdvancedLocationFiltersProps> = ({
           {/* Zone and Velocity */}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label className="text-slate-300">Zone</Label>
+              <Label className="text-neutral-300">Zone</Label>
               <Select value={filters.zone} onValueChange={(value) => updateFilter('zone', value)}>
-                <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                <SelectTrigger className="bg-neutral-800/50 border-neutral-700 text-white">
                   <SelectValue placeholder="All Zones" />
                 </SelectTrigger>
-                <SelectContent className="bg-slate-800 border-slate-700">
+                <SelectContent className="bg-neutral-900 border-neutral-800">
                   <SelectItem value="all">All Zones</SelectItem>
                   <SelectItem value="A">Zone A</SelectItem>
                   <SelectItem value="B">Zone B</SelectItem>
@@ -133,12 +133,12 @@ const AdvancedLocationFilters: React.FC<AdvancedLocationFiltersProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label className="text-slate-300">Velocity</Label>
+              <Label className="text-neutral-300">Velocity</Label>
               <Select value={filters.velocity} onValueChange={(value) => updateFilter('velocity', value)}>
-                <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                <SelectTrigger className="bg-neutral-800/50 border-neutral-700 text-white">
                   <SelectValue placeholder="All Velocities" />
                 </SelectTrigger>
-                <SelectContent className="bg-slate-800 border-slate-700">
+                <SelectContent className="bg-neutral-900 border-neutral-800">
                   <SelectItem value="all">All Velocities</SelectItem>
                   <SelectItem value="high">High Velocity</SelectItem>
                   <SelectItem value="medium">Medium Velocity</SelectItem>

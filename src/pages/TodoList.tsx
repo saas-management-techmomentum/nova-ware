@@ -125,11 +125,11 @@ const TodoList = () => {
         
         <WarehouseContextIndicator />
         
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-neutral-900 border-neutral-800">
           <CardContent className="flex flex-col items-center justify-center py-16">
-            <AlertCircle className="h-16 w-16 mb-4 text-slate-500" />
+            <AlertCircle className="h-16 w-16 mb-4 text-neutral-500" />
             <p className="text-lg font-medium mb-2 text-white">Select a Warehouse</p>
-            <p className="text-sm text-slate-400 text-center max-w-md">
+            <p className="text-sm text-neutral-400 text-center max-w-md">
               Please select a warehouse from the header to view and manage tasks for that location.
             </p>
           </CardContent>
@@ -169,7 +169,7 @@ const TodoList = () => {
                   id="title"
                   value={newTask.title}
                   onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-                  className="bg-slate-700 border-slate-600 text-white mt-1"
+                  className="bg-neutral-800 border-neutral-700 text-white mt-1"
                   placeholder="Enter task title..."
                 />
               </div>
@@ -189,7 +189,7 @@ const TodoList = () => {
                       {newTask.due_date ? format(newTask.due_date, "PPP") : "Pick a date"}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0 bg-slate-800 border-slate-700 z-50">
+                  <PopoverContent className="w-auto p-0 bg-neutral-900 border-neutral-800 z-50">
                     <Calendar
                       mode="single"
                       selected={newTask.due_date}
@@ -205,10 +205,10 @@ const TodoList = () => {
                 <div>
                   <Label htmlFor="priority" className="text-white">Priority</Label>
                   <Select value={newTask.priority} onValueChange={(value: 'low' | 'medium' | 'high' | 'urgent') => setNewTask({ ...newTask, priority: value })}>
-                    <SelectTrigger className="bg-slate-700 border-slate-600 text-white mt-1">
+                    <SelectTrigger className="bg-neutral-800 border-neutral-700 text-white mt-1">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="bg-slate-800 border-slate-700 z-50">
+                    <SelectContent className="bg-neutral-900 border-neutral-800 z-50">
                       <SelectItem value="low">Low</SelectItem>
                       <SelectItem value="medium">Medium</SelectItem>
                       <SelectItem value="high">High</SelectItem>
@@ -220,10 +220,10 @@ const TodoList = () => {
                 <div>
                   <Label htmlFor="category" className="text-white">Category</Label>
                   <Select value={newTask.category} onValueChange={(value) => setNewTask({ ...newTask, category: value })}>
-                    <SelectTrigger className="bg-slate-700 border-slate-600 text-white mt-1">
+                    <SelectTrigger className="bg-neutral-800 border-neutral-700 text-white mt-1">
                       <SelectValue placeholder="Select category..." />
                     </SelectTrigger>
-                    <SelectContent className="bg-slate-800 border-slate-700 z-50">
+                    <SelectContent className="bg-neutral-900 border-neutral-800 z-50">
                       <SelectItem value="inventory">Inventory</SelectItem>
                       <SelectItem value="shipping">Shipping</SelectItem>
                       <SelectItem value="maintenance">Maintenance</SelectItem>
@@ -237,10 +237,10 @@ const TodoList = () => {
                 <div>
                   <Label htmlFor="assigned_to" className="text-white">Assign To</Label>
                   <Select value={newTask.assigned_to} onValueChange={(value) => setNewTask({ ...newTask, assigned_to: value })}>
-                    <SelectTrigger className="bg-slate-700 border-slate-600 text-white mt-1">
+                    <SelectTrigger className="bg-neutral-800 border-neutral-700 text-white mt-1">
                       <SelectValue placeholder="Select employee..." />
                     </SelectTrigger>
-                    <SelectContent className="bg-slate-800 border-slate-700 z-50">
+                    <SelectContent className="bg-neutral-900 border-neutral-800 z-50">
                       <SelectItem value="unassigned">Unassigned</SelectItem>
                     </SelectContent>
                   </Select>
@@ -276,17 +276,17 @@ const TodoList = () => {
       </Card>
 
       {isLoading ? (
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-neutral-900 border-neutral-800">
           <CardContent className="flex items-center justify-center py-16">
             <div className="text-white">Loading tasks...</div>
           </CardContent>
         </Card>
       ) : tasks.length === 0 ? (
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-neutral-900 border-neutral-800">
           <CardContent className="flex flex-col items-center justify-center py-16">
-            <CheckCircle2 className="h-16 w-16 mb-4 text-slate-500" />
+            <CheckCircle2 className="h-16 w-16 mb-4 text-neutral-500" />
             <p className="text-lg font-medium mb-2 text-white">No Tasks Yet</p>
-            <p className="text-sm text-slate-400 text-center max-w-md">
+            <p className="text-sm text-neutral-400 text-center max-w-md">
               Create your first task to get started with task management for this warehouse.
             </p>
           </CardContent>
@@ -294,7 +294,7 @@ const TodoList = () => {
       ) : (
         <div className="grid gap-4">
           {tasks.map((task) => (
-            <Card key={task.id} className="bg-slate-800 border-slate-700 hover:bg-slate-750 transition-colors">
+            <Card key={task.id} className="bg-neutral-900 border-neutral-800 hover:bg-neutral-850 transition-colors">
               <CardContent className="p-4">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
@@ -307,10 +307,10 @@ const TodoList = () => {
                     </div>
                     
                     {task.description && (
-                      <p className="text-slate-300 mb-3">{task.description}</p>
+                      <p className="text-neutral-300 mb-3">{task.description}</p>
                     )}
                     
-                    <div className="flex items-center gap-4 text-sm text-slate-400">
+                    <div className="flex items-center gap-4 text-sm text-neutral-400">
                       {task.due_date && (
                         <div className="flex items-center gap-1">
                           <CalendarIcon className="h-4 w-4" />
@@ -334,10 +334,10 @@ const TodoList = () => {
                         handleStatusChange(task.id, value)
                       }
                     >
-                      <SelectTrigger className="w-32 bg-slate-700 border-slate-600 text-white">
+                      <SelectTrigger className="w-32 bg-neutral-800 border-neutral-700 text-white">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-slate-700">
+                      <SelectContent className="bg-neutral-900 border-neutral-800">
                         <SelectItem value="pending">Pending</SelectItem>
                         <SelectItem value="in_progress">In Progress</SelectItem>
                         <SelectItem value="completed">Completed</SelectItem>

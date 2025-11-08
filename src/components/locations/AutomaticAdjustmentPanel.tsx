@@ -11,7 +11,7 @@ const AutomaticAdjustmentPanel = () => {
   const { fulfillmentLogs, isProcessing, cleanupEmptyPallets } = useAutomaticPalletAdjustments();
 
   return (
-    <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50">
+    <Card className="bg-neutral-900/50 backdrop-blur-md border border-neutral-800/50">
       <CardHeader className="pb-3">
         <CardTitle className="text-lg flex items-center text-white">
           <Settings className="h-5 w-5 mr-2 text-green-400" />

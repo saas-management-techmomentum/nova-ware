@@ -221,10 +221,10 @@ const AddPalletDialog: React.FC<AddPalletDialogProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto bg-slate-800 border-slate-700 text-white">
+      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto bg-neutral-900 border-neutral-800 text-white">
         <DialogHeader>
           <DialogTitle className="flex items-center text-white">
-            <MapPin className="h-5 w-5 mr-2 text-indigo-400" />
+            <MapPin className="h-5 w-5 mr-2 text-gray-400" />
             Add Smart Warehouse Location
           </DialogTitle>
         </DialogHeader>
@@ -242,13 +242,13 @@ const AddPalletDialog: React.FC<AddPalletDialogProps> = ({
 
           {/* Location Identification */}
           <div className="space-y-4">
-            <div className="border-b border-slate-700 pb-2">
-              <h3 className="text-sm font-semibold text-slate-300">Location Identification</h3>
+            <div className="border-b border-neutral-800 pb-2">
+              <h3 className="text-sm font-semibold text-neutral-300">Location Identification</h3>
             </div>
             
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="palletId" className="flex items-center gap-1 text-slate-300">
+                <Label htmlFor="palletId" className="flex items-center gap-1 text-neutral-300">
                   Location ID *
                   {!palletId && <AlertCircle className="h-3 w-3 text-red-400" />}
                 </Label>
@@ -534,14 +534,14 @@ const AddPalletDialog: React.FC<AddPalletDialogProps> = ({
           </div>
         </div>
         
-        <DialogFooter className="flex space-x-2 justify-end border-t border-slate-700 pt-4">
+        <DialogFooter className="flex space-x-2 justify-end border-t border-neutral-800 pt-4">
           <DialogClose asChild>
-            <Button variant="outline" disabled={isSubmitting} className="border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white">Cancel</Button>
+            <Button variant="outline" disabled={isSubmitting} className="border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white">Cancel</Button>
           </DialogClose>
-          <Button 
+          <Button
             onClick={handleSubmit}
             disabled={!isFormValid || isSubmitting}
-            className={isFormValid ? "bg-green-600 hover:bg-green-700 text-white" : "bg-slate-600 text-slate-400"}
+            className={isFormValid ? "bg-green-600 hover:bg-green-700 text-white" : "bg-neutral-700 text-neutral-400"}
           >
             {isSubmitting ? "Creating Location..." : 
              isFormValid ? "Create Smart Location" : `Missing: ${missingFields.join(', ')}`}
