@@ -147,7 +147,7 @@ const TodoList = () => {
       <WarehouseContextIndicator />
 
       {/* Inline Add Task Form */}
-      <Card className="bg-slate-800 border-slate-700">
+      <Card className="bg-neutral-800 border-neutral-700">
         <CardContent className="p-4">
           {!isFormExpanded ? (
             <Button 
@@ -181,8 +181,8 @@ const TodoList = () => {
                     <Button
                       variant="outline"
                       className={cn(
-                        "w-full justify-start text-left font-normal bg-slate-700 border-slate-600 text-white mt-1",
-                        !newTask.due_date && "text-slate-400"
+                        "w-full justify-start text-left font-normal bg-neutral-700 border-neutral-600 text-white mt-1",
+                        !newTask.due_date && "text-neutral-400"
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
@@ -253,7 +253,7 @@ const TodoList = () => {
                   id="description"
                   value={newTask.description}
                   onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
-                  className="bg-slate-700 border-slate-600 text-white mt-1"
+                  className="bg-neutral-700 border-neutral-600 text-white mt-1"
                   placeholder="Enter task description..."
                 />
               </div>
@@ -262,7 +262,7 @@ const TodoList = () => {
                 <Button
                   variant="outline"
                   onClick={handleCancel}
-                  className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                  className="border-neutral-600 text-neutral-300 hover:bg-neutral-700"
                 >
                   Cancel
                 </Button>
