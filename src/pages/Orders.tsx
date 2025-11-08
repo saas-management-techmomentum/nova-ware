@@ -130,7 +130,7 @@ const Orders = () => {
       case 'order-shipped':
         return <CheckCircle className="h-4 w-4 text-emerald-500" />;
       default:
-        return <AlertCircle className="h-4 w-4 text-slate-400" />;
+        return <AlertCircle className="h-4 w-4 text-neutral-400" />;
     }
   };
 
@@ -235,27 +235,27 @@ const Orders = () => {
               
               return (
                 <React.Fragment key={order.id}>
-                  <TableRow className="border-slate-700 hover:bg-slate-700/30 transition-colors">
+                  <TableRow className="border-neutral-700 hover:bg-neutral-700/30 transition-colors">
                     <TableCell>
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="h-6 w-6 p-0 hover:bg-slate-600"
+                        className="h-6 w-6 p-0 hover:bg-neutral-600"
                         onClick={() => toggleOrderExpansion(order.id)}
                       >
                         <ChevronRight 
-                          className={`h-4 w-4 text-slate-400 transition-transform ${
+                          className={`h-4 w-4 text-neutral-400 transition-transform ${
                             expandedOrders.has(order.id) ? 'rotate-90' : ''
-                          }`} 
+                          }`}
                         />
                       </Button>
                     </TableCell>
                     <TableCell className="font-medium text-white">{order.id}</TableCell>
-                    <TableCell className="text-slate-300">{order.customer_name}</TableCell>
-                    <TableCell className="text-slate-300">
+                    <TableCell className="text-neutral-300">{order.customer_name}</TableCell>
+                    <TableCell className="text-neutral-300">
                       {new Date(order.created_at).toLocaleDateString()}
                     </TableCell>
-                    <TableCell className="text-slate-300 font-medium">
+                    <TableCell className="text-neutral-300 font-medium">
                       ${orderTotal.toFixed(2)}
                     </TableCell>
                     <TableCell className="w-[250px]">
@@ -265,10 +265,10 @@ const Orders = () => {
                       <div className="w-full flex items-center gap-2">
                         <Progress 
                           value={getProgressPercentage(order.status)} 
-                          className="h-2 bg-slate-700" 
+                          className="h-2 bg-neutral-700" 
                           indicatorClassName={getProgressPercentage(order.status) === 100 ? "bg-gradient-to-r from-emerald-500 to-sky-500" : "bg-gradient-to-r from-gray-600 to-gray-700"} 
                         />
-                        <span className="text-sm text-slate-400 w-8">{getProgressPercentage(order.status)}%</span>
+                        <span className="text-sm text-neutral-400 w-8">{getProgressPercentage(order.status)}%</span>
                       </div>
                     </TableCell>
                      <TableCell>
@@ -277,11 +277,11 @@ const Orders = () => {
                            <Badge variant="outline" className="text-xs bg-emerald-600/20 text-emerald-300 border-emerald-500/30">
                              {order.documents.length} docs
                            </Badge>
-                         ) : (
-                           <Badge variant="outline" className="text-xs bg-slate-600/20 text-slate-400 border-slate-500/30">
-                             No docs
-                           </Badge>
-                         )}
+                          ) : (
+                            <Badge variant="outline" className="text-xs bg-neutral-600/20 text-neutral-400 border-neutral-500/30">
+                              No docs
+                            </Badge>
+                          )}
                        </div>
                      </TableCell>
                      <TableCell>
@@ -294,15 +294,15 @@ const Orders = () => {
                      </TableCell>
                   </TableRow>
                   {expandedOrders.has(order.id) && (
-                    <TableRow className="border-slate-700">
+                    <TableRow className="border-neutral-700">
                       <TableCell colSpan={9} className="p-0">
-                        <div className="bg-slate-700/20 border-l-2 border-gray-700/50 p-6 ml-6 space-y-6">
+                        <div className="bg-neutral-700/20 border-l-2 border-gray-700/50 p-6 ml-6 space-y-6">
                           {/* Order Items Section */}
                           <div>
                             <div className="flex items-center gap-2 mb-3">
                               <Package className="h-4 w-4 text-gray-400" />
                               <span className="text-sm font-medium text-white">Order Items</span>
-                              <Badge variant="outline" className="text-xs bg-slate-600/50 text-slate-300 border-slate-500">
+                              <Badge variant="outline" className="text-xs bg-neutral-600/50 text-neutral-300 border-neutral-500">
                                 {order.items?.length || 0} {order.items?.length === 1 ? 'item' : 'items'}
                               </Badge>
                               <Badge variant="outline" className="text-xs bg-emerald-600/20 text-emerald-300 border-emerald-500/30">
@@ -312,9 +312,9 @@ const Orders = () => {
                             {order.items && order.items.length > 0 ? (
                               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                                 {order.items.map((item: any, index: number) => (
-                                  <div 
+                                <div 
                                     key={index} 
-                                    className="bg-slate-600/30 rounded-lg p-3 border border-slate-600/50 hover:border-gray-700/30 transition-colors"
+                                    className="bg-neutral-600/30 rounded-lg p-3 border border-neutral-600/50 hover:border-gray-700/30 transition-colors"
                                   >
                                     <div className="flex items-center justify-between mb-2">
                                       <div className="flex items-center gap-2">
@@ -328,7 +328,7 @@ const Orders = () => {
                                       </Badge>
                                     </div>
                                     {item.products?.name && (
-                                      <div className="text-xs text-slate-400">SKU: {item.sku}</div>
+                                      <div className="text-xs text-neutral-400">SKU: {item.sku}</div>
                                     )}
                                     {(item.unit_price || item.products?.unit_price) && (
                                       <div className="text-xs text-emerald-400 mt-1">
@@ -339,7 +339,7 @@ const Orders = () => {
                                 ))}
                               </div>
                             ) : (
-                              <div className="text-sm text-slate-400 italic">No items specified for this order</div>
+                              <div className="text-sm text-neutral-400 italic">No items specified for this order</div>
                             )}
                           </div>
 
@@ -436,7 +436,7 @@ const Orders = () => {
 
           {/* Ready Orders Section */}
           {readyOrders.length > 0 && (
-            <div className="mt-8 border-t border-slate-700 pt-6">
+            <div className="mt-8 border-t border-neutral-700 pt-6">
               <div 
                 className="text-lg font-semibold text-white mb-3 flex items-center cursor-pointer"
                 onClick={() => setIsReadySectionCollapsed(!isReadySectionCollapsed)}
@@ -449,9 +449,9 @@ const Orders = () => {
                   {readyOrders.length}
                 </span>
                 {isReadySectionCollapsed ? (
-                  <ChevronDown className="ml-2 h-5 w-5 text-slate-400" />
+                  <ChevronDown className="ml-2 h-5 w-5 text-neutral-400" />
                 ) : (
-                  <ChevronUp className="ml-2 h-5 w-5 text-slate-400" />
+                  <ChevronUp className="ml-2 h-5 w-5 text-neutral-400" />
                 )}
               </div>
               
@@ -461,9 +461,9 @@ const Orders = () => {
           
           {inProgressOrders.length === 0 && readyOrders.length === 0 && (
             <div className="flex flex-col items-center justify-center p-8 text-center">
-              <ClipboardList className="h-12 w-12 text-slate-600 opacity-30 mb-2" />
+              <ClipboardList className="h-12 w-12 text-neutral-600 opacity-30 mb-2" />
               <h3 className="text-lg font-medium text-white">No orders found</h3>
-              <p className="text-sm text-slate-400">
+              <p className="text-sm text-neutral-400">
                 Try adjusting your search criteria
               </p>
             </div>
