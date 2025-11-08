@@ -151,10 +151,10 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 to-slate-900 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-gradient-to-br from-neutral-950 to-neutral-900 flex items-center justify-center p-6">
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-slate-500/10 rounded-full blur-3xl transform -translate-y-1/3 translate-x-1/4 opacity-30"></div>
-        <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-slate-500/10 rounded-full blur-3xl transform translate-y-1/3 -translate-x-1/4 opacity-30"></div>
+        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-neutral-500/10 rounded-full blur-3xl transform -translate-y-1/3 translate-x-1/4 opacity-30"></div>
+        <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-neutral-500/10 rounded-full blur-3xl transform translate-y-1/3 -translate-x-1/4 opacity-30"></div>
       </div>
 
       <Card className="w-full max-w-md bg-white/5 backdrop-blur-sm border-white/10 text-white relative z-10">
@@ -223,7 +223,7 @@ const AuthPage = () => {
                     
                     <Button 
                       type="submit" 
-                      className="w-full bg-slate-800 hover:bg-slate-700 text-white" 
+                      className="w-full bg-neutral-800 hover:bg-neutral-700 text-white" 
                       disabled={isLoading}
                     >
                       {isLoading ? 'Signing In...' : 'Sign In'}
@@ -270,7 +270,7 @@ const AuthPage = () => {
                     
                     <Button 
                       type="submit" 
-                      className="w-full bg-slate-800 hover:bg-slate-700 text-white" 
+                      className="w-full bg-neutral-800 hover:bg-neutral-700 text-white" 
                       disabled={isLoading}
                     >
                       {isLoading ? 'Sending Reset Email...' : 'Send Reset Email'}
