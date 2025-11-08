@@ -249,23 +249,23 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
     <div className="space-y-4">
       {/* Employee Task Summary for non-managers */}
       {!canManageEmployees && (
-        <div className="bg-slate-800/50 p-4 rounded-lg">
+        <div className="bg-neutral-800/50 p-4 rounded-lg">
           <div className="flex items-center gap-4">
             <div className="text-center">
               <div className="text-2xl font-bold text-white">{taskCounts.my}</div>
-              <div className="text-sm text-slate-400">Total Tasks</div>
+              <div className="text-sm text-neutral-400">Total Tasks</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-green-400">
                 {myTasks.filter(t => t.status === 'completed').length}
               </div>
-              <div className="text-sm text-slate-400">Completed</div>
+              <div className="text-sm text-neutral-400">Completed</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-gray-400">
                 {myTasks.filter(t => t.status === 'in_progress').length}
               </div>
-              <div className="text-sm text-slate-400">In Progress</div>
+              <div className="text-sm text-neutral-400">In Progress</div>
             </div>
           </div>
         </div>
@@ -273,11 +273,11 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
 
       {/* Employee Summary for individual employee tabs */}
       {canManageEmployees && selectedTab !== 'all' && selectedTab !== 'unassigned' && (
-        <div className="bg-slate-800/50 p-4 rounded-lg">
+        <div className="bg-neutral-800/50 p-4 rounded-lg">
           <div className="flex items-center gap-4">
             <Avatar className="h-12 w-12">
               <AvatarImage src={employees.find(emp => emp.id === selectedTab)?.avatar_url} />
-              <AvatarFallback className="bg-slate-700 text-white">
+              <AvatarFallback className="bg-neutral-700 text-white">
                 {employees.find(emp => emp.id === selectedTab)?.initials}
               </AvatarFallback>
             </Avatar>
@@ -285,7 +285,7 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
               <h3 className="text-lg font-semibold text-white">
                 {employees.find(emp => emp.id === selectedTab)?.name}
               </h3>
-              <p className="text-sm text-slate-400">
+              <p className="text-sm text-neutral-400">
                 {employees.find(emp => emp.id === selectedTab)?.position}
               </p>
               <div className="mt-2">
@@ -300,19 +300,19 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
                 <div className="text-xl font-bold text-white">
                   {employeeTaskData[selectedTab]?.total || 0}
                 </div>
-                <div className="text-xs text-slate-400">Total</div>
+                <div className="text-xs text-neutral-400">Total</div>
               </div>
               <div>
                 <div className="text-xl font-bold text-green-400">
                   {employeeTaskData[selectedTab]?.completed || 0}
                 </div>
-                <div className="text-xs text-slate-400">Completed</div>
+                <div className="text-xs text-neutral-400">Completed</div>
               </div>
               <div>
                 <div className="text-xl font-bold text-gray-400">
                   {employeeTaskData[selectedTab]?.inProgress || 0}
                 </div>
-                <div className="text-xs text-slate-400">In Progress</div>
+                <div className="text-xs text-neutral-400">In Progress</div>
               </div>
             </div>
           </div>
@@ -321,9 +321,9 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
 
       {/* Tasks List */}
       {filteredTasks.length === 0 ? (
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-neutral-800 border-neutral-700">
           <CardContent className="flex flex-col items-center justify-center py-16">
-            <CheckCircle2 className="h-16 w-16 mb-4 text-slate-500" />
+            <CheckCircle2 className="h-16 w-16 mb-4 text-neutral-500" />
             <p className="text-lg font-medium mb-2 text-white">
               {!canManageEmployees 
                 ? 'No Tasks Assigned' 
@@ -334,7 +334,7 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
                     : 'No Tasks Assigned'
               }
             </p>
-            <p className="text-sm text-slate-400 text-center max-w-md">
+            <p className="text-sm text-neutral-400 text-center max-w-md">
               {!canManageEmployees 
                 ? 'No tasks have been assigned to you yet.'
                 : selectedTab === 'unassigned' 
@@ -349,7 +349,7 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
       ) : (
         <div className="grid gap-4">
           {filteredTasks.map((task) => (
-            <Card key={task.id} className="bg-slate-800 border-slate-700 hover:bg-slate-750 transition-colors">
+            <Card key={task.id} className="bg-neutral-800 border-neutral-700 hover:bg-neutral-750 transition-colors">
               <CardContent className="p-4">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
@@ -362,10 +362,10 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
                     </div>
                     
                     {task.description && (
-                      <p className="text-slate-300 mb-3">{task.description}</p>
+                      <p className="text-neutral-300 mb-3">{task.description}</p>
                     )}
                     
-                    <div className="flex items-center gap-4 text-sm text-slate-400">
+                    <div className="flex items-center gap-4 text-sm text-neutral-400">
                       {task.due_date && (
                         <div className="flex items-center gap-1">
                           <CalendarIcon className="h-4 w-4" />
@@ -397,22 +397,22 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
                           <Button
                             variant="outline"
                             size="sm"
-                            className="border-slate-600 text-slate-400 hover:text-white hover:bg-slate-700/50"
+                            className="border-neutral-600 text-neutral-400 hover:text-white hover:bg-neutral-700/50"
                           >
                             <MoreVertical className="h-4 w-4" />
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="bg-slate-800 border-slate-700">
+                        <DropdownMenuContent align="end" className="bg-neutral-800 border-neutral-700">
                           <DropdownMenuItem 
                             onClick={() => handleViewTask(task.id)}
-                            className="text-slate-300 hover:text-white hover:bg-slate-700 cursor-pointer"
+                            className="text-neutral-300 hover:text-white hover:bg-neutral-700 cursor-pointer"
                           >
                             <Eye className="h-4 w-4 mr-2" />
                             View Task
                           </DropdownMenuItem>
                           <DropdownMenuItem 
                             onClick={() => handleEditTask(task.id)}
-                            className="text-slate-300 hover:text-white hover:bg-slate-700 cursor-pointer"
+                            className="text-neutral-300 hover:text-white hover:bg-neutral-700 cursor-pointer"
                           >
                             <Edit className="h-4 w-4 mr-2" />
                             Edit Task
