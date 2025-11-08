@@ -475,28 +475,53 @@ const CreateIncomingShipmentModal = ({ open, onOpenChange, onUpdate }: CreateInc
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-...
-                              <Button 
-                                onClick={() => handleReceiveShipment(shipment.id)} 
-                                size="sm" 
-                                variant="outline" 
-                                className="gap-1 border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white"
-                              >
-                                <Clipboard className="h-3.5 w-3.5" />
-                                View Details
-                              </Button>
-                            </TableCell>
-                          </TableRow>
-                        );
-                      })}
-                    </TableBody>
-                  </Table>
-                </div>
-              ) : (
-                <div className="text-center py-8 text-neutral-400">
-                  No received shipments found
-                </div>
-              )}
+                        {filteredShipments.map((shipment) => {
+                          const itemsWithIssues = shipment.items?.filter(
+                            item => (item.damaged_qty && item.damaged_qty > 0) || 
+                                   (item.received_qty !== undefined && item.received_qty !== item.expected_qty)
+                          ) || [];
+                          
+                          return (
+                            <TableRow key={shipment.id} className="border-neutral-700 hover:bg-neutral-800/30">
+                              <TableCell className="font-medium text-white">{shipment.id}</TableCell>
+                              <TableCell className="text-neutral-300">{shipment.supplier}</TableCell>
+                              <TableCell className="text-neutral-300">{shipment.received_date}</TableCell>
+                              <TableCell>{getStatusBadge(shipment.status)}</TableCell>
+                              <TableCell>
+                                {itemsWithIssues.length > 0 ? (
+                                  <Badge className="gap-1 bg-red-500/20 text-red-300 border-red-500/30">
+                                    <AlertCircle className="h-3 w-3" />
+                                    {itemsWithIssues.length} issues
+                                  </Badge>
+                                ) : (
+                                  <Badge className="gap-1 bg-emerald-500/20 text-emerald-300 border-emerald-500/30">
+                                    <Check className="h-3 w-3" />
+                                    No issues
+                                  </Badge>
+                                )}
+                              </TableCell>
+                              <TableCell className="text-right">
+                                <Button 
+                                  onClick={() => handleReceiveShipment(shipment.id)} 
+                                  size="sm" 
+                                  variant="outline" 
+                                  className="gap-1 border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white"
+                                >
+                                  <Clipboard className="h-3.5 w-3.5" />
+                                  View Details
+                                </Button>
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                      </TableBody>
+                    </Table>
+                  </div>
+                ) : (
+                  <div className="text-center py-8 text-neutral-400">
+                    No received shipments found
+                  </div>
+                )}
               </TabsContent>
             </Tabs>
           </>
@@ -553,7 +578,17 @@ const CreateIncomingShipmentModal = ({ open, onOpenChange, onUpdate }: CreateInc
               >
                 Cancel
               </Button>
-...
+              <Button 
+                onClick={handleAddShipment} 
+                className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white" 
+                disabled={isAddingShipment}
+              >
+                <Plus className="h-4 w-4" />
+                Add Shipment
+              </Button>
+            </>
+          ) : selectedShipment ? (
+            <>
               <Button 
                 variant="outline" 
                 onClick={() => setSelectedShipment(null)}
@@ -561,7 +596,15 @@ const CreateIncomingShipmentModal = ({ open, onOpenChange, onUpdate }: CreateInc
               >
                 Cancel
               </Button>
-...
+              <Button 
+                onClick={handleSaveReceiving} 
+                className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white"
+              >
+                <Check className="h-4 w-4" />
+                Save Changes
+              </Button>
+            </>
+          ) : (
             <Button 
               variant="outline" 
               onClick={() => onOpenChange(false)}
