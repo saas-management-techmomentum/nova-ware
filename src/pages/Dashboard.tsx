@@ -71,17 +71,17 @@ const Dashboard = () => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-slate-800 border border-slate-600 rounded-lg p-3 shadow-lg">
+        <div className="bg-neutral-800 border border-neutral-600 rounded-lg p-3 shadow-lg">
           <p className="text-white font-medium mb-2">{label}</p>
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 bg-gray-500 rounded"></div>
-              <span className="text-slate-300 text-sm">Processed Orders: </span>
+              <span className="text-neutral-300 text-sm">Processed Orders: </span>
               <span className="text-white font-medium">{data.processedOrders}</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 bg-red-500 rounded"></div>
-              <span className="text-slate-300 text-sm">Backlog Orders: </span>
+              <span className="text-neutral-300 text-sm">Backlog Orders: </span>
               <span className="text-white font-medium">{data.backlogOrders}</span>
             </div>
           </div>
@@ -190,7 +190,7 @@ const Dashboard = () => {
   // Component to render top stats cards with conditional linking
   const TopStatsCard = ({ stat }: { stat: typeof topStats[0] }) => {
     const cardContent = (
-      <Card className={`relative overflow-hidden bg-slate-800/50 backdrop-blur-md border border-slate-700/50 hover:shadow-lg card-hover ${
+      <Card className={`relative overflow-hidden bg-neutral-800/50 backdrop-blur-md border border-neutral-700/50 hover:shadow-lg card-hover ${
         selectedWarehouse ? 'cursor-pointer' : ''
       }`}>
         <CardContent className="p-6 relative z-10 flex items-center space-x-4">
@@ -198,7 +198,7 @@ const Dashboard = () => {
             <stat.icon className="h-6 w-6" />
           </div>
           <div>
-            <p className="text-sm font-medium text-slate-400">{stat.title}</p>
+            <p className="text-sm font-medium text-neutral-400">{stat.title}</p>
             <h3 className="text-2xl font-bold text-white">{stat.value}</h3>
           </div>
         </CardContent>
@@ -232,11 +232,11 @@ const Dashboard = () => {
         <WarehouseContextIndicator />
         <SetupCompletionBanner />
 
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-neutral-800 border-neutral-700">
           <CardContent className="flex flex-col items-center justify-center py-16">
-            <Factory className="h-16 w-16 mb-4 text-slate-500" />
+            <Factory className="h-16 w-16 mb-4 text-neutral-500" />
             <p className="text-lg font-medium mb-2 text-white">Select a Warehouse</p>
-            <p className="text-sm text-slate-400 text-center max-w-md">
+            <p className="text-sm text-neutral-400 text-center max-w-md">
               Please select a warehouse from the header to view your dashboard data.
             </p>
           </CardContent>
@@ -251,11 +251,11 @@ const Dashboard = () => {
       {/* Header */}
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-3">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">Command Center</h1>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-neutral-300 bg-clip-text text-transparent">Command Center</h1>
           <span className="text-xs font-normal text-white px-2 py-0.5 rounded-full bg-red-500/90 shadow-sm shadow-red-500/40">Live</span>
         </div>
-        <div className="flex items-center gap-2 text-sm text-slate-400">
-          {/* <div className="flex items-center gap-1.5 bg-slate-800/60 px-3 py-1.5 rounded-md border border-slate-700/50">
+        <div className="flex items-center gap-2 text-sm text-neutral-400">
+          {/* <div className="flex items-center gap-1.5 bg-neutral-800/60 px-3 py-1.5 rounded-md border border-neutral-700/50">
             <span>{getLastUpdatedText()}</span>
           </div> */}
         </div>
@@ -275,7 +275,7 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
         {warehouseMetrics.map((metric) => (
           <Link key={metric.title} to={metric.route} className="block group">
-            <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 overflow-hidden cursor-pointer transition-all duration-200 hover:bg-slate-700/50 hover:border-gray-700/30 hover:shadow-lg hover:scale-[1.02]">
+            <Card className="bg-neutral-800/50 backdrop-blur-md border border-neutral-700/50 overflow-hidden cursor-pointer transition-all duration-200 hover:bg-neutral-700/50 hover:border-gray-700/30 hover:shadow-lg hover:scale-[1.02]">
               <CardContent className="p-5 relative">
                 <div className="flex items-center justify-between mb-2">
                   <div className={`p-2 rounded-lg bg-gradient-to-br from-${metric.color.split('-')[1]}-500/20 to-${metric.color.split('-')[1]}-500/5 shadow-md`}>
@@ -288,9 +288,9 @@ const Dashboard = () => {
                     {metric.change >= 0 ? '+' : ''}{metric.change}%
                   </div>
                 </div>
-                <p className="text-sm font-medium text-slate-400">{metric.title}</p>
+                <p className="text-sm font-medium text-neutral-400">{metric.title}</p>
                 <h3 className="text-2xl font-bold text-white mb-2">{metric.value}%</h3>
-                <div className="h-1.5 bg-slate-700 rounded-full overflow-hidden">
+                <div className="h-1.5 bg-neutral-700 rounded-full overflow-hidden">
                   <div 
                     className={`h-full bg-${metric.color.split('-')[1]}-500 shadow-[0_0_5px_rgba(${
                       metric.color.includes('gray') ? '107,114,128' :
@@ -308,9 +308,9 @@ const Dashboard = () => {
 
       {/* Best Selling & Slow Moving Items */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 overflow-hidden">
+        <Card className="bg-neutral-800/50 backdrop-blur-md border border-neutral-700/50 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-emerald-500/5" />
-          <CardHeader className="relative pb-2 border-b border-slate-700">
+          <CardHeader className="relative pb-2 border-b border-neutral-700">
             <CardTitle className="text-lg flex items-center text-white">
               <TrendingUp className="h-5 w-5 mr-2 text-green-400" />
               Best Selling Items
@@ -318,31 +318,31 @@ const Dashboard = () => {
           </CardHeader>
           <CardContent className="p-6">
             {transactionsLoading ? (
-              <div className="flex flex-col items-center justify-center py-8 text-slate-400">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-slate-400 mb-3"></div>
+              <div className="flex flex-col items-center justify-center py-8 text-neutral-400">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-400 mb-3"></div>
                 <p className="text-sm">Loading analytics data...</p>
               </div>
             ) : !dataSufficiency.hasSufficientData ? (
-              <div className="flex flex-col items-center justify-center py-8 text-slate-400">
-                <Box className="h-12 w-12 mb-3 text-slate-500" />
+              <div className="flex flex-col items-center justify-center py-8 text-neutral-400">
+                <Box className="h-12 w-12 mb-3 text-neutral-500" />
                 <p className="text-sm font-medium">Collecting Data</p>
-                <p className="text-xs text-slate-500 mt-1">
+                <p className="text-xs text-neutral-500 mt-1">
                   {dataSufficiency.daysWithData} / 30 days collected
                 </p>
-                <div className="w-full bg-slate-700 rounded-full h-2 mt-3 max-w-xs">
+                <div className="w-full bg-neutral-700 rounded-full h-2 mt-3 max-w-xs">
                   <div 
                     className="bg-green-500 h-2 rounded-full transition-all duration-1000" 
                     style={{ width: `${(dataSufficiency.daysWithData / 30) * 100}%` }}
                   />
                 </div>
-                <p className="text-xs text-slate-500 mt-2">
+                <p className="text-xs text-neutral-500 mt-2">
                   AI predictions available with 30 days of data
                 </p>
               </div>
             ) : hasAnalyticsData ? (
               <div className="space-y-3">
                  {bestSellers.map((item, index) => (
-                  <div key={item.id} className="flex items-center justify-between p-4 bg-gradient-to-r from-slate-700/40 to-slate-800/40 rounded-xl border border-slate-600/30 hover:from-slate-700/60 hover:to-slate-800/60 transition-all duration-200">
+                  <div key={item.id} className="flex items-center justify-between p-4 bg-gradient-to-r from-neutral-700/40 to-neutral-800/40 rounded-xl border border-neutral-600/30 hover:from-neutral-700/60 hover:to-neutral-800/60 transition-all duration-200">
                     <div className="flex items-center gap-4">
                       <div className="relative">
                         <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 text-white w-8 h-8 p-0 flex items-center justify-center text-sm font-bold rounded-full shadow-lg">
@@ -352,17 +352,17 @@ const Dashboard = () => {
                       </div>
                       <div>
                         <p className="text-white font-semibold text-sm">{item.name}</p>
-                        <p className="text-xs text-slate-400 bg-slate-800/50 px-2 py-1 rounded mt-1">{item.sku}</p>
+                        <p className="text-xs text-neutral-400 bg-neutral-800/50 px-2 py-1 rounded mt-1">{item.sku}</p>
                       </div>
                     </div>
                     <div className="text-right">
                       <p className="text-white font-bold">{item.totalSold} sold</p>
                       <p className="text-xs text-green-400 font-medium">${item.totalRevenue.toFixed(2)}</p>
                     </div>
-                  </div>
+                </div>
                 ))}
-                <div className="pt-2 border-t border-slate-600">
-                  <p className="text-xs text-slate-400 text-center">
+                <div className="pt-2 border-t border-neutral-600">
+                  <p className="text-xs text-neutral-400 text-center">
                     <span className="inline-flex items-center gap-1">
                       <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                       AI-Powered Analytics ({dataSufficiency.daysWithData} days)
@@ -371,18 +371,18 @@ const Dashboard = () => {
                 </div>
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center py-8 text-slate-400">
-                <Box className="h-12 w-12 mb-3 text-slate-500" />
+              <div className="flex flex-col items-center justify-center py-8 text-neutral-400">
+                <Box className="h-12 w-12 mb-3 text-neutral-500" />
                 <p className="text-sm">No sales data available</p>
-                <p className="text-xs text-slate-500 mt-1">Complete orders to see sales analytics</p>
+                <p className="text-xs text-neutral-500 mt-1">Complete orders to see sales analytics</p>
               </div>
             )}
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 overflow-hidden">
+        <Card className="bg-neutral-800/50 backdrop-blur-md border border-neutral-700/50 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-red-500/5" />
-          <CardHeader className="relative pb-2 border-b border-slate-700">
+          <CardHeader className="relative pb-2 border-b border-neutral-700">
             <CardTitle className="text-lg flex items-center text-white">
               <TrendingDown className="h-5 w-5 mr-2 text-orange-400" />
               Slow Moving Items
@@ -390,31 +390,31 @@ const Dashboard = () => {
           </CardHeader>
           <CardContent className="p-6">
             {transactionsLoading ? (
-              <div className="flex flex-col items-center justify-center py-8 text-slate-400">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-slate-400 mb-3"></div>
+              <div className="flex flex-col items-center justify-center py-8 text-neutral-400">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-400 mb-3"></div>
                 <p className="text-sm">Loading analytics data...</p>
               </div>
             ) : !dataSufficiency.hasSufficientData ? (
-              <div className="flex flex-col items-center justify-center py-8 text-slate-400">
-                <Box className="h-12 w-12 mb-3 text-slate-500" />
+              <div className="flex flex-col items-center justify-center py-8 text-neutral-400">
+                <Box className="h-12 w-12 mb-3 text-neutral-500" />
                 <p className="text-sm font-medium">Collecting Data</p>
-                <p className="text-xs text-slate-500 mt-1">
+                <p className="text-xs text-neutral-500 mt-1">
                   {dataSufficiency.daysWithData} / 30 days collected
                 </p>
-                <div className="w-full bg-slate-700 rounded-full h-2 mt-3 max-w-xs">
+                <div className="w-full bg-neutral-700 rounded-full h-2 mt-3 max-w-xs">
                   <div 
                     className="bg-orange-500 h-2 rounded-full transition-all duration-1000" 
                     style={{ width: `${(dataSufficiency.daysWithData / 30) * 100}%` }}
                   />
                 </div>
-                <p className="text-xs text-slate-500 mt-2">
+                <p className="text-xs text-neutral-500 mt-2">
                   AI predictions available with 30 days of data
                 </p>
               </div>
             ) : hasAnalyticsData ? (
               <div className="space-y-3">
                 {slowMovers.map((item, index) => (
-                  <div key={item.id} className="flex items-center justify-between p-4 bg-gradient-to-r from-slate-700/40 to-slate-800/40 rounded-xl border border-slate-600/30 hover:from-slate-700/60 hover:to-slate-800/60 transition-all duration-200">
+                  <div key={item.id} className="flex items-center justify-between p-4 bg-gradient-to-r from-neutral-700/40 to-neutral-800/40 rounded-xl border border-neutral-600/30 hover:from-neutral-700/60 hover:to-neutral-800/60 transition-all duration-200">
                     <div className="flex items-center gap-4">
                       <div className="relative">
                         <Badge className="bg-gradient-to-r from-orange-500 to-red-500 text-white w-8 h-8 p-0 flex items-center justify-center text-sm font-bold rounded-full shadow-lg">
@@ -424,17 +424,17 @@ const Dashboard = () => {
                       </div>
                       <div>
                         <p className="text-white font-semibold text-sm">{item.name}</p>
-                        <p className="text-xs text-slate-400 bg-slate-800/50 px-2 py-1 rounded mt-1">{item.sku}</p>
+                        <p className="text-xs text-neutral-400 bg-neutral-800/50 px-2 py-1 rounded mt-1">{item.sku}</p>
                       </div>
                     </div>
                     <div className="text-right">
                       <p className="text-white font-bold">{item.currentStock} in stock</p>
                       <p className="text-xs text-orange-400 font-medium">{item.totalSold} sold</p>
                     </div>
-                  </div>
+                </div>
                 ))}
-                <div className="pt-2 border-t border-slate-600">
-                  <p className="text-xs text-slate-400 text-center">
+                <div className="pt-2 border-t border-neutral-600">
+                  <p className="text-xs text-neutral-400 text-center">
                     <span className="inline-flex items-center gap-1">
                       <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
                       AI-Powered Analytics ({dataSufficiency.daysWithData} days)
@@ -443,10 +443,10 @@ const Dashboard = () => {
                 </div>
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center py-8 text-slate-400">
-                <Box className="h-12 w-12 mb-3 text-slate-500" />
+              <div className="flex flex-col items-center justify-center py-8 text-neutral-400">
+                <Box className="h-12 w-12 mb-3 text-neutral-500" />
                 <p className="text-sm">No inventory movement data</p>
-                <p className="text-xs text-slate-500 mt-1">Process orders to track item movement</p>
+                <p className="text-xs text-neutral-500 mt-1">Process orders to track item movement</p>
               </div>
             )}
           </CardContent>
@@ -455,8 +455,8 @@ const Dashboard = () => {
 
       {/* Monthly Order Volume Chart - Only show in Corporate Overview */}
       {selectedWarehouse === null && (
-        <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 overflow-hidden cursor-pointer hover:bg-slate-700/50 hover:border-gray-700/30 hover:shadow-lg transition-all duration-200">
-          <CardHeader className="pb-2 relative z-10 border-b border-slate-700">
+        <Card className="bg-neutral-800/50 backdrop-blur-md border border-neutral-700/50 overflow-hidden cursor-pointer hover:bg-neutral-700/50 hover:border-gray-700/30 hover:shadow-lg transition-all duration-200">
+          <CardHeader className="pb-2 relative z-10 border-b border-neutral-700">
             <CardTitle className="text-lg flex items-center text-white">
               <BarChart3 className="h-5 w-5 mr-2 text-gray-400" />
               Order Volume Analytics
@@ -464,8 +464,8 @@ const Dashboard = () => {
           </CardHeader>
           <CardContent className="p-6 h-96">
             {volumeLoading ? (
-              <div className="flex flex-col items-center justify-center py-16 text-slate-400">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-slate-400 mb-3"></div>
+              <div className="flex flex-col items-center justify-center py-16 text-neutral-400">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-400 mb-3"></div>
                 <p className="text-sm">Loading order volume data...</p>
               </div>
             ) : orderVolumeData.hasData ? (
@@ -511,10 +511,10 @@ const Dashboard = () => {
                 </BarChart>
               </ResponsiveContainer>
             ) : (
-              <div className="flex flex-col items-center justify-center py-16 text-slate-400">
-                <BarChart3 className="h-16 w-16 mb-4 text-slate-500" />
+              <div className="flex flex-col items-center justify-center py-16 text-neutral-400">
+                <BarChart3 className="h-16 w-16 mb-4 text-neutral-500" />
                 <p className="text-lg font-medium mb-2">No order data available</p>
-                <p className="text-sm text-slate-500 text-center max-w-md">
+                <p className="text-sm text-neutral-500 text-center max-w-md">
                   Start creating and processing orders to see volume trends and analytics
                 </p>
               </div>
