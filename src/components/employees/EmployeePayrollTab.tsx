@@ -79,7 +79,7 @@ const EmployeePayrollTab = () => {
       case 'paid':
         return <Badge className="bg-green-500 text-white">Paid</Badge>;
       case 'processed':
-        return <Badge className="bg-blue-500 text-white">Processed</Badge>;
+        return <Badge className="bg-gray-700 text-white">Processed</Badge>;
       case 'pending':
         return <Badge className="bg-yellow-500 text-white">Pending</Badge>;
       default:
@@ -92,7 +92,7 @@ const EmployeePayrollTab = () => {
       case 'paid':
         return <CheckCircle2 className="h-4 w-4 text-green-500" />;
       case 'processed':
-        return <Clock className="h-4 w-4 text-blue-500" />;
+        return <Clock className="h-4 w-4 text-gray-500" />;
       case 'pending':
         return <AlertCircle className="h-4 w-4 text-yellow-500" />;
       default:
@@ -113,7 +113,7 @@ const EmployeePayrollTab = () => {
           </Button>
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-indigo-600 hover:bg-indigo-700">
+              <Button className="bg-gray-800 hover:bg-gray-900">
                 <Plus className="h-4 w-4 mr-2" />
                 Add Payroll Entry
               </Button>
@@ -167,7 +167,7 @@ const EmployeePayrollTab = () => {
                   >
                     Cancel
                   </Button>
-                  <Button className="bg-indigo-600 hover:bg-indigo-700">
+                  <Button className="bg-gray-800 hover:bg-gray-900">
                     Add Entry
                   </Button>
                 </div>

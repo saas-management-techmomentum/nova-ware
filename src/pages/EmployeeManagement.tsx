@@ -86,7 +86,7 @@ const EmployeeManagement = () => {
           <h1 className="text-3xl font-bold text-white">
             {canManageEmployees ? 'Employee Management' : 'My Tasks'}
           </h1>
-          <Badge className="bg-indigo-600 text-white">
+          <Badge className="bg-gray-700 text-white">
             {selectedWarehouse ? 'Warehouse Scoped' : 'Corporate Overview'}
           </Badge>
         </div>
@@ -103,7 +103,7 @@ const EmployeeManagement = () => {
             
             <Button
               onClick={() => setIsEditDialogOpen(true)}
-              className="bg-blue-600 hover:bg-blue-700 text-white"
+              className="bg-gray-800 hover:bg-gray-900 text-white"
             >
               <UserPen className="h-4 w-4 mr-2" />
               Edit Employee
@@ -126,12 +126,12 @@ const EmployeeManagement = () => {
       {/* Metrics Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Task Metrics */}
-        <Card className="bg-slate-800 border-slate-700 border-l-4 border-l-blue-500">
+        <Card className="bg-slate-800 border-slate-700 border-l-4 border-l-gray-700">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-blue-500/10">
-                  <ClipboardList className="h-5 w-5 text-blue-500" />
+                <div className="p-2 rounded-lg bg-gray-800/10">
+                  <ClipboardList className="h-5 w-5 text-gray-500" />
                 </div>
                 <div>
                   <p className="text-slate-300 text-sm font-medium">Total Tasks</p>

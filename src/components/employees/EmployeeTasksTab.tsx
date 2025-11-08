@@ -217,7 +217,7 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
       case 'completed':
         return <CheckCircle2 className="h-4 w-4 text-green-500" />;
       case 'in_progress':
-        return <Clock className="h-4 w-4 text-blue-500" />;
+        return <Clock className="h-4 w-4 text-gray-500" />;
       case 'cancelled':
         return <XCircle className="h-4 w-4 text-red-500" />;
       default:
@@ -262,7 +262,7 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
               <div className="text-sm text-slate-400">Completed</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-400">
+              <div className="text-2xl font-bold text-gray-400">
                 {myTasks.filter(t => t.status === 'in_progress').length}
               </div>
               <div className="text-sm text-slate-400">In Progress</div>
@@ -309,7 +309,7 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
                 <div className="text-xs text-slate-400">Completed</div>
               </div>
               <div>
-                <div className="text-xl font-bold text-blue-400">
+                <div className="text-xl font-bold text-gray-400">
                   {employeeTaskData[selectedTab]?.inProgress || 0}
                 </div>
                 <div className="text-xs text-slate-400">In Progress</div>
@@ -457,7 +457,7 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
         {!isInCorporateOverview && canManageEmployees && (
           <Button 
             onClick={() => setShowAddForm(!showAddForm)}
-            className="bg-indigo-600 hover:bg-indigo-700"
+            className="bg-gray-800 hover:bg-gray-900"
           >
             <Plus className="h-4 w-4 mr-2" />
             {showAddForm ? 'Cancel' : 'Add Task'}
@@ -581,7 +581,7 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
                 >
                   Cancel
                 </Button>
-                <Button onClick={handleAddTask} className="bg-indigo-600 hover:bg-indigo-700">
+                <Button onClick={handleAddTask} className="bg-gray-800 hover:bg-gray-900">
                   Add Task
                 </Button>
               </div>
@@ -634,7 +634,7 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
                   >
                     <Avatar className="h-6 w-6 flex-shrink-0">
                       <AvatarImage src={employee.avatar_url} />
-                      <AvatarFallback className="text-xs bg-indigo-600 text-white">
+                      <AvatarFallback className="text-xs bg-gray-700 text-white">
                         {employee.initials}
                       </AvatarFallback>
                     </Avatar>
@@ -643,7 +643,7 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
                        <Badge className={cn(
                          "text-xs px-1 py-0 h-4",
                          employee.role === 'admin' ? "bg-purple-600" :
-                         employee.role === 'manager' ? "bg-blue-600" : "bg-slate-600"
+                         employee.role === 'manager' ? "bg-gray-700" : "bg-slate-600"
                        )}>
                          {employee.role || 'employee'}
                        </Badge>

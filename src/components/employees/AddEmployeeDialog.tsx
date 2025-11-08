@@ -243,7 +243,7 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
               <div>
                 <Label htmlFor="department" className="text-slate-300">Department</Label>
                 <Select value={formData.department} onValueChange={(value) => handleInputChange('department', value)}>
-                  <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-blue-500">
+                  <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-gray-600">
                     <SelectValue placeholder="Select department..." />
                   </SelectTrigger>
                   <SelectContent className="bg-slate-800 border-slate-700">
@@ -264,7 +264,7 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
                   onValueChange={(value) => handleInputChange('role', value)}
                   disabled={!userPermissions.isAdmin}
                 >
-                  <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-blue-500">
+                  <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-gray-600">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="bg-slate-800 border-slate-700">
@@ -303,7 +303,7 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
               <div>
                 <Label htmlFor="assignedWarehouseId" className="text-slate-300">Assigned Warehouse</Label>
                 <Select value={formData.assignedWarehouseId} onValueChange={(value) => handleInputChange('assignedWarehouseId', value)}>
-                  <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-blue-500">
+                  <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-gray-600">
                     <SelectValue placeholder="Select warehouse..." />
                   </SelectTrigger>
                   <SelectContent className="bg-slate-800 border-slate-700">
@@ -312,7 +312,7 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
                       <SelectItem key={warehouse.warehouse_id} value={warehouse.warehouse_id}>
                         {warehouse.warehouse_name} ({warehouse.warehouse_code})
                         {warehouse.warehouse_id === selectedWarehouse && (
-                          <Badge className="ml-2 bg-blue-600 text-white text-xs">Current</Badge>
+                          <Badge className="ml-2 bg-gray-700 text-white text-xs">Current</Badge>
                         )}
                       </SelectItem>
                     ))}
@@ -329,7 +329,7 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
             <div>
               <Label htmlFor="payType" className="text-slate-300">Pay Type</Label>
               <Select value={formData.payType} onValueChange={(value) => handleInputChange('payType', value)}>
-                <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-blue-500">
+                <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-gray-600">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-slate-800 border-slate-700">
@@ -349,7 +349,7 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
                     step="0.01"
                     value={formData.hourlyRate}
                     onChange={(e) => handleInputChange('hourlyRate', e.target.value)}
-                    className="bg-slate-800 border-slate-600 text-white focus:border-blue-500"
+                    className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
                     placeholder="0.00"
                   />
                 </div>
@@ -362,7 +362,7 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
                     step="0.01"
                     value={formData.annualSalary}
                     onChange={(e) => handleInputChange('annualSalary', e.target.value)}
-                    className="bg-slate-800 border-slate-600 text-white focus:border-blue-500"
+                    className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
                     placeholder="0.00"
                   />
                 </div>
@@ -379,7 +379,7 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
                   step="0.01"
                   value={formData.federalWithholding}
                   onChange={(e) => handleInputChange('federalWithholding', e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-white focus:border-blue-500"
+                  className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
                   placeholder="0.00"
                 />
               </div>
@@ -391,7 +391,7 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
                   step="0.01"
                   value={formData.stateWithholding}
                   onChange={(e) => handleInputChange('stateWithholding', e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-white focus:border-blue-500"
+                  className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
                   placeholder="0.00"
                 />
               </div>
@@ -407,7 +407,7 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
                   step="0.01"
                   value={formData.healthInsuranceAmount}
                   onChange={(e) => handleInputChange('healthInsuranceAmount', e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-white focus:border-blue-500"
+                  className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
                   placeholder="0.00"
                 />
               </div>
@@ -419,7 +419,7 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
                   step="0.01"
                   value={formData.dentalInsuranceAmount}
                   onChange={(e) => handleInputChange('dentalInsuranceAmount', e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-white focus:border-blue-500"
+                  className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
                   placeholder="0.00"
                 />
               </div>

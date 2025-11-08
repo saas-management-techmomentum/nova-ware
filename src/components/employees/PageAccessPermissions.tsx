@@ -40,7 +40,7 @@ const PageAccessPermissions = ({ permissions, onPermissionChange, disabled = fal
                     checked={permissions[permission as keyof PagePermissions]}
                     onCheckedChange={(checked) => handleSwitchChange(permission as keyof PagePermissions, checked)}
                     disabled={disabled}
-                    className="data-[state=checked]:bg-blue-600 pointer-events-auto"
+                    className="data-[state=checked]:bg-gray-700 pointer-events-auto"
                   />
                 </div>
               </div>
@@ -49,8 +49,8 @@ const PageAccessPermissions = ({ permissions, onPermissionChange, disabled = fal
         </div>
       ))}
       
-      <div className="bg-blue-900/20 border border-blue-700 rounded-md p-3 pointer-events-auto">
-        <p className="text-sm text-blue-300">
+      <div className="bg-gray-900/20 border border-gray-700 rounded-md p-3 pointer-events-auto">
+        <p className="text-sm text-gray-300">
           💡 New employees have access to Inventory by default. Grant additional permissions as needed.
         </p>
       </div>
