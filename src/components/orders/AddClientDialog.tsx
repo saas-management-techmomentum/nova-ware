@@ -231,7 +231,7 @@ const AddClientDialog: React.FC<AddClientDialogProps> = ({ onClientAdded, trigge
         <DialogTrigger asChild>{trigger}</DialogTrigger>
       ) : (
         <DialogTrigger asChild>
-          <Button variant="outline" className="w-full border-slate-600 text-white hover:bg-slate-700">Add New Client</Button>
+          <Button variant="outline" className="w-full border-neutral-600 text-white hover:bg-neutral-700">Add New Client</Button>
         </DialogTrigger>
       )}
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto bg-neutral-900 border-neutral-800">
@@ -262,7 +262,7 @@ const AddClientDialog: React.FC<AddClientDialogProps> = ({ onClientAdded, trigge
             </div>
             
             <div>
-              <Label htmlFor="contact-person" className="text-slate-300">Contact Person *</Label>
+              <Label htmlFor="contact-person" className="text-neutral-300">Contact Person *</Label>
               <Input
                 id="contact-person"
                 name="contactPerson"
@@ -270,14 +270,14 @@ const AddClientDialog: React.FC<AddClientDialogProps> = ({ onClientAdded, trigge
                 onChange={handleInputChange}
                 required
                 placeholder="Contact Person Name"
-                className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
+                className="bg-neutral-700 border-neutral-600 text-white placeholder:text-neutral-400"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="contact-email" className="text-slate-300">Email *</Label>
+              <Label htmlFor="contact-email" className="text-neutral-300">Email *</Label>
               <Input
                 id="contact-email"
                 name="contactEmail"
@@ -286,12 +286,12 @@ const AddClientDialog: React.FC<AddClientDialogProps> = ({ onClientAdded, trigge
                 type="email"
                 required
                 placeholder="contact@company.com"
-                className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
+                className="bg-neutral-700 border-neutral-600 text-white placeholder:text-neutral-400"
               />
             </div>
             
             <div>
-              <Label htmlFor="contact-phone" className="text-slate-300">Phone Number *</Label>
+              <Label htmlFor="contact-phone" className="text-neutral-300">Phone Number *</Label>
               <Input
                 id="contact-phone"
                 name="contactPhone"
@@ -299,13 +299,13 @@ const AddClientDialog: React.FC<AddClientDialogProps> = ({ onClientAdded, trigge
                 onChange={handleInputChange}
                 required
                 placeholder="555-555-5555"
-                className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
+                className="bg-neutral-700 border-neutral-600 text-white placeholder:text-neutral-400"
               />
             </div>
           </div>
           
           <div>
-            <Label htmlFor="shipping-address" className="text-slate-300">Shipping Address *</Label>
+            <Label htmlFor="shipping-address" className="text-neutral-300">Shipping Address *</Label>
             <Textarea
               id="shipping-address"
               name="shippingAddress"
@@ -314,7 +314,7 @@ const AddClientDialog: React.FC<AddClientDialogProps> = ({ onClientAdded, trigge
               required
               placeholder="Full shipping address"
               rows={3}
-              className="bg-slate-700 border-slate-600 text-white placeholder:text-slate-400"
+              className="bg-neutral-700 border-neutral-600 text-white placeholder:text-neutral-400"
             />
           </div>
 
@@ -390,17 +390,17 @@ const AddClientDialog: React.FC<AddClientDialogProps> = ({ onClientAdded, trigge
           </div>
           
           <div>
-            <Label htmlFor="resale-certificate" className="text-slate-300">Resale Certificate (Optional)</Label>
+            <Label htmlFor="resale-certificate" className="text-neutral-300">Resale Certificate (Optional)</Label>
             <div className="mt-2">
               {formData.resaleCertificateFile ? (
-                <div className="flex items-center justify-between p-3 bg-slate-700 border border-slate-600 rounded-md">
-                  <span className="text-sm text-slate-300">{formData.resaleCertificateFile.name}</span>
+                <div className="flex items-center justify-between p-3 bg-neutral-700 border border-neutral-600 rounded-md">
+                  <span className="text-sm text-neutral-300">{formData.resaleCertificateFile.name}</span>
                   <Button
                     type="button"
                     variant="ghost"
                     size="sm"
                     onClick={removeFile}
-                    className="h-6 w-6 p-0 text-slate-400 hover:text-white hover:bg-slate-600"
+                    className="h-6 w-6 p-0 text-neutral-400 hover:text-white hover:bg-neutral-600"
                   >
                     <X className="h-4 w-4" />
                   </Button>
@@ -409,14 +409,14 @@ const AddClientDialog: React.FC<AddClientDialogProps> = ({ onClientAdded, trigge
                 <div className="flex items-center justify-center w-full">
                   <label
                     htmlFor="resale-certificate"
-                    className="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-600 border-dashed rounded-lg cursor-pointer bg-slate-700 hover:bg-slate-600"
+                    className="flex flex-col items-center justify-center w-full h-32 border-2 border-neutral-600 border-dashed rounded-lg cursor-pointer bg-neutral-700 hover:bg-neutral-600"
                   >
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                      <Upload className="w-8 h-8 mb-4 text-slate-400" />
-                      <p className="mb-2 text-sm text-slate-300">
+                      <Upload className="w-8 h-8 mb-4 text-neutral-400" />
+                      <p className="mb-2 text-sm text-neutral-300">
                         <span className="font-semibold">Click to upload</span> resale certificate
                       </p>
-                      <p className="text-xs text-slate-400">PDF, PNG, JPG (MAX. 10MB)</p>
+                      <p className="text-xs text-neutral-400">PDF, PNG, JPG (MAX. 10MB)</p>
                     </div>
                     <input
                       id="resale-certificate"
