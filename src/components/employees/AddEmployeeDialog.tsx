@@ -291,7 +291,7 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
             </div>
             {formData.createAccount && (
               <p className="text-sm text-neutral-400 ml-6">
-                This will create a login account and send an email with login credentials to quantrawms.com/auth.
+                This will create a login account and send an email with login credentials to logistixwms.com/auth.
               </p>
             )}
           </div>

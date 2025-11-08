@@ -31,7 +31,7 @@ interface OnboardingContextType {
 const allOnboardingSteps: OnboardingStep[] = [
   {
     id: 1,
-    title: "Welcome to Quantra WMS!",
+    title: "Welcome to LogistiX WMS!",
     content: "Welcome to your comprehensive warehouse management system. This quick tour will help you understand all the key features and get you started with managing your operations efficiently.",
     position: 'bottom'
     // No pageKey - this step is always shown

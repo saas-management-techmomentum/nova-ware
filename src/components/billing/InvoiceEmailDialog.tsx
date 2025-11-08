@@ -26,7 +26,7 @@ export const InvoiceEmailDialog: React.FC<InvoiceEmailDialogProps> = ({
   const { sendInvoiceEmail } = useBilling();
   const { toast } = useToast();
   const [email, setEmail] = useState(recipientEmail);
-  const [subject, setSubject] = useState('Invoice from QuantraWMS');
+  const [subject, setSubject] = useState('Invoice from LogistiX');
   const [message, setMessage] = useState(`Hi there,
 
 Please find your invoice attached.
@@ -36,7 +36,7 @@ Payment can be made online by clicking the payment link in the attached invoice,
 Thank you for your business!
 
 Best regards,
-QuantraWMS`);
+LogistiX`);
   const [sending, setSending] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
   const [emailError, setEmailError] = useState<string | null>(null);
@@ -87,7 +87,7 @@ Payment can be made online by clicking the payment link in the attached invoice,
 Thank you for your business!
 
 Best regards,
-QuantraWMS`);
+LogistiX`);
         }, 2000);
       } else {
         // Handle case where result doesn't indicate success

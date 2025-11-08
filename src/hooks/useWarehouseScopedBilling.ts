@@ -531,7 +531,7 @@ export const useWarehouseScopedBilling = () => {
   const createPaymentLink = async (invoiceId: string): Promise<string | undefined> => {
     try {
       // Implementation for payment link creation
-      const paymentLink = `https://pay.quantrawms.com/invoice/${invoiceId}`;
+      const paymentLink = `https://pay.logistixwms.com/invoice/${invoiceId}`;
       
       const { error } = await supabase
         .from('invoices')

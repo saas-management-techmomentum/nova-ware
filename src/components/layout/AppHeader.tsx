@@ -20,7 +20,7 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 import ApprovalStatusIndicator from '@/components/user/ApprovalStatusIndicator';
 
 const AppHeader = () => {
-  const [companyName] = useState("Quantra");
+  const [companyName] = useState("LogistiX");
   const { user, employee, signOut } = useAuth(); // Add employee from context
   const navigate = useNavigate();
   const { 

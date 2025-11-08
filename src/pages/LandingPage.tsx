@@ -100,7 +100,7 @@ const LandingPage = () => {
 
   const testimonials = [
     {
-      quote: "Quantra transformed our warehouse operations. We've seen a 40% improvement in order processing speed and near-perfect inventory accuracy.",
+      quote: "LogistiX transformed our warehouse operations. We've seen a 40% improvement in order processing speed and near-perfect inventory accuracy.",
       author: "Sarah Chen",
       role: "Warehouse Manager",
       company: "LogiFlow Solutions"
@@ -161,7 +161,7 @@ const LandingPage = () => {
                 <Building2 className="h-6 w-6 text-white" />
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent">
-                Quantra
+                LogistiX
               </span>
               <Badge className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0 ml-2">
                 WMS
@@ -216,7 +216,7 @@ const LandingPage = () => {
               </h1>
               
               <p className="text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto leading-relaxed">
-                Quantra is a next-generation WMS designed for 
+                LogistiX is a next-generation WMS designed for 
                 <span className="text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text font-semibold"> speed, accuracy, and control</span> — 
                 across every warehouse you manage.
               </p>
@@ -272,7 +272,7 @@ const LandingPage = () => {
         <div className="w-full px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              See Quantra in <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Action</span>
+              See LogistiX in <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Action</span>
             </h2>
             <p className="text-xl text-slate-400 max-w-3xl mx-auto">
               Discover how our WMS transforms warehouse operations with real-world scenarios.
@@ -467,7 +467,7 @@ const LandingPage = () => {
           <div className="max-w-5xl mx-auto space-y-8">
             <Badge className="bg-gradient-to-r from-indigo-600/20 to-purple-600/20 text-indigo-300 border-indigo-500/30 px-6 py-3 text-lg rounded-full">
               <Target className="h-5 w-5 mr-2" />
-              Upgrade Your Warehouse with Quantra
+              Upgrade Your Warehouse with LogistiX
             </Badge>
             
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
@@ -505,7 +505,7 @@ const LandingPage = () => {
                     <Building2 className="h-6 w-6 text-white" />
                   </div>
                   <span className="text-2xl font-bold bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent">
-                    Quantra
+                    LogistiX
                   </span>
                   <Badge className="bg-gradient-to-r from-indigo-600/20 to-purple-600/20 text-indigo-300 border-indigo-500/30">
                     WMS
@@ -517,7 +517,7 @@ const LandingPage = () => {
                 
                 {/* Email Capture */}
                 <div className="space-y-3">
-                  <h4 className="text-white font-semibold">Stay updated on Quantra releases</h4>
+                  <h4 className="text-white font-semibold">Stay updated on LogistiX releases</h4>
                   <div className="flex max-w-md">
                     <input 
                       type="email" 
@@ -558,7 +558,7 @@ const LandingPage = () => {
             <div className="pt-8 border-t border-slate-800">
               <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                 <p className="text-slate-500">
-                  &copy; 2024 Quantra. Warehouse Management System for modern operations.
+                  &copy; 2024 LogistiX. Warehouse Management System for modern operations.
                 </p>
                 <div className="flex space-x-6">
                   <div className="text-slate-500 hover:text-indigo-400 transition-colors cursor-pointer">

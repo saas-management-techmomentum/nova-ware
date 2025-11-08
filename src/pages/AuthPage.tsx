@@ -164,7 +164,7 @@ const AuthPage = () => {
             alt="Logo" 
             className="h-16 w-16 mx-auto mb-4 opacity-90"
           />
-          <CardTitle className="text-2xl font-bold text-white">Welcome to Quantra</CardTitle>
+          <CardTitle className="text-2xl font-bold text-white">Welcome to LogistiX</CardTitle>
           <CardDescription className="text-white/70">
             Sign in to your account or create a new company account
           </CardDescription>
