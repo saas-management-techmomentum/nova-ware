@@ -439,7 +439,7 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
 
   if (isLoading) {
     return (
-      <Card className="bg-slate-800 border-slate-700">
+      <Card className="bg-neutral-800 border-neutral-700">
         <CardContent className="flex items-center justify-center py-16">
           <div className="text-white">Loading tasks...</div>
         </CardContent>
@@ -466,7 +466,7 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
 
       {/* Inline Add Task Form */}
       {!isInCorporateOverview && canManageEmployees && showAddForm && (
-        <Card className="bg-slate-800 border-slate-700">
+        <Card className="bg-neutral-800 border-neutral-700">
           <CardContent className="p-6">
             <div className="space-y-4">
               <div className="flex items-center justify-between mb-4">
@@ -479,7 +479,7 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
                   id="title"
                   value={newTask.title}
                   onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-                  className="bg-slate-700 border-slate-600 text-white mt-1"
+                  className="bg-neutral-700 border-neutral-600 text-white mt-1"
                   placeholder="Enter task title..."
                 />
               </div>
@@ -491,15 +491,15 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
                     <Button
                       variant="outline"
                       className={cn(
-                        "w-full justify-start text-left font-normal bg-slate-700 border-slate-600 text-white mt-1",
-                        !newTask.due_date && "text-slate-400"
+                        "w-full justify-start text-left font-normal bg-neutral-700 border-neutral-600 text-white mt-1",
+                        !newTask.due_date && "text-neutral-400"
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
                       {newTask.due_date ? format(newTask.due_date, "PPP") : "Pick a date"}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0 bg-slate-800 border-slate-700 z-50">
+                  <PopoverContent className="w-auto p-0 bg-neutral-800 border-neutral-700 z-50">
                     <Calendar
                       mode="single"
                       selected={newTask.due_date}
@@ -514,10 +514,10 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
                 <div>
                   <Label htmlFor="priority">Priority</Label>
                   <Select value={newTask.priority} onValueChange={(value: 'low' | 'medium' | 'high' | 'urgent') => setNewTask({ ...newTask, priority: value })}>
-                    <SelectTrigger className="bg-slate-700 border-slate-600 text-white mt-1">
+                    <SelectTrigger className="bg-neutral-700 border-neutral-600 text-white mt-1">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="bg-slate-800 border-slate-700 z-50">
+                    <SelectContent className="bg-neutral-800 border-neutral-700 z-50">
                       <SelectItem value="low">Low</SelectItem>
                       <SelectItem value="medium">Medium</SelectItem>
                       <SelectItem value="high">High</SelectItem>
@@ -529,10 +529,10 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
                 <div>
                   <Label htmlFor="category">Category</Label>
                   <Select value={newTask.category} onValueChange={(value) => setNewTask({ ...newTask, category: value })}>
-                    <SelectTrigger className="bg-slate-700 border-slate-600 text-white mt-1">
+                    <SelectTrigger className="bg-neutral-700 border-neutral-600 text-white mt-1">
                       <SelectValue placeholder="Select category..." />
                     </SelectTrigger>
-                    <SelectContent className="bg-slate-800 border-slate-700 z-50">
+                    <SelectContent className="bg-neutral-800 border-neutral-700 z-50">
                       <SelectItem value="inventory">Inventory</SelectItem>
                       <SelectItem value="shipping">Shipping</SelectItem>
                       <SelectItem value="maintenance">Maintenance</SelectItem>
@@ -546,10 +546,10 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
                 <div>
                   <Label htmlFor="assigned_to">Assign To</Label>
                   <Select value={newTask.assigned_to} onValueChange={(value) => setNewTask({ ...newTask, assigned_to: value })}>
-                    <SelectTrigger className="bg-slate-700 border-slate-600 text-white mt-1">
+                    <SelectTrigger className="bg-neutral-700 border-neutral-600 text-white mt-1">
                       <SelectValue placeholder="Select employee..." />
                     </SelectTrigger>
-                    <SelectContent className="bg-slate-800 border-slate-700 z-50">
+                    <SelectContent className="bg-neutral-800 border-neutral-700 z-50">
                       <SelectItem value="unassigned">Unassigned</SelectItem>
                       {employees.map((employee) => (
                         <SelectItem key={employee.id} value={employee.id}>
@@ -567,7 +567,7 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
                   id="description"
                   value={newTask.description}
                   onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
-                  className="bg-slate-700 border-slate-600 text-white mt-1"
+                  className="bg-neutral-700 border-neutral-600 text-white mt-1"
                   placeholder="Enter task description..."
                 />
               </div>
@@ -576,7 +576,7 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
                 <Button
                   variant="outline"
                   onClick={() => setShowAddForm(false)}
-                  className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                  className="border-neutral-600 text-neutral-300 hover:bg-neutral-700"
                 >
                   Cancel
                 </Button>
