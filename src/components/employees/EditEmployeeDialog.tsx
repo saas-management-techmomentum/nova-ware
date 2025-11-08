@@ -310,7 +310,7 @@ const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmploye
                       id="employeeName"
                       value={formData.name}
                       onChange={(e) => handleInputChange('name', e.target.value)}
-                      className="bg-slate-800 border-slate-600 text-white focus:border-blue-500"
+                      className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
                     />
                   </div>
                   <div>
@@ -319,7 +319,7 @@ const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmploye
                       id="position"
                       value={formData.position}
                       onChange={(e) => handleInputChange('position', e.target.value)}
-                      className="bg-slate-800 border-slate-600 text-white focus:border-blue-500"
+                      className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
                     />
                   </div>
                 </div>
@@ -328,7 +328,7 @@ const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmploye
                   <div>
                     <Label htmlFor="department" className="text-slate-300">Department</Label>
                     <Select value={formData.department} onValueChange={(value) => handleInputChange('department', value)}>
-                      <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-blue-500">
+                      <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-gray-600">
                         <SelectValue placeholder="Select department..." />
                       </SelectTrigger>
                       <SelectContent className="bg-slate-800 border-slate-700">
@@ -349,7 +349,7 @@ const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmploye
                       onValueChange={(value) => handleInputChange('role', value)}
                       disabled={!userPermissions.isAdmin}
                     >
-                      <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-blue-500">
+                      <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-gray-600">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent className="bg-slate-800 border-slate-700">
@@ -370,7 +370,7 @@ const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmploye
                   <div>
                     <Label htmlFor="assignedWarehouseId" className="text-slate-300">Assigned Warehouse</Label>
                     <Select value={formData.assignedWarehouseId} onValueChange={(value) => handleInputChange('assignedWarehouseId', value)}>
-                      <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-blue-500">
+                      <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-gray-600">
                         <SelectValue placeholder="Select warehouse..." />
                       </SelectTrigger>
                       <SelectContent className="bg-slate-800 border-slate-700">
