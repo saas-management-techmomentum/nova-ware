@@ -276,7 +276,7 @@ const InventoryActions: React.FC<InventoryActionsProps> = ({ item, onUpdate, onD
             <div className="grid grid-cols-4 items-center gap-4">
               <Label className="text-right font-medium">Stock Value:</Label>
               <div className="col-span-3 flex items-center">
-                <DollarSign className="h-4 w-4 text-purple-600 mr-1" />
+                <DollarSign className="h-4 w-4 text-gray-500 mr-1" />
                 {formatCurrency(currentStockValue)}
               </div>
             </div>

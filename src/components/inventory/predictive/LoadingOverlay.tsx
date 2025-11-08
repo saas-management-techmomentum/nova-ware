@@ -19,15 +19,15 @@ const LoadingOverlay = ({ dataAge, transactionCount, daysUntilReady, message }: 
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-xl flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-950/20 via-slate-950/40 to-purple-950/20" />
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-950/20 via-slate-950/40 to-gray-900/20" />
       
       <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg max-h-screen overflow-y-auto">
         <Card className="bg-slate-900/40 border-slate-700/50 backdrop-blur-md shadow-2xl">
           <CardContent className="p-4 sm:p-6 text-center">
             {/* AI Brain Icon with Pulse Animation */}
             <div className="relative mx-auto w-16 h-16 sm:w-20 sm:h-20 mb-4 sm:mb-6">
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full animate-pulse opacity-20" />
-              <div className="absolute inset-1 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full flex items-center justify-center">
+              <div className="absolute inset-0 bg-gradient-to-r from-gray-600 to-gray-700 rounded-full animate-pulse opacity-20" />
+              <div className="absolute inset-1 bg-gradient-to-r from-gray-700 to-gray-800 rounded-full flex items-center justify-center">
                 <Brain className="h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-10 text-white animate-pulse" />
               </div>
               
@@ -57,8 +57,8 @@ const LoadingOverlay = ({ dataAge, transactionCount, daysUntilReady, message }: 
                 />
                 <defs>
                   <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#6366f1" />
-                    <stop offset="100%" stopColor="#a855f7" />
+                    <stop offset="0%" stopColor="#6b7280" />
+                    <stop offset="100%" stopColor="#4b5563" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -66,7 +66,7 @@ const LoadingOverlay = ({ dataAge, transactionCount, daysUntilReady, message }: 
 
             {/* Main Status */}
             <div className="mb-4 sm:mb-6">
-              <Badge className="mb-2 sm:mb-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white border-0 px-2 sm:px-3 py-1 text-xs">
+              <Badge className="mb-2 sm:mb-3 bg-gradient-to-r from-gray-600 to-gray-700 text-white border-0 px-2 sm:px-3 py-1 text-xs">
                 <Brain className="h-3 w-3 mr-1" />
                 AI Learning in Progress
               </Badge>
@@ -93,7 +93,7 @@ const LoadingOverlay = ({ dataAge, transactionCount, daysUntilReady, message }: 
 
               <div className="bg-slate-800/50 rounded-lg p-3 sm:p-2 border border-slate-700/30">
                 <div className="flex items-center justify-center mb-1 sm:mb-1">
-                  <TrendingUp className="h-3 w-3 text-purple-400 mr-1" />
+                  <TrendingUp className="h-3 w-3 text-gray-400 mr-1" />
                   <span className="text-slate-400 text-xs">Transactions</span>
                 </div>
                 <div className="text-xl sm:text-lg font-bold text-white">{transactionCount}</div>
@@ -118,7 +118,7 @@ const LoadingOverlay = ({ dataAge, transactionCount, daysUntilReady, message }: 
               </div>
               <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
                 <div 
-                  className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-700 ease-out"
+                  className="h-full bg-gradient-to-r from-gray-600 to-gray-700 rounded-full transition-all duration-700 ease-out"
                   style={{ width: `${progressPercentage}%` }}
                 />
               </div>
@@ -137,7 +137,7 @@ const LoadingOverlay = ({ dataAge, transactionCount, daysUntilReady, message }: 
                   <span className="text-slate-300 text-xs">Demand fluctuations</span>
                 </div>
                 <div className="flex items-center">
-                  <div className="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2 animate-pulse flex-shrink-0" />
+                  <div className="w-1.5 h-1.5 bg-gray-500 rounded-full mr-2 animate-pulse flex-shrink-0" />
                   <span className="text-slate-300 text-xs">Seasonal trends</span>
                 </div>
                 <div className="flex items-center">

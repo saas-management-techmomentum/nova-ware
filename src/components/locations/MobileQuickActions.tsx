@@ -90,7 +90,7 @@ const MobileQuickActions: React.FC<MobileQuickActionsProps> = ({
       icon: isListening ? MicOff : Mic,
       label: isListening ? 'Stop Voice' : 'Voice Command',
       action: handleVoiceCommand,
-      color: isListening ? 'bg-red-500 hover:bg-red-600' : 'bg-purple-500 hover:bg-purple-600',
+      color: isListening ? 'bg-red-500 hover:bg-red-600' : 'bg-gray-700 hover:bg-gray-800',
       description: 'Hands-free control'
     }
   ];
@@ -118,7 +118,7 @@ const MobileQuickActions: React.FC<MobileQuickActionsProps> = ({
                 </Badge>
               )}
               {isListening && (
-                <Badge className="bg-purple-500 text-xs animate-pulse">
+                <Badge className="bg-gray-700 text-xs animate-pulse">
                   <Mic className="h-3 w-3 mr-1" />
                   Listening
                 </Badge>

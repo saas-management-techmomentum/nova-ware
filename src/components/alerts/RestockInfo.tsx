@@ -24,7 +24,7 @@ const RestockInfo = ({ restockQuantity, restockDate, daysUntilRestock, formatDat
             {daysUntilRestock !== null && (
               <Badge 
                 variant="outline" 
-                className="border-purple-500/30 bg-purple-500/20 text-purple-300 text-xs"
+                className="border-gray-600/30 bg-gray-700/20 text-gray-300 text-xs"
               >
                 {daysUntilRestock} days
               </Badge>

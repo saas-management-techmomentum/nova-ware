@@ -104,8 +104,8 @@ const LocationAnalyticsDashboard: React.FC<LocationAnalyticsDashboardProps> = ({
                 <p className="text-sm text-slate-400">Active Locations</p>
                 <p className="text-2xl font-bold text-white">{analytics.length}</p>
               </div>
-              <div className="h-12 w-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                <MapPin className="h-6 w-6 text-purple-400" />
+              <div className="h-12 w-12 bg-gray-700/20 rounded-lg flex items-center justify-center">
+                <MapPin className="h-6 w-6 text-gray-400" />
               </div>
             </div>
             <p className="text-sm text-slate-400 mt-2">

@@ -43,7 +43,7 @@ export const RLSTestPanel: React.FC = () => {
               <div className="text-sm text-slate-400">Warehouses</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-purple-400">
+              <div className="text-2xl font-bold text-gray-400">
                 {dataScope?.admin_company_ids.length || 0}
               </div>
               <div className="text-sm text-slate-400">Admin Access</div>
@@ -158,7 +158,7 @@ export const RLSTestPanel: React.FC = () => {
                   <div className="text-slate-400">Orders</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-lg font-bold text-purple-400">
+                  <div className="text-lg font-bold text-gray-400">
                     {rlsTestResults.accessible_records?.warehouses || 0}
                   </div>
                   <div className="text-slate-400">Warehouses</div>
