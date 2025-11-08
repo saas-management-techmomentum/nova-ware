@@ -95,7 +95,7 @@ const ShipStationIntegration = () => {
         Connected
       </Badge>
     ) : (
-      <Badge variant="secondary" className="bg-slate-600 hover:bg-slate-700">
+      <Badge variant="secondary" className="bg-neutral-600 hover:bg-neutral-700">
         <AlertCircle className="w-3 h-3 mr-1" />
         Disconnected
       </Badge>
@@ -103,11 +103,11 @@ const ShipStationIntegration = () => {
   };
 
   return (
-    <Card className="bg-slate-800/50 border-slate-700">
+    <Card className="bg-neutral-800/50 border-neutral-700">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-slate-700 rounded-lg">
+            <div className="p-2 bg-neutral-700 rounded-lg">
               <Ship className="w-6 h-6 text-gray-400" />
             </div>
             <div>
@@ -133,7 +133,7 @@ const ShipStationIntegration = () => {
               placeholder="API Key"
               value={shipStationConfig.apiKey}
               onChange={(e) => setShipStationConfig(prev => ({ ...prev, apiKey: e.target.value }))}
-              className="bg-slate-700 border-slate-600 text-white"
+              className="bg-neutral-700 border-neutral-600 text-white"
               disabled={shipStationStatus.connected || isLoading}
             />
           </div>
@@ -146,7 +146,7 @@ const ShipStationIntegration = () => {
               placeholder="API Secret"
               value={shipStationConfig.apiSecret}
               onChange={(e) => setShipStationConfig(prev => ({ ...prev, apiSecret: e.target.value }))}
-              className="bg-slate-700 border-slate-600 text-white"
+              className="bg-neutral-700 border-neutral-600 text-white"
               disabled={shipStationStatus.connected || isLoading}
             />
           </div>
@@ -158,7 +158,7 @@ const ShipStationIntegration = () => {
               placeholder="Store ID"
               value={shipStationConfig.storeId}
               onChange={(e) => setShipStationConfig(prev => ({ ...prev, storeId: e.target.value }))}
-              className="bg-slate-700 border-slate-600 text-white"
+              className="bg-neutral-700 border-neutral-600 text-white"
               disabled={shipStationStatus.connected || isLoading}
             />
           </div>

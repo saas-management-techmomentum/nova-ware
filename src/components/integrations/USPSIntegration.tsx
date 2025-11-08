@@ -96,7 +96,7 @@ const USPSIntegration = () => {
         Connected
       </Badge>
     ) : (
-      <Badge variant="secondary" className="bg-slate-600 hover:bg-slate-700">
+      <Badge variant="secondary" className="bg-neutral-600 hover:bg-neutral-700">
         <AlertCircle className="w-3 h-3 mr-1" />
         Disconnected
       </Badge>
@@ -104,11 +104,11 @@ const USPSIntegration = () => {
   };
 
   return (
-    <Card className="bg-slate-800/50 border-slate-700">
+    <Card className="bg-neutral-800/50 border-neutral-700">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-slate-700 rounded-lg">
+            <div className="p-2 bg-neutral-700 rounded-lg">
               <Mail className="w-6 h-6 text-red-400" />
             </div>
             <div>
@@ -134,7 +134,7 @@ const USPSIntegration = () => {
               placeholder="USPS User ID"
               value={uspsConfig.userId}
               onChange={(e) => setUspsConfig(prev => ({ ...prev, userId: e.target.value }))}
-              className="bg-slate-700 border-slate-600 text-white"
+              className="bg-neutral-700 border-neutral-600 text-white"
               disabled={uspsStatus.connected || isLoading}
             />
           </div>
@@ -147,7 +147,7 @@ const USPSIntegration = () => {
               placeholder="Password"
               value={uspsConfig.password}
               onChange={(e) => setUspsConfig(prev => ({ ...prev, password: e.target.value }))}
-              className="bg-slate-700 border-slate-600 text-white"
+              className="bg-neutral-700 border-neutral-600 text-white"
               disabled={uspsStatus.connected || isLoading}
             />
           </div>
@@ -159,7 +159,7 @@ const USPSIntegration = () => {
               onValueChange={(value: 'test' | 'production') => setUspsConfig(prev => ({ ...prev, environment: value }))}
               disabled={uspsStatus.connected || isLoading}
             >
-              <SelectTrigger className="bg-slate-700 border-slate-600 text-white">
+              <SelectTrigger className="bg-neutral-700 border-neutral-600 text-white">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

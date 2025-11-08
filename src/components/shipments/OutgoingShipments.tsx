@@ -149,8 +149,8 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
 
   return (
     <div className={className}>
-      <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 shadow-md overflow-hidden">
-        <CardHeader className="pb-3 border-b border-slate-700">
+      <Card className="bg-neutral-800/50 backdrop-blur-md border border-neutral-700/50 shadow-md overflow-hidden">
+        <CardHeader className="pb-3 border-b border-neutral-700">
           <CardTitle className="text-lg flex items-center justify-between text-white">
             <div className="flex items-center">
               <div className="bg-gray-700/20 p-1 rounded-md mr-2">
@@ -165,13 +165,13 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-6 w-6 p-0 hover:bg-slate-600"
+                className="h-6 w-6 p-0 hover:bg-neutral-600"
                 onClick={() => setIsCollapsed(!isCollapsed)}
               >
                 {isCollapsed ? (
-                  <ChevronDown className="h-4 w-4 text-slate-400" />
+                  <ChevronDown className="h-4 w-4 text-neutral-400" />
                 ) : (
-                  <ChevronUp className="h-4 w-4 text-slate-400" />
+                  <ChevronUp className="h-4 w-4 text-neutral-400" />
                 )}
               </Button>
             )}
@@ -185,10 +185,10 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
               <div className="mb-6 space-y-4">
                 <div className="flex justify-between items-center">
                   <div className="relative w-72">
-                    <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                    <Search className="absolute left-3 top-2.5 h-4 w-4 text-neutral-400" />
                     <Input
                       placeholder="Search by Order ID, Customer Name, or Tracking Number..."
-                      className="pl-9 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-gray-600/50 focus:ring-1 focus:ring-gray-600/30"
+                      className="pl-9 bg-neutral-700/50 border-neutral-600 text-white placeholder:text-neutral-400 focus:border-gray-600/50 focus:ring-1 focus:ring-gray-600/30"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -214,7 +214,7 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
 
                 <div className="flex items-center gap-4">
                   <Select value={selectedStatus} onValueChange={setSelectedStatus}>
-                    <SelectTrigger className="w-48 bg-slate-700/50 border-slate-600 text-white">
+                    <SelectTrigger className="w-48 bg-neutral-700/50 border-neutral-600 text-white">
                       <SelectValue placeholder="All Statuses" />
                     </SelectTrigger>
                     <SelectContent>
@@ -225,7 +225,7 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
                   </Select>
 
                   <Select value={selectedCarrier} onValueChange={setSelectedCarrier}>
-                    <SelectTrigger className="w-48 bg-slate-700/50 border-slate-600 text-white">
+                    <SelectTrigger className="w-48 bg-neutral-700/50 border-neutral-600 text-white">
                       <SelectValue placeholder="All Carriers" />
                     </SelectTrigger>
                     <SelectContent>
@@ -241,15 +241,15 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
                     <Input
                       type="date"
                       placeholder="Ship Date From"
-                      className="w-40 bg-slate-700/50 border-slate-600 text-white"
+                      className="w-40 bg-neutral-700/50 border-neutral-600 text-white"
                       value={selectedShipDateFrom}
                       onChange={(e) => setSelectedShipDateFrom(e.target.value)}
                     />
-                    <span className="text-slate-400">to</span>
+                    <span className="text-neutral-400">to</span>
                     <Input
                       type="date"
                       placeholder="Ship Date To"
-                      className="w-40 bg-slate-700/50 border-slate-600 text-white"
+                      className="w-40 bg-neutral-700/50 border-neutral-600 text-white"
                       value={selectedShipDateTo}
                       onChange={(e) => setSelectedShipDateTo(e.target.value)}
                     />
@@ -261,63 +261,63 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
               {filteredShipments.length > 0 ? (
                 <div className="rounded-md overflow-hidden">
                   <Table>
-                    <TableHeader className="bg-slate-800/90">
-                      <TableRow className="border-slate-700">
-                        <TableHead className="font-medium text-slate-300 w-[50px]"></TableHead>
-                        <TableHead className="font-medium text-slate-300">Order ID</TableHead>
-                        <TableHead className="font-medium text-slate-300">Customer Name</TableHead>
-                        <TableHead className="font-medium text-slate-300">Order Date</TableHead>
-                        <TableHead className="font-medium text-slate-300">Shipping Method</TableHead>
-                        <TableHead className="font-medium text-slate-300">Carrier</TableHead>
-                        <TableHead className="font-medium text-slate-300">Tracking Number</TableHead>
-                        <TableHead className="font-medium text-slate-300">Ship Date</TableHead>
-                        <TableHead className="font-medium text-slate-300">Status</TableHead>
-                        <TableHead className="font-medium text-slate-300">Items</TableHead>
+                    <TableHeader className="bg-neutral-800/90">
+                      <TableRow className="border-neutral-700">
+                        <TableHead className="font-medium text-neutral-300 w-[50px]"></TableHead>
+                        <TableHead className="font-medium text-neutral-300">Order ID</TableHead>
+                        <TableHead className="font-medium text-neutral-300">Customer Name</TableHead>
+                        <TableHead className="font-medium text-neutral-300">Order Date</TableHead>
+                        <TableHead className="font-medium text-neutral-300">Shipping Method</TableHead>
+                        <TableHead className="font-medium text-neutral-300">Carrier</TableHead>
+                        <TableHead className="font-medium text-neutral-300">Tracking Number</TableHead>
+                        <TableHead className="font-medium text-neutral-300">Ship Date</TableHead>
+                        <TableHead className="font-medium text-neutral-300">Status</TableHead>
+                        <TableHead className="font-medium text-neutral-300">Items</TableHead>
                         <TableHead className="w-[120px]">Actions</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {filteredShipments.map((shipment) => (
                         <React.Fragment key={shipment.id}>
-                          <TableRow className="border-slate-700 hover:bg-slate-700/30 transition-colors">
+                          <TableRow className="border-neutral-700 hover:bg-neutral-700/30 transition-colors">
                             <TableCell>
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                className="h-6 w-6 p-0 hover:bg-slate-600"
+                                className="h-6 w-6 p-0 hover:bg-neutral-600"
                                 onClick={() => toggleShipmentExpansion(shipment.id)}
                               >
                                 <ChevronRight 
-                                  className={`h-4 w-4 text-slate-400 transition-transform ${
+                                  className={`h-4 w-4 text-neutral-400 transition-transform ${
                                     expandedShipments.has(shipment.id) ? 'rotate-90' : ''
                                   }`} 
                                 />
                               </Button>
                             </TableCell>
                             <TableCell className="font-medium text-white">{shipment.order_reference}</TableCell>
-                            <TableCell className="text-slate-300">{shipment.customer_name || '-'}</TableCell>
-                            <TableCell className="text-slate-300">
+                            <TableCell className="text-neutral-300">{shipment.customer_name || '-'}</TableCell>
+                            <TableCell className="text-neutral-300">
                               <div className="flex items-center gap-2">
-                                <Calendar className="h-4 w-4 text-slate-400" />
+                                <Calendar className="h-4 w-4 text-neutral-400" />
                                 {new Date(shipment.created_at).toLocaleDateString()}
                               </div>
                             </TableCell>
-                            <TableCell className="text-slate-300">
+                            <TableCell className="text-neutral-300">
                               {shipment.shipping_method || '-'}
                             </TableCell>
-                            <TableCell className="text-slate-300">
+                            <TableCell className="text-neutral-300">
                               {shipment.carrier || '-'}
                             </TableCell>
-                            <TableCell className="text-slate-300">
+                            <TableCell className="text-neutral-300">
                               {shipment.tracking_number || '-'}
                             </TableCell>
-                            <TableCell className="text-slate-300">
+                            <TableCell className="text-neutral-300">
                               {shipment.expected_date ? new Date(shipment.expected_date).toLocaleDateString() : '-'}
                             </TableCell>
                             <TableCell>{getShipmentStatusBadge(shipment.status)}</TableCell>
-                            <TableCell className="text-slate-300">
+                            <TableCell className="text-neutral-300">
                               <div className="flex items-center gap-2">
-                                <Package className="h-4 w-4 text-slate-400" />
+                                <Package className="h-4 w-4 text-neutral-400" />
                                 {shipment.items?.length || 0} {(shipment.items?.length || 0) === 1 ? 'item' : 'items'}
                               </div>
                             </TableCell>
@@ -325,23 +325,23 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
                               <Button
                                variant="ghost"
                                size="sm"
-                               className="h-8 w-8 p-0 hover:bg-slate-600"
+                               className="h-8 w-8 p-0 hover:bg-neutral-600"
                                onClick={() => handleEditShipment(shipment)}
                              >
-                                <Edit className="h-4 w-4 text-slate-400" />
+                                <Edit className="h-4 w-4 text-neutral-400" />
                               </Button>
                             </TableCell>
                           </TableRow>
-                          {expandedShipments.has(shipment.id) && (
-                            <TableRow className="border-slate-700">
+                           {expandedShipments.has(shipment.id) && (
+                            <TableRow className="border-neutral-700">
                               <TableCell colSpan={11} className="p-0">
-                                <div className="bg-slate-700/20 border-l-2 border-gray-600/50 p-6 ml-6 space-y-6">
+                                <div className="bg-neutral-700/20 border-l-2 border-gray-600/50 p-6 ml-6 space-y-6">
                                   {/* Shipment Items Section */}
                                   <div>
                                     <div className="flex items-center gap-2 mb-3">
                                       <Package className="h-4 w-4 text-gray-400" />
                                       <span className="text-sm font-medium text-white">Shipment Items</span>
-                                      <Badge variant="outline" className="text-xs bg-slate-600/50 text-slate-300 border-slate-500">
+                                      <Badge variant="outline" className="text-xs bg-neutral-600/50 text-neutral-300 border-neutral-500">
                                         {shipment.items?.length || 0} {(shipment.items?.length || 0) === 1 ? 'item' : 'items'}
                                       </Badge>
                                     </div>
@@ -350,7 +350,7 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
                                         {shipment.items.map((item, index) => (
                                           <div 
                                             key={item.id || index} 
-                                            className="bg-slate-600/30 rounded-lg p-3 border border-slate-600/50 hover:border-gray-600/30 transition-colors"
+                                            className="bg-neutral-600/30 rounded-lg p-3 border border-neutral-600/50 hover:border-gray-600/30 transition-colors"
                                           >
                                             <div className="flex items-center justify-between mb-2">
                                               <div className="flex items-center gap-2">
@@ -363,12 +363,12 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
                                                 Qty: {item.expected_qty}
                                               </Badge>
                                             </div>
-                                            <div className="text-xs text-slate-400">SKU: {item.sku}</div>
+                                            <div className="text-xs text-neutral-400">SKU: {item.sku}</div>
                                           </div>
                                         ))}
                                       </div>
                                     ) : (
-                                      <div className="text-sm text-slate-400 italic">No items specified for this shipment</div>
+                                      <div className="text-sm text-neutral-400 italic">No items specified for this shipment</div>
                                     )}
                                   </div>
 
@@ -378,35 +378,35 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
                                       <FileText className="h-4 w-4 text-gray-400" />
                                       <span className="text-sm font-medium text-white">Shipment Details</span>
                                     </div>
-                                    <div className="bg-slate-600/30 rounded-lg p-4 space-y-2">
+                                    <div className="bg-neutral-600/30 rounded-lg p-4 space-y-2">
                                       <div className="flex items-center justify-between">
-                                        <span className="text-sm text-slate-400">Order ID:</span>
-                                        <span className="text-sm text-slate-300 font-medium">{shipment.order_reference}</span>
+                                        <span className="text-sm text-neutral-400">Order ID:</span>
+                                        <span className="text-sm text-neutral-300 font-medium">{shipment.order_reference}</span>
                                       </div>
                                       <div className="flex items-center justify-between">
-                                        <span className="text-sm text-slate-400">Created Date:</span>
-                                        <span className="text-sm text-slate-300">{new Date(shipment.created_at).toLocaleDateString()}</span>
+                                        <span className="text-sm text-neutral-400">Created Date:</span>
+                                        <span className="text-sm text-neutral-300">{new Date(shipment.created_at).toLocaleDateString()}</span>
                                       </div>
                                       <div className="flex items-center justify-between">
-                                        <span className="text-sm text-slate-400">Expected Ship Date:</span>
+                                        <span className="text-sm text-neutral-400">Expected Ship Date:</span>
                                         <span className="text-sm text-gray-300">{new Date(shipment.expected_date).toLocaleDateString()}</span>
                                       </div>
                                       {shipment.tracking_number && (
                                         <div className="flex items-center justify-between">
-                                          <span className="text-sm text-slate-400">Tracking Number:</span>
+                                          <span className="text-sm text-neutral-400">Tracking Number:</span>
                                           <span className="text-sm text-gray-300 font-mono">{shipment.tracking_number}</span>
                                         </div>
                                       )}
                                       {shipment.customer_name && (
                                         <div className="flex items-center justify-between">
-                                          <span className="text-sm text-slate-400">Customer:</span>
-                                          <span className="text-sm text-slate-300">{shipment.customer_name}</span>
+                                          <span className="text-sm text-neutral-400">Customer:</span>
+                                          <span className="text-sm text-neutral-300">{shipment.customer_name}</span>
                                         </div>
                                       )}
                                       {shipment.shipping_address && (
                                         <div className="flex items-start justify-between">
-                                          <span className="text-sm text-slate-400">Shipping Address:</span>
-                                          <span className="text-sm text-slate-300 text-right max-w-xs">{shipment.shipping_address}</span>
+                                          <span className="text-sm text-neutral-400">Shipping Address:</span>
+                                          <span className="text-sm text-neutral-300 text-right max-w-xs">{shipment.shipping_address}</span>
                                         </div>
                                       )}
                                     </div>
@@ -422,9 +422,9 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
                 </div>
               ) : (
                 <div className="flex flex-col items-center justify-center p-8 text-center">
-                  <Truck className="h-12 w-12 text-slate-600 opacity-30 mb-2" />
+                  <Truck className="h-12 w-12 text-neutral-600 opacity-30 mb-2" />
                   <h3 className="text-lg font-medium text-white">No outgoing shipments found</h3>
-                  <p className="text-sm text-slate-400 mb-4">
+                  <p className="text-sm text-neutral-400 mb-4">
                     Create shipments for orders that are ready to ship
                   </p>
                   <Button 

@@ -102,7 +102,7 @@ const FedExIntegration = () => {
         Connected
       </Badge>
     ) : (
-      <Badge variant="secondary" className="bg-slate-600 hover:bg-slate-700">
+      <Badge variant="secondary" className="bg-neutral-600 hover:bg-neutral-700">
         <AlertCircle className="w-3 h-3 mr-1" />
         Disconnected
       </Badge>
@@ -110,11 +110,11 @@ const FedExIntegration = () => {
   };
 
   return (
-    <Card className="bg-slate-800/50 border-slate-700">
+    <Card className="bg-neutral-800/50 border-neutral-700">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-slate-700 rounded-lg">
+            <div className="p-2 bg-neutral-700 rounded-lg">
               <Truck className="w-6 h-6 text-purple-400" />
             </div>
             <div>
@@ -141,7 +141,7 @@ const FedExIntegration = () => {
                 placeholder="123456789"
                 value={fedExConfig.accountNumber}
                 onChange={(e) => setFedExConfig(prev => ({ ...prev, accountNumber: e.target.value }))}
-                className="bg-slate-700 border-slate-600 text-white"
+                className="bg-neutral-700 border-neutral-600 text-white"
                 disabled={fedExStatus.connected || isLoading}
               />
             </div>
@@ -153,7 +153,7 @@ const FedExIntegration = () => {
                 placeholder="123456789"
                 value={fedExConfig.meterNumber}
                 onChange={(e) => setFedExConfig(prev => ({ ...prev, meterNumber: e.target.value }))}
-                className="bg-slate-700 border-slate-600 text-white"
+                className="bg-neutral-700 border-neutral-600 text-white"
                 disabled={fedExStatus.connected || isLoading}
               />
             </div>
@@ -166,7 +166,7 @@ const FedExIntegration = () => {
               placeholder="User key"
               value={fedExConfig.userKey}
               onChange={(e) => setFedExConfig(prev => ({ ...prev, userKey: e.target.value }))}
-              className="bg-slate-700 border-slate-600 text-white"
+              className="bg-neutral-700 border-neutral-600 text-white"
               disabled={fedExStatus.connected || isLoading}
             />
           </div>
@@ -179,7 +179,7 @@ const FedExIntegration = () => {
               placeholder="User password"
               value={fedExConfig.userPassword}
               onChange={(e) => setFedExConfig(prev => ({ ...prev, userPassword: e.target.value }))}
-              className="bg-slate-700 border-slate-600 text-white"
+              className="bg-neutral-700 border-neutral-600 text-white"
               disabled={fedExStatus.connected || isLoading}
             />
           </div>
@@ -191,7 +191,7 @@ const FedExIntegration = () => {
               onValueChange={(value: 'test' | 'production') => setFedExConfig(prev => ({ ...prev, environment: value }))}
               disabled={fedExStatus.connected || isLoading}
             >
-              <SelectTrigger className="bg-slate-700 border-slate-600 text-white">
+              <SelectTrigger className="bg-neutral-700 border-neutral-600 text-white">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

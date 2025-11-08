@@ -102,7 +102,7 @@ const UPSIntegration = () => {
         Connected
       </Badge>
     ) : (
-      <Badge variant="secondary" className="bg-slate-600 hover:bg-slate-700">
+      <Badge variant="secondary" className="bg-neutral-600 hover:bg-neutral-700">
         <AlertCircle className="w-3 h-3 mr-1" />
         Disconnected
       </Badge>
@@ -110,11 +110,11 @@ const UPSIntegration = () => {
   };
 
   return (
-    <Card className="bg-slate-800/50 border-slate-700">
+    <Card className="bg-neutral-800/50 border-neutral-700">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-slate-700 rounded-lg">
+            <div className="p-2 bg-neutral-700 rounded-lg">
               <Package className="w-6 h-6 text-amber-400" />
             </div>
             <div>
@@ -140,7 +140,7 @@ const UPSIntegration = () => {
               placeholder="Access key"
               value={upsConfig.accessKey}
               onChange={(e) => setUpsConfig(prev => ({ ...prev, accessKey: e.target.value }))}
-              className="bg-slate-700 border-slate-600 text-white"
+              className="bg-neutral-700 border-neutral-600 text-white"
               disabled={upsStatus.connected || isLoading}
             />
           </div>
@@ -153,7 +153,7 @@ const UPSIntegration = () => {
                 placeholder="User ID"
                 value={upsConfig.userId}
                 onChange={(e) => setUpsConfig(prev => ({ ...prev, userId: e.target.value }))}
-                className="bg-slate-700 border-slate-600 text-white"
+                className="bg-neutral-700 border-neutral-600 text-white"
                 disabled={upsStatus.connected || isLoading}
               />
             </div>
@@ -166,7 +166,7 @@ const UPSIntegration = () => {
                 placeholder="Password"
                 value={upsConfig.password}
                 onChange={(e) => setUpsConfig(prev => ({ ...prev, password: e.target.value }))}
-                className="bg-slate-700 border-slate-600 text-white"
+                className="bg-neutral-700 border-neutral-600 text-white"
                 disabled={upsStatus.connected || isLoading}
               />
             </div>
@@ -179,7 +179,7 @@ const UPSIntegration = () => {
               placeholder="Account number"
               value={upsConfig.accountNumber}
               onChange={(e) => setUpsConfig(prev => ({ ...prev, accountNumber: e.target.value }))}
-              className="bg-slate-700 border-slate-600 text-white"
+              className="bg-neutral-700 border-neutral-600 text-white"
               disabled={upsStatus.connected || isLoading}
             />
           </div>
@@ -191,7 +191,7 @@ const UPSIntegration = () => {
               onValueChange={(value: 'test' | 'production') => setUpsConfig(prev => ({ ...prev, environment: value }))}
               disabled={upsStatus.connected || isLoading}
             >
-              <SelectTrigger className="bg-slate-700 border-slate-600 text-white">
+              <SelectTrigger className="bg-neutral-700 border-neutral-600 text-white">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
