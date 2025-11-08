@@ -352,19 +352,19 @@ const Inventory = () => {
                        <TableHead className="text-neutral-300 w-48">Product</TableHead>
                        <TableHead className="text-neutral-300 w-28">Product ID</TableHead>
                        <TableHead className="text-neutral-300 w-32">Stock</TableHead>
-                       {isCorporateOverview && <TableHead className="text-slate-300 w-20">Unit Price</TableHead>}
-                       {isCorporateOverview && <TableHead className="text-slate-300 w-20">Case Price</TableHead>}
-                       {isCorporateOverview && <TableHead className="text-slate-300 w-24">Stock Value</TableHead>}
-                        {!isCorporateOverview && <TableHead className="text-slate-300 w-20">Case Size</TableHead>}
-                        {!isCorporateOverview && <TableHead className="text-slate-300 w-24">Dimensions</TableHead>}
-                        {!isCorporateOverview && <TableHead className="text-slate-300 w-20">Weight</TableHead>}
-                       {!isCorporateOverview && <TableHead className="text-slate-300 w-32">Expiration</TableHead>}
-                       <TableHead className="text-slate-300 w-20">Actions</TableHead>
+                       {isCorporateOverview && <TableHead className="text-neutral-300 w-20">Unit Price</TableHead>}
+                       {isCorporateOverview && <TableHead className="text-neutral-300 w-20">Case Price</TableHead>}
+                       {isCorporateOverview && <TableHead className="text-neutral-300 w-24">Stock Value</TableHead>}
+                        {!isCorporateOverview && <TableHead className="text-neutral-300 w-20">Case Size</TableHead>}
+                        {!isCorporateOverview && <TableHead className="text-neutral-300 w-24">Dimensions</TableHead>}
+                        {!isCorporateOverview && <TableHead className="text-neutral-300 w-20">Weight</TableHead>}
+                       {!isCorporateOverview && <TableHead className="text-neutral-300 w-32">Expiration</TableHead>}
+                       <TableHead className="text-neutral-300 w-20">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {filteredItems.map((item) => (
-                      <TableRow key={item.id} className="border-slate-600 hover:bg-slate-700/30">
+                      <TableRow key={item.id} className="border-neutral-600 hover:bg-neutral-700/30">
                         <TableCell className="w-48">
                           <div className="flex items-center gap-3">
                             {item.image_url ? (
@@ -374,20 +374,20 @@ const Inventory = () => {
                                 className="w-10 h-10 rounded object-cover flex-shrink-0"
                               />
                             ) : (
-                              <div className="w-10 h-10 bg-slate-600 rounded flex items-center justify-center flex-shrink-0">
-                                <Package className="h-5 w-5 text-slate-400" />
+                              <div className="w-10 h-10 bg-neutral-600 rounded flex items-center justify-center flex-shrink-0">
+                                <Package className="h-5 w-5 text-neutral-400" />
                               </div>
                             )}
                             <div className="min-w-0 flex-1">
                               <p className="font-medium text-white whitespace-nowrap overflow-hidden text-ellipsis">{item.name}</p>
-                              <p className="text-xs text-slate-400">SKU: {item.sku}</p>
+                              <p className="text-xs text-neutral-400">SKU: {item.sku}</p>
                               {item.description && (
-                                <p className="text-xs text-slate-400 whitespace-nowrap overflow-hidden text-ellipsis">{item.description}</p>
+                                <p className="text-xs text-neutral-400 whitespace-nowrap overflow-hidden text-ellipsis">{item.description}</p>
                               )}
                             </div>
                           </div>
                         </TableCell>
-                        <TableCell className="text-slate-300">
+                        <TableCell className="text-neutral-300">
                           <div className="space-y-1">
                             {item.upc && (
                               <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30 border rounded px-3 py-1 whitespace-nowrap font-mono block">
@@ -406,20 +406,20 @@ const Inventory = () => {
                             )}
                           </div>
                         </TableCell>
-                         <TableCell className="text-slate-300">
+                         <TableCell className="text-neutral-300">
                            <div className="space-y-1">
                              <div className="whitespace-nowrap">
                                {getStockBadge(item.stock, item.low_stock_threshold)}
                              </div>
                              {(item as any).reserved_quantity > 0 && (
-                               <div className="text-xs text-slate-400">
+                               <div className="text-xs text-neutral-400">
                                  Available: {item.stock - ((item as any).reserved_quantity || 0)}
                                </div>
                              )}
                            </div>
                          </TableCell>
-                        {isCorporateOverview && (
-                          <TableCell className="text-slate-300">
+                         {isCorporateOverview && (
+                           <TableCell className="text-neutral-300">
                             <div className="whitespace-nowrap">
                               <Badge className="bg-green-500/20 text-green-300 border-green-500/30 border rounded-full px-3 py-1">
                                 $ {(item.unit_price || 0).toFixed(2)}
@@ -427,8 +427,8 @@ const Inventory = () => {
                             </div>
                           </TableCell>
                         )}
-                        {isCorporateOverview && (
-                          <TableCell className="text-slate-300">
+                         {isCorporateOverview && (
+                           <TableCell className="text-neutral-300">
                             <div className="whitespace-nowrap">
                               <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30 border rounded-full px-3 py-1">
                                 $ {(item.case_price || 0).toFixed(2)}
@@ -436,8 +436,8 @@ const Inventory = () => {
                             </div>
                           </TableCell>
                         )}
-                        {isCorporateOverview && (
-                          <TableCell className="text-slate-300">
+                         {isCorporateOverview && (
+                           <TableCell className="text-neutral-300">
                             <div className="whitespace-nowrap">
                               <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30 border rounded-full px-3 py-1">
                                 $ {formatStockValue(item.stock, item.unit_price || 0)}
@@ -445,41 +445,41 @@ const Inventory = () => {
                             </div>
                           </TableCell>
                         )}
-                        {!isCorporateOverview && (
-                          <TableCell className="text-slate-300">
-                             {item.casesize ? (
-                              <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30 border rounded-full px-3 py-1">
-                                 {item.casesize}
-                               </Badge>
-                             ) : (
-                               <span className="text-slate-400">No case size</span>
-                             )}
+                         {!isCorporateOverview && (
+                           <TableCell className="text-neutral-300">
+                              {item.casesize ? (
+                               <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30 border rounded-full px-3 py-1">
+                                  {item.casesize}
+                                </Badge>
+                              ) : (
+                                <span className="text-neutral-400">No case size</span>
+                              )}
                           </TableCell>
                          )}
                          {!isCorporateOverview && (
-                           <TableCell className="text-slate-300">
+                           <TableCell className="text-neutral-300">
                               {item.dimensions ? (
                               <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30 border rounded-full px-3 py-1">
                                   {item.dimensions}
                                 </Badge>
-                              ) : (
-                                <span className="text-slate-400">No dimensions</span>
-                              )}
+                               ) : (
+                                 <span className="text-neutral-400">No dimensions</span>
+                               )}
                            </TableCell>
                          )}
                          {!isCorporateOverview && (
-                          <TableCell className="text-slate-300">
+                           <TableCell className="text-neutral-300">
                             {item.weight ? (
                               <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30 border rounded-full px-3 py-1">
                                 {item.weight}
                               </Badge>
-                            ) : (
-                              <span className="text-slate-400">No weight</span>
-                            )}
+                             ) : (
+                               <span className="text-neutral-400">No weight</span>
+                             )}
                           </TableCell>
                         )}
-                        {!isCorporateOverview && (
-                          <TableCell className="text-slate-300">
+                         {!isCorporateOverview && (
+                           <TableCell className="text-neutral-300">
                             <ExpirationDisplay 
                               productExpiration={item.expiration}
                               batches={item.batches}
@@ -504,24 +504,24 @@ const Inventory = () => {
         </TabsContent>
 
         <TabsContent value="low-stock">
-          <Card className="bg-slate-800 border-slate-700">
+          <Card className="bg-neutral-800 border-neutral-700">
             <CardHeader>
               <CardTitle className="text-white">Low Stock Items</CardTitle>
-              <CardDescription className="text-slate-400">
+              <CardDescription className="text-neutral-400">
                 Items below their customizable low stock thresholds
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {lowStockItems.map((item) => (
-                  <div key={item.id} className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg">
+                  <div key={item.id} className="flex items-center justify-between p-4 bg-neutral-700/30 rounded-lg">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-slate-600 rounded flex items-center justify-center">
-                        <Package className="h-6 w-6 text-slate-400" />
+                      <div className="w-12 h-12 bg-neutral-600 rounded flex items-center justify-center">
+                        <Package className="h-6 w-6 text-neutral-400" />
                       </div>
                       <div>
                         <h3 className="font-medium text-white">{item.name}</h3>
-                        <p className="text-sm text-slate-400">SKU: {item.sku}</p>
+                        <p className="text-sm text-neutral-400">SKU: {item.sku}</p>
                       </div>
                     </div>
                     <div className="text-right">
@@ -536,24 +536,24 @@ const Inventory = () => {
         </TabsContent>
 
         <TabsContent value="out-of-stock">
-          <Card className="bg-slate-800 border-slate-700">
+          <Card className="bg-neutral-800 border-neutral-700">
             <CardHeader>
               <CardTitle className="text-white">Out of Stock Items</CardTitle>
-              <CardDescription className="text-slate-400">
+              <CardDescription className="text-neutral-400">
                 Items that are currently out of stock
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {outOfStockItems.map((item) => (
-                  <div key={item.id} className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg">
+                  <div key={item.id} className="flex items-center justify-between p-4 bg-neutral-700/30 rounded-lg">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-slate-600 rounded flex items-center justify-center">
-                        <Package className="h-6 w-6 text-slate-400" />
+                      <div className="w-12 h-12 bg-neutral-600 rounded flex items-center justify-center">
+                        <Package className="h-6 w-6 text-neutral-400" />
                       </div>
                       <div>
                         <h3 className="font-medium text-white">{item.name}</h3>
-                        <p className="text-sm text-slate-400">SKU: {item.sku}</p>
+                        <p className="text-sm text-neutral-400">SKU: {item.sku}</p>
                       </div>
                     </div>
                     <div className="text-right">
