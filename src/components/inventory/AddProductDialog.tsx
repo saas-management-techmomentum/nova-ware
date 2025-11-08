@@ -428,7 +428,7 @@ const AddProductDialog: React.FC<AddProductDialogProps> = ({ onAddProduct, disab
           <Button 
             onClick={handleSubmit} 
             disabled={isSubmitting}
-            className="bg-cargo-blue hover:bg-cargo-darkBlue"
+            className="bg-white text-black hover:bg-neutral-200"
           >
             {isSubmitting ? (
               <>
