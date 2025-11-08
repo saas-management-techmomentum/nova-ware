@@ -92,12 +92,12 @@ const AppHeader = () => {
   };
 
   return (
-    <header className="h-16 border-b border-slate-800 bg-slate-900/80 backdrop-blur-sm z-20">
+    <header className="h-16 border-b border-neutral-800 bg-neutral-950/80 backdrop-blur-sm z-20">
       <div className="h-full px-6">
         <div className="flex items-center justify-between h-full">
           <div className="flex items-center gap-3">
             {/* Sidebar Toggle Button */}
-            <SidebarTrigger className="h-10 w-10 rounded-full border border-slate-700 bg-slate-800/50 text-slate-400 hover:text-white hover:bg-slate-700/50 transition-colors">
+            <SidebarTrigger className="h-10 w-10 rounded-full border border-neutral-700 bg-neutral-800/50 text-neutral-400 hover:text-white hover:bg-neutral-700/50 transition-colors">
               <Menu className="h-5 w-5" />
             </SidebarTrigger>
             
@@ -117,7 +117,7 @@ const AppHeader = () => {
               asChild
               variant="ghost" 
               size="icon"
-              className="h-10 w-10 rounded-full border border-slate-700 bg-slate-800/50 text-slate-400 hover:text-white"
+              className="h-10 w-10 rounded-full border border-neutral-700 bg-neutral-800/50 text-neutral-400 hover:text-white"
             >
               <Link to="/">
                 <Home className="h-5 w-5" />
@@ -130,9 +130,9 @@ const AppHeader = () => {
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  className="h-10 w-10 rounded-full border border-slate-700 bg-slate-800/50"
+                  className="h-10 w-10 rounded-full border border-neutral-700 bg-neutral-800/50"
                 >
-                  <Bell className="h-5 w-5 text-slate-400" />
+                  <Bell className="h-5 w-5 text-neutral-400" />
                 </Button>
               </DropdownMenuTrigger>
                <DropdownMenuContent align="end" className="w-80">
@@ -155,10 +155,10 @@ const AppHeader = () => {
             {/* User Profile */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-10 px-2 rounded-full border border-slate-700 bg-slate-800/50">
+                <Button variant="ghost" className="h-10 px-2 rounded-full border border-neutral-700 bg-neutral-800/50">
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={user?.user_metadata?.avatar_url} />
-                    <AvatarFallback className="bg-slate-700 text-white text-sm">
+                    <AvatarFallback className="bg-neutral-700 text-neutral-100 text-sm">
                       {getUserInitials()}
                     </AvatarFallback>
                   </Avatar>

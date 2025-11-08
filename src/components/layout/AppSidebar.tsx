@@ -226,7 +226,7 @@ const AppSidebar = () => {
 
   const getSelectionIcon = () => {
     if (!selectedWarehouse) {
-      return isUserAdmin ? <Globe className="h-4 w-4 text-slate-400" /> : <Building2 className="h-4 w-4 text-emerald-400" />;
+      return isUserAdmin ? <Globe className="h-4 w-4 text-neutral-400" /> : <Building2 className="h-4 w-4 text-emerald-400" />;
     }
     return <Building2 className="h-4 w-4 text-emerald-400" />;
   };
@@ -241,25 +241,25 @@ const AppSidebar = () => {
 
   return (
     <Sidebar>
-      <div className="h-16 flex items-center px-5 border-b border-slate-800 bg-slate-900 backdrop-blur-sm">
+      <div className="h-16 flex items-center px-5 border-b border-neutral-800 bg-neutral-950 backdrop-blur-sm">
         <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
           <span className="text-xl font-semibold text-white"></span>
         </Link>
-        <SidebarTrigger className="ml-auto lg:hidden text-slate-300 hover:text-white transition-colors" />
+        <SidebarTrigger className="ml-auto lg:hidden text-neutral-300 hover:text-white transition-colors" />
       </div>
-      <SidebarContent className="bg-slate-900 h-full border-r border-slate-800">
+      <SidebarContent className="bg-neutral-950 h-full border-r border-neutral-800">
         {shouldShowDropdown && (
           <SidebarGroup>
             <SidebarGroupContent>
               <div className="px-2 mb-2">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <button className="w-full flex items-center justify-between p-2 rounded-md bg-slate-800/50 border border-slate-700/50 text-slate-300 hover:bg-slate-700/50 hover:text-white transition-colors">
+                    <button className="w-full flex items-center justify-between p-2 rounded-md bg-neutral-800/50 border border-neutral-700/50 text-neutral-300 hover:bg-neutral-700/50 hover:text-white transition-colors">
                       <div className="flex items-center gap-2">
                         {getSelectionIcon()}
                         <span className="text-sm font-medium">{getCurrentSelectionText()}</span>
                         {isUserAdmin && !selectedWarehouse && (
-                          <Shield className="h-3 w-3 text-slate-400" />
+                          <Shield className="h-3 w-3 text-neutral-400" />
                         )}
                       </div>
                       <ChevronDown className="h-4 w-4" />
@@ -267,22 +267,22 @@ const AppSidebar = () => {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent 
                     align="start" 
-                    className="w-64 bg-slate-800/95 backdrop-blur-md border border-slate-700/50 text-slate-300 z-50"
+                    className="w-64 bg-neutral-900/95 backdrop-blur-md border border-neutral-700/50 text-neutral-300 z-50"
                   >
                     {isUserAdmin && (
                       <>
                         <DropdownMenuItem 
                           onClick={() => handleWarehouseChange(null)}
-                          className="flex items-center gap-2 hover:bg-slate-700/50 focus:bg-slate-700/50"
+                          className="flex items-center gap-2 hover:bg-neutral-700/50 focus:bg-neutral-700/50"
                         >
-                          <Globe className="h-4 w-4 text-slate-400" />
+                          <Globe className="h-4 w-4 text-neutral-400" />
                           <div className="flex flex-col">
                             <span className="font-medium">Corporate Overview</span>
-                            <span className="text-xs text-slate-400">All warehouses & data</span>
+                            <span className="text-xs text-neutral-400">All warehouses & data</span>
                           </div>
                           {!selectedWarehouse && <Activity className="h-3 w-3 ml-auto text-emerald-400" />}
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator className="bg-slate-700/50" />
+                        <DropdownMenuSeparator className="bg-neutral-700/50" />
                       </>
                     )}
                     
@@ -290,16 +290,16 @@ const AppSidebar = () => {
                       <>
                         <DropdownMenuItem 
                           onClick={() => handleWarehouseChange(null)}
-                          className="flex items-center gap-2 hover:bg-slate-700/50 focus:bg-slate-700/50"
+                          className="flex items-center gap-2 hover:bg-neutral-700/50 focus:bg-neutral-700/50"
                         >
                           <Building2 className="h-4 w-4 text-emerald-400" />
                           <div className="flex flex-col">
                             <span className="font-medium">All Locations</span>
-                            <span className="text-xs text-slate-400">Combined view</span>
+                            <span className="text-xs text-neutral-400">Combined view</span>
                           </div>
                           {!selectedWarehouse && <Activity className="h-3 w-3 ml-auto text-emerald-400" />}
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator className="bg-slate-700/50" />
+                        <DropdownMenuSeparator className="bg-neutral-700/50" />
                       </>
                     )}
                     
@@ -309,7 +309,7 @@ const AppSidebar = () => {
                         <DropdownMenuItem 
                           key={warehouse.warehouse_id}
                           onClick={() => handleWarehouseChange(warehouse.warehouse_id)}
-                          className="flex items-center gap-2 hover:bg-slate-700/50 focus:bg-slate-700/50"
+                          className="flex items-center gap-2 hover:bg-neutral-700/50 focus:bg-neutral-700/50"
                         >
                           <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
                           <div className="flex flex-col flex-1">
@@ -319,7 +319,7 @@ const AppSidebar = () => {
                                 <Shield className="h-3 w-3 text-amber-400" />
                               )}
                             </div>
-                            <span className="text-xs text-slate-400">{warehouse.warehouse_name}</span>
+                            <span className="text-xs text-neutral-400">{warehouse.warehouse_name}</span>
                           </div>
                           {selectedWarehouse === warehouse.warehouse_id && (
                             <Activity className="h-3 w-3 ml-auto text-emerald-400" />
@@ -330,7 +330,7 @@ const AppSidebar = () => {
                     
                     {isUserAdmin && (
                       <>
-                        <DropdownMenuSeparator className="bg-slate-700/50" />
+                        <DropdownMenuSeparator className="bg-neutral-700/50" />
                         <div className="p-2">
                           <AddWarehouseDialog onWarehouseAdded={handleWarehouseAdded} />
                         </div>
@@ -338,7 +338,7 @@ const AppSidebar = () => {
                     )}
                     
                     {warehouses.length === 0 && (
-                      <DropdownMenuItem disabled className="text-slate-500 text-xs">
+                      <DropdownMenuItem disabled className="text-neutral-500 text-xs">
                         No warehouses assigned
                       </DropdownMenuItem>
                     )}
@@ -350,7 +350,7 @@ const AppSidebar = () => {
         )}
         
         <SidebarGroup>
-          <SidebarGroupLabel className="text-xs uppercase tracking-wider font-medium text-slate-400">
+          <SidebarGroupLabel className="text-xs uppercase tracking-wider font-medium text-neutral-400">
             {selectedWarehouse ? 
               warehouses.find(w => w.warehouse_id === selectedWarehouse)?.warehouse_code || 'Warehouse' : 
               (isUserAdmin ? 'Corporate' : 'Menu')
@@ -360,8 +360,8 @@ const AppSidebar = () => {
             <SidebarMenu>
               {permissionsLoading ? (
                 <div className="flex items-center justify-center py-4">
-                  <Loader2 className="h-5 w-5 animate-spin text-slate-400" />
-                  <span className="ml-2 text-sm text-slate-400">Loading permissions...</span>
+                  <Loader2 className="h-5 w-5 animate-spin text-neutral-400" />
+                  <span className="ml-2 text-sm text-neutral-400">Loading permissions...</span>
                 </div>
               ) : (
                 menuItems.map((item) => (
@@ -371,15 +371,15 @@ const AppSidebar = () => {
                         to={item.path}
                         className={`transition-all duration-200 ${
                           location.pathname === item.path 
-                            ? 'bg-gradient-to-r from-slate-600/20 to-transparent text-white border-l-2 border-slate-600 shadow-[0_0_10px_rgba(107,114,128,0.2)] backdrop-blur-sm'
-                            : 'hover:bg-slate-800 border-l-2 border-transparent text-slate-300 hover:text-white'
+                            ? 'bg-gradient-to-r from-neutral-700/20 to-transparent text-white border-l-2 border-neutral-600 shadow-[0_0_10px_rgba(64,64,64,0.3)] backdrop-blur-sm'
+                            : 'hover:bg-neutral-800 border-l-2 border-transparent text-neutral-300 hover:text-white'
                         }`}
                       >
-                        <item.icon className={`w-5 h-5 ${location.pathname === item.path ? 'text-slate-400' : ''}`} />
+                        <item.icon className={`w-5 h-5 ${location.pathname === item.path ? 'text-neutral-400' : ''}`} />
                         <span>{item.title}</span>
                         
                         {location.pathname === item.path && (
-                          <span className="ml-auto h-1.5 w-1.5 rounded-full bg-slate-600 shadow-[0_0_5px_rgba(107,114,128,0.7)]"></span>
+                          <span className="ml-auto h-1.5 w-1.5 rounded-full bg-neutral-500 shadow-[0_0_8px_rgba(64,64,64,0.8)]"></span>
                         )}
                       </Link>
                     </SidebarMenuButton>
@@ -391,7 +391,7 @@ const AppSidebar = () => {
         </SidebarGroup>
         
         <div className="absolute bottom-0 left-0 right-0 p-4">
-          <div className="p-3 rounded-lg bg-slate-800/50 border border-slate-700 text-slate-300 text-xs">
+          <div className="p-3 rounded-lg bg-neutral-800/50 border border-neutral-700 text-neutral-300 text-xs">
             <div className="flex items-center justify-between mb-2">
               <span>System Status</span>
               <span className="flex items-center gap-1">

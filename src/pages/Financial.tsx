@@ -26,14 +26,14 @@ const Financial = () => {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-white">Financial Management</h1>
-          <p className="text-slate-400 mt-1">
+          <p className="text-neutral-400 mt-1">
             Complete financial management and accounting system
           </p>
         </div>
       </div>
 
       <Tabs defaultValue="dashboard" className="space-y-6">
-        <TabsList className="grid grid-cols-3 lg:grid-cols-12 bg-slate-800/50 h-auto flex-wrap gap-1 p-2">
+        <TabsList className="grid grid-cols-3 lg:grid-cols-12 bg-neutral-800/50 h-auto flex-wrap gap-1 p-2">
           <TabsTrigger value="dashboard" className="text-sm">Dashboard</TabsTrigger>
           <TabsTrigger value="accounts-receivable" className="text-sm">AR</TabsTrigger>
           <TabsTrigger value="invoicing" className="text-sm">Invoicing</TabsTrigger>
@@ -101,7 +101,7 @@ const Financial = () => {
         
         <TabsContent value="invoicing">
           <Tabs defaultValue="management" className="space-y-4">
-            <TabsList className="bg-slate-700/50">
+            <TabsList className="bg-neutral-700/50">
               <TabsTrigger value="management">Invoice Management</TabsTrigger>
               <TabsTrigger value="rates">Rate Management</TabsTrigger>
             </TabsList>
