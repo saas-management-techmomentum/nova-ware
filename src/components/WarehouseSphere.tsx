@@ -17,7 +17,7 @@ const SimpleRotatingSphere = () => {
     <mesh ref={meshRef}>
       <sphereGeometry args={[2.5, 32, 32]} />
       <meshBasicMaterial 
-        color="#8b5cf6" 
+        color="#71717a" 
         wireframe={true}
         transparent={true}
         opacity={0.6}
