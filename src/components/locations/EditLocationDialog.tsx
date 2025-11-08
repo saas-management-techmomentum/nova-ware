@@ -164,10 +164,10 @@ const EditLocationDialog: React.FC<EditLocationDialogProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto bg-slate-800 border-slate-700 text-white">
+      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto bg-neutral-900 border-neutral-800 text-white">
         <DialogHeader>
           <DialogTitle className="flex items-center text-white">
-            <Edit className="h-5 w-5 mr-2 text-indigo-400" />
+            <Edit className="h-5 w-5 mr-2 text-neutral-400" />
             Edit Location {location.id}
           </DialogTitle>
         </DialogHeader>
@@ -185,14 +185,14 @@ const EditLocationDialog: React.FC<EditLocationDialogProps> = ({
 
           {/* Current Products */}
           {location.products.length > 0 && (
-            <div className="bg-slate-700/30 p-4 rounded-md border border-slate-600">
+            <div className="bg-neutral-800/30 p-4 rounded-md border border-neutral-700">
               <div className="flex items-center gap-2 mb-3">
-                <Package className="h-4 w-4 text-slate-400" />
-                <h3 className="text-sm font-semibold text-slate-300">Current Products</h3>
+                <Package className="h-4 w-4 text-neutral-400" />
+                <h3 className="text-sm font-semibold text-neutral-300">Current Products</h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 {location.products.map(product => (
-                  <div key={product.sku} className="text-sm text-slate-400">
+                  <div key={product.sku} className="text-sm text-neutral-400">
                     {product.name} (Qty: {product.qty})
                   </div>
                 ))}
@@ -202,13 +202,13 @@ const EditLocationDialog: React.FC<EditLocationDialogProps> = ({
 
           {/* Location Identification */}
           <div className="space-y-4">
-            <div className="border-b border-slate-700 pb-2">
-              <h3 className="text-sm font-semibold text-slate-300">Location Identification</h3>
+            <div className="border-b border-neutral-800 pb-2">
+              <h3 className="text-sm font-semibold text-neutral-300">Location Identification</h3>
             </div>
             
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="edit-locationId" className="flex items-center gap-1 text-slate-300">
+                <Label htmlFor="edit-locationId" className="flex items-center gap-1 text-neutral-300">
                   Location ID *
                   {!locationId && <AlertCircle className="h-3 w-3 text-red-400" />}
                 </Label>
@@ -217,27 +217,27 @@ const EditLocationDialog: React.FC<EditLocationDialogProps> = ({
                   placeholder="LOC-001" 
                   value={locationId} 
                   onChange={(e) => setLocationId(e.target.value)}
-                  className={`bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30 ${!locationId ? "border-red-500/50" : ""}`}
+                  className={`bg-neutral-800/50 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-neutral-600/50 focus:ring-1 focus:ring-neutral-500/30 ${!locationId ? "border-red-500/50" : ""}`}
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="edit-locationType" className="flex items-center gap-1 text-slate-300">
+                <Label htmlFor="edit-locationType" className="flex items-center gap-1 text-neutral-300">
                   Location Type *
                   {!locationType && <AlertCircle className="h-3 w-3 text-red-400" />}
                 </Label>
                 <Select value={locationType} onValueChange={setLocationType}>
-                  <SelectTrigger className={`bg-slate-700/50 border-slate-600 text-white ${!locationType ? "border-red-500/50" : ""}`}>
+                  <SelectTrigger className={`bg-neutral-800/50 border-neutral-700 text-white ${!locationType ? "border-red-500/50" : ""}`}>
                     <SelectValue placeholder="Select type" />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-700 text-white">
-                    <SelectItem value="pallet" className="hover:bg-slate-700 focus:bg-slate-700">Pallet Location</SelectItem>
-                    <SelectItem value="shelf" className="hover:bg-slate-700 focus:bg-slate-700">Shelf Location</SelectItem>
-                    <SelectItem value="bin" className="hover:bg-slate-700 focus:bg-slate-700">Bin Location</SelectItem>
-                    <SelectItem value="floor" className="hover:bg-slate-700 focus:bg-slate-700">Floor Location</SelectItem>
-                    <SelectItem value="rack" className="hover:bg-slate-700 focus:bg-slate-700">Rack Location</SelectItem>
-                    <SelectItem value="cooler" className="hover:bg-slate-700 focus:bg-slate-700">Cooler Location</SelectItem>
-                    <SelectItem value="freezer" className="hover:bg-slate-700 focus:bg-slate-700">Freezer Location</SelectItem>
+                  <SelectContent className="bg-neutral-900 border-neutral-800 text-white">
+                    <SelectItem value="pallet" className="hover:bg-neutral-800 focus:bg-neutral-800">Pallet Location</SelectItem>
+                    <SelectItem value="shelf" className="hover:bg-neutral-800 focus:bg-neutral-800">Shelf Location</SelectItem>
+                    <SelectItem value="bin" className="hover:bg-neutral-800 focus:bg-neutral-800">Bin Location</SelectItem>
+                    <SelectItem value="floor" className="hover:bg-neutral-800 focus:bg-neutral-800">Floor Location</SelectItem>
+                    <SelectItem value="rack" className="hover:bg-neutral-800 focus:bg-neutral-800">Rack Location</SelectItem>
+                    <SelectItem value="cooler" className="hover:bg-neutral-800 focus:bg-neutral-800">Cooler Location</SelectItem>
+                    <SelectItem value="freezer" className="hover:bg-neutral-800 focus:bg-neutral-800">Freezer Location</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -246,34 +246,34 @@ const EditLocationDialog: React.FC<EditLocationDialogProps> = ({
 
           {/* Location Coordinates */}
           <div className="space-y-4">
-            <div className="border-b border-slate-700 pb-2">
-              <h3 className="text-sm font-semibold text-slate-300">Location Coordinates</h3>
+            <div className="border-b border-neutral-800 pb-2">
+              <h3 className="text-sm font-semibold text-neutral-300">Location Coordinates</h3>
             </div>
             
             <div className="grid grid-cols-3 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="edit-zone" className="flex items-center gap-1 text-slate-300">
+                <Label htmlFor="edit-zone" className="flex items-center gap-1 text-neutral-300">
                   Zone *
                   {!zone && <AlertCircle className="h-3 w-3 text-red-400" />}
                 </Label>
                 <Select value={zone} onValueChange={setZone}>
-                  <SelectTrigger className={`bg-slate-700/50 border-slate-600 text-white ${!zone ? "border-red-500/50" : ""}`}>
+                  <SelectTrigger className={`bg-neutral-800/50 border-neutral-700 text-white ${!zone ? "border-red-500/50" : ""}`}>
                     <SelectValue placeholder="Zone" />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-700 text-white">
-                    <SelectItem value="A" className="hover:bg-slate-700 focus:bg-slate-700">Zone A</SelectItem>
-                    <SelectItem value="B" className="hover:bg-slate-700 focus:bg-slate-700">Zone B</SelectItem>
-                    <SelectItem value="C" className="hover:bg-slate-700 focus:bg-slate-700">Zone C</SelectItem>
-                    <SelectItem value="D" className="hover:bg-slate-700 focus:bg-slate-700">Zone D</SelectItem>
-                    <SelectItem value="PICK" className="hover:bg-slate-700 focus:bg-slate-700">Pick Zone</SelectItem>
-                    <SelectItem value="RECV" className="hover:bg-slate-700 focus:bg-slate-700">Receiving</SelectItem>
-                    <SelectItem value="SHIP" className="hover:bg-slate-700 focus:bg-slate-700">Shipping</SelectItem>
+                  <SelectContent className="bg-neutral-900 border-neutral-800 text-white">
+                    <SelectItem value="A" className="hover:bg-neutral-800 focus:bg-neutral-800">Zone A</SelectItem>
+                    <SelectItem value="B" className="hover:bg-neutral-800 focus:bg-neutral-800">Zone B</SelectItem>
+                    <SelectItem value="C" className="hover:bg-neutral-800 focus:bg-neutral-800">Zone C</SelectItem>
+                    <SelectItem value="D" className="hover:bg-neutral-800 focus:bg-neutral-800">Zone D</SelectItem>
+                    <SelectItem value="PICK" className="hover:bg-neutral-800 focus:bg-neutral-800">Pick Zone</SelectItem>
+                    <SelectItem value="RECV" className="hover:bg-neutral-800 focus:bg-neutral-800">Receiving</SelectItem>
+                    <SelectItem value="SHIP" className="hover:bg-neutral-800 focus:bg-neutral-800">Shipping</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="edit-aisle" className="flex items-center gap-1 text-slate-300">
+                <Label htmlFor="edit-aisle" className="flex items-center gap-1 text-neutral-300">
                   Aisle *
                   {!aisle && <AlertCircle className="h-3 w-3 text-red-400" />}
                 </Label>
@@ -282,12 +282,12 @@ const EditLocationDialog: React.FC<EditLocationDialogProps> = ({
                   placeholder="01" 
                   value={aisle} 
                   onChange={(e) => setAisle(e.target.value)}
-                  className={`bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30 ${!aisle ? "border-red-500/50" : ""}`}
+                  className={`bg-neutral-800/50 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-neutral-600/50 focus:ring-1 focus:ring-neutral-500/30 ${!aisle ? "border-red-500/50" : ""}`}
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="edit-section" className="flex items-center gap-1 text-slate-300">
+                <Label htmlFor="edit-section" className="flex items-center gap-1 text-neutral-300">
                   Section *
                   {!section && <AlertCircle className="h-3 w-3 text-red-400" />}
                 </Label>
@@ -296,40 +296,40 @@ const EditLocationDialog: React.FC<EditLocationDialogProps> = ({
                   placeholder="A" 
                   value={section} 
                   onChange={(e) => setSection(e.target.value)}
-                  className={`bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30 ${!section ? "border-red-500/50" : ""}`}
+                  className={`bg-neutral-800/50 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-neutral-600/50 focus:ring-1 focus:ring-neutral-500/30 ${!section ? "border-red-500/50" : ""}`}
                 />
               </div>
             </div>
             
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="edit-shelf" className="text-slate-300">Shelf/Level</Label>
+                <Label htmlFor="edit-shelf" className="text-neutral-300">Shelf/Level</Label>
                 <Input 
                   id="edit-shelf" 
                   placeholder="01" 
                   value={shelf} 
                   onChange={(e) => setShelf(e.target.value)}
-                  className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30"
+                  className="bg-neutral-800/50 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-neutral-600/50 focus:ring-1 focus:ring-neutral-500/30"
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="edit-bin" className="text-slate-300">Bin/Position</Label>
+                <Label htmlFor="edit-bin" className="text-neutral-300">Bin/Position</Label>
                 <Input 
                   id="edit-bin" 
                   placeholder="01" 
                   value={bin} 
                   onChange={(e) => setBin(e.target.value)}
-                  className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30"
+                  className="bg-neutral-800/50 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-neutral-600/50 focus:ring-1 focus:ring-neutral-500/30"
                 />
               </div>
             </div>
             
             {/* Generated Location Preview */}
             {generateLocationString() && (
-              <div className="bg-slate-700/50 p-3 rounded-md border border-slate-600">
-                <Label className="text-sm font-medium text-slate-300">Updated Location Code:</Label>
-                <div className="text-lg font-mono font-bold text-indigo-400 mt-1">
+              <div className="bg-neutral-800/50 p-3 rounded-md border border-neutral-700">
+                <Label className="text-sm font-medium text-neutral-300">Updated Location Code:</Label>
+                <div className="text-lg font-mono font-bold text-neutral-300 mt-1">
                   {generateLocationString()}
                 </div>
                 {generateLocationString() !== location.location && (
@@ -343,34 +343,34 @@ const EditLocationDialog: React.FC<EditLocationDialogProps> = ({
 
           {/* Location Properties */}
           <div className="space-y-4">
-            <div className="border-b border-slate-700 pb-2">
-              <h3 className="text-sm font-semibold text-slate-300">Location Properties</h3>
+            <div className="border-b border-neutral-800 pb-2">
+              <h3 className="text-sm font-semibold text-neutral-300">Location Properties</h3>
             </div>
             
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="edit-capacity" className="text-slate-300">Capacity (cubic ft)</Label>
+                <Label htmlFor="edit-capacity" className="text-neutral-300">Capacity (cubic ft)</Label>
                 <Input 
                   id="edit-capacity" 
                   type="number"
                   placeholder="100" 
                   value={capacity} 
                   onChange={(e) => setCapacity(e.target.value)}
-                  className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30"
+                  className="bg-neutral-800/50 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-neutral-600/50 focus:ring-1 focus:ring-neutral-500/30"
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="edit-temperature" className="text-slate-300">Temperature (°F)</Label>
+                <Label htmlFor="edit-temperature" className="text-neutral-300">Temperature (°F)</Label>
                 <Select value={temperature} onValueChange={setTemperature}>
-                  <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                  <SelectTrigger className="bg-neutral-800/50 border-neutral-700 text-white">
                     <SelectValue placeholder="Select temp" />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-700 text-white">
-                    <SelectItem value="ambient" className="hover:bg-slate-700 focus:bg-slate-700">Ambient (65-75°F)</SelectItem>
-                    <SelectItem value="cool" className="hover:bg-slate-700 focus:bg-slate-700">Cool (45-65°F)</SelectItem>
-                    <SelectItem value="cold" className="hover:bg-slate-700 focus:bg-slate-700">Cold (32-45°F)</SelectItem>
-                    <SelectItem value="frozen" className="hover:bg-slate-700 focus:bg-slate-700">Frozen (0-32°F)</SelectItem>
+                  <SelectContent className="bg-neutral-900 border-neutral-800 text-white">
+                    <SelectItem value="ambient" className="hover:bg-neutral-800 focus:bg-neutral-800">Ambient (65-75°F)</SelectItem>
+                    <SelectItem value="cool" className="hover:bg-neutral-800 focus:bg-neutral-800">Cool (45-65°F)</SelectItem>
+                    <SelectItem value="cold" className="hover:bg-neutral-800 focus:bg-neutral-800">Cold (32-45°F)</SelectItem>
+                    <SelectItem value="frozen" className="hover:bg-neutral-800 focus:bg-neutral-800">Frozen (0-32°F)</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -382,14 +382,14 @@ const EditLocationDialog: React.FC<EditLocationDialogProps> = ({
           <Button 
             variant="outline" 
             onClick={() => handleClose(false)}
-            className="border-slate-600 text-slate-300 hover:bg-slate-700"
+            className="border-neutral-700 text-neutral-300 hover:bg-neutral-800"
           >
             Cancel
           </Button>
           <Button 
             onClick={handleSubmit}
             disabled={!isFormValid || isSubmitting || !hasChanges}
-            className="bg-indigo-500 hover:bg-indigo-600 text-white"
+            className="bg-green-600 hover:bg-green-700 text-white"
           >
             {isSubmitting ? "Updating..." : "Update Location"}
           </Button>

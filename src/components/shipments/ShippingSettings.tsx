@@ -12,7 +12,7 @@ const ShippingSettings = () => {
     <div className="space-y-6">
       <div>
         <h2 className="text-xl font-semibold text-white mb-2">Shipping Settings</h2>
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-neutral-400">
           Configure your shipping carrier integrations and settings
         </p>
       </div>

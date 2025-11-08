@@ -258,7 +258,7 @@ const AddPalletDialog: React.FC<AddPalletDialogProps> = ({
                     placeholder="LOC-001" 
                     value={palletId} 
                     onChange={(e) => setPalletId(e.target.value)}
-                    className={`flex-1 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30 ${!palletId ? "border-red-500/50" : ""}`}
+                    className={`flex-1 bg-neutral-800/50 border-neutral-700 text-white placeholder:text-neutral-400 focus:border-neutral-600/50 focus:ring-1 focus:ring-neutral-500/30 ${!palletId ? "border-red-500/50" : ""}`}
                   />
                   <Button
                     type="button"
@@ -266,7 +266,7 @@ const AddPalletDialog: React.FC<AddPalletDialogProps> = ({
                     size="sm"
                     onClick={handleGenerateUniqueId}
                     disabled={isGeneratingId}
-                    className="whitespace-nowrap border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white"
+                    className="whitespace-nowrap border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white"
                   >
                     {isGeneratingId ? (
                       <RefreshCw className="h-4 w-4 animate-spin" />
@@ -421,7 +421,7 @@ const AddPalletDialog: React.FC<AddPalletDialogProps> = ({
                     <SelectItem value="ambient" className="hover:bg-neutral-800 focus:bg-neutral-800">Ambient (65-75°F)</SelectItem>
                     <SelectItem value="cool" className="hover:bg-neutral-800 focus:bg-neutral-800">Cool (45-65°F)</SelectItem>
                     <SelectItem value="cold" className="hover:bg-neutral-800 focus:bg-neutral-800">Cold (32-45°F)</SelectItem>
-                    <SelectItem value="frozen" className="hover:bg-slate-700 focus:bg-slate-700">Frozen (0-32°F)</SelectItem>
+                    <SelectItem value="frozen" className="hover:bg-neutral-800 focus:bg-neutral-800">Frozen (0-32°F)</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -430,12 +430,12 @@ const AddPalletDialog: React.FC<AddPalletDialogProps> = ({
           
           {/* Products Section */}
           <div className="space-y-4">
-            <div className="border-b border-slate-700 pb-2">
-              <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-1">
+            <div className="border-b border-neutral-800 pb-2">
+              <h3 className="text-sm font-semibold text-neutral-300 flex items-center gap-1">
                 Products *
                 {products.length === 0 && <AlertCircle className="h-3 w-3 text-red-400" />}
               </h3>
-              <p className="text-xs text-slate-400 mt-1">
+              <p className="text-xs text-neutral-400 mt-1">
                 Select products from the dropdown - they'll be added automatically
               </p>
             </div>
@@ -447,7 +447,7 @@ const AddPalletDialog: React.FC<AddPalletDialogProps> = ({
                     variant="outline" 
                     role="combobox" 
                     aria-expanded={openProductSearch}
-                    className="w-full justify-between border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white"
+                    className="w-full justify-between border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white"
                   >
                     <span className="flex items-center">
                       <Plus className="h-4 w-4 mr-2" />
@@ -455,11 +455,11 @@ const AddPalletDialog: React.FC<AddPalletDialogProps> = ({
                     </span>
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-[400px] p-0 bg-slate-800 border-slate-700" align="start">
-                  <Command className="bg-slate-800">
-                    <CommandInput placeholder="Search for a product to add..." className="text-white bg-slate-800 border-slate-700" />
+                <PopoverContent className="w-[400px] p-0 bg-neutral-900 border-neutral-800" align="start">
+                  <Command className="bg-neutral-900">
+                    <CommandInput placeholder="Search for a product to add..." className="text-white bg-neutral-900 border-neutral-800" />
                     <CommandList className="max-h-[300px] overflow-auto">
-                      <CommandEmpty className="text-slate-400">No products found.</CommandEmpty>
+                      <CommandEmpty className="text-neutral-400">No products found.</CommandEmpty>
                       <CommandGroup>
                         {inventoryItems
                           .filter(product => !products.some(p => p.sku === product.sku))
@@ -468,12 +468,12 @@ const AddPalletDialog: React.FC<AddPalletDialogProps> = ({
                             key={product.sku}
                             value={product.sku}
                             onSelect={handleSelectProduct}
-                            className="cursor-pointer hover:bg-slate-700 text-white"
+                            className="cursor-pointer hover:bg-neutral-800 text-white"
                           >
                             <Plus className="mr-2 h-4 w-4 text-green-400" />
                             <div className="flex flex-col">
                               <span>{product.name}</span>
-                              <span className="text-xs text-slate-400">
+                              <span className="text-xs text-neutral-400">
                                 SKU: {product.sku} {product.upc ? `| UPC: ${product.upc}` : ''}
                               </span>
                             </div>
@@ -493,10 +493,10 @@ const AddPalletDialog: React.FC<AddPalletDialogProps> = ({
                 </Label>
                 <div className="space-y-2 max-h-40 overflow-y-auto">
                   {products.map((product) => (
-                    <div key={product.sku} className="flex justify-between items-center text-sm p-2 hover:bg-green-500/20 rounded border border-green-500/30 bg-slate-700/50">
+                    <div key={product.sku} className="flex justify-between items-center text-sm p-2 hover:bg-green-500/20 rounded border border-green-500/30 bg-neutral-800/50">
                       <div className="flex-1">
                         <div className="font-medium text-white">{product.name}</div>
-                        <div className="text-xs text-slate-400">
+                        <div className="text-xs text-neutral-400">
                           SKU: {product.sku} | UPC: {product.upc || 'N/A'}
                         </div>
                       </div>
@@ -506,9 +506,9 @@ const AddPalletDialog: React.FC<AddPalletDialogProps> = ({
                           min="1"
                           value={product.qty}
                           onChange={(e) => handleUpdateProductQuantity(product.sku, Number(e.target.value))}
-                          className="w-16 h-6 text-xs bg-slate-700/50 border-slate-600 text-white"
+                          className="w-16 h-6 text-xs bg-neutral-800/50 border-neutral-700 text-white"
                         />
-                        <Badge variant="outline" className="text-xs border-slate-600 text-slate-300">
+                        <Badge variant="outline" className="text-xs border-neutral-700 text-neutral-300">
                           units
                         </Badge>
                         <Button 

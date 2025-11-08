@@ -221,7 +221,7 @@ const OutgoingShipmentModal: React.FC<OutgoingShipmentModalProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[600px] bg-slate-800 border-slate-700 text-white">
+      <DialogContent className="sm:max-w-[600px] bg-neutral-900 border-neutral-800 text-white">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-white">
             <Package className="h-5 w-5" />
@@ -234,19 +234,19 @@ const OutgoingShipmentModal: React.FC<OutgoingShipmentModalProps> = ({
         <div className="space-y-6 py-4">
           {/* Order/Shipment Information - only show if editing existing */}
           {(order || shipment) && (
-            <div className="bg-slate-700/30 p-4 rounded-lg">
-              <h3 className="text-sm font-medium text-slate-300 mb-2">
+            <div className="bg-neutral-800/30 p-4 rounded-lg">
+              <h3 className="text-sm font-medium text-neutral-300 mb-2">
                 {order ? 'Order Information' : 'Shipment Information'}
               </h3>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
-                  <span className="text-slate-400">Customer:</span>
+                  <span className="text-neutral-400">Customer:</span>
                   <span className="ml-2 text-white">
                     {order ? order.customer_name : shipment?.customer_name || 'N/A'}
                   </span>
                 </div>
                 <div>
-                  <span className="text-slate-400">{order ? 'Order Date:' : 'Created Date:'}</span>
+                  <span className="text-neutral-400">{order ? 'Order Date:' : 'Created Date:'}</span>
                   <span className="ml-2 text-white">
                     {new Date((order || shipment).created_at).toLocaleDateString()}
                   </span>
@@ -258,12 +258,12 @@ const OutgoingShipmentModal: React.FC<OutgoingShipmentModalProps> = ({
           {/* Invoice Selection - Required for new shipments */}
           {!order && !shipment && (
             <div className="space-y-2">
-              <Label htmlFor="invoice-select" className="text-slate-300 flex items-center gap-2">
+              <Label htmlFor="invoice-select" className="text-neutral-300 flex items-center gap-2">
                 <FileText className="h-4 w-4" />
                 Invoice Number *
               </Label>
               <Select value={selectedInvoiceId} onValueChange={setSelectedInvoiceId}>
-                <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                <SelectTrigger className="bg-neutral-800/50 border-neutral-700 text-white">
                   <SelectValue placeholder="Select an invoice" />
                 </SelectTrigger>
                 <SelectContent>
@@ -287,12 +287,12 @@ const OutgoingShipmentModal: React.FC<OutgoingShipmentModalProps> = ({
           {/* Shipping Information Form */}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="carrier" className="text-slate-300 flex items-center gap-2">
+              <Label htmlFor="carrier" className="text-neutral-300 flex items-center gap-2">
                 <Truck className="h-4 w-4" />
                 Carrier
               </Label>
               <Select value={carrier} onValueChange={setCarrier}>
-                <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                <SelectTrigger className="bg-neutral-800/50 border-neutral-700 text-white">
                   <SelectValue placeholder="Select carrier" />
                 </SelectTrigger>
                 <SelectContent>
@@ -306,11 +306,11 @@ const OutgoingShipmentModal: React.FC<OutgoingShipmentModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="shipping-method" className="text-slate-300">
+              <Label htmlFor="shipping-method" className="text-neutral-300">
                 Shipping Method
               </Label>
               <Select value={shippingMethod} onValueChange={setShippingMethod}>
-                <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                <SelectTrigger className="bg-neutral-800/50 border-neutral-700 text-white">
                   <SelectValue placeholder="Select method" />
                 </SelectTrigger>
                 <SelectContent>
@@ -325,7 +325,7 @@ const OutgoingShipmentModal: React.FC<OutgoingShipmentModalProps> = ({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="tracking-number" className="text-slate-300 flex items-center gap-2">
+            <Label htmlFor="tracking-number" className="text-neutral-300 flex items-center gap-2">
               <Hash className="h-4 w-4" />
               Tracking Number
             </Label>
@@ -334,13 +334,13 @@ const OutgoingShipmentModal: React.FC<OutgoingShipmentModalProps> = ({
               value={trackingNumber}
               onChange={(e) => setTrackingNumber(e.target.value)}
               placeholder="Enter tracking number"
-              className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+              className="bg-neutral-800/50 border-neutral-700 text-white placeholder:text-neutral-400"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="ship-date" className="text-slate-300 flex items-center gap-2">
+              <Label htmlFor="ship-date" className="text-neutral-300 flex items-center gap-2">
                 <Calendar className="h-4 w-4" />
                 Ship Date
               </Label>
@@ -349,16 +349,16 @@ const OutgoingShipmentModal: React.FC<OutgoingShipmentModalProps> = ({
                 type="date"
                 value={shipDate}
                 onChange={(e) => setShipDate(e.target.value)}
-                className="bg-slate-700/50 border-slate-600 text-white"
+                className="bg-neutral-800/50 border-neutral-700 text-white"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="shipment-status" className="text-slate-300">
+              <Label htmlFor="shipment-status" className="text-neutral-300">
                 Shipment Status
               </Label>
               <Select value={shipmentStatus} onValueChange={setShipmentStatus}>
-                <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                <SelectTrigger className="bg-neutral-800/50 border-neutral-700 text-white">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -378,11 +378,11 @@ const OutgoingShipmentModal: React.FC<OutgoingShipmentModalProps> = ({
           )}
         </div>
 
-        <div className="flex justify-end gap-2 pt-4 border-t border-slate-700">
+        <div className="flex justify-end gap-2 pt-4 border-t border-neutral-800">
           <Button
             variant="outline"
             onClick={() => onOpenChange(false)}
-            className="border-slate-600 text-slate-300 hover:bg-slate-700"
+            className="border-neutral-700 text-neutral-300 hover:bg-neutral-800"
           >
             Cancel
           </Button>

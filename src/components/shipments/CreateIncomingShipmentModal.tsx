@@ -286,16 +286,16 @@ const CreateIncomingShipmentModal = ({ open, onOpenChange, onUpdate }: CreateInc
       case 'inspected':
         return <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30">Inspected</Badge>;
       default:
-        return <Badge className="bg-slate-500/20 text-slate-300 border-slate-500/30">{status}</Badge>;
+        return <Badge className="bg-neutral-700/20 text-neutral-300 border-neutral-700/30">{status}</Badge>;
     }
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[1200px] max-h-[80vh] overflow-auto bg-slate-800/95 backdrop-blur-md border border-slate-700/50 text-white">
+      <DialogContent className="sm:max-w-[1200px] max-h-[80vh] overflow-auto bg-neutral-900/95 backdrop-blur-md border border-neutral-800/50 text-white">
         <DialogHeader>
           <DialogTitle className="text-white">Advanced Shipment Management</DialogTitle>
-          <DialogDescription className="text-slate-400">
+          <DialogDescription className="text-neutral-400">
             Manage shipments with enhanced scheduling and tracking capabilities
           </DialogDescription>
         </DialogHeader>
@@ -315,47 +315,47 @@ const CreateIncomingShipmentModal = ({ open, onOpenChange, onUpdate }: CreateInc
             <h3 className="text-lg font-medium text-white">Add New Shipment</h3>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="supplier" className="text-slate-300">Supplier *</Label>
+                <Label htmlFor="supplier" className="text-neutral-300">Supplier *</Label>
                 <Input
                   id="supplier"
                   value={newShipment.supplier}
                   onChange={(e) => setNewShipment(prev => ({ ...prev, supplier: e.target.value }))}
                   placeholder="Enter supplier name"
-                  className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+                  className="bg-neutral-800/50 border-neutral-700 text-white placeholder:text-neutral-400"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="orderReference" className="text-slate-300">Shipment ID *</Label>
+                <Label htmlFor="orderReference" className="text-neutral-300">Shipment ID *</Label>
                 <Input
                   id="orderReference"
                   value={newShipment.order_reference}
                   onChange={(e) => setNewShipment(prev => ({ ...prev, order_reference: e.target.value }))}
                   placeholder="PO-2024-001"
-                  className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+                  className="bg-neutral-800/50 border-neutral-700 text-white placeholder:text-neutral-400"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="expectedDate" className="text-slate-300">Expected Delivery Date *</Label>
+                <Label htmlFor="expectedDate" className="text-neutral-300">Expected Delivery Date *</Label>
                 <Input
                   id="expectedDate"
                   type="date"
                   value={newShipment.expected_date}
                   onChange={(e) => setNewShipment(prev => ({ ...prev, expected_date: e.target.value }))}
-                  className="bg-slate-700/50 border-slate-600 text-white"
+                  className="bg-neutral-800/50 border-neutral-700 text-white"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="status" className="text-slate-300">Status</Label>
+                <Label htmlFor="status" className="text-neutral-300">Status</Label>
                 <Select
                   value={newShipment.status}
                   onValueChange={(value: 'pending' | 'partially-received' | 'received') => 
                     setNewShipment(prev => ({ ...prev, status: value }))
                   }
                 >
-                  <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                  <SelectTrigger className="bg-neutral-800/50 border-neutral-700 text-white">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-700">
+                  <SelectContent className="bg-neutral-900 border-neutral-800">
                     <SelectItem value="pending">Pending</SelectItem>
                     <SelectItem value="partially-received">On Route</SelectItem>
                     <SelectItem value="received">Received</SelectItem>
@@ -383,61 +383,61 @@ const CreateIncomingShipmentModal = ({ open, onOpenChange, onUpdate }: CreateInc
             </div>
             
             <Tabs defaultValue="pending" value={activeTab} onValueChange={setActiveTab}>
-              <TabsList className="grid w-full grid-cols-3 bg-slate-700/50">
-                <TabsTrigger value="pending" className="gap-2 data-[state=active]:bg-slate-600 data-[state=active]:text-white">
+              <TabsList className="grid w-full grid-cols-3 bg-neutral-800/50">
+                <TabsTrigger value="pending" className="gap-2 data-[state=active]:bg-neutral-700 data-[state=active]:text-white">
                   <Truck className="h-4 w-4" />
                   Pending Shipments
                 </TabsTrigger>
-                <TabsTrigger value="received" className="gap-2 data-[state=active]:bg-slate-600 data-[state=active]:text-white">
+                <TabsTrigger value="received" className="gap-2 data-[state=active]:bg-neutral-700 data-[state=active]:text-white">
                   <Check className="h-4 w-4" />
                   Received Shipments
                 </TabsTrigger>
-                <TabsTrigger value="scheduling" className="gap-2 data-[state=active]:bg-slate-600 data-[state=active]:text-white">
+                <TabsTrigger value="scheduling" className="gap-2 data-[state=active]:bg-neutral-700 data-[state=active]:text-white">
                   <Clock className="h-4 w-4" />
                   Scheduling
                 </TabsTrigger>
               </TabsList>
               
               <TabsContent value="scheduling" className="mt-4">
-                <div className="text-center py-8 text-slate-400">
-                  <Clock className="h-12 w-12 mx-auto mb-4 text-slate-500" />
+                <div className="text-center py-8 text-neutral-400">
+                  <Clock className="h-12 w-12 mx-auto mb-4 text-neutral-500" />
                   <p>Shipment scheduling panel coming soon</p>
                 </div>
               </TabsContent>
               
               <TabsContent value="pending" className="mt-4">
                 {shipmentsLoading ? (
-                  <div className="text-center py-8 text-slate-400">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-slate-400 mx-auto"></div>
+                  <div className="text-center py-8 text-neutral-400">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-400 mx-auto"></div>
                     <p className="mt-2">Loading shipments...</p>
                   </div>
                 ) : filteredShipments.length > 0 ? (
-                  <div className="rounded-lg border border-slate-600 overflow-hidden">
+                  <div className="rounded-lg border border-neutral-700 overflow-hidden">
                     <Table>
                       <TableHeader>
-                        <TableRow className="bg-slate-700/50 border-slate-600 hover:bg-slate-700/50">
-                          <TableHead className="text-slate-300">ID</TableHead>
-                          <TableHead className="text-slate-300">Supplier</TableHead>
-                          <TableHead className="text-slate-300">Expected Date</TableHead>
-                          <TableHead className="text-slate-300">Status</TableHead>
-                          <TableHead className="text-slate-300">Items</TableHead>
-                          <TableHead className="text-right text-slate-300">Actions</TableHead>
+                        <TableRow className="bg-neutral-800/50 border-neutral-700 hover:bg-neutral-800/50">
+                          <TableHead className="text-neutral-300">ID</TableHead>
+                          <TableHead className="text-neutral-300">Supplier</TableHead>
+                          <TableHead className="text-neutral-300">Expected Date</TableHead>
+                          <TableHead className="text-neutral-300">Status</TableHead>
+                          <TableHead className="text-neutral-300">Items</TableHead>
+                          <TableHead className="text-right text-neutral-300">Actions</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
                         {filteredShipments.map((shipment) => (
-                          <TableRow key={shipment.id} className="border-slate-600 hover:bg-slate-700/30">
+                          <TableRow key={shipment.id} className="border-neutral-700 hover:bg-neutral-800/30">
                             <TableCell className="font-medium text-white">{shipment.id}</TableCell>
-                            <TableCell className="text-slate-300">{shipment.supplier}</TableCell>
-                            <TableCell className="text-slate-300">{shipment.expected_date}</TableCell>
+                            <TableCell className="text-neutral-300">{shipment.supplier}</TableCell>
+                            <TableCell className="text-neutral-300">{shipment.expected_date}</TableCell>
                             <TableCell>{getStatusBadge(shipment.status)}</TableCell>
-                            <TableCell className="text-slate-300">{shipment.items?.length || 0} items</TableCell>
+                            <TableCell className="text-neutral-300">{shipment.items?.length || 0} items</TableCell>
                             <TableCell className="text-right">
                               <Button 
                                 onClick={() => handleReceiveShipment(shipment.id)} 
                                 size="sm" 
                                 variant="outline" 
-                                className="gap-1 border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white"
+                                className="gap-1 border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white"
                               >
                                 <PackageOpen className="h-3.5 w-3.5" />
                                 Receive
@@ -449,7 +449,7 @@ const CreateIncomingShipmentModal = ({ open, onOpenChange, onUpdate }: CreateInc
                     </Table>
                   </div>
                 ) : (
-                  <div className="text-center py-8 text-slate-400">
+                  <div className="text-center py-8 text-neutral-400">
                     No pending shipments found
                   </div>
                 )}
@@ -457,71 +457,46 @@ const CreateIncomingShipmentModal = ({ open, onOpenChange, onUpdate }: CreateInc
               
               <TabsContent value="received" className="mt-4">
                 {shipmentsLoading ? (
-                  <div className="text-center py-8 text-slate-400">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-slate-400 mx-auto"></div>
+                  <div className="text-center py-8 text-neutral-400">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-400 mx-auto"></div>
                     <p className="mt-2">Loading shipments...</p>
                   </div>
                 ) : filteredShipments.length > 0 ? (
-                  <div className="rounded-lg border border-slate-600 overflow-hidden">
+                  <div className="rounded-lg border border-neutral-700 overflow-hidden">
                     <Table>
                       <TableHeader>
-                        <TableRow className="bg-slate-700/50 border-slate-600 hover:bg-slate-700/50">
-                          <TableHead className="text-slate-300">ID</TableHead>
-                          <TableHead className="text-slate-300">Supplier</TableHead>
-                          <TableHead className="text-slate-300">Received Date</TableHead>
-                          <TableHead className="text-slate-300">Status</TableHead>
-                          <TableHead className="text-slate-300">Issues</TableHead>
-                          <TableHead className="text-right text-slate-300">Actions</TableHead>
+                        <TableRow className="bg-neutral-800/50 border-neutral-700 hover:bg-neutral-800/50">
+                          <TableHead className="text-neutral-300">ID</TableHead>
+                          <TableHead className="text-neutral-300">Supplier</TableHead>
+                          <TableHead className="text-neutral-300">Received Date</TableHead>
+                          <TableHead className="text-neutral-300">Status</TableHead>
+                          <TableHead className="text-neutral-300">Issues</TableHead>
+                          <TableHead className="text-right text-neutral-300">Actions</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {filteredShipments.map((shipment) => {
-                          const itemsWithIssues = shipment.items?.filter(
-                            item => (item.damaged_qty && item.damaged_qty > 0) || 
-                                   (item.received_qty !== undefined && item.received_qty !== item.expected_qty)
-                          ) || [];
-                          
-                          return (
-                            <TableRow key={shipment.id} className="border-slate-600 hover:bg-slate-700/30">
-                              <TableCell className="font-medium text-white">{shipment.id}</TableCell>
-                              <TableCell className="text-slate-300">{shipment.supplier}</TableCell>
-                              <TableCell className="text-slate-300">{shipment.received_date}</TableCell>
-                              <TableCell>{getStatusBadge(shipment.status)}</TableCell>
-                              <TableCell>
-                                {itemsWithIssues.length > 0 ? (
-                                  <Badge className="gap-1 bg-red-500/20 text-red-300 border-red-500/30">
-                                    <AlertCircle className="h-3 w-3" />
-                                    {itemsWithIssues.length} issues
-                                  </Badge>
-                                ) : (
-                                  <Badge className="gap-1 bg-emerald-500/20 text-emerald-300 border-emerald-500/30">
-                                    <Check className="h-3 w-3" />
-                                    No issues
-                                  </Badge>
-                                )}
-                              </TableCell>
-                              <TableCell className="text-right">
-                                <Button 
-                                  onClick={() => handleReceiveShipment(shipment.id)} 
-                                  size="sm" 
-                                  variant="outline" 
-                                  className="gap-1 border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white"
-                                >
-                                  <Clipboard className="h-3.5 w-3.5" />
-                                  View Details
-                                </Button>
-                              </TableCell>
-                            </TableRow>
-                          );
-                        })}
-                      </TableBody>
-                    </Table>
-                  </div>
-                ) : (
-                  <div className="text-center py-8 text-slate-400">
-                    No received shipments found
-                  </div>
-                )}
+...
+                              <Button 
+                                onClick={() => handleReceiveShipment(shipment.id)} 
+                                size="sm" 
+                                variant="outline" 
+                                className="gap-1 border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white"
+                              >
+                                <Clipboard className="h-3.5 w-3.5" />
+                                View Details
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </div>
+              ) : (
+                <div className="text-center py-8 text-neutral-400">
+                  No received shipments found
+                </div>
+              )}
               </TabsContent>
             </Tabs>
           </>
@@ -536,7 +511,7 @@ const CreateIncomingShipmentModal = ({ open, onOpenChange, onUpdate }: CreateInc
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="text-lg font-medium text-white">{shipment.id}</h3>
-                      <p className="text-sm text-slate-400">
+                      <p className="text-sm text-neutral-400">
                         {shipment.supplier} - PO: {shipment.order_reference}
                       </p>
                     </div>
@@ -545,13 +520,13 @@ const CreateIncomingShipmentModal = ({ open, onOpenChange, onUpdate }: CreateInc
                   
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex items-center gap-2">
-                      <Calendar className="h-4 w-4 text-slate-400" />
-                      <span className="text-sm text-slate-300">Expected: {shipment.expected_date}</span>
+                      <Calendar className="h-4 w-4 text-neutral-400" />
+                      <span className="text-sm text-neutral-300">Expected: {shipment.expected_date}</span>
                     </div>
                     {shipment.received_date && (
                       <div className="flex items-center gap-2">
-                        <PackageOpen className="h-4 w-4 text-slate-400" />
-                        <span className="text-sm text-slate-300">Received: {shipment.received_date}</span>
+                        <PackageOpen className="h-4 w-4 text-neutral-400" />
+                        <span className="text-sm text-neutral-300">Received: {shipment.received_date}</span>
                       </div>
                     )}
                   </div>
@@ -574,41 +549,23 @@ const CreateIncomingShipmentModal = ({ open, onOpenChange, onUpdate }: CreateInc
                 variant="outline" 
                 onClick={() => setShowAddForm(false)} 
                 disabled={isAddingShipment}
-                className="border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white"
+                className="border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white"
               >
                 Cancel
               </Button>
-              <Button 
-                onClick={handleAddShipment} 
-                className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white" 
-                disabled={isAddingShipment}
-              >
-                <Plus className="h-4 w-4" />
-                Add Shipment
-              </Button>
-            </>
-          ) : selectedShipment ? (
-            <>
+...
               <Button 
                 variant="outline" 
                 onClick={() => setSelectedShipment(null)}
-                className="border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white"
+                className="border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white"
               >
                 Cancel
               </Button>
-              <Button 
-                onClick={handleSaveReceiving} 
-                className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white"
-              >
-                <Check className="h-4 w-4" />
-                Save Changes
-              </Button>
-            </>
-          ) : (
+...
             <Button 
               variant="outline" 
               onClick={() => onOpenChange(false)}
-              className="border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white"
+              className="border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white"
             >
               Close
             </Button>

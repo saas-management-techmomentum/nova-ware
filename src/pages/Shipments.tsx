@@ -301,7 +301,7 @@ const ShipmentsPage = () => {
                             <div className="flex items-center gap-2 mb-3">
                               <Package className="h-4 w-4 text-emerald-400" />
                               <span className="text-sm font-medium text-white">Shipment Items</span>
-                              <Badge variant="outline" className="text-xs bg-slate-600/50 text-slate-300 border-slate-500">
+                               <Badge variant="outline" className="text-xs bg-neutral-700/50 text-neutral-300 border-neutral-600">
                                 {shipment.items?.length || 0} {(shipment.items?.length || 0) === 1 ? 'item' : 'items'}
                               </Badge>
                             </div>
@@ -310,7 +310,7 @@ const ShipmentsPage = () => {
                                 {shipment.items.map((item, index) => (
                                   <div 
                                     key={item.id || index} 
-                                    className="bg-slate-600/30 rounded-lg p-3 border border-slate-600/50"
+                                    className="bg-neutral-800/30 rounded-lg p-3 border border-neutral-700/50"
                                   >
                                     <div className="flex items-center justify-between mb-2">
                                       <span className="text-sm font-medium text-white">
@@ -320,7 +320,7 @@ const ShipmentsPage = () => {
                                         Expected: {item.expected_qty}
                                       </Badge>
                                     </div>
-                                    <div className="text-xs text-slate-400">SKU: {item.sku}</div>
+                                    <div className="text-xs text-neutral-400">SKU: {item.sku}</div>
                                     {item.received_qty && item.received_qty > 0 && (
                                       <div className="text-xs text-green-400 mt-1">
                                         Received: {item.received_qty}
@@ -330,7 +330,7 @@ const ShipmentsPage = () => {
                                 ))}
                               </div>
                             ) : (
-                              <div className="text-sm text-slate-400 italic">No items specified for this shipment</div>
+                              <div className="text-sm text-neutral-400 italic">No items specified for this shipment</div>
                             )}
                           </div>
 
@@ -341,20 +341,20 @@ const ShipmentsPage = () => {
                                 <ShoppingCart className="h-4 w-4 text-gray-400" />
                                 <span className="text-sm font-medium text-white">Source Purchase Order</span>
                               </div>
-                              <div className="bg-gray-700/10 rounded-lg p-4 border border-gray-600/20">
+                              <div className="bg-neutral-800/10 rounded-lg p-4 border border-neutral-700/20">
                                 <div className="flex items-center justify-between">
                                   <div>
                                     <div className="text-sm text-white font-medium">
                                       {relatedPO.po_number} - {relatedPO.vendor_name}
                                     </div>
-                                    <div className="text-xs text-slate-400">
+                                    <div className="text-xs text-neutral-400">
                                       Total: ${relatedPO.total_amount.toFixed(2)} | Items: {relatedPO.po_items?.length || 0}
                                     </div>
                                   </div>
                                   <Button
                                     variant="outline"
                                     size="sm"
-                                    className="gap-2 bg-gray-700/20 border-gray-600/30 text-gray-300 hover:bg-gray-700/30"
+                                    className="gap-2 bg-neutral-800/20 border-neutral-700/30 text-neutral-300 hover:bg-neutral-800/30"
                                     onClick={() => handleViewPO(relatedPO.id)}
                                   >
                                     <ExternalLink className="h-4 w-4" />

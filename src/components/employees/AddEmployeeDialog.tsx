@@ -157,13 +157,13 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-slate-900 border-slate-700 text-white max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="bg-neutral-900 border-neutral-800 text-white max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-xl font-semibold text-white">Add New Employee</DialogTitle>
           
           {/* Context Information */}
-          <div className="flex flex-col gap-2 mt-4 p-4 bg-slate-800 rounded-lg border border-slate-700">
-            <div className="flex items-center gap-2 text-sm text-slate-300">
+          <div className="flex flex-col gap-2 mt-4 p-4 bg-neutral-900 rounded-lg border border-neutral-800">
+            <div className="flex items-center gap-2 text-sm text-neutral-300">
               <Building2 className="h-4 w-4" />
               <span>Company:</span>
               <Badge variant="secondary" className="bg-gray-700 text-white">
@@ -172,7 +172,7 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
             </div>
             
             {currentWarehouse && (
-              <div className="flex items-center gap-2 text-sm text-slate-300">
+              <div className="flex items-center gap-2 text-sm text-neutral-300">
                 <MapPin className="h-4 w-4" />
                 <span>Default Warehouse:</span>
                 <Badge variant="secondary" className="bg-green-600 text-white">
@@ -181,7 +181,7 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
               </div>
             )}
             
-            <p className="text-xs text-slate-400 mt-2">
+            <p className="text-xs text-neutral-400 mt-2">
               Employee will be automatically assigned to the above company and warehouse.
             </p>
           </div>
@@ -190,27 +190,27 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
         <div className="space-y-6">
           {/* Basic Information */}
           <div className="space-y-4">
-            <h3 className="text-lg font-medium text-white border-b border-slate-700 pb-2">Basic Information</h3>
+            <h3 className="text-lg font-medium text-white border-b border-neutral-800 pb-2">Basic Information</h3>
             
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="employeeName" className="text-slate-300">Employee Name *</Label>
+                <Label htmlFor="employeeName" className="text-neutral-300">Employee Name *</Label>
                 <Input
                   id="employeeName"
                   value={formData.name}
                   onChange={(e) => handleInputChange('name', e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
+                  className="bg-neutral-900 border-neutral-700 text-white focus:border-gray-600"
                   placeholder="Enter full name"
                 />
               </div>
               <div>
-                <Label htmlFor="email" className="text-slate-300">Email *</Label>
+                <Label htmlFor="email" className="text-neutral-300">Email *</Label>
                 <Input
                   id="email"
                   type="email"
                   value={formData.email}
                   onChange={(e) => handleInputChange('email', e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
+                  className="bg-neutral-900 border-neutral-700 text-white focus:border-gray-600"
                   placeholder="Enter email address"
                 />
               </div>
@@ -218,22 +218,22 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
             
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="position" className="text-slate-300">Position *</Label>
+                <Label htmlFor="position" className="text-neutral-300">Position *</Label>
                 <Input
                   id="position"
                   value={formData.position}
                   onChange={(e) => handleInputChange('position', e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
+                  className="bg-neutral-900 border-neutral-700 text-white focus:border-gray-600"
                   placeholder="Enter job position"
                 />
               </div>
               <div>
-                <Label htmlFor="phone" className="text-slate-300">Phone</Label>
+                <Label htmlFor="phone" className="text-neutral-300">Phone</Label>
                 <Input
                   id="phone"
                   value={formData.phone}
                   onChange={(e) => handleInputChange('phone', e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
+                  className="bg-neutral-900 border-neutral-700 text-white focus:border-gray-600"
                   placeholder="Enter phone number"
                 />
               </div>
@@ -241,12 +241,12 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
             
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="department" className="text-slate-300">Department</Label>
+                <Label htmlFor="department" className="text-neutral-300">Department</Label>
                 <Select value={formData.department} onValueChange={(value) => handleInputChange('department', value)}>
-                  <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-gray-600">
+                  <SelectTrigger className="bg-neutral-900 border-neutral-700 text-white focus:border-gray-600">
                     <SelectValue placeholder="Select department..." />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-700">
+                  <SelectContent className="bg-neutral-900 border-neutral-800">
                     <SelectItem value="warehouse">Warehouse</SelectItem>
                     <SelectItem value="shipping">Shipping</SelectItem>
                     <SelectItem value="receiving">Receiving</SelectItem>
@@ -258,16 +258,16 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
                 </Select>
               </div>
               <div>
-                <Label htmlFor="role" className="text-slate-300">Role</Label>
+                <Label htmlFor="role" className="text-neutral-300">Role</Label>
                 <Select 
                   value={formData.role} 
                   onValueChange={(value) => handleInputChange('role', value)}
                   disabled={!userPermissions.isAdmin}
                 >
-                  <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-gray-600">
+                  <SelectTrigger className="bg-neutral-900 border-neutral-700 text-white focus:border-gray-600">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-700">
+                  <SelectContent className="bg-neutral-900 border-neutral-800">
                     <SelectItem value="employee">Employee</SelectItem>
                     {userPermissions.isAdmin && (
                       <SelectItem value="manager">Manager</SelectItem>
@@ -278,19 +278,19 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
             </div>
 
             {/* Account Creation Toggle */}
-            <div className="flex items-center space-x-2 p-4 bg-slate-800 rounded-lg border border-slate-700">
+            <div className="flex items-center space-x-2 p-4 bg-neutral-900 rounded-lg border border-neutral-800">
               <Checkbox
                 id="createAccount"
                 checked={formData.createAccount}
                 onCheckedChange={(checked) => handleInputChange('createAccount', !!checked)}
-                className="border-slate-600"
+                className="border-neutral-700"
               />
-              <Label htmlFor="createAccount" className="text-slate-300 font-medium">
+              <Label htmlFor="createAccount" className="text-neutral-300 font-medium">
                 Create User Account & Send Login Invitation
               </Label>
             </div>
             {formData.createAccount && (
-              <p className="text-sm text-slate-400 ml-6">
+              <p className="text-sm text-neutral-400 ml-6">
                 This will create a login account and send an email with login credentials to quantrawms.com/auth.
               </p>
             )}
@@ -299,14 +299,14 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
           {/* Warehouse Assignment */}
           {warehouses.length > 0 && (
             <div className="space-y-4">
-              <h3 className="text-lg font-medium text-white border-b border-slate-700 pb-2">Warehouse Assignment</h3>
+              <h3 className="text-lg font-medium text-white border-b border-neutral-800 pb-2">Warehouse Assignment</h3>
               <div>
-                <Label htmlFor="assignedWarehouseId" className="text-slate-300">Assigned Warehouse</Label>
+                <Label htmlFor="assignedWarehouseId" className="text-neutral-300">Assigned Warehouse</Label>
                 <Select value={formData.assignedWarehouseId} onValueChange={(value) => handleInputChange('assignedWarehouseId', value)}>
-                  <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-gray-600">
+                  <SelectTrigger className="bg-neutral-900 border-neutral-700 text-white focus:border-gray-600">
                     <SelectValue placeholder="Select warehouse..." />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-slate-700">
+                  <SelectContent className="bg-neutral-900 border-neutral-800">
                     <SelectItem value="unassigned">No specific warehouse</SelectItem>
                     {warehouses.map((warehouse) => (
                       <SelectItem key={warehouse.warehouse_id} value={warehouse.warehouse_id}>
@@ -324,15 +324,15 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
 
           {/* Payroll Information */}
           <div className="space-y-4">
-            <h3 className="text-lg font-medium text-white border-b border-slate-700 pb-2">Payroll Information</h3>
+            <h3 className="text-lg font-medium text-white border-b border-neutral-800 pb-2">Payroll Information</h3>
             
             <div>
-              <Label htmlFor="payType" className="text-slate-300">Pay Type</Label>
+              <Label htmlFor="payType" className="text-neutral-300">Pay Type</Label>
               <Select value={formData.payType} onValueChange={(value) => handleInputChange('payType', value)}>
-                <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-gray-600">
+                <SelectTrigger className="bg-neutral-900 border-neutral-700 text-white focus:border-gray-600">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-slate-800 border-slate-700">
+                <SelectContent className="bg-neutral-900 border-neutral-800">
                   <SelectItem value="hourly">Hourly</SelectItem>
                   <SelectItem value="salary">Salary</SelectItem>
                 </SelectContent>
@@ -342,27 +342,27 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
             <div className="grid grid-cols-2 gap-4">
               {formData.payType === 'hourly' ? (
                 <div>
-                  <Label htmlFor="hourlyRate" className="text-slate-300">Hourly Rate ($)</Label>
+                  <Label htmlFor="hourlyRate" className="text-neutral-300">Hourly Rate ($)</Label>
                   <Input
                     id="hourlyRate"
                     type="number"
                     step="0.01"
                     value={formData.hourlyRate}
                     onChange={(e) => handleInputChange('hourlyRate', e.target.value)}
-                    className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
+                    className="bg-neutral-900 border-neutral-700 text-white focus:border-gray-600"
                     placeholder="0.00"
                   />
                 </div>
               ) : (
                 <div>
-                  <Label htmlFor="annualSalary" className="text-slate-300">Annual Salary ($)</Label>
+                  <Label htmlFor="annualSalary" className="text-neutral-300">Annual Salary ($)</Label>
                   <Input
                     id="annualSalary"
                     type="number"
                     step="0.01"
                     value={formData.annualSalary}
                     onChange={(e) => handleInputChange('annualSalary', e.target.value)}
-                    className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
+                    className="bg-neutral-900 border-neutral-700 text-white focus:border-gray-600"
                     placeholder="0.00"
                   />
                 </div>
@@ -372,26 +372,26 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
             {/* Tax Information */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="federalWithholding" className="text-slate-300">Federal Withholding (%)</Label>
+                <Label htmlFor="federalWithholding" className="text-neutral-300">Federal Withholding (%)</Label>
                 <Input
                   id="federalWithholding"
                   type="number"
                   step="0.01"
                   value={formData.federalWithholding}
                   onChange={(e) => handleInputChange('federalWithholding', e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
+                  className="bg-neutral-900 border-neutral-700 text-white focus:border-gray-600"
                   placeholder="0.00"
                 />
               </div>
               <div>
-                <Label htmlFor="stateWithholding" className="text-slate-300">State Withholding (%)</Label>
+                <Label htmlFor="stateWithholding" className="text-neutral-300">State Withholding (%)</Label>
                 <Input
                   id="stateWithholding"
                   type="number"
                   step="0.01"
                   value={formData.stateWithholding}
                   onChange={(e) => handleInputChange('stateWithholding', e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
+                  className="bg-neutral-900 border-neutral-700 text-white focus:border-gray-600"
                   placeholder="0.00"
                 />
               </div>
@@ -400,26 +400,26 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
             {/* Insurance Information */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="healthInsuranceAmount" className="text-slate-300">Health Insurance ($)</Label>
+                <Label htmlFor="healthInsuranceAmount" className="text-neutral-300">Health Insurance ($)</Label>
                 <Input
                   id="healthInsuranceAmount"
                   type="number"
                   step="0.01"
                   value={formData.healthInsuranceAmount}
                   onChange={(e) => handleInputChange('healthInsuranceAmount', e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
+                  className="bg-neutral-900 border-neutral-700 text-white focus:border-gray-600"
                   placeholder="0.00"
                 />
               </div>
               <div>
-                <Label htmlFor="dentalInsuranceAmount" className="text-slate-300">Dental Insurance ($)</Label>
+                <Label htmlFor="dentalInsuranceAmount" className="text-neutral-300">Dental Insurance ($)</Label>
                 <Input
                   id="dentalInsuranceAmount"
                   type="number"
                   step="0.01"
                   value={formData.dentalInsuranceAmount}
                   onChange={(e) => handleInputChange('dentalInsuranceAmount', e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
+                  className="bg-neutral-900 border-neutral-700 text-white focus:border-gray-600"
                   placeholder="0.00"
                 />
               </div>
@@ -433,11 +433,11 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
           />
 
           {/* Action Buttons */}
-          <div className="flex justify-end space-x-3 pt-6 border-t border-slate-700">
+          <div className="flex justify-end space-x-3 pt-6 border-t border-neutral-800">
             <Button
               variant="outline"
               onClick={() => onOpenChange(false)}
-              className="border-slate-600 text-slate-300 hover:bg-slate-800"
+              className="border-neutral-700 text-neutral-300 hover:bg-neutral-900"
             >
               Cancel
             </Button>
