@@ -595,14 +595,14 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
           <div className="flex items-center justify-between">
             <div className="flex-1 overflow-hidden">
               {/* Horizontal scrollable tabs */}
-              <div className="flex overflow-x-auto scrollbar-hide scroll-smooth bg-slate-800/50 rounded-lg p-2 gap-2">
+              <div className="flex overflow-x-auto scrollbar-hide scroll-smooth bg-neutral-800/50 rounded-lg p-2 gap-2">
                 <button
                   onClick={() => setSelectedTab('all')}
                   className={cn(
                     "px-4 py-2 text-sm rounded-md transition-colors flex items-center gap-2 whitespace-nowrap min-w-fit",
                     selectedTab === 'all' 
-                      ? "bg-slate-700 text-white font-medium" 
-                      : "text-slate-300 hover:bg-slate-700/50 hover:text-white"
+                      ? "bg-neutral-700 text-white font-medium" 
+                      : "text-neutral-300 hover:bg-neutral-700/50 hover:text-white"
                   )}
                 >
                   All Employees ({taskCounts.all})
@@ -613,8 +613,8 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
                   className={cn(
                     "px-4 py-2 text-sm rounded-md transition-colors flex items-center gap-2 whitespace-nowrap min-w-fit",
                     selectedTab === 'unassigned' 
-                      ? "bg-slate-700 text-white font-medium" 
-                      : "text-slate-300 hover:bg-slate-700/50 hover:text-white"
+                      ? "bg-neutral-700 text-white font-medium" 
+                      : "text-neutral-300 hover:bg-neutral-700/50 hover:text-white"
                   )}
                 >
                   Unassigned ({taskCounts.unassigned})
@@ -627,8 +627,8 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
                     className={cn(
                       "px-3 py-2 text-sm rounded-md transition-colors flex items-center gap-2 whitespace-nowrap min-w-fit",
                       selectedTab === employee.id 
-                        ? "bg-slate-700 text-white font-medium" 
-                        : "text-slate-300 hover:bg-slate-700/50 hover:text-white"
+                        ? "bg-neutral-700 text-white font-medium" 
+                        : "text-neutral-300 hover:bg-neutral-700/50 hover:text-white"
                     )}
                   >
                     <Avatar className="h-6 w-6 flex-shrink-0">
@@ -642,12 +642,12 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
                        <Badge className={cn(
                          "text-xs px-1 py-0 h-4",
                          employee.role === 'admin' ? "bg-purple-600" :
-                         employee.role === 'manager' ? "bg-gray-700" : "bg-slate-600"
+                         employee.role === 'manager' ? "bg-gray-700" : "bg-neutral-600"
                        )}>
                          {employee.role || 'employee'}
                        </Badge>
                      </div>
-                     <span className="text-xs bg-slate-600 px-2 py-1 rounded-full">
+                     <span className="text-xs bg-neutral-600 px-2 py-1 rounded-full">
                        {employeeTaskData[employee.id]?.total || 0}
                      </span>
                   </button>
