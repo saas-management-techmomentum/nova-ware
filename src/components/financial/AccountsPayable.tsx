@@ -88,7 +88,7 @@ export const AccountsPayable: React.FC = () => {
     if (daysToDue <= 7) {
       return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">Due Soon</Badge>;
     }
-    return <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30">Current</Badge>;
+    return <Badge className="bg-gray-700/20 text-gray-400 border-gray-600/30">Current</Badge>;
   };
 
   const handleVendorClick = (vendorName: string) => {
@@ -134,7 +134,7 @@ export const AccountsPayable: React.FC = () => {
         </div>
         <Button 
           onClick={() => setAddBillDialogOpen(true)}
-          className="bg-blue-600 hover:bg-blue-700"
+          className="bg-gray-800 hover:bg-gray-900"
         >
           <Plus className="h-4 w-4 mr-2" />
           Add Bill
@@ -195,13 +195,13 @@ export const AccountsPayable: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <p className="text-blue-400 text-xs font-medium">Due Next Week</p>
+                <p className="text-gray-400 text-xs font-medium">Due Next Week</p>
                 <p className="text-lg font-bold text-white">
                   {formatCurrency(apSummary?.dueNextWeek || 0)}
                 </p>
               </div>
-              <div className="bg-blue-500/20 p-2 rounded-xl border border-blue-500/20">
-                <Calendar className="h-4 w-4 text-blue-400" />
+              <div className="bg-gray-700/20 p-2 rounded-xl border border-gray-600/20">
+                <Calendar className="h-4 w-4 text-gray-400" />
               </div>
             </div>
           </CardContent>
@@ -300,7 +300,7 @@ export const AccountsPayable: React.FC = () => {
           <Card className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50">
             <CardHeader>
               <CardTitle className="text-white flex items-center gap-2">
-                <Building className="h-5 w-5 text-blue-400" />
+                <Building className="h-5 w-5 text-gray-400" />
                 Vendor Bills ({filteredBills.length})
               </CardTitle>
               <CardDescription className="text-slate-400">
@@ -338,14 +338,14 @@ export const AccountsPayable: React.FC = () => {
                           onCheckedChange={(checked) => handleBillSelection(bill.id, checked as boolean)}
                         />
                       </TableCell>
-                      <TableCell className="text-blue-400 font-medium">{bill.bill_number}</TableCell>
+                      <TableCell className="text-gray-400 font-medium">{bill.bill_number}</TableCell>
                       <TableCell className="text-green-400 font-medium">
                         {bill.purchase_orders?.po_number || 'N/A'}
                       </TableCell>
                       <TableCell>
                         <button
                           onClick={() => handleVendorClick(bill.vendor_name)}
-                          className="text-white hover:text-blue-400 hover:underline"
+                          className="text-white hover:text-gray-400 hover:underline"
                         >
                           {bill.vendor_name}
                         </button>
@@ -466,7 +466,7 @@ export const AccountsPayable: React.FC = () => {
           <Card className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50">
             <CardHeader>
               <CardTitle className="text-white flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-blue-400" />
+                <TrendingUp className="h-5 w-5 text-gray-400" />
                 Cash Outflow Forecast
               </CardTitle>
               <CardDescription className="text-slate-400">
@@ -493,7 +493,7 @@ export const AccountsPayable: React.FC = () => {
 
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardContent className="p-4">
-                    <div className="text-sm text-blue-400 font-medium">Next 14 Days</div>
+                    <div className="text-sm text-gray-400 font-medium">Next 14 Days</div>
                     <div className="text-xl font-bold text-white">
                       {formatCurrency((apSummary?.dueThisWeek || 0) + (apSummary?.dueNextWeek || 0))}
                     </div>

@@ -63,7 +63,7 @@ export const AccountsReceivable: React.FC = () => {
       return <Badge className="bg-green-500/20 text-green-400 border-green-500/30">Paid</Badge>;
     }
     if (daysPastDue === 0) {
-      return <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30">Current</Badge>;
+      return <Badge className="bg-gray-700/20 text-gray-400 border-gray-600/30">Current</Badge>;
     }
     if (daysPastDue <= 30) {
       return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">{daysPastDue} days overdue</Badge>;
@@ -148,8 +148,8 @@ export const AccountsReceivable: React.FC = () => {
                   {formatCurrency(enhancedMetrics.accountsReceivable || arSummary.total_outstanding)}
                 </p>
               </div>
-              <div className="bg-blue-500/20 p-3 rounded-xl border border-blue-500/20">
-                <DollarSign className="h-5 w-5 text-blue-400" />
+              <div className="bg-gray-700/20 p-3 rounded-xl border border-gray-600/20">
+                <DollarSign className="h-5 w-5 text-gray-400" />
               </div>
             </div>
           </CardContent>
@@ -226,7 +226,7 @@ export const AccountsReceivable: React.FC = () => {
               <div className="flex justify-between items-center">
                 <div>
                   <CardTitle className="text-white flex items-center gap-2">
-                    <FileText className="h-5 w-5 text-blue-400" />
+                    <FileText className="h-5 w-5 text-gray-400" />
                     Outstanding Invoices
                   </CardTitle>
                   <CardDescription className="text-slate-400">
@@ -323,9 +323,9 @@ export const AccountsReceivable: React.FC = () => {
                             }}
                           />
                         </TableCell>
-                        <TableCell className="text-blue-400 font-medium">{invoice.invoice_number}</TableCell>
+                        <TableCell className="text-gray-400 font-medium">{invoice.invoice_number}</TableCell>
                         <TableCell 
-                          className="text-white cursor-pointer hover:text-blue-400"
+                          className="text-white cursor-pointer hover:text-gray-400"
                           onClick={() => handleCustomerClick({
                             id: invoice.client_id,
                             name: invoice.client_name,
@@ -392,7 +392,7 @@ export const AccountsReceivable: React.FC = () => {
             <CardContent>
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                 <div className="bg-slate-800/50 p-6 rounded-lg border border-slate-700/30">
-                  <div className="text-sm text-blue-400 font-medium">Current (0-30)</div>
+                  <div className="text-sm text-gray-400 font-medium">Current (0-30)</div>
                   <div className="text-2xl font-bold text-white mt-2">
                     {formatCurrency(arSummary.current_ar)}
                   </div>
@@ -434,7 +434,7 @@ export const AccountsReceivable: React.FC = () => {
               </div>
               
               <div className="mt-6 flex gap-3">
-                <Button className="bg-blue-600 hover:bg-blue-700">
+                <Button className="bg-gray-800 hover:bg-gray-900">
                   <Download className="h-4 w-4 mr-2" />
                   Export Aging Report
                 </Button>
@@ -477,7 +477,7 @@ export const AccountsReceivable: React.FC = () => {
                     </div>
                   </div>
                   <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700/30">
-                    <div className="text-sm text-blue-400 font-medium">Next 30 Days</div>
+                    <div className="text-sm text-gray-400 font-medium">Next 30 Days</div>
                     <div className="text-xl font-bold text-white mt-1">
                       {formatCurrency(
                         arInvoices
@@ -528,7 +528,7 @@ export const AccountsReceivable: React.FC = () => {
                           );
                           return (
                             <TableRow key={invoice.id} className="border-slate-700">
-                              <TableCell className="text-blue-400">{invoice.invoice_number}</TableCell>
+                              <TableCell className="text-gray-400">{invoice.invoice_number}</TableCell>
                               <TableCell className="text-white">{invoice.client_name}</TableCell>
                               <TableCell className="text-slate-300">
                                 {new Date(invoice.due_date).toLocaleDateString()}

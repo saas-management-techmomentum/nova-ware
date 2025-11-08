@@ -38,8 +38,8 @@ const accountingPlatforms = [
     id: 'wave', 
     name: 'Wave Accounting', 
     logo: 'W',
-    color: 'from-blue-600 to-indigo-600',
-    hoverColor: 'from-blue-500 to-indigo-500',
+    color: 'from-gray-800 to-gray-900',
+    hoverColor: 'from-gray-700 to-gray-800',
     placeholderUrl: 'https://api.waveapps.com/webhook/your-webhook-id',
     helpText: 'Use Wave\'s webhook URL to sync your financial data.',
     features: ['Invoices', 'Customers', 'Payments']
@@ -349,7 +349,7 @@ export const AccountingIntegrations = () => {
                           value={quickBooksConfig.companyId || ''}
                           onChange={(e) => setQuickBooksConfig({...quickBooksConfig, companyId: e.target.value})}
                           placeholder="Company ID"
-                          className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30"
+                          className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-gray-600/50 focus:ring-1 focus:ring-gray-600/30"
                         />
                       </div>
                       
@@ -378,7 +378,7 @@ export const AccountingIntegrations = () => {
                         value={quickBooksConfig.accessToken || ''}
                         onChange={(e) => setQuickBooksConfig({...quickBooksConfig, accessToken: e.target.value})}
                         placeholder="Access Token"
-                        className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30"
+                        className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-gray-600/50 focus:ring-1 focus:ring-gray-600/30"
                       />
                     </div>
 
@@ -403,7 +403,7 @@ export const AccountingIntegrations = () => {
                           value={quickBooksConfig.refreshToken || ''}
                           onChange={(e) => setQuickBooksConfig({...quickBooksConfig, refreshToken: e.target.value})}
                           placeholder="Refresh Token"
-                          className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30"
+                          className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-gray-600/50 focus:ring-1 focus:ring-gray-600/30"
                         />
                       </div>
                     )}
@@ -416,7 +416,7 @@ export const AccountingIntegrations = () => {
                       placeholder={currentPlatform.placeholderUrl}
                       value={webhookUrl}
                       onChange={(e) => setWebhookUrl(e.target.value)}
-                      className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30"
+                      className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-gray-600/50 focus:ring-1 focus:ring-gray-600/30"
                     />
                     <p className="text-sm text-slate-400">
                       {currentPlatform.helpText}
@@ -454,7 +454,7 @@ export const AccountingIntegrations = () => {
                 <div className="flex gap-3">
                   <Button 
                     onClick={() => handleSync(currentPlatform.id)}
-                    className="bg-indigo-600 hover:bg-indigo-700"
+                    className="bg-gray-800 hover:bg-gray-900"
                   >
                     <RefreshCw className="h-4 w-4 mr-2" />
                     Sync Data
