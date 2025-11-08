@@ -94,8 +94,8 @@ const LandingPage = () => {
   const analyticsKPIs = [
     { title: "Order Processing Speed", value: "2.3x", trend: "faster", color: "text-green-400" },
     { title: "Inventory Accuracy", value: "99.8%", trend: "accuracy", color: "text-blue-400" },
-    { title: "Warehouse Throughput", value: "+47%", trend: "increase", color: "text-purple-400" },
-    { title: "Cost Reduction", value: "32%", trend: "savings", color: "text-indigo-400" }
+    { title: "Warehouse Throughput", value: "+47%", trend: "increase", color: "text-slate-300" },
+    { title: "Cost Reduction", value: "32%", trend: "savings", color: "text-slate-300" }
   ];
 
   const testimonials = [
@@ -151,19 +151,19 @@ const LandingPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 overflow-hidden">
+    <div className="min-h-screen bg-slate-950 overflow-hidden">
       {/* Navigation */}
-      <nav className="border-b border-indigo-500/20 bg-slate-950/50 backdrop-blur-xl sticky top-0 z-50">
+      <nav className="border-b border-slate-800/50 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50">
         <div className="w-full px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center space-x-3">
-              <div className="h-10 w-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
+              <div className="h-10 w-10 bg-slate-800 rounded-xl flex items-center justify-center">
                 <Building2 className="h-6 w-6 text-white" />
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent">
+              <span className="text-2xl font-bold text-white">
                 LogistiX
               </span>
-              <Badge className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0 ml-2">
+              <Badge className="bg-slate-700 text-slate-200 border-0 ml-2">
                 WMS
               </Badge>
             </div>
@@ -179,7 +179,7 @@ const LandingPage = () => {
                 Sign In
               </Link>
               <Link to="/auth">
-                <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white border-0 px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-indigo-500/25 transition-all duration-300">
+                <Button className="bg-slate-800 hover:bg-slate-700 text-white border-0 px-6 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300">
                   Get Started
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -196,41 +196,41 @@ const LandingPage = () => {
         <div className="w-full px-6 lg:px-8 py-24 relative z-10">
           <div className="text-center space-y-8 max-w-6xl mx-auto">
             <div className="space-y-6">
-              <Badge className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0 px-6 py-2 text-base rounded-full shadow-lg">
+              <Badge className="bg-slate-800 text-slate-200 border-0 px-6 py-2 text-base rounded-full shadow-lg">
                 <Package className="h-5 w-5 mr-2" />
                 Warehouse Management System
               </Badge>
               
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight">
-                <span className="bg-gradient-to-r from-white via-indigo-200 to-white bg-clip-text text-transparent">
+                <span className="text-white">
                   Modern Warehouse
                 </span>
                 <br />
-                <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
+                <span className="text-slate-200">
                   Management.
                 </span>
                 <br />
-                <span className="bg-gradient-to-r from-purple-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                <span className="text-slate-300">
                   Real-Time Precision.
                 </span>
               </h1>
               
               <p className="text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto leading-relaxed">
                 LogistiX is a next-generation WMS designed for 
-                <span className="text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text font-semibold"> speed, accuracy, and control</span> — 
+                <span className="text-slate-100 font-semibold"> speed, accuracy, and control</span> — 
                 across every warehouse you manage.
               </p>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8">
               <Link to="/auth">
-                <Button size="lg" className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white border-0 px-12 py-6 text-lg rounded-2xl font-semibold shadow-2xl hover:shadow-indigo-500/25 transition-all duration-300 transform hover:scale-105">
+                <Button size="lg" className="bg-slate-800 hover:bg-slate-700 text-white border-0 px-12 py-6 text-lg rounded-2xl font-semibold shadow-2xl transition-all duration-300 transform hover:scale-105">
                   <Calendar className="mr-3 h-6 w-6" />
                   Request a Demo
                 </Button>
               </Link>
               <Link to="/about">
-                <Button size="lg" variant="ghost" className="text-slate-300 hover:text-white hover:bg-slate-800/50 border border-slate-600 hover:border-indigo-500/50 px-12 py-6 text-lg rounded-2xl font-semibold transition-all duration-300">
+                <Button size="lg" variant="ghost" className="text-slate-300 hover:text-white hover:bg-slate-800/50 border border-slate-600 hover:border-slate-500 px-12 py-6 text-lg rounded-2xl font-semibold transition-all duration-300">
                   Learn More
                 </Button>
               </Link>
@@ -244,7 +244,7 @@ const LandingPage = () => {
         <div className="w-full px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Built for <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">High-Performance Operations</span>
+              Built for <span className="text-slate-200">High-Performance Operations</span>
             </h2>
             <p className="text-xl text-slate-400 max-w-3xl mx-auto">
               Powerful functionality designed for speed, accuracy, and control.
@@ -253,9 +253,9 @@ const LandingPage = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
             {coreFeatures.map((feature, index) => (
-              <Card key={index} className="bg-slate-900/20 border-slate-700/30 backdrop-blur-xl hover:bg-slate-800/30 hover:border-indigo-500/40 transition-all duration-500 group">
+              <Card key={index} className="bg-slate-900/20 border-slate-700/30 backdrop-blur-xl hover:bg-slate-800/30 hover:border-slate-600 transition-all duration-500 group">
                 <CardContent className="p-8">
-                  <div className="h-16 w-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <div className="h-16 w-16 bg-slate-800 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <feature.icon className="h-8 w-8 text-white" />
                   </div>
                   <h3 className="text-xl font-semibold text-white mb-3">{feature.title}</h3>
@@ -272,7 +272,7 @@ const LandingPage = () => {
         <div className="w-full px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              See LogistiX in <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Action</span>
+              See LogistiX in <span className="text-slate-200">Action</span>
             </h2>
             <p className="text-xl text-slate-400 max-w-3xl mx-auto">
               Discover how our WMS transforms warehouse operations with real-world scenarios.
@@ -283,7 +283,7 @@ const LandingPage = () => {
             {visualFeatures.map((feature, index) => (
               <div key={index} className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
                 <div className={`space-y-8 ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
-                  <Badge className="bg-gradient-to-r from-indigo-600/20 to-purple-600/20 text-indigo-300 border-indigo-500/30 px-4 py-2">
+                  <Badge className="bg-slate-800/50 text-slate-300 border-slate-600 px-4 py-2">
                     {feature.highlight}
                   </Badge>
                   <h3 className="text-3xl md:text-4xl font-bold text-white leading-tight">
@@ -292,16 +292,16 @@ const LandingPage = () => {
                   <p className="text-lg text-slate-300 leading-relaxed">
                     {feature.description}
                   </p>
-                  <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white border-0 px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-indigo-500/25 transition-all duration-300">
+                  <Button className="bg-slate-800 hover:bg-slate-700 text-white border-0 px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300">
                     Learn More
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </div>
                 <div className={`${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
-                  <div className="bg-slate-900/20 border border-slate-700/30 backdrop-blur-xl rounded-3xl p-8 hover:bg-slate-800/30 hover:border-indigo-500/40 transition-all duration-500">
-                    <div className="aspect-video bg-gradient-to-br from-indigo-900/50 via-purple-900/30 to-slate-900/50 rounded-2xl flex items-center justify-center">
+                  <div className="bg-slate-900/20 border border-slate-700/30 backdrop-blur-xl rounded-3xl p-8 hover:bg-slate-800/30 hover:border-slate-600 transition-all duration-500">
+                    <div className="aspect-video bg-slate-900/50 rounded-2xl flex items-center justify-center">
                       <div className="text-center space-y-4">
-                        <div className="h-16 w-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center mx-auto">
+                        <div className="h-16 w-16 bg-slate-800 rounded-2xl flex items-center justify-center mx-auto">
                           <Monitor className="h-8 w-8 text-white" />
                         </div>
                         <p className="text-slate-400">Interactive Demo Available</p>
@@ -320,7 +320,7 @@ const LandingPage = () => {
         <div className="w-full px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Data-Driven Decisions <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Start Here</span>
+              Data-Driven Decisions <span className="text-slate-200">Start Here</span>
             </h2>
             <p className="text-xl text-slate-400 max-w-3xl mx-auto">
               Transform raw data into actionable insights with comprehensive analytics and real-time reporting.
@@ -331,7 +331,7 @@ const LandingPage = () => {
             {/* KPI Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
               {analyticsKPIs.map((kpi, index) => (
-                <Card key={index} className="bg-slate-900/20 border-slate-700/30 backdrop-blur-xl hover:bg-slate-800/30 hover:border-indigo-500/40 transition-all duration-500">
+                <Card key={index} className="bg-slate-900/20 border-slate-700/30 backdrop-blur-xl hover:bg-slate-800/30 hover:border-slate-600 transition-all duration-500">
                   <CardContent className="p-6 text-center">
                     <div className={`text-3xl font-bold ${kpi.color} mb-2`}>
                       {kpi.value}
@@ -346,9 +346,9 @@ const LandingPage = () => {
             {/* Dashboard Preview */}
             <Card className="bg-slate-900/20 border-slate-700/30 backdrop-blur-xl">
               <CardContent className="p-8">
-                <div className="aspect-video bg-gradient-to-br from-indigo-900/30 via-purple-900/20 to-slate-900/30 rounded-2xl flex items-center justify-center">
+                <div className="aspect-video bg-slate-900/50 rounded-2xl flex items-center justify-center">
                   <div className="text-center space-y-6">
-                    <div className="h-20 w-20 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-3xl flex items-center justify-center mx-auto">
+                    <div className="h-20 w-20 bg-slate-800 rounded-3xl flex items-center justify-center mx-auto">
                       <BarChart3 className="h-10 w-10 text-white" />
                     </div>
                     <div className="space-y-2">
@@ -368,13 +368,13 @@ const LandingPage = () => {
         <div className="w-full px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Trusted by <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Industry Leaders</span>
+              Trusted by <span className="text-slate-200">Industry Leaders</span>
             </h2>
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="bg-slate-900/20 border-slate-700/30 backdrop-blur-xl hover:bg-slate-800/30 hover:border-indigo-500/40 transition-all duration-500">
+              <Card key={index} className="bg-slate-900/20 border-slate-700/30 backdrop-blur-xl hover:bg-slate-800/30 hover:border-slate-600 transition-all duration-500">
                 <CardContent className="p-8">
                   <div className="flex items-start space-x-1 mb-6">
                     {[...Array(5)].map((_, i) => (
@@ -387,7 +387,7 @@ const LandingPage = () => {
                   <div className="space-y-1">
                     <div className="font-semibold text-white">{testimonial.author}</div>
                     <div className="text-sm text-slate-400">{testimonial.role}</div>
-                    <div className="text-sm text-indigo-400">{testimonial.company}</div>
+                    <div className="text-sm text-slate-300">{testimonial.company}</div>
                   </div>
                 </CardContent>
               </Card>
@@ -401,7 +401,7 @@ const LandingPage = () => {
         <div className="w-full px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              What You Can <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Accomplish</span>
+              What You Can <span className="text-slate-200">Accomplish</span>
             </h2>
             <p className="text-xl text-slate-400 max-w-3xl mx-auto">
               Comprehensive warehouse management capabilities built for modern operations.
@@ -410,15 +410,15 @@ const LandingPage = () => {
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {capabilities.map((category, index) => (
-              <Card key={index} className="bg-slate-900/20 border-slate-700/30 backdrop-blur-xl hover:bg-slate-800/30 hover:border-indigo-500/40 transition-all duration-500">
+              <Card key={index} className="bg-slate-900/20 border-slate-700/30 backdrop-blur-xl hover:bg-slate-800/30 hover:border-slate-600 transition-all duration-500">
                 <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text mb-6">
+                  <h3 className="text-2xl font-bold text-slate-200 mb-6">
                     {category.category}
                   </h3>
                   <ul className="space-y-4">
                     {category.items.map((item, itemIndex) => (
                       <li key={itemIndex} className="flex items-start space-x-3">
-                        <CheckCircle2 className="h-5 w-5 text-indigo-400 mt-0.5 flex-shrink-0" />
+                        <CheckCircle2 className="h-5 w-5 text-slate-400 mt-0.5 flex-shrink-0" />
                         <span className="text-slate-300">{item}</span>
                       </li>
                     ))}
@@ -435,7 +435,7 @@ const LandingPage = () => {
         <div className="w-full px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Built with <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Modern Technology</span>
+              Built with <span className="text-slate-200">Modern Technology</span>
             </h2>
             <p className="text-xl text-slate-400 max-w-3xl mx-auto">
               Reliable, scalable, and secure technology stack for enterprise operations.
@@ -445,8 +445,8 @@ const LandingPage = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
             {techStack.map((tech, index) => (
               <div key={index} className="text-center">
-                <div className="bg-slate-900/20 border border-slate-700/30 backdrop-blur-xl rounded-2xl p-6 hover:bg-slate-800/30 hover:border-indigo-500/40 transition-all duration-300">
-                  <div className="text-2xl font-bold text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text mb-2">
+                <div className="bg-slate-900/20 border border-slate-700/30 backdrop-blur-xl rounded-2xl p-6 hover:bg-slate-800/30 hover:border-slate-600 transition-all duration-300">
+                  <div className="text-2xl font-bold text-slate-200 mb-2">
                     {tech.name}
                   </div>
                   <div className="text-slate-400">{tech.description}</div>
@@ -458,20 +458,19 @@ const LandingPage = () => {
       </section>
 
       {/* Enhanced CTA Section */}
-      <section className="py-32 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 relative overflow-hidden">
+      <section className="py-32 bg-slate-950 relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.1)_0%,transparent_70%)]"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-indigo-500/5 to-transparent"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(100,100,100,0.05)_0%,transparent_70%)]"></div>
         </div>
         <div className="w-full text-center px-6 lg:px-8 relative z-10">
           <div className="max-w-5xl mx-auto space-y-8">
-            <Badge className="bg-gradient-to-r from-indigo-600/20 to-purple-600/20 text-indigo-300 border-indigo-500/30 px-6 py-3 text-lg rounded-full">
+            <Badge className="bg-slate-800/50 text-slate-300 border-slate-600 px-6 py-3 text-lg rounded-full">
               <Target className="h-5 w-5 mr-2" />
               Upgrade Your Warehouse with LogistiX
             </Badge>
             
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
-              Start Your <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Transformation</span> Today
+              Start Your <span className="text-slate-200">Transformation</span> Today
             </h2>
             
             <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
@@ -479,11 +478,11 @@ const LandingPage = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center pt-8">
-              <Button size="lg" className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white border-0 px-12 py-6 text-lg rounded-2xl font-semibold shadow-2xl hover:shadow-indigo-500/25 transition-all duration-300 transform hover:scale-105">
+              <Button size="lg" className="bg-slate-800 hover:bg-slate-700 text-white border-0 px-12 py-6 text-lg rounded-2xl font-semibold shadow-2xl transition-all duration-300 transform hover:scale-105">
                 <Calendar className="mr-3 h-6 w-6" />
                 Book a Demo
               </Button>
-              <Button size="lg" variant="ghost" className="text-slate-300 hover:text-white hover:bg-slate-800/50 border border-slate-600 hover:border-indigo-500/50 px-12 py-6 text-lg rounded-2xl font-semibold transition-all duration-300">
+              <Button size="lg" variant="ghost" className="text-slate-300 hover:text-white hover:bg-slate-800/50 border border-slate-600 hover:border-slate-500 px-12 py-6 text-lg rounded-2xl font-semibold transition-all duration-300">
                 <TrendingUp className="mr-3 h-6 w-6" />
                 Start Free Trial
               </Button>
@@ -493,7 +492,7 @@ const LandingPage = () => {
       </section>
 
       {/* Enhanced Footer */}
-      <footer className="border-t border-indigo-500/20 bg-slate-950/90 backdrop-blur-xl">
+      <footer className="border-t border-slate-800 bg-slate-950/90 backdrop-blur-xl">
         <div className="w-full px-6 lg:px-8 py-16">
           <div className="max-w-7xl mx-auto">
             {/* Main Footer Content */}
@@ -501,13 +500,13 @@ const LandingPage = () => {
               {/* Brand Section */}
               <div className="lg:col-span-2 space-y-6">
                 <div className="flex items-center space-x-3">
-                  <div className="h-10 w-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
+                  <div className="h-10 w-10 bg-slate-800 rounded-xl flex items-center justify-center">
                     <Building2 className="h-6 w-6 text-white" />
                   </div>
-                  <span className="text-2xl font-bold bg-gradient-to-r from-white to-indigo-200 bg-clip-text text-transparent">
+                  <span className="text-2xl font-bold text-white">
                     LogistiX
                   </span>
-                  <Badge className="bg-gradient-to-r from-indigo-600/20 to-purple-600/20 text-indigo-300 border-indigo-500/30">
+                  <Badge className="bg-slate-800/50 text-slate-300 border-slate-600">
                     WMS
                   </Badge>
                 </div>
@@ -524,7 +523,7 @@ const LandingPage = () => {
                       placeholder="Enter your email"
                       className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-l-xl text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500"
                     />
-                    <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white border-0 px-6 py-3 rounded-r-xl font-semibold">
+                    <Button className="bg-slate-800 hover:bg-slate-700 text-white border-0 px-6 py-3 rounded-r-xl font-semibold">
                       Subscribe
                     </Button>
                   </div>
@@ -535,10 +534,10 @@ const LandingPage = () => {
               <div className="space-y-6">
                 <h4 className="text-white font-semibold text-lg">Product</h4>
                 <div className="space-y-3">
-                  <Link to="/features" className="block text-slate-400 hover:text-indigo-400 transition-colors">Features</Link>
-                  <Link to="/pricing" className="block text-slate-400 hover:text-indigo-400 transition-colors">Pricing</Link>
-                  <Link to="/integrations" className="block text-slate-400 hover:text-indigo-400 transition-colors">Integrations</Link>
-                  <Link to="/security" className="block text-slate-400 hover:text-indigo-400 transition-colors">Security</Link>
+                  <Link to="/features" className="block text-slate-400 hover:text-slate-300 transition-colors">Features</Link>
+                  <Link to="/pricing" className="block text-slate-400 hover:text-slate-300 transition-colors">Pricing</Link>
+                  <Link to="/integrations" className="block text-slate-400 hover:text-slate-300 transition-colors">Integrations</Link>
+                  <Link to="/security" className="block text-slate-400 hover:text-slate-300 transition-colors">Security</Link>
                 </div>
               </div>
               
@@ -546,10 +545,10 @@ const LandingPage = () => {
               <div className="space-y-6">
                 <h4 className="text-white font-semibold text-lg">Support</h4>
                 <div className="space-y-3">
-                  <Link to="/about" className="block text-slate-400 hover:text-indigo-400 transition-colors">About</Link>
-                  <div className="block text-slate-400 hover:text-indigo-400 transition-colors cursor-pointer">Contact</div>
-                  <div className="block text-slate-400 hover:text-indigo-400 transition-colors cursor-pointer">Documentation</div>
-                  <div className="block text-slate-400 hover:text-indigo-400 transition-colors cursor-pointer">Privacy Policy</div>
+                  <Link to="/about" className="block text-slate-400 hover:text-slate-300 transition-colors">About</Link>
+                  <div className="block text-slate-400 hover:text-slate-300 transition-colors cursor-pointer">Contact</div>
+                  <div className="block text-slate-400 hover:text-slate-300 transition-colors cursor-pointer">Documentation</div>
+                  <div className="block text-slate-400 hover:text-slate-300 transition-colors cursor-pointer">Privacy Policy</div>
                 </div>
               </div>
             </div>
@@ -561,13 +560,13 @@ const LandingPage = () => {
                   &copy; 2024 LogistiX. Warehouse Management System for modern operations.
                 </p>
                 <div className="flex space-x-6">
-                  <div className="text-slate-500 hover:text-indigo-400 transition-colors cursor-pointer">
+                  <div className="text-slate-500 hover:text-slate-300 transition-colors cursor-pointer">
                     LinkedIn
                   </div>
-                  <div className="text-slate-500 hover:text-indigo-400 transition-colors cursor-pointer">
+                  <div className="text-slate-500 hover:text-slate-300 transition-colors cursor-pointer">
                     Twitter
                   </div>
-                  <div className="text-slate-500 hover:text-indigo-400 transition-colors cursor-pointer">
+                  <div className="text-slate-500 hover:text-slate-300 transition-colors cursor-pointer">
                     GitHub
                   </div>
                 </div>
