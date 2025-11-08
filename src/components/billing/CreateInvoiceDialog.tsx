@@ -303,9 +303,9 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Processing Status */}
           {isProcessing && (
-            <Alert className="border-blue-500 bg-blue-500/10">
-              <Loader2 className="h-4 w-4 text-blue-500 animate-spin" />
-              <AlertDescription className="text-blue-200">
+            <Alert className="border-gray-500 bg-gray-500/10">
+              <Loader2 className="h-4 w-4 text-gray-500 animate-spin" />
+              <AlertDescription className="text-gray-200">
                 <strong>Processing:</strong> {processingStep}
               </AlertDescription>
             </Alert>
@@ -376,7 +376,7 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
                     trigger={
                       <button
                         type="button"
-                        className="text-blue-400 font-medium hover:text-blue-300 transition-colors cursor-pointer"
+                        className="text-gray-400 font-medium hover:text-gray-300 transition-colors cursor-pointer"
                       >
                         Add a customer
                       </button>

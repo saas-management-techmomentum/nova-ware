@@ -166,7 +166,7 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
             <div className="flex items-center gap-2 text-sm text-slate-300">
               <Building2 className="h-4 w-4" />
               <span>Company:</span>
-              <Badge variant="secondary" className="bg-blue-600 text-white">
+              <Badge variant="secondary" className="bg-gray-700 text-white">
                 {companyName || 'Default Company'}
               </Badge>
             </div>
@@ -199,7 +199,7 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
                   id="employeeName"
                   value={formData.name}
                   onChange={(e) => handleInputChange('name', e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-white focus:border-blue-500"
+                  className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
                   placeholder="Enter full name"
                 />
               </div>
@@ -210,7 +210,7 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
                   type="email"
                   value={formData.email}
                   onChange={(e) => handleInputChange('email', e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-white focus:border-blue-500"
+                  className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
                   placeholder="Enter email address"
                 />
               </div>
@@ -223,7 +223,7 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
                   id="position"
                   value={formData.position}
                   onChange={(e) => handleInputChange('position', e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-white focus:border-blue-500"
+                  className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
                   placeholder="Enter job position"
                 />
               </div>
@@ -233,7 +233,7 @@ const AddEmployeeDialog = ({ open, onOpenChange, userPermissions }: AddEmployeeD
                   id="phone"
                   value={formData.phone}
                   onChange={(e) => handleInputChange('phone', e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-white focus:border-blue-500"
+                  className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
                   placeholder="Enter phone number"
                 />
               </div>

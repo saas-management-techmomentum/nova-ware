@@ -64,7 +64,7 @@ export const RLSTestPanel: React.FC = () => {
       <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700/50">
         <CardHeader>
           <CardTitle className="flex items-center text-slate-200">
-            <Database className="h-5 w-5 mr-2 text-blue-400" />
+            <Database className="h-5 w-5 mr-2 text-gray-400" />
             Accessible Warehouses
           </CardTitle>
           <CardDescription className="text-slate-400">
@@ -97,7 +97,7 @@ export const RLSTestPanel: React.FC = () => {
                       warehouse.access_level === 'admin'
                         ? 'bg-emerald-600 text-white'
                         : warehouse.access_level === 'manager'
-                        ? 'bg-blue-600 text-white'
+                        ? 'bg-gray-700 text-white'
                         : 'bg-slate-600 text-slate-200'
                     }
                   >
@@ -146,7 +146,7 @@ export const RLSTestPanel: React.FC = () => {
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                 <div className="text-center">
-                  <div className="text-lg font-bold text-blue-400">
+                  <div className="text-lg font-bold text-gray-400">
                     {rlsTestResults.accessible_records?.products || 0}
                   </div>
                   <div className="text-slate-400">Products</div>

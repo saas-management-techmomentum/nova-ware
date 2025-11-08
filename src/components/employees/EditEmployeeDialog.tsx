@@ -242,7 +242,7 @@ const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmploye
             <div>
               <Label htmlFor="employeeSelect" className="text-slate-300">Choose Employee</Label>
               <Select value={selectedEmployeeId} onValueChange={setSelectedEmployeeId}>
-                <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-blue-500">
+                <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-gray-600">
                   <SelectValue placeholder="Select an employee..." />
                 </SelectTrigger>
                 <SelectContent className="bg-slate-800 border-slate-700">
@@ -409,7 +409,7 @@ const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmploye
             <Button 
               onClick={handleSubmit}
               disabled={!selectedEmployeeId || isLoading}
-              className="bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-50"
+              className="bg-gray-700 hover:bg-gray-800 text-white disabled:opacity-50"
             >
               {isLoading ? 'Updating...' : 'Update Employee'}
             </Button>
