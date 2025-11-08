@@ -457,7 +457,6 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
         {!isInCorporateOverview && canManageEmployees && (
           <Button 
             onClick={() => setShowAddForm(!showAddForm)}
-            className="bg-gray-800 hover:bg-gray-900"
           >
             <Plus className="h-4 w-4 mr-2" />
             {showAddForm ? 'Cancel' : 'Add Task'}
