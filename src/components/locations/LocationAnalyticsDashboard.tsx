@@ -71,8 +71,8 @@ const LocationAnalyticsDashboard: React.FC<LocationAnalyticsDashboardProps> = ({
                 <p className="text-sm text-slate-400">Avg Utilization</p>
                 <p className="text-2xl font-bold text-white">{avgUtilization.toFixed(1)}%</p>
               </div>
-              <div className="h-12 w-12 bg-indigo-500/20 rounded-lg flex items-center justify-center">
-                <BarChart3 className="h-6 w-6 text-indigo-400" />
+              <div className="h-12 w-12 bg-gray-700/20 rounded-lg flex items-center justify-center">
+                <BarChart3 className="h-6 w-6 text-gray-400" />
               </div>
             </div>
             <Progress value={avgUtilization} className="mt-2 h-2" />
@@ -228,7 +228,7 @@ const LocationAnalyticsDashboard: React.FC<LocationAnalyticsDashboardProps> = ({
                 {analytics.slice(0, 10).map((location) => (
                   <tr key={location.locationId} className="border-b border-slate-700/50 hover:bg-slate-700/20">
                     <td className="py-3 px-4">
-                      <Badge variant="outline" className="bg-indigo-500/20 border-indigo-500/30 text-indigo-300">
+                      <Badge variant="outline" className="bg-gray-700/20 border-gray-600/30 text-gray-300">
                         {location.locationId}
                       </Badge>
                     </td>

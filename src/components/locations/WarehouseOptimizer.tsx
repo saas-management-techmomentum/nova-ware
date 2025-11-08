@@ -117,7 +117,7 @@ const WarehouseOptimizer = ({ onOptimizationComplete }: WarehouseOptimizerProps)
       <DialogTrigger asChild>
         <Button 
           variant="outline" 
-          className="gap-2 border-indigo-600/30 bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20 hover:text-white"
+          className="gap-2 border-gray-600/30 bg-gray-700/10 text-gray-300 hover:bg-gray-700/20 hover:border-gray-600/50"
         >
           <Warehouse className="w-4 h-4" />
           Optimize Warehouse Layout
@@ -197,7 +197,7 @@ const WarehouseOptimizer = ({ onOptimizationComplete }: WarehouseOptimizerProps)
                 <Button 
                   type="submit" 
                   disabled={isAnalyzing} 
-                  className="bg-indigo-500 hover:bg-indigo-600 ml-2"
+                  className="bg-gray-800 hover:bg-gray-900 ml-2"
                 >
                   {isAnalyzing ? (
                     <>
@@ -271,7 +271,7 @@ const WarehouseOptimizer = ({ onOptimizationComplete }: WarehouseOptimizerProps)
                   <Info className="h-3 w-3 mr-1" />
                   This is a preliminary analysis. Our team can help with implementation.
                 </div>
-                <Button className="w-full bg-indigo-500 hover:bg-indigo-600" onClick={handleClose}>
+                <Button className="w-full bg-gray-800 hover:bg-gray-900" onClick={handleClose}>
                   Done
                 </Button>
               </CardFooter>

@@ -98,7 +98,7 @@ const OrderProcessingDetails = () => {
           <div className="text-xs text-slate-400 mt-1">
             Based on {workflowMetrics.totalWorkflows} total workflows, {workflowMetrics.completedWorkflows} completed
             {!selectedWarehouse && isUserAdmin && (
-              <span className="ml-2 text-blue-400">• Corporate Overview (All Warehouses)</span>
+              <span className="ml-2 text-gray-400">• Corporate Overview (All Warehouses)</span>
             )}
           </div>
         </CardHeader>

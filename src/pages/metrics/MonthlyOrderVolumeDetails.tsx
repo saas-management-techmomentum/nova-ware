@@ -33,8 +33,8 @@ const chartConfig = {
   processed: {
     label: 'Processed Orders',
     theme: {
-      light: '#6366f1',
-      dark: '#6366f1',
+      light: '#6b7280',
+      dark: '#6b7280',
     },
   },
   backlog: {
@@ -76,7 +76,7 @@ const MonthlyOrderVolumeDetails = () => {
       <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 overflow-hidden">
         <CardHeader className="pb-2 relative z-10 border-b border-slate-700">
           <CardTitle className="text-lg flex items-center text-white">
-            <BarChart className="h-5 w-5 mr-2 text-indigo-400" />
+            <BarChart className="h-5 w-5 mr-2 text-gray-400" />
             Order Volume (Past 12 Months)
           </CardTitle>
         </CardHeader>
@@ -97,7 +97,7 @@ const MonthlyOrderVolumeDetails = () => {
                 <YAxis tick={{ fill: '#94a3b8' }} />
                 <ChartTooltip content={<ChartTooltipContent />} />
                 <ChartLegend content={<ChartLegendContent />} />
-                <Bar dataKey="processed" name="processed" fill="#6366f1" radius={[4, 4, 0, 0]} barSize={20} />
+                <Bar dataKey="processed" name="processed" fill="#6b7280" radius={[4, 4, 0, 0]} barSize={20} />
                 <Bar dataKey="backlog" name="backlog" fill="#f43f5e" radius={[4, 4, 0, 0]} barSize={20} />
               </RechartsBarChart>
             </ChartContainer>
@@ -107,8 +107,8 @@ const MonthlyOrderVolumeDetails = () => {
             <Card className="bg-slate-800/70 border-slate-700/80">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-indigo-400 font-semibold">Total Orders Processed</h3>
-                  <span className="text-xs px-2 py-0.5 bg-indigo-500/30 rounded-full border border-indigo-500/50 text-indigo-200">
+                  <h3 className="text-gray-500 font-semibold">Total Orders Processed</h3>
+                  <span className="text-xs px-2 py-0.5 bg-gray-700/30 rounded-full border border-gray-600/50 text-gray-300">
                     +16.3% YoY
                   </span>
                 </div>

@@ -70,10 +70,10 @@ const AdvancedLocationFilters: React.FC<AdvancedLocationFiltersProps> = ({
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="text-sm flex items-center text-white">
-            <Filter className="h-4 w-4 mr-2 text-indigo-400" />
+            <Filter className="h-4 w-4 mr-2 text-gray-400" />
             Advanced Filters
             {getActiveFilterCount() > 0 && (
-              <Badge className="ml-2 bg-indigo-500">{getActiveFilterCount()}</Badge>
+              <Badge className="ml-2 bg-gray-800">{getActiveFilterCount()}</Badge>
             )}
           </CardTitle>
           <div className="flex items-center gap-2">

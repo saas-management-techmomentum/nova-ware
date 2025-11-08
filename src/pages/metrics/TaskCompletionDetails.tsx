@@ -201,7 +201,7 @@ const TaskCompletionDetails = () => {
           <div className="text-xs text-slate-400 mt-1">
             Based on {realTaskMetrics.totalOrders} orders and {realTaskMetrics.totalItems} inventory items
             {!selectedWarehouse && isUserAdmin && (
-              <span className="ml-2 text-blue-400">• Corporate Overview (All Warehouses)</span>
+              <span className="ml-2 text-gray-400">• Corporate Overview (All Warehouses)</span>
             )}
           </div>
         </CardHeader>
@@ -302,7 +302,7 @@ const TaskCompletionDetails = () => {
                     />
                     <Legend wrapperStyle={{ color: '#94a3b8' }} />
                     <Bar dataKey="completed" name="Completion Rate" fill="#10b981" radius={[4, 4, 0, 0]} barSize={20} />
-                    <Bar dataKey="target" name="Target" fill="#6366f1" radius={[4, 4, 0, 0]} barSize={4} />
+                    <Bar dataKey="target" name="Target" fill="#6b7280" radius={[4, 4, 0, 0]} barSize={4} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>

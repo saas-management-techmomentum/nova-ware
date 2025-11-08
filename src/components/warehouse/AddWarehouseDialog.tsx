@@ -62,7 +62,7 @@ const AddWarehouseDialog: React.FC<AddWarehouseDialogProps> = ({ onWarehouseAdde
       <DialogContent className="max-w-lg bg-slate-800 border-slate-700 text-white">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Building2 className="h-5 w-5 text-indigo-400" />
+            <Building2 className="h-5 w-5 text-gray-400" />
             Add New Warehouse
           </DialogTitle>
         </DialogHeader>

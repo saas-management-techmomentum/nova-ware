@@ -32,7 +32,7 @@ const WarehouseContextIndicator: React.FC = () => {
   if (!selectedWarehouse && isUserAdmin) {
     return (
       <div className="flex items-center gap-2 mb-4">
-        <Badge className="bg-indigo-600/20 text-indigo-300 border-indigo-500/30 border flex items-center gap-2">
+        <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30 border flex items-center gap-2">
           <Globe className="h-3 w-3" />
           <Shield className="h-3 w-3" />
           Corporate Overview - All Warehouses
@@ -56,7 +56,7 @@ const WarehouseContextIndicator: React.FC = () => {
   
   return (
     <div className="flex items-center gap-2 mb-4">
-      <Badge className="bg-blue-600/20 text-blue-300 border-blue-500/30 border flex items-center gap-2">
+      <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30 border flex items-center gap-2">
         <Building2 className="h-3 w-3" />
         {warehouse ? `${warehouse.warehouse_code} - ${warehouse.warehouse_name}` : 'Selected Warehouse'}
       </Badge>

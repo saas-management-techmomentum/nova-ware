@@ -120,7 +120,7 @@ const WarehouseEfficiencyDetails = () => {
       <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 overflow-hidden">
         <CardHeader className="pb-2 relative z-10 border-b border-slate-700">
           <CardTitle className="text-xl flex items-center text-white gap-2">
-            <Factory className="h-6 w-6 text-indigo-400" />
+            <Factory className="h-6 w-6 text-gray-400" />
             Current Efficiency: {metrics?.warehouse_efficiency || 0}%
             <div className="flex items-center gap-1 ml-2">
               {(metrics?.efficiency_change || 0) >= 0 ? (
@@ -158,7 +158,7 @@ const WarehouseEfficiencyDetails = () => {
           <Progress 
             value={metrics?.warehouse_efficiency || 0} 
             className="h-2.5 mb-8 bg-slate-700"
-            indicatorClassName="bg-indigo-500 shadow-[0_0_5px_rgba(99,102,241,0.5)]"
+            indicatorClassName="bg-gray-600 shadow-[0_0_5px_rgba(107,114,128,0.5)]"
           />
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -177,7 +177,7 @@ const WarehouseEfficiencyDetails = () => {
                       <div className="flex justify-between items-start mb-2">
                         <h4 className="font-medium text-white">{factor.title}</h4>
                         <div className="flex items-center gap-2">
-                          <div className="text-xl font-semibold text-indigo-400">{factor.value}</div>
+                          <div className="text-xl font-semibold text-gray-400">{factor.value}</div>
                           <div className="flex items-center gap-1">
                             {factor.change >= 0 ? (
                               <ArrowUp className="h-3 w-3 text-emerald-400" />
@@ -224,15 +224,15 @@ const WarehouseEfficiencyDetails = () => {
                       <Area 
                         type="monotone" 
                         dataKey="efficiency" 
-                        stroke="#6366f1" 
+                        stroke="#6b7280" 
                         fill="url(#colorEfficiency)" 
                         fillOpacity={0.3} 
-                        activeDot={{ r: 8, fill: '#6366f1' }} 
+                        activeDot={{ r: 8, fill: '#6b7280' }} 
                       />
                       <defs>
                         <linearGradient id="colorEfficiency" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#6366f1" stopOpacity={0.8}/>
-                          <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
+                          <stop offset="5%" stopColor="#6b7280" stopOpacity={0.8}/>
+                          <stop offset="95%" stopColor="#6b7280" stopOpacity={0}/>
                         </linearGradient>
                       </defs>
                     </AreaChart>

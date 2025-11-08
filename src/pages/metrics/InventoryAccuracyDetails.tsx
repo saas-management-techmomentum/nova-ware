@@ -11,7 +11,7 @@ import { useInventory } from '@/contexts/InventoryContext';
 import { useWarehouse } from '@/contexts/WarehouseContext';
 import WarehouseContextIndicator from '@/components/warehouse/WarehouseContextIndicator';
 
-const COLORS = ['#6366f1', '#0ea5e9', '#f97316', '#f43f5e'];
+const COLORS = ['#6b7280', '#0ea5e9', '#f97316', '#f43f5e'];
 
 const InventoryAccuracyDetails = () => {
   const { selectedWarehouse, isUserAdmin } = useWarehouse();
@@ -122,7 +122,7 @@ const InventoryAccuracyDetails = () => {
           <div className="text-xs text-slate-400 mt-1">
             Based on {realMetrics.optimalItems} optimal, {realMetrics.warningItems} warning, {realMetrics.criticalItems} critical stock levels
             {!selectedWarehouse && isUserAdmin && (
-              <span className="ml-2 text-blue-400">• Corporate Overview (All Warehouses)</span>
+              <span className="ml-2 text-gray-400">• Corporate Overview (All Warehouses)</span>
             )}
           </div>
         </CardHeader>
@@ -236,7 +236,7 @@ const InventoryAccuracyDetails = () => {
                       type="monotone" 
                       dataKey="target" 
                       name="Target Accuracy" 
-                      stroke="#6366f1" 
+                      stroke="#6b7280" 
                       strokeDasharray="5 5" 
                       strokeWidth={2}
                       dot={{ r: 4 }}
