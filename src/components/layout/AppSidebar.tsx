@@ -390,7 +390,7 @@ const AppSidebar = () => {
           </SidebarGroupContent>
         </SidebarGroup>
         
-        <div className="absolute bottom-0 left-0 right-0 p-4">
+        {/* <div className="absolute bottom-0 left-0 right-0 p-4">
           <div className="p-3 rounded-lg bg-neutral-800/50 border border-neutral-700 text-neutral-300 text-xs">
             <div className="flex items-center justify-between mb-2">
               <span>System Status</span>
@@ -404,7 +404,7 @@ const AppSidebar = () => {
               <span>{getMinutesAgo()} min ago</span>
             </div>
           </div>
-        </div>
+        </div> */}
       </SidebarContent>
     </Sidebar>
   );
