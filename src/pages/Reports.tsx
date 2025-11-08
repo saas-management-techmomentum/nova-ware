@@ -82,8 +82,8 @@ const accountingPlatforms = [
     id: 'wave', 
     name: 'Wave Accounting', 
     logo: 'W',
-    color: 'from-blue-600 to-indigo-600',
-    hoverColor: 'from-blue-500 to-indigo-500',
+    color: 'from-gray-700 to-gray-600',
+    hoverColor: 'from-gray-600 to-gray-500',
     placeholderUrl: 'https://api.waveapps.com/webhook/your-webhook-id',
     helpText: 'Enter the webhook URL from your Wave account to connect your financial data.'
   },
@@ -300,7 +300,7 @@ const Reports = () => {
     <div className="space-y-6 animate-fade-in">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent flex items-center">
-          <BarChart3 className="h-6 w-6 mr-2 text-indigo-400" />
+          <BarChart3 className="h-6 w-6 mr-2 text-gray-400" />
           Financial Reports
         </h1>
         
@@ -322,14 +322,14 @@ const Reports = () => {
         <TabsList className="bg-slate-800/70 border border-slate-700/50">
           <TabsTrigger 
             value="profit-loss" 
-            className="flex items-center data-[state=active]:bg-indigo-600 data-[state=active]:text-white"
+            className="flex items-center data-[state=active]:bg-gray-700 data-[state=active]:text-white"
           >
             <BarChart3 className="h-4 w-4 mr-2" />
             Profit & Loss
           </TabsTrigger>
           <TabsTrigger 
             value="integrations" 
-            className="flex items-center data-[state=active]:bg-indigo-600 data-[state=active]:text-white"
+            className="flex items-center data-[state=active]:bg-gray-700 data-[state=active]:text-white"
           >
             <LinkIcon className="h-4 w-4 mr-2" />
             Platform Connections
@@ -348,7 +348,7 @@ const Reports = () => {
                 </p>
                 <Button 
                   onClick={() => setActiveTab('integrations')}
-                  className="bg-indigo-600 hover:bg-indigo-700"
+                  className="bg-gray-800 hover:bg-gray-900"
                 >
                   <LinkIcon className="h-4 w-4 mr-2" />
                   Connect Platform Now
@@ -361,7 +361,7 @@ const Reports = () => {
                 <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 shadow-md overflow-hidden">
                   <CardHeader className="pb-2 border-b border-slate-700/50">
                     <CardTitle className="text-lg text-white flex items-center">
-                      <TrendingUp className="h-5 w-5 mr-2 text-indigo-400" />
+                      <TrendingUp className="h-5 w-5 mr-2 text-gray-400" />
                       Total Revenue
                     </CardTitle>
                     <CardDescription className="text-slate-400">Current period</CardDescription>
@@ -409,7 +409,7 @@ const Reports = () => {
                 <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 shadow-md overflow-hidden">
                   <CardHeader className="pb-3 border-b border-slate-700/50">
                     <CardTitle className="text-lg flex items-center text-white">
-                      <FileText className="h-5 w-5 mr-2 text-indigo-400" />
+                      <FileText className="h-5 w-5 mr-2 text-gray-400" />
                       Revenue Breakdown
                     </CardTitle>
                   </CardHeader>
@@ -426,7 +426,7 @@ const Reports = () => {
                         {plData.revenue.map((item, index) => (
                           <TableRow key={index} className="border-slate-700 hover:bg-slate-700/30 transition-colors">
                             <TableCell className="text-slate-300">{item.category}</TableCell>
-                            <TableCell className="text-right text-indigo-300">{formatCurrency(item.amount)}</TableCell>
+                            <TableCell className="text-right text-gray-300">{formatCurrency(item.amount)}</TableCell>
                             <TableCell className="text-right text-slate-400">
                               {((item.amount / totalRevenue) * 100).toFixed(1)}%
                             </TableCell>
@@ -434,7 +434,7 @@ const Reports = () => {
                         ))}
                         <TableRow className="font-medium bg-slate-700/30 border-slate-700">
                           <TableCell className="text-white">Total Revenue</TableCell>
-                          <TableCell className="text-right text-indigo-300">{formatCurrency(totalRevenue)}</TableCell>
+                          <TableCell className="text-right text-gray-300">{formatCurrency(totalRevenue)}</TableCell>
                           <TableCell className="text-right text-slate-300">100%</TableCell>
                         </TableRow>
                       </TableBody>
@@ -497,8 +497,8 @@ const Reports = () => {
                     </TableHeader>
                     <TableBody>
                       <TableRow className="border-slate-700 hover:bg-slate-700/30 transition-colors">
-                        <TableCell className="font-medium text-indigo-300">Total Revenue</TableCell>
-                        <TableCell className="text-right text-indigo-300">{formatCurrency(totalRevenue)}</TableCell>
+                        <TableCell className="font-medium text-gray-300">Total Revenue</TableCell>
+                        <TableCell className="text-right text-gray-300">{formatCurrency(totalRevenue)}</TableCell>
                         <TableCell className="text-right text-slate-300">100%</TableCell>
                       </TableRow>
                       <TableRow className="border-slate-700 hover:bg-slate-700/30 transition-colors">
@@ -575,10 +575,10 @@ const Reports = () => {
                             <Label htmlFor="qb-company" className="text-white">Company ID</Label>
                             <Input
                               id="qb-company"
-                              value={quickBooksConfig.companyId || ''}
-                              onChange={(e) => setQuickBooksConfig({...quickBooksConfig, companyId: e.target.value})}
-                              placeholder="Company ID"
-                              className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30"
+                            value={quickBooksConfig.companyId || ''}
+                            onChange={(e) => setQuickBooksConfig({...quickBooksConfig, companyId: e.target.value})}
+                            placeholder="Company ID"
+                            className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-gray-600/50 focus:ring-1 focus:ring-gray-600/30"
                             />
                           </div>
                           
@@ -607,7 +607,7 @@ const Reports = () => {
                             value={quickBooksConfig.accessToken || ''}
                             onChange={(e) => setQuickBooksConfig({...quickBooksConfig, accessToken: e.target.value})}
                             placeholder="Access Token"
-                            className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30"
+                            className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-gray-600/50 focus:ring-1 focus:ring-gray-600/30"
                           />
                         </div>
 
@@ -632,7 +632,7 @@ const Reports = () => {
                               value={quickBooksConfig.refreshToken || ''}
                               onChange={(e) => setQuickBooksConfig({...quickBooksConfig, refreshToken: e.target.value})}
                               placeholder="Refresh Token"
-                              className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30"
+                              className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-gray-600/50 focus:ring-1 focus:ring-gray-600/30"
                             />
                           </div>
                         )}
@@ -645,7 +645,7 @@ const Reports = () => {
                           placeholder={currentPlatform.placeholderUrl}
                           value={webhookUrl}
                           onChange={(e) => setWebhookUrl(e.target.value)}
-                          className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30"
+                          className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-gray-600/50 focus:ring-1 focus:ring-gray-600/30"
                         />
                         <p className="text-sm text-slate-400">
                           {currentPlatform.helpText}
@@ -706,7 +706,7 @@ const Reports = () => {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <Button 
                           variant="outline" 
-                          className="w-full border-slate-600 bg-slate-700/30 text-white hover:bg-indigo-900/50 hover:border-indigo-500/50" 
+                          className="w-full border-slate-600 bg-slate-700/30 text-white hover:bg-gray-800/50 hover:border-gray-600/50" 
                           onClick={handleRefreshData}
                         >
                           <RefreshCw className={`mr-2 h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
@@ -733,15 +733,15 @@ const Reports = () => {
             </CardHeader>
             <CardContent className="pt-6">
               <div className="space-y-4">
-                <div className="rounded-md bg-indigo-950/30 border border-indigo-700/30 p-4">
+                <div className="rounded-md bg-gray-900/30 border border-gray-700/30 p-4">
                   <div className="flex">
                     <div className="flex-shrink-0">
-                      <svg className="h-5 w-5 text-indigo-400" viewBox="0 0 20 20" fill="currentColor">
+                      <svg className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clipRule="evenodd" />
                       </svg>
                     </div>
                     <div className="ml-3 flex-1 md:flex md:justify-between">
-                      <p className="text-sm text-indigo-300">
+                      <p className="text-sm text-gray-300">
                         To generate a connection URL for {currentPlatform.name}, navigate to the API/Developer settings in your account.
                       </p>
                     </div>

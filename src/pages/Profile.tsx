@@ -348,7 +348,7 @@ const Profile = () => {
       case 'admin':
         return 'bg-red-500/20 text-red-300 border-red-500/30';
       case 'manager':
-        return 'bg-blue-500/20 text-blue-300 border-blue-500/30';
+        return 'bg-gray-700/20 text-gray-300 border-gray-600/30';
       case 'staff':
         return 'bg-green-500/20 text-green-300 border-green-500/30';
       default:
@@ -361,7 +361,7 @@ const Profile = () => {
       <div className="w-full py-8 text-white">
         <h1 className="text-3xl font-bold mb-6">My Profile</h1>
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-600"></div>
         </div>
       </div>
     );
@@ -392,7 +392,7 @@ const Profile = () => {
       <div className="grid gap-8 lg:grid-cols-[400px_1fr] xl:grid-cols-[450px_1fr]">
         {/* Left column - Enhanced Profile card */}
         <Card className="bg-slate-800 border-slate-700 text-white overflow-hidden h-fit">
-          <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-sky-500 h-32 relative">
+          <div className="bg-gradient-to-r from-gray-700 via-gray-600 to-gray-500 h-32 relative">
             <div className="absolute inset-0 bg-black/20"></div>
           </div>
           <div className="px-6 pb-6">
@@ -400,13 +400,13 @@ const Profile = () => {
               <div className="relative">
                 <Avatar className="h-32 w-32 border-4 border-slate-800 shadow-xl">
                   <AvatarImage src={userData.avatarUrl} />
-                  <AvatarFallback className="bg-indigo-600 text-2xl">
+                  <AvatarFallback className="bg-gray-700 text-2xl">
                     {userData.name.split(' ').map(n => n[0] || '').join('') || 'U'}
                   </AvatarFallback>
                 </Avatar>
                 <label 
                   htmlFor="avatar-upload" 
-                  className="absolute bottom-2 right-2 bg-indigo-600 hover:bg-indigo-700 rounded-full p-2 cursor-pointer transition-colors shadow-lg"
+                  className="absolute bottom-2 right-2 bg-gray-800 hover:bg-gray-900 rounded-full p-2 cursor-pointer transition-colors shadow-lg"
                 >
                   <Camera className="h-4 w-4 text-white" />
                 </label>
@@ -436,7 +436,7 @@ const Profile = () => {
             
             <div className="space-y-4">
               <div className="flex items-center gap-3 text-slate-300">
-                <Mail className="h-5 w-5 text-indigo-400" />
+                <Mail className="h-5 w-5 text-gray-400" />
                 <div className="flex-1">
                   <span className="text-sm">{userData.email}</span>
                   {userData.emailVerified && (
@@ -447,25 +447,25 @@ const Profile = () => {
               
               {userData.company && (
                 <div className="flex items-center gap-3 text-slate-300">
-                  <Building className="h-5 w-5 text-indigo-400" />
+                  <Building className="h-5 w-5 text-gray-400" />
                   <span className="text-sm">{userData.company}</span>
                 </div>
               )}
               
               {userData.location && (
                 <div className="flex items-center gap-3 text-slate-300">
-                  <MapPin className="h-5 w-5 text-indigo-400" />
+                  <MapPin className="h-5 w-5 text-gray-400" />
                   <span className="text-sm">{userData.location}</span>
                 </div>
               )}
               
               <div className="flex items-center gap-3 text-slate-300">
-                <Calendar className="h-5 w-5 text-indigo-400" />
+                <Calendar className="h-5 w-5 text-gray-400" />
                 <span className="text-sm">Joined {userData.joinDate}</span>
               </div>
 
               <div className="flex items-center gap-3 text-slate-300">
-                <Clock className="h-5 w-5 text-indigo-400" />
+                <Clock className="h-5 w-5 text-gray-400" />
                 <div className="flex items-center gap-2">
                   <span className="text-sm">Status:</span>
                   <Badge className="bg-green-500/20 text-green-300 border-green-500/30 border text-xs">
@@ -543,7 +543,7 @@ const Profile = () => {
                   </div>
                   
                   <div className="flex gap-3 pt-4">
-                    <Button variant="default" onClick={handleSave} className="bg-indigo-600 hover:bg-indigo-700">
+                    <Button variant="default" onClick={handleSave} className="bg-gray-800 hover:bg-gray-900">
                       Save Changes
                     </Button>
                     <Button variant="outline" onClick={handleCancel} className="border-slate-600 text-slate-300 hover:bg-slate-700">
@@ -563,7 +563,7 @@ const Profile = () => {
                   <Separator className="bg-slate-700" />
                   
                   <div className="pt-2">
-                    <Button variant="default" onClick={handleEdit} className="bg-indigo-600 hover:bg-indigo-700">
+                    <Button variant="default" onClick={handleEdit} className="bg-gray-800 hover:bg-gray-900">
                       Edit Profile
                     </Button>
                   </div>
@@ -621,21 +621,21 @@ const Profile = () => {
                   {warehouseAccess.map((warehouse, index) => (
                     <div key={index} className={`flex items-center justify-between p-4 rounded-lg ${
                       warehouse.is_assigned 
-                        ? 'bg-indigo-500/20 border border-indigo-500/30' 
+                        ? 'bg-gray-700/20 border border-gray-600/30' 
                         : 'bg-slate-700/50'
                     }`}>
                       <div>
                         <div className="flex items-center gap-2">
                           <h4 className="font-medium">{warehouse.warehouse_name}</h4>
                           {warehouse.is_assigned && (
-                            <Badge className="bg-indigo-500/20 text-indigo-300 border-indigo-500/30 border text-xs">
+                            <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30 border text-xs">
                               Assigned
                             </Badge>
                           )}
                         </div>
                         <p className="text-sm text-slate-400">Code: {warehouse.warehouse_code}</p>
                         {warehouse.is_assigned && (
-                          <p className="text-xs text-indigo-300 mt-1">Your primary warehouse</p>
+                          <p className="text-xs text-gray-300 mt-1">Your primary warehouse</p>
                         )}
                       </div>
                       <Badge className={`${getRoleBadgeColor(warehouse.role)} border`}>
@@ -688,7 +688,7 @@ const Profile = () => {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-slate-400">Companies</span>
-                    <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 border">
+                    <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30 border">
                       {userRoles.length}
                     </Badge>
                   </div>

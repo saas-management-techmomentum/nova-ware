@@ -19,7 +19,7 @@ const NotFound = () => {
         <p className="text-xl text-gray-600 mb-4">Oops! Page not found</p>
         <Link 
           to="/app" 
-          className="text-blue-500 hover:text-blue-700 underline"
+          className="text-gray-400 hover:text-gray-500 underline"
         >
           Return to Dashboard
         </Link>

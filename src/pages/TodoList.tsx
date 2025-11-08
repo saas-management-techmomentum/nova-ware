@@ -93,7 +93,7 @@ const TodoList = () => {
       case 'completed':
         return <CheckCircle2 className="h-4 w-4 text-green-500" />;
       case 'in_progress':
-        return <Clock className="h-4 w-4 text-blue-500" />;
+        return <Clock className="h-4 w-4 text-gray-500" />;
       case 'cancelled':
         return <XCircle className="h-4 w-4 text-red-500" />;
       default:
@@ -152,7 +152,7 @@ const TodoList = () => {
           {!isFormExpanded ? (
             <Button 
               onClick={() => setIsFormExpanded(true)}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 justify-start"
+              className="w-full bg-gray-800 hover:bg-gray-900 justify-start"
             >
               <Plus className="h-4 w-4 mr-2" />
               Add New Task
@@ -266,7 +266,7 @@ const TodoList = () => {
                 >
                   Cancel
                 </Button>
-                <Button onClick={handleAddTask} className="bg-indigo-600 hover:bg-indigo-700">
+                <Button onClick={handleAddTask} className="bg-gray-800 hover:bg-gray-900">
                   Add Task
                 </Button>
               </div>
