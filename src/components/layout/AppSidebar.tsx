@@ -247,7 +247,7 @@ const AppSidebar = () => {
         </Link>
         <SidebarTrigger className="ml-auto lg:hidden text-neutral-300 hover:text-white transition-colors" />
       </div>
-      <SidebarContent className="bg-neutral-950 h-full border-r border-neutral-800">
+      <SidebarContent className="bg-neutral-950 h-full">
         {shouldShowDropdown && (
           <SidebarGroup>
             <SidebarGroupContent>
