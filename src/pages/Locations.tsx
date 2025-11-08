@@ -388,7 +388,7 @@ const Locations = () => {
             Quick Scan
           </Button>
           <Button 
-            className="gap-2 bg-gray-800 hover:bg-gray-900 text-white shadow-md hover:shadow-lg transition-all"
+            className="gap-2"
             onClick={() => setAddPalletOpen(true)}
           >
             <Plus className="h-4 w-4" />
