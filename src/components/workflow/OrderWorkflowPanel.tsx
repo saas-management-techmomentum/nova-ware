@@ -162,17 +162,17 @@ const OrderWorkflowPanel: React.FC<OrderWorkflowPanelProps> = ({ orderId, onStat
   const getStepColor = (step: WorkflowStep) => {
     if (step.status === 'completed') return 'text-emerald-400';
     if (step.status === 'in-progress') return 'text-gray-400';
-    return 'text-slate-400';
+    return 'text-neutral-400';
   };
 
   if (!workflow) {
     return (
-      <Card className="bg-slate-700/30 border-slate-600">
+      <Card className="bg-neutral-700/30 border-neutral-600">
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div>
               <h4 className="text-sm font-medium text-white">Pick/Pack/Ship Workflow</h4>
-              <p className="text-xs text-slate-400">Start automated workflow with FIFO pallet picking</p>
+              <p className="text-xs text-neutral-400">Start automated workflow with FIFO pallet picking</p>
             </div>
             <Button
               onClick={handleStartWorkflow}
@@ -195,7 +195,7 @@ const OrderWorkflowPanel: React.FC<OrderWorkflowPanelProps> = ({ orderId, onStat
 
   return (
     <WorkflowErrorBoundary>
-      <Card className="bg-slate-700/30 border-slate-600">
+      <Card className="bg-neutral-700/30 border-neutral-600">
         <CardHeader className="pb-3">
           <CardTitle className="text-sm flex items-center justify-between">
             <div className="flex items-center">
@@ -207,7 +207,7 @@ const OrderWorkflowPanel: React.FC<OrderWorkflowPanelProps> = ({ orderId, onStat
                 </Badge>
               )}
             </div>
-            <div className="text-xs text-slate-400">
+            <div className="text-xs text-neutral-400">
               {workflow.steps.filter(s => s.status === 'completed').length} / {workflow.steps.length} steps
             </div>
           </CardTitle>
@@ -216,14 +216,14 @@ const OrderWorkflowPanel: React.FC<OrderWorkflowPanelProps> = ({ orderId, onStat
           <div className="w-full">
             <Progress 
               value={getProgressPercentage(workflow)} 
-              className="h-2 bg-slate-600" 
+              className="h-2 bg-neutral-600"
               indicatorClassName="bg-gradient-to-r from-gray-700 to-emerald-500" 
             />
           </div>
 
           {/* Pallet Adjustments Summary */}
           {workflow.palletAdjustments && workflow.palletAdjustments.length > 0 && (
-            <div className="bg-slate-600/30 rounded-lg p-3 space-y-2">
+            <div className="bg-neutral-600/30 rounded-lg p-3 space-y-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <MapPin className="h-4 w-4 text-emerald-400" />
@@ -236,7 +236,7 @@ const OrderWorkflowPanel: React.FC<OrderWorkflowPanelProps> = ({ orderId, onStat
                   variant="ghost"
                   size="sm"
                   onClick={() => setShowPalletDetails(!showPalletDetails)}
-                  className="h-6 px-2 text-slate-400 hover:text-white"
+                  className="h-6 px-2 text-neutral-400 hover:text-white"
                 >
                   {showPalletDetails ? 'Hide' : 'Show'} Details
                 </Button>
@@ -245,13 +245,13 @@ const OrderWorkflowPanel: React.FC<OrderWorkflowPanelProps> = ({ orderId, onStat
               {showPalletDetails && (
                 <div className="space-y-1">
                   {workflow.palletAdjustments.map((adjustment, index) => (
-                    <div key={index} className="flex items-center justify-between text-xs bg-slate-700/30 rounded px-2 py-1">
+                    <div key={index} className="flex items-center justify-between text-xs bg-neutral-700/30 rounded px-2 py-1">
                       <div className="flex items-center gap-2">
-                        <span className="text-slate-300">Pallet {adjustment.palletId}</span>
-                        <ArrowRight className="h-3 w-3 text-slate-500" />
-                        <span className="text-slate-300">{adjustment.productSku}</span>
+                        <span className="text-neutral-300">Pallet {adjustment.palletId}</span>
+                        <ArrowRight className="h-3 w-3 text-neutral-500" />
+                        <span className="text-neutral-300">{adjustment.productSku}</span>
                       </div>
-                      <div className="text-slate-400">
+                      <div className="text-neutral-400">
                         {adjustment.oldQuantity} → {adjustment.newQuantity}
                       </div>
                     </div>
@@ -288,7 +288,7 @@ const OrderWorkflowPanel: React.FC<OrderWorkflowPanelProps> = ({ orderId, onStat
 
               return (
                 <div key={step.id} className="space-y-2">
-                  <div className="flex items-center justify-between p-2 rounded bg-slate-600/30">
+                  <div className="flex items-center justify-between p-2 rounded bg-neutral-600/30">
                     <div className="flex items-center space-x-3">
                       <StepIcon className={`h-4 w-4 ${stepColor}`} />
                       <div className="flex flex-col">
@@ -314,7 +314,7 @@ const OrderWorkflowPanel: React.FC<OrderWorkflowPanelProps> = ({ orderId, onStat
                         )}
                       </div>
                       {/* Timestamp Display */}
-                      <div className="flex flex-col text-xs text-slate-400">
+                      <div className="flex flex-col text-xs text-neutral-400">
                         {step.startedAt && (
                           <span>Started: {new Date(step.startedAt).toLocaleTimeString()}</span>
                         )}
@@ -346,7 +346,7 @@ const OrderWorkflowPanel: React.FC<OrderWorkflowPanelProps> = ({ orderId, onStat
                         <Button
                           variant="outline"
                           size="sm"
-                          className="h-6 px-2 border-slate-500 bg-slate-600/30 hover:bg-slate-500/30"
+                          className="h-6 px-2 border-neutral-500 bg-neutral-600/30 hover:bg-neutral-500/30"
                           onClick={() => toggleStepExpansion(step.id)}
                         >
                           <FileText className="h-3 w-3" />
@@ -377,8 +377,8 @@ const OrderWorkflowPanel: React.FC<OrderWorkflowPanelProps> = ({ orderId, onStat
                   {expandedSteps.has(step.id) && step.documents && (
                     <div className="ml-7 space-y-1">
                       {step.documents.map((doc, docIndex) => (
-                        <div key={docIndex} className="flex items-center justify-between p-2 bg-slate-600/20 rounded text-xs">
-                          <span className="text-slate-300">Document {docIndex + 1}</span>
+                        <div key={docIndex} className="flex items-center justify-between p-2 bg-neutral-600/20 rounded text-xs">
+                          <span className="text-neutral-300">Document {docIndex + 1}</span>
                           <Button
                             variant="ghost"
                             size="sm"
