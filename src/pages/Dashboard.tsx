@@ -255,9 +255,9 @@ const Dashboard = () => {
           <span className="text-xs font-normal text-white px-2 py-0.5 rounded-full bg-red-500/90 shadow-sm shadow-red-500/40">Live</span>
         </div>
         <div className="flex items-center gap-2 text-sm text-slate-400">
-          <div className="flex items-center gap-1.5 bg-slate-800/60 px-3 py-1.5 rounded-md border border-slate-700/50">
+          {/* <div className="flex items-center gap-1.5 bg-slate-800/60 px-3 py-1.5 rounded-md border border-slate-700/50">
             <span>{getLastUpdatedText()}</span>
-          </div>
+          </div> */}
         </div>
       </div>
 
