@@ -9,22 +9,22 @@ const IntegrationSettings = () => {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold text-white">Integration Settings</h1>
-        <p className="text-slate-400 mt-2">
+        <p className="text-neutral-400 mt-2">
           Connect your e-commerce platforms to sync inventory and orders
         </p>
       </div>
 
       <Tabs defaultValue="shopify" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 bg-slate-800/50 border-slate-700">
+        <TabsList className="grid w-full grid-cols-2 bg-neutral-800/50 border-neutral-700">
           <TabsTrigger 
             value="shopify" 
-            className="data-[state=active]:bg-slate-700 data-[state=active]:text-white text-slate-400"
+            className="data-[state=active]:bg-neutral-700 data-[state=active]:text-white text-neutral-400"
           >
             Shopify
           </TabsTrigger>
           <TabsTrigger 
             value="amazon" 
-            className="data-[state=active]:bg-slate-700 data-[state=active]:text-white text-slate-400"
+            className="data-[state=active]:bg-neutral-700 data-[state=active]:text-white text-neutral-400"
           >
             Amazon FBA
           </TabsTrigger>
