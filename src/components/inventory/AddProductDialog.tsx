@@ -211,28 +211,28 @@ const AddProductDialog: React.FC<AddProductDialogProps> = ({ onAddProduct, disab
               <div className="grid grid-cols-2 gap-4">
                 {includeUPC && (
                   <div className="grid gap-2">
-                    <Label htmlFor="upc" className="text-slate-300">UPC</Label>
+                    <Label htmlFor="upc" className="text-neutral-300">UPC</Label>
                     <Input
                       id="upc"
                       name="upc"
                       value={formData.upc}
                       onChange={handleChange}
                       placeholder="123456789012"
-                      className="bg-slate-700 border-slate-600 text-white placeholder-slate-400"
+                      className="bg-neutral-700 border-neutral-600 text-white placeholder-neutral-400"
                       disabled={isSubmitting}
                     />
                   </div>
                 )}
                 {includeASIN && (
                   <div className="grid gap-2">
-                    <Label htmlFor="asin" className="text-slate-300">ASIN</Label>
+                    <Label htmlFor="asin" className="text-neutral-300">ASIN</Label>
                     <Input
                       id="asin"
                       name="asin"
                       value={formData.asin}
                       onChange={handleChange}
                       placeholder="B0123456789"
-                      className="bg-slate-700 border-slate-600 text-white placeholder-slate-400"
+                      className="bg-neutral-700 border-neutral-600 text-white placeholder-neutral-400"
                       disabled={isSubmitting}
                     />
                   </div>
@@ -243,7 +243,7 @@ const AddProductDialog: React.FC<AddProductDialogProps> = ({ onAddProduct, disab
           
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="stock" className="text-slate-300">Initial Stock</Label>
+              <Label htmlFor="stock" className="text-neutral-300">Initial Stock</Label>
               <Input
                 id="stock"
                 name="stock"
@@ -251,12 +251,12 @@ const AddProductDialog: React.FC<AddProductDialogProps> = ({ onAddProduct, disab
                 value={formData.stock}
                 onChange={handleChange}
                 placeholder="10"
-                className="bg-slate-700 border-slate-600 text-white placeholder-slate-400"
+                className="bg-neutral-700 border-neutral-600 text-white placeholder-neutral-400"
                 disabled={isSubmitting}
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="low_stock_threshold" className="text-slate-300">Low Stock Threshold</Label>
+              <Label htmlFor="low_stock_threshold" className="text-neutral-300">Low Stock Threshold</Label>
               <Input
                 id="low_stock_threshold"
                 name="low_stock_threshold"
@@ -265,23 +265,23 @@ const AddProductDialog: React.FC<AddProductDialogProps> = ({ onAddProduct, disab
                 onChange={handleChange}
                 placeholder="10"
                 min="1"
-                className="bg-slate-700 border-slate-600 text-white placeholder-slate-400"
+                className="bg-neutral-700 border-neutral-600 text-white placeholder-neutral-400"
                 disabled={isSubmitting}
               />
-              <p className="text-xs text-slate-400">Alert when stock falls below this number</p>
+              <p className="text-xs text-neutral-400">Alert when stock falls below this number</p>
             </div>
           </div>
           
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="casesize" className="text-slate-300">Case Size</Label>
+              <Label htmlFor="casesize" className="text-neutral-300">Case Size</Label>
               <Input
                 id="casesize"
                 name="casesize"
                 value={formData.casesize}
                 onChange={handleChange}
                 placeholder="12 units"
-                className="bg-slate-700 border-slate-600 text-white placeholder-slate-400"
+                className="bg-neutral-700 border-neutral-600 text-white placeholder-neutral-400"
                 disabled={isSubmitting}
               />
             </div>
@@ -292,7 +292,7 @@ const AddProductDialog: React.FC<AddProductDialogProps> = ({ onAddProduct, disab
             <h3 className="text-sm font-medium mb-3 text-neutral-300">Pricing Information</h3>
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="cost_price" className="text-slate-300">Buy Price - Unit ($)</Label>
+                <Label htmlFor="cost_price" className="text-neutral-300">Buy Price - Unit ($)</Label>
                 <Input
                   id="cost_price"
                   name="cost_price"
@@ -304,10 +304,10 @@ const AddProductDialog: React.FC<AddProductDialogProps> = ({ onAddProduct, disab
                   className="bg-red-500/20 border-red-500/30 text-white placeholder-red-300/60"
                   disabled={isSubmitting}
                 />
-                <p className="text-xs text-slate-400">What you pay suppliers per unit</p>
+                <p className="text-xs text-neutral-400">What you pay suppliers per unit</p>
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="unit_price" className="text-slate-300">Sell Price - Unit ($)</Label>
+                <Label htmlFor="unit_price" className="text-neutral-300">Sell Price - Unit ($)</Label>
                 <Input
                   id="unit_price"
                   name="unit_price"
@@ -319,13 +319,13 @@ const AddProductDialog: React.FC<AddProductDialogProps> = ({ onAddProduct, disab
                   className="bg-green-500/20 border-green-500/30 text-white placeholder-green-300/60"
                   disabled={isSubmitting}
                 />
-                <p className="text-xs text-slate-400">What you charge customers per unit</p>
+                <p className="text-xs text-neutral-400">What you charge customers per unit</p>
               </div>
             </div>
             
             <div className="grid grid-cols-2 gap-4 mt-4">
               <div className="grid gap-2">
-                <Label htmlFor="case_cost" className="text-slate-300">Buy Price - Case ($)</Label>
+                <Label htmlFor="case_cost" className="text-neutral-300">Buy Price - Case ($)</Label>
                 <Input
                   id="case_cost"
                   name="case_cost"
@@ -337,10 +337,10 @@ const AddProductDialog: React.FC<AddProductDialogProps> = ({ onAddProduct, disab
                   className="bg-red-500/20 border-red-500/30 text-white placeholder-red-300/60"
                   disabled={isSubmitting}
                 />
-                <p className="text-xs text-slate-400">What you pay suppliers per case</p>
+                <p className="text-xs text-neutral-400">What you pay suppliers per case</p>
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="case_price" className="text-slate-300">Sell Price - Case ($)</Label>
+                <Label htmlFor="case_price" className="text-neutral-300">Sell Price - Case ($)</Label>
                 <Input
                   id="case_price"
                   name="case_price"
@@ -352,14 +352,14 @@ const AddProductDialog: React.FC<AddProductDialogProps> = ({ onAddProduct, disab
                   className="bg-green-500/20 border-green-500/30 text-white placeholder-green-300/60"
                   disabled={isSubmitting}
                 />
-                <p className="text-xs text-slate-400">What you charge customers per case</p>
+                <p className="text-xs text-neutral-400">What you charge customers per case</p>
               </div>
             </div>
           </div>
           
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="dimensions" className="text-slate-300">Case Dimensions/Weight</Label>
+              <Label htmlFor="dimensions" className="text-neutral-300">Case Dimensions/Weight</Label>
               <div className="grid grid-cols-2 gap-4">
                 <Input
                   id="dimensions"
@@ -367,7 +367,7 @@ const AddProductDialog: React.FC<AddProductDialogProps> = ({ onAddProduct, disab
                   value={formData.dimensions}
                   onChange={handleChange}
                   placeholder="6x4x2 in"
-                  className="bg-slate-700 border-slate-600 text-white placeholder-slate-400"
+                  className="bg-neutral-700 border-neutral-600 text-white placeholder-neutral-400"
                   disabled={isSubmitting}
                 />
                 <Input
@@ -376,7 +376,7 @@ const AddProductDialog: React.FC<AddProductDialogProps> = ({ onAddProduct, disab
                   value={formData.weight}
                   onChange={handleChange}
                   placeholder="0.65 lbs"
-                  className="bg-slate-700 border-slate-600 text-white placeholder-slate-400"
+                  className="bg-neutral-700 border-neutral-600 text-white placeholder-neutral-400"
                   disabled={isSubmitting}
                 />
               </div>
@@ -384,7 +384,7 @@ const AddProductDialog: React.FC<AddProductDialogProps> = ({ onAddProduct, disab
           </div>
           
           <div className="grid gap-2">
-            <Label htmlFor="expiration" className="text-slate-300">Expiration Date</Label>
+            <Label htmlFor="expiration" className="text-neutral-300">Expiration Date</Label>
             <Popover>
               <PopoverTrigger asChild>
                 <Button
