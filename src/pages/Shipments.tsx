@@ -372,7 +372,7 @@ const ShipmentsPage = () => {
                                 <AlertCircle className="h-4 w-4 text-yellow-400" />
                                 <span className="text-sm font-medium text-white">Next Steps</span>
                               </div>
-                              <p className="text-sm text-slate-300">
+                              <p className="text-sm text-neutral-300">
                                 This shipment is awaiting arrival. Update the Expected Arrival Date as needed and change status to "Received" when the shipment arrives.
                               </p>
                             </div>
@@ -393,10 +393,10 @@ const ShipmentsPage = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+        <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-neutral-300 bg-clip-text text-transparent">
           Shipments
         </h1>
-        <p className="text-sm text-slate-400 mt-1">
+        <p className="text-sm text-neutral-400 mt-1">
           Track incoming and outgoing shipments
         </p>
       </div>
@@ -410,21 +410,21 @@ const ShipmentsPage = () => {
 
         <TabsContent value="incoming" className="space-y-6">
           {/* Search and Filters */}
-          <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 shadow-md">
+          <Card className="bg-neutral-800/50 backdrop-blur-md border border-neutral-700/50 shadow-md">
             <CardContent className="p-6">
               <div className="flex justify-between items-center mb-4">
                 <div className="flex items-center gap-4">
                   <div className="relative w-72">
-                    <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                    <Search className="absolute left-3 top-2.5 h-4 w-4 text-neutral-400" />
                     <Input
                       placeholder="Search shipments..."
-                      className="pl-9 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-gray-600/50 focus:ring-1 focus:ring-gray-600/30"
+                      className="pl-9 bg-neutral-700/50 border-neutral-600 text-white placeholder:text-neutral-400 focus:border-gray-600/50 focus:ring-1 focus:ring-gray-600/30"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
                   </div>
                   <Select value={statusFilter} onValueChange={setStatusFilter}>
-                    <SelectTrigger className="w-48 bg-slate-700/50 border-slate-600 text-white">
+                    <SelectTrigger className="w-48 bg-neutral-700/50 border-neutral-600 text-white">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -452,9 +452,9 @@ const ShipmentsPage = () => {
 
           {/* Pending & In-Transit Shipments Collapsible Section */}
           <Collapsible open={isPendingInTransitOpen} onOpenChange={setIsPendingInTransitOpen}>
-            <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 shadow-md overflow-hidden">
+            <Card className="bg-neutral-800/50 backdrop-blur-md border border-neutral-700/50 shadow-md overflow-hidden">
               <CollapsibleTrigger asChild>
-                <CardHeader className="pb-3 border-b border-slate-700 cursor-pointer hover:bg-slate-700/30 transition-colors">
+                <CardHeader className="pb-3 border-b border-neutral-700 cursor-pointer hover:bg-neutral-700/30 transition-colors">
                   <CardTitle className="text-lg flex items-center justify-between text-white">
                     <div className="flex items-center">
                       <div className="bg-yellow-500/20 p-1 rounded-md mr-2">
@@ -466,9 +466,9 @@ const ShipmentsPage = () => {
                       </Badge>
                     </div>
                     {isPendingInTransitOpen ? (
-                      <ChevronDown className="h-5 w-5 text-slate-400" />
+                      <ChevronDown className="h-5 w-5 text-neutral-400" />
                     ) : (
-                      <ChevronRight className="h-5 w-5 text-slate-400" />
+                      <ChevronRight className="h-5 w-5 text-neutral-400" />
                     )}
                   </CardTitle>
                 </CardHeader>
@@ -483,9 +483,9 @@ const ShipmentsPage = () => {
 
           {/* Received & Completed Shipments Collapsible Section */}
           <Collapsible open={isReceivedCompletedOpen} onOpenChange={setIsReceivedCompletedOpen}>
-            <Card className="bg-slate-800/50 backdrop-blur-md border border-slate-700/50 shadow-md overflow-hidden">
+            <Card className="bg-neutral-800/50 backdrop-blur-md border border-neutral-700/50 shadow-md overflow-hidden">
               <CollapsibleTrigger asChild>
-                <CardHeader className="pb-3 border-b border-slate-700 cursor-pointer hover:bg-slate-700/30 transition-colors">
+                <CardHeader className="pb-3 border-b border-neutral-700 cursor-pointer hover:bg-neutral-700/30 transition-colors">
                   <CardTitle className="text-lg flex items-center justify-between text-white">
                     <div className="flex items-center">
                       <div className="bg-emerald-500/20 p-1 rounded-md mr-2">
@@ -497,9 +497,9 @@ const ShipmentsPage = () => {
                       </Badge>
                     </div>
                     {isReceivedCompletedOpen ? (
-                      <ChevronDown className="h-5 w-5 text-slate-400" />
+                      <ChevronDown className="h-5 w-5 text-neutral-400" />
                     ) : (
-                      <ChevronRight className="h-5 w-5 text-slate-400" />
+                      <ChevronRight className="h-5 w-5 text-neutral-400" />
                     )}
                   </CardTitle>
                 </CardHeader>
