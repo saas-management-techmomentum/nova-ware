@@ -36,32 +36,32 @@ import {
 const AboutPage = () => {
   const coreFeatures = [
     {
-      icon: <Package className="h-8 w-8 text-indigo-400" />,
+      icon: <Package className="h-8 w-8 text-slate-400" />,
       title: "Advanced Inventory Management",
       description: "Real-time stock tracking with batch management, expiration date monitoring, barcode scanning, and automated low-stock alerts. Support for multiple pricing tiers and cost tracking."
     },
     {
-      icon: <BarChart3 className="h-8 w-8 text-indigo-400" />,
+      icon: <BarChart3 className="h-8 w-8 text-slate-400" />,
       title: "Comprehensive Analytics",
       description: "Built-in dashboard with warehouse efficiency metrics, order processing analytics, inventory accuracy tracking, and predictive inventory insights powered by machine learning."
     },
     {
-      icon: <Users className="h-8 w-8 text-indigo-400" />,
+      icon: <Users className="h-8 w-8 text-slate-400" />,
       title: "Multi-User Workflow Management",
       description: "Role-based access control with company and warehouse-level permissions. Task assignment, employee management, and collaborative order processing workflows."
     },
     {
-      icon: <MapPin className="h-8 w-8 text-indigo-400" />,
+      icon: <MapPin className="h-8 w-8 text-slate-400" />,
       title: "Smart Location Management",
       description: "Pallet-based location tracking with automatic optimization suggestions. Visual warehouse layout management and efficient pick path routing."
     },
     {
-      icon: <Truck className="h-8 w-8 text-indigo-400" />,
+      icon: <Truck className="h-8 w-8 text-slate-400" />,
       title: "Intelligent Shipping",
       description: "Automated shipment scheduling, receiving management, and real-time tracking. Integration-ready for major shipping carriers."
     },
     {
-      icon: <FileText className="h-8 w-8 text-indigo-400" />,
+      icon: <FileText className="h-8 w-8 text-slate-400" />,
       title: "Financial Integration",
       description: "Complete accounting integration with automatic journal entries, invoice generation, billing management, and financial reporting for warehouse operations."
     }
@@ -121,9 +121,9 @@ const AboutPage = () => {
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       {/* Animated background elements */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-indigo-500/5 rounded-full blur-3xl transform -translate-y-1/3 translate-x-1/4 animate-pulse"></div>
+        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-slate-500/5 rounded-full blur-3xl transform -translate-y-1/3 translate-x-1/4 animate-pulse"></div>
         <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-emerald-500/5 rounded-full blur-3xl transform translate-y-1/3 -translate-x-1/4 animate-pulse"></div>
-        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-indigo-500/3 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-slate-500/3 rounded-full blur-3xl animate-pulse"></div>
       </div>
 
       {/* Header */}
@@ -199,7 +199,7 @@ const AboutPage = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {coreFeatures.map((feature, index) => (
-                <Card key={index} className="bg-slate-800/40 border-slate-700 hover:bg-slate-800/60 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 group">
+                <Card key={index} className="bg-slate-800/40 border-slate-700 hover:bg-slate-800/60 transition-all duration-300 hover:shadow-xl hover:shadow-slate-500/10 group">
                   <CardHeader>
                     <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
                       {feature.icon}
@@ -230,7 +230,7 @@ const AboutPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <Card className="bg-slate-800/40 border-slate-700 text-center">
                 <CardHeader>
-                  <Database className="h-12 w-12 text-indigo-400 mx-auto mb-4" />
+                  <Database className="h-12 w-12 text-slate-400 mx-auto mb-4" />
                   <CardTitle className="text-white">Real-Time Database</CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -243,7 +243,7 @@ const AboutPage = () => {
               
               <Card className="bg-slate-800/40 border-slate-700 text-center">
                 <CardHeader>
-                  <Zap className="h-12 w-12 text-indigo-400 mx-auto mb-4" />
+                  <Zap className="h-12 w-12 text-slate-400 mx-auto mb-4" />
                   <CardTitle className="text-white">High Performance</CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -256,7 +256,7 @@ const AboutPage = () => {
               
               <Card className="bg-slate-800/40 border-slate-700 text-center">
                 <CardHeader>
-                  <Shield className="h-12 w-12 text-indigo-400 mx-auto mb-4" />
+                  <Shield className="h-12 w-12 text-slate-400 mx-auto mb-4" />
                   <CardTitle className="text-white">Enterprise Security</CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -285,7 +285,7 @@ const AboutPage = () => {
             <Accordion type="single" collapsible className="w-full">
               {faqs.map((faq, index) => (
                 <AccordionItem key={index} value={`item-${index}`} className="border-slate-700">
-                  <AccordionTrigger className="text-left text-lg font-medium text-white hover:text-indigo-400 transition-colors duration-200">
+                  <AccordionTrigger className="text-left text-lg font-medium text-white hover:text-slate-300 transition-colors duration-200">
                     {faq.question}
                   </AccordionTrigger>
                   <AccordionContent className="text-slate-300 leading-relaxed">
@@ -307,7 +307,7 @@ const AboutPage = () => {
               Experience the power of modern warehouse management with LogistiX's comprehensive platform.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button asChild size="lg" className="bg-indigo-600 text-white hover:bg-indigo-700 transition-all duration-200 hover:scale-105">
+              <Button asChild size="lg" className="bg-slate-800 text-white hover:bg-slate-700 transition-all duration-200 hover:scale-105">
                 <Link to="/app">Get Started Now</Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white transition-all duration-200">
@@ -322,7 +322,7 @@ const AboutPage = () => {
       <footer className="relative z-10 bg-slate-950 text-white py-8 px-6 border-t border-slate-800">
         <div className="max-w-7xl mx-auto text-center">
           <div className="flex items-center justify-center mb-4">
-            <Package className="h-6 w-6 text-indigo-400 mr-2" />
+            <Package className="h-6 w-6 text-slate-400 mr-2" />
             <div className="text-xl font-bold">LogistiX</div>
           </div>
           <div className="text-slate-400 text-sm">

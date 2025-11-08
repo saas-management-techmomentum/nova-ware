@@ -25,7 +25,7 @@ const pricingTiers = [
     description: 'Perfect for small businesses getting started',
     monthlyPrice: 299,
     yearlyPrice: 2990,
-    color: 'from-blue-600 to-indigo-600',
+    color: 'from-slate-700 to-slate-600',
     popular: false,
     features: [
       'Up to 500 SKUs',
@@ -49,7 +49,7 @@ const pricingTiers = [
     description: 'Ideal for growing businesses with advanced needs',
     monthlyPrice: 599,
     yearlyPrice: 5990,
-    color: 'from-purple-600 to-indigo-600',
+    color: 'from-slate-700 to-slate-600',
     popular: true,
     features: [
       'Up to 2,500 SKUs',
@@ -150,7 +150,7 @@ const Pricing = () => {
               onClick={() => setBillingCycle('monthly')}
               className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                 billingCycle === 'monthly' 
-                  ? 'bg-indigo-600 text-white' 
+                  ? 'bg-slate-800 text-white' 
                   : 'text-slate-300 hover:text-white'
               }`}
             >
@@ -160,7 +160,7 @@ const Pricing = () => {
               onClick={() => setBillingCycle('yearly')}
               className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                 billingCycle === 'yearly' 
-                  ? 'bg-indigo-600 text-white' 
+                  ? 'bg-slate-800 text-white' 
                   : 'text-slate-300 hover:text-white'
               }`}
             >
@@ -177,12 +177,12 @@ const Pricing = () => {
           {pricingTiers.map((tier) => (
             <Card 
               key={tier.id} 
-              className={`relative bg-slate-800/50 backdrop-blur-md border border-slate-700/50 shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/10 ${
-                tier.popular ? 'ring-2 ring-indigo-500/50' : ''
+              className={`relative bg-slate-800/50 backdrop-blur-md border border-slate-700/50 shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-500/10 ${
+                tier.popular ? 'ring-2 ring-slate-500/50' : ''
               }`}
             >
               {tier.popular && (
-                <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-center py-2 text-sm font-medium">
+                <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-slate-700 to-slate-600 text-white text-center py-2 text-sm font-medium">
                   <Star className="inline h-4 w-4 mr-1" />
                   Most Popular
                 </div>
