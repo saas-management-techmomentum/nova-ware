@@ -224,7 +224,7 @@ const LandingPage = () => {
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8">
               <Link to="/auth">
-                <Button size="lg" className="bg-slate-800 hover:bg-slate-700 text-white border-0 px-12 py-6 text-lg rounded-2xl font-semibold shadow-2xl transition-all duration-300 transform hover:scale-105">
+                <Button size="lg" className="bg-white hover:bg-slate-100 text-black border-0 px-12 py-6 text-lg rounded-2xl font-semibold shadow-2xl transition-all duration-300 transform hover:scale-105">
                   <Calendar className="mr-3 h-6 w-6" />
                   Request a Demo
                 </Button>
