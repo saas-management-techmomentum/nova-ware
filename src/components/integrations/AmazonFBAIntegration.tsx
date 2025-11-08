@@ -96,7 +96,7 @@ const AmazonFBAIntegration = () => {
         Connected
       </Badge>
     ) : (
-      <Badge variant="secondary" className="bg-slate-600 hover:bg-slate-700">
+      <Badge variant="secondary" className="bg-neutral-600 hover:bg-neutral-700">
         <AlertCircle className="w-3 h-3 mr-1" />
         Disconnected
       </Badge>
@@ -104,11 +104,11 @@ const AmazonFBAIntegration = () => {
   };
 
   return (
-    <Card className="bg-slate-800/50 border-slate-700">
+    <Card className="bg-neutral-800/50 border-neutral-700">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-slate-700 rounded-lg">
+            <div className="p-2 bg-neutral-700 rounded-lg">
               <Package className="w-6 h-6 text-gray-400" />
             </div>
             <div>
@@ -134,7 +134,7 @@ const AmazonFBAIntegration = () => {
               placeholder="A1BCDEF2GHIJKL"
               value={amazonConfig.sellerId}
               onChange={(e) => setAmazonConfig(prev => ({ ...prev, sellerId: e.target.value }))}
-              className="bg-slate-700 border-slate-600 text-white"
+              className="bg-neutral-700 border-neutral-600 text-white"
               disabled={amazonStatus.connected}
             />
           </div>
@@ -146,7 +146,7 @@ const AmazonFBAIntegration = () => {
               placeholder="ATVPDKIKX0DER (US)"
               value={amazonConfig.marketplaceId}
               onChange={(e) => setAmazonConfig(prev => ({ ...prev, marketplaceId: e.target.value }))}
-              className="bg-slate-700 border-slate-600 text-white"
+              className="bg-neutral-700 border-neutral-600 text-white"
               disabled={amazonStatus.connected}
             />
           </div>
@@ -158,7 +158,7 @@ const AmazonFBAIntegration = () => {
               placeholder="AKIA..."
               value={amazonConfig.accessKeyId}
               onChange={(e) => setAmazonConfig(prev => ({ ...prev, accessKeyId: e.target.value }))}
-              className="bg-slate-700 border-slate-600 text-white"
+              className="bg-neutral-700 border-neutral-600 text-white"
               disabled={amazonStatus.connected}
             />
           </div>
@@ -171,7 +171,7 @@ const AmazonFBAIntegration = () => {
               placeholder="Secret access key"
               value={amazonConfig.secretAccessKey}
               onChange={(e) => setAmazonConfig(prev => ({ ...prev, secretAccessKey: e.target.value }))}
-              className="bg-slate-700 border-slate-600 text-white"
+              className="bg-neutral-700 border-neutral-600 text-white"
               disabled={amazonStatus.connected}
             />
           </div>
@@ -183,7 +183,7 @@ const AmazonFBAIntegration = () => {
               placeholder="us-east-1"
               value={amazonConfig.region}
               onChange={(e) => setAmazonConfig(prev => ({ ...prev, region: e.target.value }))}
-              className="bg-slate-700 border-slate-600 text-white"
+              className="bg-neutral-700 border-neutral-600 text-white"
               disabled={amazonStatus.connected}
             />
           </div>
