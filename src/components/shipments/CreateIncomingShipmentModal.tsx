@@ -280,11 +280,11 @@ const CreateIncomingShipmentModal = ({ open, onOpenChange, onUpdate }: CreateInc
       case 'pending':
         return <Badge className="bg-amber-500/20 text-amber-300 border-amber-500/30">Pending</Badge>;
       case 'partially-received':
-        return <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30">On Route</Badge>;
+        return <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30">On Route</Badge>;
       case 'received':
         return <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/30">Received</Badge>;
       case 'inspected':
-        return <Badge className="bg-indigo-500/20 text-indigo-300 border-indigo-500/30">Inspected</Badge>;
+        return <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30">Inspected</Badge>;
       default:
         return <Badge className="bg-slate-500/20 text-slate-300 border-slate-500/30">{status}</Badge>;
     }
@@ -302,9 +302,9 @@ const CreateIncomingShipmentModal = ({ open, onOpenChange, onUpdate }: CreateInc
 
         {/* Show loading indicator when adding shipment */}
         {isAddingShipment && (
-          <div className="bg-blue-500/20 border border-blue-500/30 rounded-lg p-3 text-blue-300">
+          <div className="bg-gray-700/20 border border-gray-600/30 rounded-lg p-3 text-gray-300">
             <div className="flex items-center gap-2">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-300"></div>
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-300"></div>
               Adding shipment...
             </div>
           </div>

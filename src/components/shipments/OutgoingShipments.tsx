@@ -153,11 +153,11 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
         <CardHeader className="pb-3 border-b border-slate-700">
           <CardTitle className="text-lg flex items-center justify-between text-white">
             <div className="flex items-center">
-              <div className="bg-blue-500/20 p-1 rounded-md mr-2">
-                <Package2 className="h-5 w-5 text-blue-400" />
+              <div className="bg-gray-700/20 p-1 rounded-md mr-2">
+                <Package2 className="h-5 w-5 text-gray-400" />
               </div>
               Outgoing Shipments
-              <span className="ml-2 text-xs bg-blue-500/30 text-blue-200 py-0.5 px-2 rounded-full border border-blue-500/50">
+              <span className="ml-2 text-xs bg-gray-700/30 text-gray-300 py-0.5 px-2 rounded-full border border-gray-600/50">
                 {filteredShipments.length}
               </span>
             </div>
@@ -188,7 +188,7 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
                     <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
                     <Input
                       placeholder="Search by Order ID, Customer Name, or Tracking Number..."
-                      className="pl-9 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/30"
+                      className="pl-9 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-gray-600/50 focus:ring-1 focus:ring-gray-600/30"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -335,11 +335,11 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
                           {expandedShipments.has(shipment.id) && (
                             <TableRow className="border-slate-700">
                               <TableCell colSpan={11} className="p-0">
-                                <div className="bg-slate-700/20 border-l-2 border-blue-500/50 p-6 ml-6 space-y-6">
+                                <div className="bg-slate-700/20 border-l-2 border-gray-600/50 p-6 ml-6 space-y-6">
                                   {/* Shipment Items Section */}
                                   <div>
                                     <div className="flex items-center gap-2 mb-3">
-                                      <Package className="h-4 w-4 text-blue-400" />
+                                      <Package className="h-4 w-4 text-gray-400" />
                                       <span className="text-sm font-medium text-white">Shipment Items</span>
                                       <Badge variant="outline" className="text-xs bg-slate-600/50 text-slate-300 border-slate-500">
                                         {shipment.items?.length || 0} {(shipment.items?.length || 0) === 1 ? 'item' : 'items'}
@@ -350,16 +350,16 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
                                         {shipment.items.map((item, index) => (
                                           <div 
                                             key={item.id || index} 
-                                            className="bg-slate-600/30 rounded-lg p-3 border border-slate-600/50 hover:border-blue-500/30 transition-colors"
+                                            className="bg-slate-600/30 rounded-lg p-3 border border-slate-600/50 hover:border-gray-600/30 transition-colors"
                                           >
                                             <div className="flex items-center justify-between mb-2">
                                               <div className="flex items-center gap-2">
-                                                <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                                                <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
                                                <span className="text-sm font-medium text-white">
                                                  {item.name || item.sku}
                                                </span>
                                               </div>
-                                              <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30">
+                                              <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30">
                                                 Qty: {item.expected_qty}
                                               </Badge>
                                             </div>
@@ -375,7 +375,7 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
                                   {/* Shipment Details Section */}
                                   <div>
                                     <div className="flex items-center gap-2 mb-3">
-                                      <FileText className="h-4 w-4 text-blue-400" />
+                                      <FileText className="h-4 w-4 text-gray-400" />
                                       <span className="text-sm font-medium text-white">Shipment Details</span>
                                     </div>
                                     <div className="bg-slate-600/30 rounded-lg p-4 space-y-2">
@@ -389,12 +389,12 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
                                       </div>
                                       <div className="flex items-center justify-between">
                                         <span className="text-sm text-slate-400">Expected Ship Date:</span>
-                                        <span className="text-sm text-blue-300">{new Date(shipment.expected_date).toLocaleDateString()}</span>
+                                        <span className="text-sm text-gray-300">{new Date(shipment.expected_date).toLocaleDateString()}</span>
                                       </div>
                                       {shipment.tracking_number && (
                                         <div className="flex items-center justify-between">
                                           <span className="text-sm text-slate-400">Tracking Number:</span>
-                                          <span className="text-sm text-blue-300 font-mono">{shipment.tracking_number}</span>
+                                          <span className="text-sm text-gray-300 font-mono">{shipment.tracking_number}</span>
                                         </div>
                                       )}
                                       {shipment.customer_name && (

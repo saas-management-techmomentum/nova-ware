@@ -108,7 +108,7 @@ const ShipStationIntegration = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-slate-700 rounded-lg">
-              <Ship className="w-6 h-6 text-blue-400" />
+              <Ship className="w-6 h-6 text-gray-400" />
             </div>
             <div>
               <CardTitle className="text-white">ShipStation</CardTitle>
@@ -168,7 +168,7 @@ const ShipStationIntegration = () => {
           {!shipStationStatus.connected ? (
             <Button 
               onClick={handleShipStationConnect}
-              className="bg-blue-600 hover:bg-blue-700"
+              className="bg-gray-800 hover:bg-gray-900"
               disabled={isLoading}
             >
               {isLoading ? 'Connecting...' : 'Connect ShipStation'}

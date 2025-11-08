@@ -109,7 +109,7 @@ const AmazonFBAIntegration = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-slate-700 rounded-lg">
-              <Package className="w-6 h-6 text-indigo-400" />
+              <Package className="w-6 h-6 text-gray-400" />
             </div>
             <div>
               <CardTitle className="text-white">Amazon FBA Integration</CardTitle>
@@ -193,7 +193,7 @@ const AmazonFBAIntegration = () => {
           {!amazonStatus.connected ? (
             <Button 
               onClick={handleAmazonConnect}
-              className="bg-indigo-600 hover:bg-indigo-700"
+              className="bg-gray-800 hover:bg-gray-900"
             >
               Connect Amazon FBA
             </Button>

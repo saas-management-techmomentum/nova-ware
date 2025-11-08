@@ -103,7 +103,7 @@ const ShopifyIntegration = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-slate-700 rounded-lg">
-              <Globe className="w-6 h-6 text-indigo-400" />
+              <Globe className="w-6 h-6 text-gray-400" />
             </div>
             <div>
               <CardTitle className="text-white">Shopify Integration</CardTitle>
@@ -164,7 +164,7 @@ const ShopifyIntegration = () => {
           {!shopifyStatus.connected ? (
             <Button 
               onClick={handleShopifyConnect}
-              className="bg-indigo-600 hover:bg-indigo-700"
+              className="bg-gray-800 hover:bg-gray-900"
             >
               Connect Shopify
             </Button>

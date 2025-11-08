@@ -389,7 +389,7 @@ const OutgoingShipmentModal: React.FC<OutgoingShipmentModalProps> = ({
           <Button
             onClick={handleSave}
             disabled={isLoading}
-            className="bg-indigo-600 hover:bg-indigo-700"
+            className="bg-gray-800 hover:bg-gray-900"
           >
             {isLoading ? 'Saving...' : 'Save Changes'}
           </Button>
