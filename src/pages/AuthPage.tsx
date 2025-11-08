@@ -223,7 +223,7 @@ const AuthPage = () => {
                     
                     <Button 
                       type="submit" 
-                      className="w-full bg-cargo-blue hover:bg-cargo-lightBlue text-white" 
+                      className="w-full bg-slate-800 hover:bg-slate-700 text-white" 
                       disabled={isLoading}
                     >
                       {isLoading ? 'Signing In...' : 'Sign In'}
@@ -270,7 +270,7 @@ const AuthPage = () => {
                     
                     <Button 
                       type="submit" 
-                      className="w-full bg-cargo-blue hover:bg-cargo-lightBlue text-white" 
+                      className="w-full bg-slate-800 hover:bg-slate-700 text-white" 
                       disabled={isLoading}
                     >
                       {isLoading ? 'Sending Reset Email...' : 'Send Reset Email'}

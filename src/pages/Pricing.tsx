@@ -76,7 +76,7 @@ const pricingTiers = [
     description: 'For large operations requiring maximum flexibility',
     monthlyPrice: 1299,
     yearlyPrice: 12990,
-    color: 'from-emerald-600 to-teal-600',
+    color: 'from-slate-700 to-slate-600',
     popular: false,
     features: [
       'Unlimited SKUs',
@@ -165,7 +165,7 @@ const Pricing = () => {
               }`}
             >
               Yearly
-              <Badge variant="secondary" className="ml-2 bg-emerald-600 text-white">
+              <Badge variant="secondary" className="ml-2 bg-slate-700 text-slate-200">
                 Save 17%
               </Badge>
             </button>
@@ -205,7 +205,7 @@ const Pricing = () => {
                     </span>
                   </div>
                   {billingCycle === 'yearly' && (
-                    <p className="text-emerald-400 text-sm mt-1">
+                    <p className="text-slate-300 text-sm mt-1">
                       Save {getSavings(tier.monthlyPrice, tier.yearlyPrice)}% annually
                     </p>
                   )}
@@ -224,7 +224,7 @@ const Pricing = () => {
                   <ul className="space-y-2">
                     {tier.features.map((feature, index) => (
                       <li key={index} className="flex items-center text-slate-300">
-                        <Check className="h-4 w-4 text-emerald-400 mr-3 flex-shrink-0" />
+                        <Check className="h-4 w-4 text-slate-400 mr-3 flex-shrink-0" />
                         <span className="text-sm">{feature}</span>
                       </li>
                     ))}

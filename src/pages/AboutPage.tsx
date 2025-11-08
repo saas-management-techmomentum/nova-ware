@@ -69,22 +69,22 @@ const AboutPage = () => {
 
   const keyMetrics = [
     {
-      icon: <TrendingUp className="h-6 w-6 text-emerald-400" />,
+      icon: <TrendingUp className="h-6 w-6 text-slate-400" />,
       title: "Real-Time Analytics",
       description: "Live warehouse efficiency tracking with historical comparisons"
     },
     {
-      icon: <Clock className="h-6 w-6 text-emerald-400" />,
+      icon: <Clock className="h-6 w-6 text-slate-400" />,
       title: "Workflow Automation",
       description: "Automated order processing with step-by-step workflow tracking"
     },
     {
-      icon: <Target className="h-6 w-6 text-emerald-400" />,
+      icon: <Target className="h-6 w-6 text-slate-400" />,
       title: "Predictive Insights",
       description: "AI-powered inventory forecasting and demand prediction"
     },
     {
-      icon: <Shield className="h-6 w-6 text-emerald-400" />,
+      icon: <Shield className="h-6 w-6 text-slate-400" />,
       title: "Enterprise Security",
       description: "Row-level security with multi-tenant architecture"
     }
@@ -122,7 +122,7 @@ const AboutPage = () => {
       {/* Animated background elements */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-slate-500/5 rounded-full blur-3xl transform -translate-y-1/3 translate-x-1/4 animate-pulse"></div>
-        <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-emerald-500/5 rounded-full blur-3xl transform translate-y-1/3 -translate-x-1/4 animate-pulse"></div>
+        <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-slate-500/5 rounded-full blur-3xl transform translate-y-1/3 -translate-x-1/4 animate-pulse"></div>
         <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-slate-500/3 rounded-full blur-3xl animate-pulse"></div>
       </div>
 
