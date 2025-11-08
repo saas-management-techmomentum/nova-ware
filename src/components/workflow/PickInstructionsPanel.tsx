@@ -91,9 +91,9 @@ const PickInstructionsPanel: React.FC<PickInstructionsPanelProps> = ({
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="text-sm flex items-center">
-            <Package className="h-4 w-4 mr-2 text-blue-400" />
+            <Package className="h-4 w-4 mr-2 text-gray-400" />
             Pick Instructions
-            <Badge className="ml-2 bg-blue-500/20 text-blue-300 border-blue-500/30">
+            <Badge className="ml-2 bg-gray-700/20 text-gray-300 border-gray-600/30">
               {status.completed} / {status.total}
             </Badge>
           </CardTitle>
@@ -158,7 +158,7 @@ const PickInstructionsPanel: React.FC<PickInstructionsPanelProps> = ({
                     {instruction.picked ? (
                       <CheckCircle className="h-4 w-4 text-green-400" />
                     ) : (
-                      <Package className="h-4 w-4 text-blue-400" />
+                      <Package className="h-4 w-4 text-gray-400" />
                     )}
                     <div>
                       <div className="font-medium text-white text-sm">

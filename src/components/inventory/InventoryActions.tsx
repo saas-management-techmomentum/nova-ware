@@ -269,7 +269,7 @@ const InventoryActions: React.FC<InventoryActionsProps> = ({ item, onUpdate, onD
             <div className="grid grid-cols-4 items-center gap-4">
               <Label className="text-right font-medium">Case Price:</Label>
               <div className="col-span-3 flex items-center">
-                <DollarSign className="h-4 w-4 text-blue-600 mr-1" />
+                <DollarSign className="h-4 w-4 text-gray-500 mr-1" />
                 {formatCurrency(item.case_price || 0)}
               </div>
             </div>
@@ -298,7 +298,7 @@ const InventoryActions: React.FC<InventoryActionsProps> = ({ item, onUpdate, onD
           <DialogFooter>
             <Button 
               onClick={() => setViewDetailsOpen(false)}
-              className="bg-cargo-blue hover:bg-cargo-darkBlue"
+              className="bg-gray-800 hover:bg-gray-900"
             >
               Close
             </Button>
@@ -384,10 +384,10 @@ const InventoryActions: React.FC<InventoryActionsProps> = ({ item, onUpdate, onD
             </div>
             {item.casesize && (
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label className="text-right text-sm text-blue-600">
+                <Label className="text-right text-sm text-gray-500">
                   Case Size:
                 </Label>
-                <div className="col-span-3 text-sm text-blue-600 font-medium">
+                <div className="col-span-3 text-sm text-gray-500 font-medium">
                   {item.casesize} units per case
                 </div>
               </div>
@@ -473,7 +473,7 @@ const InventoryActions: React.FC<InventoryActionsProps> = ({ item, onUpdate, onD
             </Button>
             <Button 
               onClick={handleSaveProductDetails}
-              className="bg-cargo-blue hover:bg-cargo-darkBlue"
+              className="bg-gray-800 hover:bg-gray-900"
             >
               Save Changes
             </Button>
@@ -513,7 +513,7 @@ const InventoryActions: React.FC<InventoryActionsProps> = ({ item, onUpdate, onD
             </Button>
             <Button 
               onClick={handleSaveStock}
-              className="bg-cargo-blue hover:bg-cargo-darkBlue"
+              className="bg-gray-800 hover:bg-gray-900"
             >
               Update Stock
             </Button>

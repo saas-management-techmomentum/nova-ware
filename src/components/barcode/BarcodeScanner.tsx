@@ -46,7 +46,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
           title: 'Product Lookup',
           icon: Search,
           description: 'Scan to find product information',
-          color: 'bg-blue-500'
+          color: 'bg-gray-500'
         };
       case 'receiving':
         return {
@@ -143,7 +143,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center text-white">
-              <ModeIcon className="h-5 w-5 mr-2 text-indigo-400" />
+              <ModeIcon className="h-5 w-5 mr-2 text-gray-400" />
               {modeConfig.title}
             </CardTitle>
             <Button
@@ -182,7 +182,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
                   playsInline
                   className="w-full h-48 bg-black rounded-lg"
                 />
-                <div className="absolute inset-0 border-2 border-dashed border-indigo-400 rounded-lg flex items-center justify-center">
+                <div className="absolute inset-0 border-2 border-dashed border-gray-500 rounded-lg flex items-center justify-center">
                   <div className="bg-black/70 text-white px-3 py-1 rounded text-sm">
                     Position barcode in frame
                   </div>
@@ -206,7 +206,7 @@ const BarcodeScanner: React.FC<BarcodeScannerProps> = ({
               <Button
                 onClick={handleManualSubmit}
                 disabled={!manualBarcode.trim()}
-                className="bg-indigo-600 hover:bg-indigo-700 px-4"
+                className="bg-gray-800 hover:bg-gray-900 px-4"
               >
                 <Scan className="h-4 w-4" />
               </Button>

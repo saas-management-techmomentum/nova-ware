@@ -161,7 +161,7 @@ const OrderWorkflowPanel: React.FC<OrderWorkflowPanelProps> = ({ orderId, onStat
 
   const getStepColor = (step: WorkflowStep) => {
     if (step.status === 'completed') return 'text-emerald-400';
-    if (step.status === 'in-progress') return 'text-indigo-400';
+    if (step.status === 'in-progress') return 'text-gray-400';
     return 'text-slate-400';
   };
 
@@ -177,7 +177,7 @@ const OrderWorkflowPanel: React.FC<OrderWorkflowPanelProps> = ({ orderId, onStat
             <Button
               onClick={handleStartWorkflow}
               size="sm"
-              className="bg-indigo-600 hover:bg-indigo-700"
+              className="bg-gray-800 hover:bg-gray-900"
               disabled={isStarting || hasExistingWorkflow}
             >
               {isStarting ? (
@@ -199,7 +199,7 @@ const OrderWorkflowPanel: React.FC<OrderWorkflowPanelProps> = ({ orderId, onStat
         <CardHeader className="pb-3">
           <CardTitle className="text-sm flex items-center justify-between">
             <div className="flex items-center">
-              <Package className="h-4 w-4 mr-2 text-indigo-400" />
+              <Play className="h-4 w-4 mr-2 text-gray-400" />
               Pick/Pack/Ship Workflow
               {workflow.completedAt && (
                 <Badge className="ml-2 bg-emerald-500/20 text-emerald-300 border-emerald-500/30">
@@ -217,7 +217,7 @@ const OrderWorkflowPanel: React.FC<OrderWorkflowPanelProps> = ({ orderId, onStat
             <Progress 
               value={getProgressPercentage(workflow)} 
               className="h-2 bg-slate-600" 
-              indicatorClassName="bg-gradient-to-r from-indigo-500 to-emerald-500" 
+              indicatorClassName="bg-gradient-to-r from-gray-700 to-emerald-500" 
             />
           </div>
 
@@ -306,7 +306,7 @@ const OrderWorkflowPanel: React.FC<OrderWorkflowPanelProps> = ({ orderId, onStat
                               {step.roleRequired}
                             </Badge>
                             {step.assignedTo && (
-                              <Badge variant="outline" className="text-xs h-4 px-1 border-blue-400 text-blue-400">
+                              <Badge variant="outline" className="text-xs h-4 px-1 border-gray-500 text-gray-400">
                                 assigned
                               </Badge>
                             )}
@@ -329,7 +329,7 @@ const OrderWorkflowPanel: React.FC<OrderWorkflowPanelProps> = ({ orderId, onStat
                           </>
                         )}
                         {step.status === 'in-progress' && step.startedAt && (
-                          <span className="text-indigo-400">
+                          <span className="text-gray-400">
                             In progress: {Math.round((Date.now() - new Date(step.startedAt).getTime()) / 60000)}m
                           </span>
                         )}
@@ -357,7 +357,7 @@ const OrderWorkflowPanel: React.FC<OrderWorkflowPanelProps> = ({ orderId, onStat
                         <Button
                           onClick={() => handleCompleteStep(step.id, step.name)}
                           size="sm"
-                          className="h-6 px-3 bg-indigo-600 hover:bg-indigo-700"
+                          className="h-6 px-3 bg-gray-800 hover:bg-gray-900"
                         >
                           Complete
                         </Button>

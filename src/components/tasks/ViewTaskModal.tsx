@@ -36,7 +36,7 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({
       case 'completed':
         return <CheckCircle2 className="h-5 w-5 text-green-500" />;
       case 'in_progress':
-        return <Clock className="h-5 w-5 text-blue-500" />;
+        return <Clock className="h-5 w-5 text-gray-500" />;
       case 'cancelled':
         return <XCircle className="h-5 w-5 text-red-500" />;
       default:
@@ -64,7 +64,7 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = ({
       case 'completed':
         return 'bg-green-500/20 text-green-300 border-green-500/30';
       case 'in_progress':
-        return 'bg-blue-500/20 text-blue-300 border-blue-500/30';
+        return 'bg-gray-700/20 text-gray-300 border-gray-600/30';
       case 'cancelled':
         return 'bg-red-500/20 text-red-300 border-red-500/30';
       default:
