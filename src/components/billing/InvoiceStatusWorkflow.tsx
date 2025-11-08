@@ -23,7 +23,7 @@ export const InvoiceStatusWorkflow = () => {
     {
       status: 'approved',
       label: 'Approved',
-      color: 'bg-blue-500',
+      color: 'bg-gray-700',
       icon: CheckCircle,
       description: 'Order created for Net Terms clients'
     },
@@ -66,7 +66,7 @@ export const InvoiceStatusWorkflow = () => {
         <div className="mt-4 p-3 bg-slate-700/30 rounded-lg">
           <div className="text-xs text-slate-300 space-y-1">
             <div>• <span className="text-purple-400">Sent:</span> Inventory automatically reduced</div>
-            <div>• <span className="text-blue-400">Approved:</span> Order created for clients with Net Terms</div>
+            <div>• <span className="text-gray-400">Approved:</span> Order created for clients with Net Terms</div>
             <div>• <span className="text-green-400">Paid:</span> Order created for immediate payment clients</div>
             <div>• <span className="text-red-400">Cancelled:</span> Inventory restored if previously reduced</div>
           </div>

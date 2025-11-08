@@ -36,7 +36,7 @@ export const InvoiceViewDialog: React.FC<InvoiceViewDialogProps> = ({
       case 'paid':
         return 'bg-green-500 text-white';
       case 'sent':
-        return 'bg-blue-500 text-white';
+        return 'bg-gray-700 text-white';
       case 'overdue':
         return 'bg-red-500 text-white';
       case 'draft':

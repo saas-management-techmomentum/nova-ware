@@ -177,8 +177,8 @@ export const CompanyBrandingEditor: React.FC<CompanyBrandingEditorProps> = ({
         design_config: JSON.stringify({
           company: companyInfo,
           colors: {
-            primary: '#3b82f6',
-            accent: '#1e40af'
+            primary: '#6b7280',
+            accent: '#4b5563'
           }
         }),
         is_default: templates.length === 0, // First template becomes default
@@ -249,7 +249,7 @@ export const CompanyBrandingEditor: React.FC<CompanyBrandingEditorProps> = ({
           </div>
         </div>
         <div className="text-right">
-          <h2 className="text-3xl font-bold text-blue-600">INVOICE</h2>
+          <h2 className="text-3xl font-bold text-gray-600">INVOICE</h2>
           <p className="text-sm text-gray-500">#INV-001</p>
         </div>
       </div>

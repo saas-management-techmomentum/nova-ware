@@ -13,7 +13,7 @@ export const InvoiceStatusBadge: React.FC<InvoiceStatusBadgeProps> = ({ status, 
       case 'paid':
         return { color: 'bg-green-500 text-white', label: 'Paid' };
       case 'approved':
-        return { color: 'bg-blue-500 text-white', label: 'Approved' };
+        return { color: 'bg-gray-700 text-white', label: 'Approved' };
       case 'sent':
         return { color: 'bg-purple-500 text-white', label: 'Sent' };
       case 'overdue':

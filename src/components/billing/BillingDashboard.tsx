@@ -138,7 +138,7 @@ export const BillingDashboard: React.FC<BillingDashboardProps> = ({ totalStockVa
             <CardTitle className="text-sm font-medium text-slate-400">Total Revenue</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-indigo-400">
+            <div className="text-2xl font-bold text-gray-400">
               {formatCurrency(orderProfitMetrics.totalOrderRevenue)}
             </div>
             <p className="text-xs text-slate-500 flex items-center mt-1">
@@ -217,7 +217,7 @@ export const BillingDashboard: React.FC<BillingDashboardProps> = ({ totalStockVa
         <Card className="bg-slate-800/50 border-slate-700">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-slate-300">Collection Rate</CardTitle>
-            <TrendingUp className="h-4 w-4 text-blue-400" />
+            <TrendingUp className="h-4 w-4 text-gray-400" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-white">{collectionRate.toFixed(1)}%</div>
@@ -231,7 +231,7 @@ export const BillingDashboard: React.FC<BillingDashboardProps> = ({ totalStockVa
         <Card className="bg-slate-800/50 border-slate-700">
           <CardHeader>
             <CardTitle className="text-white flex items-center">
-              <FileText className="h-5 w-5 mr-2 text-indigo-400" />
+              <FileText className="h-5 w-5 mr-2 text-gray-400" />
               Recent Invoices
             </CardTitle>
           </CardHeader>
