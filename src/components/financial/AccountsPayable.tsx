@@ -403,7 +403,7 @@ export const AccountsPayable: React.FC = () => {
           <Card className="bg-slate-900/60 backdrop-blur-sm border border-slate-700/50">
             <CardHeader>
               <CardTitle className="text-white flex items-center gap-2">
-                <BarChart3 className="h-5 w-5 text-blue-400" />
+                <BarChart3 className="h-5 w-5 text-gray-400" />
                 AP Aging Report
               </CardTitle>
               <CardDescription className="text-slate-400">

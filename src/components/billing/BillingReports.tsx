@@ -38,7 +38,7 @@ export const BillingReports = () => {
     { service: 'Receiving', value: invoices.filter(i => i.notes?.includes('receiving')).reduce((sum, i) => sum + i.total_amount, 0) || 150 }
   ].filter(item => item.value > 0);
 
-  const COLORS = ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981'];
+  const COLORS = ['#6b7280', '#9ca3af', '#ec4899', '#f59e0b', '#10b981'];
 
   if (isLoading) {
     return <div className="text-white">Loading billing reports...</div>;
@@ -48,11 +48,11 @@ export const BillingReports = () => {
     <div className="space-y-6">
       {/* Corporate Overview Banner */}
       {isInCorporateOverview && (
-        <Card className="bg-indigo-900/20 border-indigo-700/50">
+        <Card className="bg-slate-800/50 border-slate-700">
           <CardContent className="p-4">
             <div className="flex items-center space-x-2">
-              <Building className="h-5 w-5 text-indigo-400" />
-              <span className="text-indigo-300 font-medium">Corporate Overview</span>
+              <Building className="h-5 w-5 text-slate-400" />
+              <span className="text-slate-300 font-medium">Corporate Overview</span>
               <span className="text-slate-400">•</span>
               <span className="text-slate-300">Consolidated billing reports across all warehouses</span>
             </div>
@@ -91,7 +91,7 @@ export const BillingReports = () => {
         <Card className="bg-slate-800/50 border-slate-700">
           <CardHeader>
             <CardTitle className="text-white flex items-center">
-              <BarChart3 className="h-5 w-5 mr-2 text-indigo-400" />
+              <BarChart3 className="h-5 w-5 mr-2 text-gray-400" />
               Monthly Revenue
               {isInCorporateOverview && (
                 <span className="ml-2 text-sm text-slate-400">(All Warehouses)</span>
@@ -112,7 +112,7 @@ export const BillingReports = () => {
                       borderRadius: '8px'
                     }}
                   />
-                  <Bar dataKey="revenue" fill="#6366f1" />
+                  <Bar dataKey="revenue" fill="#6b7280" />
                 </BarChart>
               </ResponsiveContainer>
             ) : (

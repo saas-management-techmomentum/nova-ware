@@ -184,7 +184,7 @@ const EditClientDialog: React.FC<EditClientDialogProps> = ({ client, isOpen, onC
       <DialogContent className="bg-slate-900 border-slate-800 text-white max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-xl text-white flex items-center gap-2">
-            <Building className="h-5 w-5 text-indigo-400" />
+            <Building className="h-5 w-5 text-slate-400" />
             Edit Client
           </DialogTitle>
           <DialogDescription className="text-slate-400">
@@ -334,7 +334,7 @@ const EditClientDialog: React.FC<EditClientDialogProps> = ({ client, isOpen, onC
                   href={client.resale_certificate_url as string} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-indigo-400 hover:text-indigo-300 underline text-sm"
+                  className="text-slate-400 hover:text-slate-300 underline text-sm"
                 >
                   View current certificate
                 </a>
@@ -349,14 +349,14 @@ const EditClientDialog: React.FC<EditClientDialogProps> = ({ client, isOpen, onC
                   type="file"
                   accept=".pdf,.jpg,.jpeg,.png"
                   onChange={handleFileChange}
-                  className="bg-slate-800 border-slate-700 text-white file:bg-indigo-600 file:text-white file:border-0 file:rounded file:px-3 file:py-1"
+                  className="bg-slate-800 border-slate-700 text-white file:bg-gray-700 file:text-white file:border-0 file:rounded file:px-3 file:py-1"
                 />
                 <p className="text-xs text-slate-400 mt-1">Supported formats: PDF, JPG, PNG (max 10MB)</p>
               </div>
               
               {resaleFile && (
                 <div className="mt-2 flex items-center gap-2 p-2 bg-slate-800 rounded border border-slate-700">
-                  <Upload className="h-4 w-4 text-indigo-400" />
+                  <Upload className="h-4 w-4 text-slate-400" />
                   <span className="text-sm text-white">{resaleFile.name}</span>
                   <Button 
                     variant="ghost" 
@@ -384,7 +384,7 @@ const EditClientDialog: React.FC<EditClientDialogProps> = ({ client, isOpen, onC
           <Button 
             onClick={handleSubmit}
             disabled={isLoading}
-            className="bg-indigo-600 hover:bg-indigo-700"
+            className="bg-gray-800 hover:bg-gray-900"
           >
             {isLoading ? 'Updating...' : 'Update Client'}
           </Button>

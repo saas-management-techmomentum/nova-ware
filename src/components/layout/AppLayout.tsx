@@ -13,8 +13,8 @@ const AppLayout = () => {
         {/* Improved background elements */}
         <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
           {/* Subtle glow effects */}
-          <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-indigo-500/10 rounded-full blur-3xl transform -translate-y-1/3 translate-x-1/4 opacity-30"></div>
-          <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-sky-500/10 rounded-full blur-3xl transform translate-y-1/3 -translate-x-1/4 opacity-30"></div>
+          <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-slate-700/10 rounded-full blur-3xl transform -translate-y-1/3 translate-x-1/4 opacity-30"></div>
+          <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-slate-700/10 rounded-full blur-3xl transform translate-y-1/3 -translate-x-1/4 opacity-30"></div>
           <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl opacity-20"></div>
           
           {/* Grid overlay - subtle and elegant */}
@@ -22,9 +22,9 @@ const AppLayout = () => {
           
           {/* Horizontal lines */}
           <div className="absolute inset-0">
-            <div className="h-px w-full bg-gradient-to-r from-transparent via-indigo-500/10 to-transparent absolute top-1/4"></div>
-            <div className="h-px w-full bg-gradient-to-r from-transparent via-indigo-500/7 to-transparent absolute top-2/4"></div>
-            <div className="h-px w-full bg-gradient-to-r from-transparent via-indigo-500/10 to-transparent absolute top-3/4"></div>
+            <div className="h-px w-full bg-gradient-to-r from-transparent via-slate-600/10 to-transparent absolute top-1/4"></div>
+            <div className="h-px w-full bg-gradient-to-r from-transparent via-slate-600/7 to-transparent absolute top-2/4"></div>
+            <div className="h-px w-full bg-gradient-to-r from-transparent via-slate-600/10 to-transparent absolute top-3/4"></div>
           </div>
         </div>
         

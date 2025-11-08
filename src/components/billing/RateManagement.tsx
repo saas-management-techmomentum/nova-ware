@@ -87,7 +87,7 @@ export const RateManagement = () => {
         <Card className="bg-slate-800/50 border-slate-700">
           <CardHeader>
             <CardTitle className="text-white flex items-center">
-              <Plus className="h-5 w-5 mr-2 text-indigo-400" />
+              <Plus className="h-5 w-5 mr-2 text-slate-400" />
               Add New Rate
             </CardTitle>
           </CardHeader>
@@ -138,7 +138,7 @@ export const RateManagement = () => {
             </div>
 
             <div className="flex justify-end">
-              <Button onClick={handleAddRate} className="bg-indigo-600 hover:bg-indigo-700">
+              <Button onClick={handleAddRate} className="bg-gray-800 hover:bg-gray-900">
                 <Plus className="h-4 w-4 mr-2" />
                 Add Rate
               </Button>
@@ -193,7 +193,7 @@ export const RateManagement = () => {
                     const input = document.querySelector('input[placeholder="Rate Amount"]') as HTMLInputElement;
                     input?.focus();
                   }} 
-                  className="bg-indigo-600 hover:bg-indigo-700"
+                  className="bg-gray-800 hover:bg-gray-900"
                 >
                   <Plus className="h-4 w-4 mr-2" />
                   Add First Rate

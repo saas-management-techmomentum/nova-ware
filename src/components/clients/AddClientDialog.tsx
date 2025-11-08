@@ -223,7 +223,7 @@ export const AddClientDialog: React.FC<AddClientDialogProps> = ({
             </Button>
             <Button
               type="submit"
-              className="bg-indigo-600 hover:bg-indigo-700 text-white"
+              className="bg-gray-800 hover:bg-gray-900 text-white"
             >
               Add Client
             </Button>

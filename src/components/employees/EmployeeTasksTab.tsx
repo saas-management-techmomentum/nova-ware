@@ -277,7 +277,7 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
           <div className="flex items-center gap-4">
             <Avatar className="h-12 w-12">
               <AvatarImage src={employees.find(emp => emp.id === selectedTab)?.avatar_url} />
-              <AvatarFallback className="bg-indigo-600 text-white">
+              <AvatarFallback className="bg-slate-700 text-white">
                 {employees.find(emp => emp.id === selectedTab)?.initials}
               </AvatarFallback>
             </Avatar>

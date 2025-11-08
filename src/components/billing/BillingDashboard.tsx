@@ -104,11 +104,11 @@ export const BillingDashboard: React.FC<BillingDashboardProps> = ({ totalStockVa
     <div className="space-y-6">
       {/* Corporate Overview Banner */}
       {isInCorporateOverview && (
-        <Card className="bg-indigo-900/20 border-indigo-700/50">
+        <Card className="bg-slate-800/50 border-slate-700">
           <CardContent className="p-4">
             <div className="flex items-center space-x-2">
-              <Building className="h-5 w-5 text-indigo-400" />
-              <span className="text-indigo-300 font-medium">Corporate Overview</span>
+              <Building className="h-5 w-5 text-slate-400" />
+              <span className="text-slate-300 font-medium">Corporate Overview</span>
               <span className="text-slate-400">•</span>
               <span className="text-slate-300">Consolidated billing data across all warehouses</span>
             </div>

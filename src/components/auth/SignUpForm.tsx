@@ -263,7 +263,7 @@ const SignUpForm = ({ onTabChange }: SignUpFormProps) => {
           </div>
         </div>
         
-        <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700" disabled={isLoading}>
+        <Button type="submit" className="w-full bg-gray-800 hover:bg-gray-900" disabled={isLoading}>
           {isLoading ? "Creating Admin Account..." : "Create Admin Account"}
         </Button>
       </form>

@@ -226,7 +226,7 @@ const AppSidebar = () => {
 
   const getSelectionIcon = () => {
     if (!selectedWarehouse) {
-      return isUserAdmin ? <Globe className="h-4 w-4 text-indigo-400" /> : <Building2 className="h-4 w-4 text-emerald-400" />;
+      return isUserAdmin ? <Globe className="h-4 w-4 text-slate-400" /> : <Building2 className="h-4 w-4 text-emerald-400" />;
     }
     return <Building2 className="h-4 w-4 text-emerald-400" />;
   };
@@ -259,7 +259,7 @@ const AppSidebar = () => {
                         {getSelectionIcon()}
                         <span className="text-sm font-medium">{getCurrentSelectionText()}</span>
                         {isUserAdmin && !selectedWarehouse && (
-                          <Shield className="h-3 w-3 text-indigo-400" />
+                          <Shield className="h-3 w-3 text-slate-400" />
                         )}
                       </div>
                       <ChevronDown className="h-4 w-4" />
@@ -275,7 +275,7 @@ const AppSidebar = () => {
                           onClick={() => handleWarehouseChange(null)}
                           className="flex items-center gap-2 hover:bg-slate-700/50 focus:bg-slate-700/50"
                         >
-                          <Globe className="h-4 w-4 text-indigo-400" />
+                          <Globe className="h-4 w-4 text-slate-400" />
                           <div className="flex flex-col">
                             <span className="font-medium">Corporate Overview</span>
                             <span className="text-xs text-slate-400">All warehouses & data</span>
@@ -371,15 +371,15 @@ const AppSidebar = () => {
                         to={item.path}
                         className={`transition-all duration-200 ${
                           location.pathname === item.path 
-                            ? 'bg-gradient-to-r from-indigo-500/20 to-transparent text-white border-l-2 border-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.2)] backdrop-blur-sm'
+                            ? 'bg-gradient-to-r from-slate-600/20 to-transparent text-white border-l-2 border-slate-600 shadow-[0_0_10px_rgba(107,114,128,0.2)] backdrop-blur-sm'
                             : 'hover:bg-slate-800 border-l-2 border-transparent text-slate-300 hover:text-white'
                         }`}
                       >
-                        <item.icon className={`w-5 h-5 ${location.pathname === item.path ? 'text-indigo-400' : ''}`} />
+                        <item.icon className={`w-5 h-5 ${location.pathname === item.path ? 'text-slate-400' : ''}`} />
                         <span>{item.title}</span>
                         
                         {location.pathname === item.path && (
-                          <span className="ml-auto h-1.5 w-1.5 rounded-full bg-indigo-500 shadow-[0_0_5px_rgba(99,102,241,0.7)]"></span>
+                          <span className="ml-auto h-1.5 w-1.5 rounded-full bg-slate-600 shadow-[0_0_5px_rgba(107,114,128,0.7)]"></span>
                         )}
                       </Link>
                     </SidebarMenuButton>

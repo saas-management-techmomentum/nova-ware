@@ -265,7 +265,7 @@ const UserManagement: React.FC = () => {
               <SelectContent className="bg-slate-800 border-slate-700">
                 <SelectItem value="admin">
                   <div className="flex items-center gap-2">
-                    <Shield className="h-4 w-4 text-indigo-400" />
+                    <Shield className="h-4 w-4 text-slate-400" />
                     Admin
                   </div>
                 </SelectItem>
@@ -277,7 +277,7 @@ const UserManagement: React.FC = () => {
             <Button 
               onClick={handleAssignToCompany}
               disabled={loading || !selectedUser || !selectedCompany}
-              className="bg-indigo-600 hover:bg-indigo-700"
+              className="bg-gray-800 hover:bg-gray-900"
             >
               <Plus className="h-4 w-4 mr-2" />
               Assign

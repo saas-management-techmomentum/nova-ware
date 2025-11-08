@@ -158,7 +158,7 @@ const AppHeader = () => {
                 <Button variant="ghost" className="h-10 px-2 rounded-full border border-slate-700 bg-slate-800/50">
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={user?.user_metadata?.avatar_url} />
-                    <AvatarFallback className="bg-indigo-600 text-white text-sm">
+                    <AvatarFallback className="bg-slate-700 text-white text-sm">
                       {getUserInitials()}
                     </AvatarFallback>
                   </Avatar>
