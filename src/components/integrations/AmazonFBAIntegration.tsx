@@ -193,7 +193,7 @@ const AmazonFBAIntegration = () => {
           {!amazonStatus.connected ? (
             <Button 
               onClick={handleAmazonConnect}
-              className="bg-gray-800 hover:bg-gray-900"
+              className="bg-white text-black hover:bg-neutral-200"
             >
               Connect Amazon FBA
             </Button>
