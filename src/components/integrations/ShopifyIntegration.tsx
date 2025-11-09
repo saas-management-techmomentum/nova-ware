@@ -164,7 +164,7 @@ const ShopifyIntegration = () => {
           {!shopifyStatus.connected ? (
             <Button 
               onClick={handleShopifyConnect}
-              className="bg-gray-800 hover:bg-gray-900"
+              className="bg-white text-black hover:bg-neutral-200"
             >
               Connect Shopify
             </Button>
