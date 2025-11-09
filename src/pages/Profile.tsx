@@ -543,7 +543,7 @@ const Profile = () => {
                   </div>
                   
                   <div className="flex gap-3 pt-4">
-                    <Button variant="default" onClick={handleSave} className="bg-gray-800 hover:bg-gray-900">
+                    <Button variant="default" onClick={handleSave} className="bg-white text-black hover:bg-neutral-200">
                       Save Changes
                     </Button>
                     <Button variant="outline" onClick={handleCancel} className="border-neutral-600 text-neutral-300 hover:bg-neutral-700">
@@ -563,7 +563,7 @@ const Profile = () => {
                   <Separator className="bg-neutral-700" />
                   
                   <div className="pt-2">
-                    <Button variant="default" onClick={handleEdit} className="bg-gray-800 hover:bg-gray-900">
+                    <Button variant="default" onClick={handleEdit} className="bg-white text-black hover:bg-neutral-200">
                       Edit Profile
                     </Button>
                   </div>
