@@ -352,7 +352,7 @@ const Profile = () => {
       case 'staff':
         return 'bg-green-500/20 text-green-300 border-green-500/30';
       default:
-        return 'bg-slate-500/20 text-slate-300 border-slate-500/30';
+        return 'bg-neutral-500/20 text-neutral-300 border-neutral-500/30';
     }
   };
 
@@ -371,11 +371,11 @@ const Profile = () => {
     return (
       <div className="w-full py-8 text-white">
         <h1 className="text-3xl font-bold mb-6">My Profile</h1>
-        <Card className="bg-slate-800 border-slate-700 text-white">
+        <Card className="bg-neutral-800 border-neutral-700 text-white">
           <CardContent className="p-6">
             <div className="text-center">
-              <p className="text-slate-400 mb-4">Your profile information is not yet available.</p>
-              <p className="text-sm text-slate-500">
+              <p className="text-neutral-400 mb-4">Your profile information is not yet available.</p>
+              <p className="text-sm text-neutral-500">
                 This might be because your account setup is incomplete. Please contact support if this issue persists.
               </p>
             </div>
@@ -391,14 +391,14 @@ const Profile = () => {
       
       <div className="grid gap-8 lg:grid-cols-[400px_1fr] xl:grid-cols-[450px_1fr]">
         {/* Left column - Enhanced Profile card */}
-        <Card className="bg-slate-800 border-slate-700 text-white overflow-hidden h-fit">
+        <Card className="bg-neutral-800 border-neutral-700 text-white overflow-hidden h-fit">
           <div className="bg-gradient-to-r from-gray-700 via-gray-600 to-gray-500 h-32 relative">
             <div className="absolute inset-0 bg-black/20"></div>
           </div>
           <div className="px-6 pb-6">
             <div className="flex justify-center -mt-16 mb-6 relative">
               <div className="relative">
-                <Avatar className="h-32 w-32 border-4 border-slate-800 shadow-xl">
+                <Avatar className="h-32 w-32 border-4 border-neutral-800 shadow-xl">
                   <AvatarImage src={userData.avatarUrl} />
                   <AvatarFallback className="bg-gray-700 text-2xl">
                     {userData.name.split(' ').map(n => n[0] || '').join('') || 'U'}
@@ -429,13 +429,13 @@ const Profile = () => {
                   {userData.role.charAt(0).toUpperCase() + userData.role.slice(1)}
                 </Badge>
               </div>
-              <p className="text-slate-400 text-lg">{userData.company || 'No Company'}</p>
+              <p className="text-neutral-400 text-lg">{userData.company || 'No Company'}</p>
             </div>
             
-            <Separator className="my-6 bg-slate-700" />
+            <Separator className="my-6 bg-neutral-700" />
             
             <div className="space-y-4">
-              <div className="flex items-center gap-3 text-slate-300">
+              <div className="flex items-center gap-3 text-neutral-300">
                 <Mail className="h-5 w-5 text-gray-400" />
                 <div className="flex-1">
                   <span className="text-sm">{userData.email}</span>
@@ -446,25 +446,25 @@ const Profile = () => {
               </div>
               
               {userData.company && (
-                <div className="flex items-center gap-3 text-slate-300">
+                <div className="flex items-center gap-3 text-neutral-300">
                   <Building className="h-5 w-5 text-gray-400" />
                   <span className="text-sm">{userData.company}</span>
                 </div>
               )}
               
               {userData.location && (
-                <div className="flex items-center gap-3 text-slate-300">
+                <div className="flex items-center gap-3 text-neutral-300">
                   <MapPin className="h-5 w-5 text-gray-400" />
                   <span className="text-sm">{userData.location}</span>
                 </div>
               )}
               
-              <div className="flex items-center gap-3 text-slate-300">
+              <div className="flex items-center gap-3 text-neutral-300">
                 <Calendar className="h-5 w-5 text-gray-400" />
                 <span className="text-sm">Joined {userData.joinDate}</span>
               </div>
 
-              <div className="flex items-center gap-3 text-slate-300">
+              <div className="flex items-center gap-3 text-neutral-300">
                 <Clock className="h-5 w-5 text-gray-400" />
                 <div className="flex items-center gap-2">
                   <span className="text-sm">Status:</span>
@@ -480,13 +480,13 @@ const Profile = () => {
         {/* Right column - Detailed Information */}
         <div className="space-y-8">
           {/* Profile Information Card */}
-          <Card className="bg-slate-800 border-slate-700 text-white">
+          <Card className="bg-neutral-800 border-neutral-700 text-white">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <User className="h-5 w-5" />
                 Profile Information
               </CardTitle>
-              <CardDescription className="text-slate-400">
+              <CardDescription className="text-neutral-400">
                 Manage your personal information and preferences
               </CardDescription>
             </CardHeader>
@@ -496,48 +496,48 @@ const Profile = () => {
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                      <div className="space-y-2">
-                       <label className="text-sm font-medium text-slate-300">Display Name</label>
+                       <label className="text-sm font-medium text-neutral-300">Display Name</label>
                        <Input 
                          name="name"
                          value={editForm.name} 
                          onChange={handleChange}
-                         className="bg-slate-700 border-slate-600 text-white"
+                         className="bg-neutral-700 border-neutral-600 text-white"
                          placeholder="Enter your display name"
                        />
-                       <p className="text-xs text-slate-400">This name will be displayed throughout the application</p>
+                       <p className="text-xs text-neutral-400">This name will be displayed throughout the application</p>
                      </div>
                     
                     <div className="space-y-2">
-                      <label className="text-sm font-medium text-slate-300">Email Address</label>
+                      <label className="text-sm font-medium text-neutral-300">Email Address</label>
                       <Input 
                         name="email"
                         value={editForm.email} 
                         onChange={handleChange}
-                        className="bg-slate-700 border-slate-600 text-white"
+                        className="bg-neutral-700 border-neutral-600 text-white"
                         disabled
                       />
-                      <p className="text-xs text-slate-400">Email changes require verification</p>
+                      <p className="text-xs text-neutral-400">Email changes require verification</p>
                     </div>
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-slate-300">Location</label>
+                    <label className="text-sm font-medium text-neutral-300">Location</label>
                     <Input 
                       name="location"
                       value={editForm.location} 
                       onChange={handleChange}
-                      className="bg-slate-700 border-slate-600 text-white"
+                      className="bg-neutral-700 border-neutral-600 text-white"
                       placeholder="Enter your location"
                     />
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-slate-300">Bio</label>
+                    <label className="text-sm font-medium text-neutral-300">Bio</label>
                     <Input 
                       name="bio"
                       value={editForm.bio} 
                       onChange={handleChange}
-                      className="bg-slate-700 border-slate-600 text-white"
+                      className="bg-neutral-700 border-neutral-600 text-white"
                       placeholder="Tell us about yourself"
                     />
                   </div>
@@ -546,7 +546,7 @@ const Profile = () => {
                     <Button variant="default" onClick={handleSave} className="bg-gray-800 hover:bg-gray-900">
                       Save Changes
                     </Button>
-                    <Button variant="outline" onClick={handleCancel} className="border-slate-600 text-slate-300 hover:bg-slate-700">
+                    <Button variant="outline" onClick={handleCancel} className="border-neutral-600 text-neutral-300 hover:bg-neutral-700">
                       Cancel
                     </Button>
                   </div>
@@ -555,12 +555,12 @@ const Profile = () => {
                 <div className="space-y-6">
                   <div>
                     <h3 className="text-lg font-medium mb-3">About Me</h3>
-                    <p className="text-slate-400 leading-relaxed">
+                    <p className="text-neutral-400 leading-relaxed">
                       {userData.bio || 'No bio available. Click "Edit Profile" to add one.'}
                     </p>
                   </div>
                   
-                  <Separator className="bg-slate-700" />
+                  <Separator className="bg-neutral-700" />
                   
                   <div className="pt-2">
                     <Button variant="default" onClick={handleEdit} className="bg-gray-800 hover:bg-gray-900">
@@ -574,13 +574,13 @@ const Profile = () => {
 
           {/* Roles & Permissions Card */}
           {userRoles.length > 0 && (
-            <Card className="bg-slate-800 border-slate-700 text-white">
+            <Card className="bg-neutral-800 border-neutral-700 text-white">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Shield className="h-5 w-5" />
                   Roles & Permissions
                 </CardTitle>
-                <CardDescription className="text-slate-400">
+                <CardDescription className="text-neutral-400">
                   Your roles and access levels across companies
                 </CardDescription>
               </CardHeader>
@@ -588,10 +588,10 @@ const Profile = () => {
               <CardContent>
                 <div className="space-y-4">
                   {userRoles.map((role, index) => (
-                    <div key={index} className="flex items-center justify-between p-4 bg-slate-700/50 rounded-lg">
+                    <div key={index} className="flex items-center justify-between p-4 bg-neutral-700/50 rounded-lg">
                       <div>
                         <h4 className="font-medium">{role.company_name}</h4>
-                        <p className="text-sm text-slate-400">Company Role</p>
+                        <p className="text-sm text-neutral-400">Company Role</p>
                       </div>
                       <Badge className={`${getRoleBadgeColor(role.role)} border`}>
                         {role.role.charAt(0).toUpperCase() + role.role.slice(1)}
@@ -605,13 +605,13 @@ const Profile = () => {
 
           {/* Warehouse Access Card */}
           {warehouseAccess.length > 0 && (
-            <Card className="bg-slate-800 border-slate-700 text-white">
+            <Card className="bg-neutral-800 border-neutral-700 text-white">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Warehouse className="h-5 w-5" />
                   Warehouse Access
                 </CardTitle>
-                <CardDescription className="text-slate-400">
+                <CardDescription className="text-neutral-400">
                   Warehouses you have access to and your role in each
                 </CardDescription>
               </CardHeader>
@@ -622,7 +622,7 @@ const Profile = () => {
                     <div key={index} className={`flex items-center justify-between p-4 rounded-lg ${
                       warehouse.is_assigned 
                         ? 'bg-gray-700/20 border border-gray-600/30' 
-                        : 'bg-slate-700/50'
+                        : 'bg-neutral-700/50'
                     }`}>
                       <div>
                         <div className="flex items-center gap-2">
@@ -633,7 +633,7 @@ const Profile = () => {
                             </Badge>
                           )}
                         </div>
-                        <p className="text-sm text-slate-400">Code: {warehouse.warehouse_code}</p>
+                        <p className="text-sm text-neutral-400">Code: {warehouse.warehouse_code}</p>
                         {warehouse.is_assigned && (
                           <p className="text-xs text-gray-300 mt-1">Your primary warehouse</p>
                         )}
@@ -649,13 +649,13 @@ const Profile = () => {
           )}
 
           {/* Account Status Card */}
-          <Card className="bg-slate-800 border-slate-700 text-white">
+          <Card className="bg-neutral-800 border-neutral-700 text-white">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Users className="h-5 w-5" />
                 Account Status
               </CardTitle>
-              <CardDescription className="text-slate-400">
+              <CardDescription className="text-neutral-400">
                 Your account verification and status information
               </CardDescription>
             </CardHeader>
@@ -664,14 +664,14 @@ const Profile = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-slate-400">Account Status</span>
+                    <span className="text-sm text-neutral-400">Account Status</span>
                     <Badge className="bg-green-500/20 text-green-300 border-green-500/30 border">
                       Active
                     </Badge>
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-slate-400">Email Verified</span>
+                    <span className="text-sm text-neutral-400">Email Verified</span>
                     {userData.emailVerified ? (
                       <Badge className="bg-green-500/20 text-green-300 border-green-500/30 border">
                         <CheckCircle className="h-3 w-3 mr-1" />
@@ -687,14 +687,14 @@ const Profile = () => {
                 
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-slate-400">Companies</span>
+                    <span className="text-sm text-neutral-400">Companies</span>
                     <Badge className="bg-gray-700/20 text-gray-300 border-gray-600/30 border">
                       {userRoles.length}
                     </Badge>
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-slate-400">Warehouses</span>
+                    <span className="text-sm text-neutral-400">Warehouses</span>
                     <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30 border">
                       {warehouseAccess.length}
                     </Badge>
