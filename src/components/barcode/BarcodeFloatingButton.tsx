@@ -48,7 +48,7 @@ const BarcodeFloatingButton: React.FC<BarcodeFloatingButtonProps> = ({
         <DropdownMenuTrigger asChild>
           <Button
             size="lg"
-            className="h-14 w-14 rounded-full bg-gray-800 hover:bg-gray-900 shadow-lg"
+            className="h-14 w-14 rounded-full bg-white text-black hover:bg-neutral-200 shadow-lg"
           >
             <Scan className="h-6 w-6" />
           </Button>
