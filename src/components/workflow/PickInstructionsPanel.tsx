@@ -87,7 +87,7 @@ const PickInstructionsPanel: React.FC<PickInstructionsPanelProps> = ({
   const status = getCompletionStatus();
 
   return (
-    <Card className="bg-slate-700/30 border-slate-600">
+    <Card className="bg-neutral-700/30 border-neutral-600">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="text-sm flex items-center">
@@ -116,11 +116,11 @@ const PickInstructionsPanel: React.FC<PickInstructionsPanelProps> = ({
       <CardContent className="space-y-3">
         {/* Settings Panel */}
         {showSettings && (
-          <div className="bg-slate-600/30 rounded-lg p-3 space-y-3">
+          <div className="bg-neutral-600/30 rounded-lg p-3 space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-sm text-white">Picking Strategy</span>
               <Select value={pickingStrategy} onValueChange={onPickingStrategyChange}>
-                <SelectTrigger className="w-24 h-7 bg-slate-700 border-slate-600">
+                <SelectTrigger className="w-24 h-7 bg-neutral-700 border-neutral-600">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -143,13 +143,13 @@ const PickInstructionsPanel: React.FC<PickInstructionsPanelProps> = ({
         {/* Pick Instructions List */}
         <div className="space-y-2">
           {pickInstructions.map((instruction) => (
-            <div key={instruction.id} className="border border-slate-600 rounded-lg overflow-hidden">
+            <div key={instruction.id} className="border border-neutral-600 rounded-lg overflow-hidden">
               {/* Instruction Header */}
               <div
                 className={`p-3 cursor-pointer transition-colors ${
                   instruction.picked 
                     ? 'bg-green-500/10 hover:bg-green-500/20' 
-                    : 'bg-slate-600/30 hover:bg-slate-600/40'
+                    : 'bg-neutral-600/30 hover:bg-neutral-600/40'
                 }`}
                 onClick={() => toggleInstructionExpansion(instruction.id)}
               >
@@ -164,13 +164,13 @@ const PickInstructionsPanel: React.FC<PickInstructionsPanelProps> = ({
                       <div className="font-medium text-white text-sm">
                         {instruction.productName}
                       </div>
-                      <div className="text-xs text-slate-400">
+                      <div className="text-xs text-neutral-400">
                         SKU: {instruction.sku} • Total: {instruction.totalQuantity} units
                       </div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Badge className="bg-slate-600/50 text-slate-300 text-xs">
+                    <Badge className="bg-neutral-600/50 text-neutral-300 text-xs">
                       {instruction.locations.length} location(s)
                     </Badge>
                     {instruction.picked && (
@@ -184,12 +184,12 @@ const PickInstructionsPanel: React.FC<PickInstructionsPanelProps> = ({
 
               {/* Expanded Locations */}
               {expandedInstructions.has(instruction.id) && (
-                <div className="border-t border-slate-600 bg-slate-700/20">
+                <div className="border-t border-neutral-600 bg-neutral-700/20">
                   <div className="p-3 space-y-2">
                     {instruction.locations.map((location, index) => (
-                      <div key={location.id} className="flex items-center justify-between p-2 bg-slate-600/30 rounded">
+                      <div key={location.id} className="flex items-center justify-between p-2 bg-neutral-600/30 rounded">
                         <div className="flex items-center gap-3">
-                          <div className="flex items-center gap-1 text-xs text-slate-400">
+                          <div className="flex items-center gap-1 text-xs text-neutral-400">
                             <span className="font-mono">{index + 1}.</span>
                           </div>
                           <MapPin className="h-4 w-4 text-emerald-400" />
@@ -197,7 +197,7 @@ const PickInstructionsPanel: React.FC<PickInstructionsPanelProps> = ({
                             <div className="font-medium text-white text-sm">
                               {location.palletLocation}
                             </div>
-                            <div className="text-xs text-slate-400">
+                            <div className="text-xs text-neutral-400">
                               Pick {location.quantityToPick} units • Available: {location.currentQuantity}
                             </div>
                             {location.expirationDate && (
@@ -215,7 +215,7 @@ const PickInstructionsPanel: React.FC<PickInstructionsPanelProps> = ({
                             variant="outline"
                             size="sm"
                             onClick={() => onValidatePick(instruction.id, location.id)}
-                            className="h-7 px-2 border-slate-500"
+                            className="h-7 px-2 border-neutral-500"
                           >
                             <Scan className="h-3 w-3 mr-1" />
                             Scan
@@ -240,7 +240,7 @@ const PickInstructionsPanel: React.FC<PickInstructionsPanelProps> = ({
         </div>
 
         {pickInstructions.length === 0 && (
-          <div className="text-center py-8 text-slate-400">
+          <div className="text-center py-8 text-neutral-400">
             <Package className="h-8 w-8 mx-auto mb-2 opacity-50" />
             <p className="text-sm">No pick instructions generated yet</p>
             <p className="text-xs mt-1">Start the workflow to generate pick instructions</p>
