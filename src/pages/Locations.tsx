@@ -511,7 +511,7 @@ const Locations = () => {
                               <TableCell>
                                 <Badge 
                                   variant="outline" 
-                                  className="font-medium bg-indigo-500/20 border-indigo-500/30 text-indigo-300 py-1"
+                                  className="font-medium bg-neutral-500/20 border-neutral-500/30 text-neutral-300 py-1"
                                 >
                                   {pallet.id}
                                 </Badge>
