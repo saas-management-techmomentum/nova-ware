@@ -431,23 +431,23 @@ const Locations = () => {
             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
               <div className="flex space-x-2">
                 <Button
-                  variant={activeTab === 'pallets' ? 'default' : 'outline'}
+                  variant='outline'
                   onClick={() => setActiveTab('pallets')}
-                  className={activeTab === 'pallets' ? 'bg-gray-800 hover:bg-gray-900' : 'border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white'}
+                  className={activeTab === 'pallets' ? 'bg-black text-white border-neutral-700' : 'border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white'}
                 >
                   Locations
                 </Button>
                 <Button
-                  variant={activeTab === 'products' ? 'default' : 'outline'}
+                  variant='outline'
                   onClick={() => setActiveTab('products')}
-                  className={activeTab === 'products' ? 'bg-gray-800 hover:bg-gray-900' : 'border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white'}
+                  className={activeTab === 'products' ? 'bg-black text-white border-neutral-700' : 'border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white'}
                 >
                   Products
                 </Button>
                 <Button
-                  variant={activeTab === 'analytics' ? 'default' : 'outline'}
+                  variant='outline'
                   onClick={() => setActiveTab('analytics')}
-                  className={activeTab === 'analytics' ? 'bg-gray-800 hover:bg-gray-900' : 'border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white'}
+                  className={activeTab === 'analytics' ? 'bg-black text-white border-neutral-700' : 'border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white'}
                 >
                   Analytics
                 </Button>
