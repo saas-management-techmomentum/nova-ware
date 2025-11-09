@@ -438,7 +438,7 @@ const AddClientDialog: React.FC<AddClientDialogProps> = ({ onClientAdded, trigge
             <Button 
               type="submit" 
               disabled={loading || uploadingFile || !selectedWarehouse} 
-              className="gap-2 bg-gray-800 hover:bg-gray-900 text-white"
+              className="gap-2 bg-white text-black hover:bg-neutral-200"
             >
               {loading ? "Adding..." : uploadingFile ? "Uploading..." : "Add Client"}
             </Button>
