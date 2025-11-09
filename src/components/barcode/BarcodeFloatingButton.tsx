@@ -55,7 +55,7 @@ const BarcodeFloatingButton: React.FC<BarcodeFloatingButtonProps> = ({
         </DropdownMenuTrigger>
         <DropdownMenuContent 
           align="end" 
-          className="w-56 bg-slate-800 border-slate-700"
+          className="w-56 bg-neutral-800 border-neutral-700 z-[100]"
         >
           {scanOptions.map((option) => {
             const Icon = option.icon;
@@ -66,12 +66,12 @@ const BarcodeFloatingButton: React.FC<BarcodeFloatingButtonProps> = ({
                   onScan(option.mode);
                   setIsOpen(false);
                 }}
-                className="text-white hover:bg-slate-700 cursor-pointer"
+                className="text-white hover:bg-neutral-700 cursor-pointer"
               >
-                <Icon className="h-4 w-4 mr-3 text-slate-400" />
+                <Icon className="h-4 w-4 mr-3 text-neutral-400" />
                 <div>
                   <div className="font-medium">{option.label}</div>
-                  <div className="text-xs text-slate-400">{option.description}</div>
+                  <div className="text-xs text-neutral-400">{option.description}</div>
                 </div>
               </DropdownMenuItem>
             );
