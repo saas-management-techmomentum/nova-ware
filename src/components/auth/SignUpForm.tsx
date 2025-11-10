@@ -18,9 +18,6 @@ import { toast } from '@/hooks/use-toast';
 import { Eye, EyeOff } from 'lucide-react';
 
 const formSchema = z.object({
-  invitationCode: z.string().min(1, {
-    message: "Invitation code is required.",
-  }),
   firstName: z.string().min(2, {
     message: "First name must be at least 2 characters.",
   }),
@@ -53,7 +50,6 @@ interface SignUpFormProps {
 const SignUpForm = ({ onTabChange }: SignUpFormProps) => {
   const { signUp } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
-  const [showInvitationCode, setShowInvitationCode] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
@@ -61,7 +57,6 @@ const SignUpForm = ({ onTabChange }: SignUpFormProps) => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      invitationCode: "",
       firstName: "",
       lastName: "",
       email: "",
@@ -78,7 +73,7 @@ const SignUpForm = ({ onTabChange }: SignUpFormProps) => {
       console.log('Starting signup process...');
       
       // Sign up the user with company name in metadata
-      await signUp(data.email, data.password, data.firstName, data.lastName, data.companyName, data.invitationCode);
+      await signUp(data.email, data.password, data.firstName, data.lastName, data.companyName);
       
       console.log('User signup completed successfully');
       
@@ -112,34 +107,6 @@ const SignUpForm = ({ onTabChange }: SignUpFormProps) => {
         className="space-y-4" 
         onClick={handleFormClick}
       >
-        <FormField
-          control={form.control}
-          name="invitationCode"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Invitation Code</FormLabel>
-              <FormControl>
-                <div className="relative">
-                  <Input 
-                    type={showInvitationCode ? "text" : "password"} 
-                    placeholder="Enter your invitation code" 
-                    {...field} 
-                    className="bg-slate-700 border-slate-600 text-white pr-10" 
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowInvitationCode(!showInvitationCode)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-white"
-                  >
-                    {showInvitationCode ? <EyeOff size={20} /> : <Eye size={20} />}
-                  </button>
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FormField
             control={form.control}

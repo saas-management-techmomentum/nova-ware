@@ -24,7 +24,7 @@ interface AuthContextType {
   user: AuthUser | null;
   session: Session | null;
   employee: EmployeeData | null;
-  signUp: (email: string, password: string, firstName: string, lastName: string, companyName: string, invitationCode: string) => Promise<void>;
+  signUp: (email: string, password: string, firstName: string, lastName: string, companyName: string) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
@@ -452,21 +452,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     };
   }, []);
 
-  const signUp = async (email: string, password: string, firstName: string, lastName: string, companyName: string, invitationCode: string) => {
-    // First validate the invitation code
-    const { data: validationResult, error: validationError } = await supabase.functions.invoke('validate-invitation-code', {
-      body: { invitationCode }
-    });
-
-    if (validationError) {
-      throw new Error('Failed to validate invitation code. Please try again.');
-    }
-
-    if (!validationResult?.success) {
-      throw new Error(validationResult?.error || 'Invalid invitation code');
-    }
-
-    // If invitation code is valid, proceed with signup
+  const signUp = async (email: string, password: string, firstName: string, lastName: string, companyName: string) => {
     const redirectUrl = `${window.location.origin}/`;
     
     const { error } = await supabase.auth.signUp({
