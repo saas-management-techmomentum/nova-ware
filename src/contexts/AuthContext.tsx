@@ -58,24 +58,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [needsPasswordChange, setNeedsPasswordChange] = useState<boolean | null>(null);
 
   const checkPasswordChangeStatus = async (userId: string) => {
-    try {
-      console.log('Checking password change status for user:', userId);
-      
-      const { data, error } = await supabase.rpc('user_needs_password_change', {
-        user_uuid: userId
-      });
-      
-      if (error) {
-        console.error('Error checking password change status:', error);
-        setNeedsPasswordChange(false);
-      } else {
-        console.log('Password change status:', data);
-        setNeedsPasswordChange(data || false);
-      }
-    } catch (error) {
-      console.error('Error in checkPasswordChangeStatus:', error);
-      setNeedsPasswordChange(false);
-    }
+    // Password change status check disabled - function not in current schema
+    setNeedsPasswordChange(false);
   };
 
   const refreshSession = async () => {

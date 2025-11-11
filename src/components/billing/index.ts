@@ -8,4 +8,3 @@ export { InvoiceViewDialog } from './InvoiceViewDialog';
 export { InvoiceEmailDialog } from './InvoiceEmailDialog';
 export { RecurringInvoiceDialog } from './RecurringInvoiceDialog';
 export { InvoiceStatusBadge } from './InvoiceStatusBadge';
-export { InventoryFixButton } from './InventoryFixButton';
