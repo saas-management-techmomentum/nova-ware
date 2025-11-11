@@ -42,26 +42,50 @@ export const useWarehouseMetrics = () => {
     queryFn: async (): Promise<WarehouseMetrics> => {
       console.log('Fetching warehouse metrics for:', selectedWarehouse || 'corporate overview');
       
-      const { data, error } = await supabase.rpc('calculate_warehouse_metrics_enhanced', {
-        warehouse_uuid: selectedWarehouse
-      });
+      const { data, error } = await supabase.rpc('calculate_warehouse_metrics', 
+        selectedWarehouse ? { warehouse_uuid: selectedWarehouse } : {}
+      );
 
       if (error) {
         console.error('Error fetching warehouse metrics:', error);
+        // Return empty metrics instead of throwing for 404/missing function
+        if (error.code === 'PGRST202' || error.message?.includes('not found')) {
+          console.warn('Warehouse metrics function not available, returning defaults');
+          return {
+            warehouse_efficiency: 0,
+            efficiency_change: 0,
+            task_completion_rate: 0,
+            completion_rate_change: 0,
+            order_processing_speed: 0,
+            processing_speed_change: 0,
+            inventory_accuracy: 0,
+            accuracy_change: 0,
+            warehouse_context: selectedWarehouse ? 'warehouse_specific' : 'corporate_overview',
+            warehouse_id: selectedWarehouse,
+            total_orders: 0,
+            completed_orders: 0,
+            active_orders: 0,
+            pending_shipments: 0,
+            total_products: 0,
+            critical_stock_items: 0,
+            warning_stock_items: 0,
+            healthy_stock_items: 0,
+            historical_data: [],
+            last_updated: new Date().toISOString()
+          };
+        }
         throw error;
       }
 
-      // Safely convert the JSON response to WarehouseMetrics
       const metrics = data as unknown as WarehouseMetrics;
       
-      // Validate that we have the expected structure
       if (!metrics || typeof metrics !== 'object') {
         throw new Error('Invalid metrics data received from database');
       }
 
       return metrics;
     },
-    refetchInterval: 30000, // Refetch every 30 seconds
-    staleTime: 10000, // Consider data stale after 10 seconds
+    refetchInterval: 30000,
+    staleTime: 10000,
   });
 };

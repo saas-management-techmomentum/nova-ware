@@ -64,13 +64,18 @@ export const useLastActivity = () => {
       // Extract timestamps from successful queries
       const timestamps: Date[] = [];
       
-      queries.forEach((result) => {
+      queries.forEach((result, index) => {
         if (result.status === 'fulfilled' && result.value.data) {
           const data = result.value.data;
-          // Add created_at if it exists
           if (data.created_at) timestamps.push(new Date(data.created_at));
-          // Add updated_at only if it exists (type-safe check)
           if ('updated_at' in data && data.updated_at) timestamps.push(new Date(data.updated_at));
+        } else if (result.status === 'rejected') {
+          // Silently log rejected queries (missing tables, empty results)
+          const error = result.reason;
+          if (error?.code !== 'PGRST116') {
+            // PGRST116 = no rows, which is expected
+            console.debug(`Activity query ${index} failed:`, error?.message || error);
+          }
         }
       });
 

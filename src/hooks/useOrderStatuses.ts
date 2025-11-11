@@ -37,11 +37,15 @@ export const useOrderStatuses = () => {
 
       if (error) {
         console.error('Error fetching order statuses:', error);
-        toast({
-          title: "Error",
-          description: "Failed to load order statuses",
-          variant: "destructive"
-        });
+        // Don't toast if table doesn't exist or is empty
+        if (error.code !== 'PGRST116' && !error.message?.includes('does not exist')) {
+          toast({
+            title: "Error",
+            description: "Failed to load order statuses",
+            variant: "destructive"
+          });
+        }
+        setOrderStatuses([]);
         return;
       }
 

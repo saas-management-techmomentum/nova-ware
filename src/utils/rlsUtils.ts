@@ -32,53 +32,102 @@ export interface CompanyMetrics {
 // Get accessible warehouses with RLS enforcement
 export const getAccessibleWarehouses = async (): Promise<AccessibleWarehouse[]> => {
   try {
-    const { data, error } = await supabase.rpc('get_accessible_warehouses');
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return [];
+
+    const { data: warehouseIds, error: rpcError } = await supabase.rpc('get_accessible_warehouses', {
+      user_uuid: user.id
+    });
     
-    if (error) {
-      console.error('Error fetching accessible warehouses:', error);
+    if (rpcError) {
+      console.error('Error fetching accessible warehouse IDs:', rpcError);
       return [];
     }
     
-    // Type cast and validate the data
-    const warehouses = (data || []).map((item: any) => ({
-      warehouse_id: item.warehouse_id,
-      warehouse_name: item.warehouse_name,
-      warehouse_code: item.warehouse_code,
-      access_level: item.access_level as 'admin' | 'manager' | 'staff' | 'viewer',
-      company_id: item.company_id
+    const ids = warehouseIds as string[] || [];
+    if (ids.length === 0) return [];
+
+    // Fetch warehouse details
+    const { data: warehouses, error: whError } = await supabase
+      .from('warehouses')
+      .select('id, name, code, company_id')
+      .in('id', ids);
+
+    if (whError) {
+      console.error('Error fetching warehouse details:', whError);
+      return [];
+    }
+
+    // Fetch user access levels
+    const { data: accessData, error: accessError } = await supabase
+      .from('warehouse_users')
+      .select('warehouse_id, access_level, role')
+      .eq('user_id', user.id)
+      .in('warehouse_id', ids);
+
+    if (accessError) {
+      console.error('Error fetching warehouse access:', accessError);
+    }
+
+    // Merge data
+    const accessMap = new Map(
+      (accessData || []).map(a => [a.warehouse_id, a.access_level || 'viewer'])
+    );
+
+    return (warehouses || []).map(wh => ({
+      warehouse_id: wh.id,
+      warehouse_name: wh.name,
+      warehouse_code: wh.code,
+      access_level: accessMap.get(wh.id) as 'admin' | 'manager' | 'staff' | 'viewer' || 'viewer',
+      company_id: wh.company_id
     }));
-    
-    return warehouses;
   } catch (error) {
     console.error('Exception in getAccessibleWarehouses:', error);
     return [];
   }
 };
 
-// Get user's data access scope
+// Get user's data access scope (computed client-side)
 export const getUserDataScope = async (): Promise<UserDataScope | null> => {
   try {
-    const { data, error } = await supabase.rpc('get_user_data_scope');
-    
-    if (error) {
-      console.error('Error fetching user data scope:', error);
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return null;
+
+    // Fetch company memberships
+    const { data: companyUsers, error: cuError } = await supabase
+      .from('company_users')
+      .select('company_id, role')
+      .eq('user_id', user.id)
+      .eq('approval_status', 'approved');
+
+    if (cuError) {
+      console.error('Error fetching company users:', cuError);
       return null;
     }
-    
-    // Safe type conversion with validation
-    if (!data || typeof data !== 'object') {
-      return null;
+
+    const company_ids = (companyUsers || []).map(cu => cu.company_id);
+    const admin_company_ids = (companyUsers || []).filter(cu => cu.role === 'admin').map(cu => cu.company_id);
+
+    // Fetch warehouse memberships
+    const { data: warehouseUsers, error: wuError } = await supabase
+      .from('warehouse_users')
+      .select('warehouse_id')
+      .eq('user_id', user.id);
+
+    if (wuError) {
+      console.error('Error fetching warehouse users:', wuError);
     }
-    
-    const scope = data as any;
+
+    const warehouse_ids = (warehouseUsers || []).map(wu => wu.warehouse_id);
+
     return {
-      user_id: scope.user_id || '',
-      company_ids: Array.isArray(scope.company_ids) ? scope.company_ids : [],
-      admin_company_ids: Array.isArray(scope.admin_company_ids) ? scope.admin_company_ids : [],
-      warehouse_ids: Array.isArray(scope.warehouse_ids) ? scope.warehouse_ids : [],
-      is_multi_company_admin: Boolean(scope.is_multi_company_admin),
-      total_companies: Number(scope.total_companies) || 0,
-      total_warehouses: Number(scope.total_warehouses) || 0
+      user_id: user.id,
+      company_ids,
+      admin_company_ids,
+      warehouse_ids,
+      is_multi_company_admin: admin_company_ids.length > 1,
+      total_companies: company_ids.length,
+      total_warehouses: warehouse_ids.length
     };
   } catch (error) {
     console.error('Exception in getUserDataScope:', error);
@@ -203,13 +252,16 @@ export const assignEmployeeToWarehouse = async (
 
 /**
  * Gets the employee's assigned warehouse ID
- * Note: Functions will be available once Supabase types are regenerated
  */
 export const getEmployeeAssignedWarehouse = async (): Promise<string | null> => {
   try {
-    // Use direct SQL call until types are updated
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return null;
+
     const { data, error } = await supabase
-      .rpc('get_employee_assigned_warehouse' as any);
+      .rpc('get_employee_assigned_warehouse', {
+        user_uuid: user.id
+      });
 
     if (error) {
       console.error('Error getting employee assigned warehouse:', error);

@@ -323,31 +323,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const fixIncompleteSetup = async () => {
     if (!user) return;
     
-    console.log('Attempting to fix incomplete setup for user:', user.id);
+    console.log('Retrying setup completion for user:', user.id);
     
     try {
-      const { data, error } = await supabase.rpc('fix_incomplete_user_setup', {
-        target_user_id: user.id
-      });
-      
-      if (error) {
-        console.error('Error fixing incomplete setup:', error);
-        throw error;
-      }
-      
-      console.log('Fix incomplete setup result:', data);
-      
-      const result = data as unknown as FixSetupResponse;
-      
-      if (result?.success) {
-        console.log('Setup fixed successfully, refreshing user role');
-        await fetchUserRole(user.id);
-      } else {
-        console.error('Failed to fix setup:', result?.error);
-        throw new Error(result?.error || 'Failed to fix incomplete setup');
-      }
+      // Just retry the normal setup flow
+      await completeUserSetup();
+      console.log('Setup retry successful');
     } catch (error) {
-      console.error('Error in fixIncompleteSetup:', error);
+      console.error('Error in fixIncompleteSetup retry:', error);
       throw error;
     }
   };
