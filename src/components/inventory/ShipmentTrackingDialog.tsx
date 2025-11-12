@@ -578,14 +578,6 @@ const ShipmentTrackingDialog = () => {
         </DialogFooter>
       </DialogContent>
 
-      <BatchAssignmentDialog
-        open={showBatchAssignment}
-        onOpenChange={setShowBatchAssignment}
-        onAssignmentComplete={() => {
-          setShowBatchAssignment(false);
-          // Optionally refresh shipments or inventory
-        }}
-      />
     </Dialog>
   );
 };

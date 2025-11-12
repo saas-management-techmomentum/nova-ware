@@ -1,7 +1,15 @@
 import React from 'react';
-import { EnhancedInvoiceManagement } from './EnhancedInvoiceManagement';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-// Keep the original component as a wrapper for backward compatibility
 export const InvoiceManagement = () => {
-  return <EnhancedInvoiceManagement />;
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Invoice Management</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-muted-foreground">Invoice management features coming soon.</p>
+      </CardContent>
+    </Card>
+  );
 };
