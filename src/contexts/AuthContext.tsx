@@ -283,7 +283,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           .insert([{ 
             user_id: user.id, 
             role: 'admin',
-            company_id: company.id
+            company_id: company.id,
+            approval_status: 'approved'
           }]);
 
         if (roleError && roleError.code !== '23505') {

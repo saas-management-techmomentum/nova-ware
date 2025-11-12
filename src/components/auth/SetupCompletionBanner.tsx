@@ -7,7 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { toast } from '@/hooks/use-toast';
 
 const SetupCompletionBanner = () => {
-  const { user, userRole, isUserAdmin, completeUserSetup } = useAuth();
+  const { user, userRole, isUserAdmin, completeUserSetup, forceRefreshAuth } = useAuth();
   const [isCompleting, setIsCompleting] = useState(false);
 
   // Don't show banner if user has proper role assignment
@@ -24,6 +24,9 @@ const SetupCompletionBanner = () => {
     try {
       setIsCompleting(true);
       await completeUserSetup();
+      
+      // Force auth refresh to pick up new admin role
+      await forceRefreshAuth();
       
       toast({
         title: "Setup Complete!",

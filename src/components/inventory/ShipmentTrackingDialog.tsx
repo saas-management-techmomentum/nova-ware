@@ -41,7 +41,6 @@ import { Truck, Check, AlertCircle, PackageOpen, Clipboard, Calendar, Plus, Cloc
 import { format } from 'date-fns';
 import ShipmentSchedulingPanel from './ShipmentSchedulingPanel';
 import ShipmentItemsManager from './ShipmentItemsManager';
-import BatchAssignmentDialog from './BatchAssignmentDialog';
 import { Shipment } from '@/hooks/useWarehouseScopedShipments';
 
 interface LocalShipmentItem {

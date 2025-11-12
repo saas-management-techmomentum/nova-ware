@@ -24,8 +24,6 @@ import { cn } from '@/lib/utils';
 import { PurchaseOrderDashboard } from './PurchaseOrderDashboard';
 import { PurchaseOrderReceivingDialog } from './PurchaseOrderReceivingDialog';
 import { PurchaseOrderReports } from './PurchaseOrderReports';
-import { POStatusIntegration } from './POStatusIntegration';
-import { PaymentStatusBadge } from './PaymentStatusBadge';
 
 export const PurchaseOrders = () => {
   const { toast } = useToast();
@@ -35,7 +33,6 @@ export const PurchaseOrders = () => {
   
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [vendorFilter, setVendorFilter] = useState<string>('all');
-  const [paymentStatusFilter, setPaymentStatusFilter] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
