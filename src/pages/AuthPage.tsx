@@ -19,6 +19,7 @@ const signInSchema = z.object({
 });
 
 const signUpSchema = z.object({
+  invitationCode: z.string().min(1, 'Invitation code is required.'),
   firstName: z.string().min(2, 'First name must be at least 2 characters.'),
   lastName: z.string().min(2, 'Last name must be at least 2 characters.'),
   email: z.string().email('Please enter a valid email address.'),
@@ -43,6 +44,7 @@ const AuthPage = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [showResetPassword, setShowResetPassword] = useState(false);
+  const [showInvitationCode, setShowInvitationCode] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -63,6 +65,7 @@ const AuthPage = () => {
   const signUpForm = useForm<SignUpFormValues>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
+      invitationCode: '',
       firstName: '',
       lastName: '',
       email: '',
@@ -106,7 +109,7 @@ const AuthPage = () => {
       
       console.log('Starting signup process...');
       
-      await signUp(data.email, data.password, data.firstName, data.lastName, data.companyName);
+      await signUp(data.email, data.password, data.firstName, data.lastName, data.companyName, data.invitationCode);
       
       toast({
         title: "Account Created Successfully!",
@@ -293,6 +296,34 @@ const AuthPage = () => {
             <TabsContent value="signup">
               <Form {...signUpForm}>
                 <form onSubmit={signUpForm.handleSubmit(onSignUp)} className="space-y-4">
+                  <FormField
+                    control={signUpForm.control}
+                    name="invitationCode"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-white">Invitation Code</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Input 
+                              type={showInvitationCode ? "text" : "password"}
+                              placeholder="Enter your invitation code" 
+                              {...field} 
+                              className="bg-white/10 border-white/20 text-white placeholder:text-white/60 pr-10" 
+                            />
+                            <button
+                              type="button"
+                              onClick={() => setShowInvitationCode(!showInvitationCode)}
+                              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/40 hover:text-white"
+                            >
+                              {showInvitationCode ? <EyeOff size={20} /> : <Eye size={20} />}
+                            </button>
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
                   <div className="grid grid-cols-2 gap-4">
                     <FormField
                       control={signUpForm.control}
