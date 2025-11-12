@@ -58,8 +58,24 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [needsPasswordChange, setNeedsPasswordChange] = useState<boolean | null>(null);
 
   const checkPasswordChangeStatus = async (userId: string) => {
-    // Password change status check disabled - function not in current schema
-    setNeedsPasswordChange(false);
+    try {
+      console.log('Checking password change status for user:', userId);
+      
+      const { data, error } = await supabase.rpc('user_needs_password_change', {
+        user_uuid: userId
+      });
+      
+      if (error) {
+        console.error('Error checking password change status:', error);
+        setNeedsPasswordChange(false);
+      } else {
+        console.log('Password change status:', data);
+        setNeedsPasswordChange(data || false);
+      }
+    } catch (error) {
+      console.error('Error in checkPasswordChangeStatus:', error);
+      setNeedsPasswordChange(false);
+    }
   };
 
   const refreshSession = async () => {
@@ -283,8 +299,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           .insert([{ 
             user_id: user.id, 
             role: 'admin',
-            company_id: company.id,
-            approval_status: 'approved'
+            company_id: company.id
           }]);
 
         if (roleError && roleError.code !== '23505') {
@@ -308,14 +323,31 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const fixIncompleteSetup = async () => {
     if (!user) return;
     
-    console.log('Retrying setup completion for user:', user.id);
+    console.log('Attempting to fix incomplete setup for user:', user.id);
     
     try {
-      // Just retry the normal setup flow
-      await completeUserSetup();
-      console.log('Setup retry successful');
+      const { data, error } = await supabase.rpc('fix_incomplete_user_setup', {
+        target_user_id: user.id
+      });
+      
+      if (error) {
+        console.error('Error fixing incomplete setup:', error);
+        throw error;
+      }
+      
+      console.log('Fix incomplete setup result:', data);
+      
+      const result = data as unknown as FixSetupResponse;
+      
+      if (result?.success) {
+        console.log('Setup fixed successfully, refreshing user role');
+        await fetchUserRole(user.id);
+      } else {
+        console.error('Failed to fix setup:', result?.error);
+        throw new Error(result?.error || 'Failed to fix incomplete setup');
+      }
     } catch (error) {
-      console.error('Error in fixIncompleteSetup retry:', error);
+      console.error('Error in fixIncompleteSetup:', error);
       throw error;
     }
   };

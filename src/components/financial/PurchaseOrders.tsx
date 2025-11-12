@@ -24,6 +24,8 @@ import { cn } from '@/lib/utils';
 import { PurchaseOrderDashboard } from './PurchaseOrderDashboard';
 import { PurchaseOrderReceivingDialog } from './PurchaseOrderReceivingDialog';
 import { PurchaseOrderReports } from './PurchaseOrderReports';
+import { POStatusIntegration } from './POStatusIntegration';
+import { PaymentStatusBadge } from './PaymentStatusBadge';
 
 export const PurchaseOrders = () => {
   const { toast } = useToast();
@@ -33,6 +35,7 @@ export const PurchaseOrders = () => {
   
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [vendorFilter, setVendorFilter] = useState<string>('all');
+  const [paymentStatusFilter, setPaymentStatusFilter] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -589,6 +592,19 @@ export const PurchaseOrders = () => {
                       ))}
                     </SelectContent>
                   </Select>
+                  <Select value={paymentStatusFilter} onValueChange={setPaymentStatusFilter}>
+                    <SelectTrigger className="w-48">
+                      <SelectValue placeholder="Payment status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Payment Status</SelectItem>
+                      <SelectItem value="no-bill">No Bill Created</SelectItem>
+                      <SelectItem value="unpaid">Unpaid</SelectItem>
+                      <SelectItem value="partial">Partially Paid</SelectItem>
+                      <SelectItem value="paid">Paid</SelectItem>
+                      <SelectItem value="overdue">Overdue</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
             </CardHeader>
@@ -602,7 +618,7 @@ export const PurchaseOrders = () => {
                     <TableHead>Expected Delivery</TableHead>
                     <TableHead>Total Amount</TableHead>
                     <TableHead>PO Status</TableHead>
-                    
+                    <TableHead>Payment Status</TableHead>
                     <TableHead>Actions</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -620,6 +636,9 @@ export const PurchaseOrders = () => {
                       </TableCell>
                       <TableCell>${po.total_amount.toFixed(2)}</TableCell>
                       <TableCell>{getStatusBadge(po.status)}</TableCell>
+                       <TableCell>
+                         <PaymentStatusBadge purchaseOrder={po} />
+                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
                           {/* Primary Actions */}

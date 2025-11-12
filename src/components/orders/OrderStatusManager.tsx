@@ -30,7 +30,7 @@ import {
   arrayMove,
 } from '@dnd-kit/sortable';
 import SortableOrderStatus from './SortableOrderStatus';
-import { useOrderStatuses, OrderStatus } from '@/hooks/useOrderStatuses';
+import { OrderStatus } from '@/hooks/useOrderStatuses';
 
 const colorOptions = [
   { value: 'bg-slate-500', label: 'Gray', class: 'bg-slate-500' },
@@ -88,7 +88,6 @@ const OrderStatusManager = () => {
     
     await addOrderStatus({
       name: newStatusName.trim(),
-      position: maxOrderIndex + 1,
       order_index: maxOrderIndex + 1,
       color: selectedColor
     });

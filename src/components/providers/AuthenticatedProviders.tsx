@@ -3,6 +3,7 @@ import React from 'react';
 import { OrdersProvider } from '@/contexts/OrdersContext';
 import { InventoryProvider } from '@/contexts/InventoryContext';
 import { WarehouseProvider } from '@/contexts/WarehouseContext';
+import { WorkflowProvider } from '@/contexts/WorkflowContext';
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
 import { WarehouseScopedProviders } from './WarehouseScopedProviders';
 import { WarehouseEmployeeProvider } from '@/contexts/WarehouseEmployeeContext';
@@ -17,11 +18,13 @@ export const AuthenticatedProviders: React.FC<AuthenticatedProvidersProps> = ({ 
       <WarehouseProvider>
         <WarehouseEmployeeProvider>
           <WarehouseScopedProviders>
-            <OrdersProvider>
-              <InventoryProvider>
-                {children}
-              </InventoryProvider>
-            </OrdersProvider>
+            <WorkflowProvider>
+              <OrdersProvider>
+                <InventoryProvider>
+                  {children}
+                </InventoryProvider>
+              </OrdersProvider>
+            </WorkflowProvider>
           </WarehouseScopedProviders>
         </WarehouseEmployeeProvider>
       </WarehouseProvider>
