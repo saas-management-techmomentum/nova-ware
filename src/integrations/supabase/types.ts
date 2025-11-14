@@ -2367,15 +2367,35 @@ export type Database = {
         Args: { employee_uuid: string; warehouse_uuid: string }
         Returns: boolean
       }
+      calculate_warehouse_metrics_enhanced: {
+        Args: { warehouse_uuid?: string }
+        Returns: Json
+      }
+      complete_user_setup: {
+        Args: { company_name: string; target_user_id: string }
+        Returns: Json
+      }
       fix_existing_invoice_inventory: {
         Args: { invoice_uuid: string }
         Returns: Json
       }
-      generate_po_number: { Args: never; Returns: string }
-      get_accessible_warehouses: {
-        Args: { user_uuid: string }
-        Returns: string[]
+      fix_incomplete_user_setup: {
+        Args: { target_user_id: string }
+        Returns: Json
       }
+      generate_po_number: { Args: never; Returns: string }
+      get_accessible_warehouses:
+        | { Args: { user_uuid: string }; Returns: string[] }
+        | {
+            Args: never
+            Returns: {
+              access_level: string
+              company_id: string
+              warehouse_code: string
+              warehouse_id: string
+              warehouse_name: string
+            }[]
+          }
       get_employee_assigned_warehouse: {
         Args: { user_uuid: string }
         Returns: string
@@ -2386,6 +2406,7 @@ export type Database = {
         Args: { comp_id: string; user_uuid: string }
         Returns: boolean
       }
+      user_needs_password_change: { Args: never; Returns: boolean }
     }
     Enums: {
       [_ in never]: never

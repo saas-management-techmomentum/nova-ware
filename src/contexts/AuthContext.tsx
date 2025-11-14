@@ -61,9 +61,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     try {
       console.log('Checking password change status for user:', userId);
       
-      const { data, error } = await supabase.rpc('user_needs_password_change', {
-        user_uuid: userId
-      });
+      const { data, error } = await supabase.rpc('user_needs_password_change');
       
       if (error) {
         console.error('Error checking password change status:', error);
@@ -229,93 +227,37 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     console.log('Completing user setup for:', user.id);
     
     try {
-      const { data: existingRole } = await supabase
-        .from('company_users')
-        .select('role, company_id')
-        .eq('user_id', user.id)
-        .single();
-      
-      if (existingRole) {
-        console.log('User already has company assignment');
-        await fetchUserRole(user.id);
-        return;
-      }
-      
       const companyName = user.user_metadata?.company_name;
       if (!companyName) {
         console.error('No company name found in user metadata');
         return;
       }
       
-      console.log('Creating company and assigning admin role...');
+      console.log('Calling complete_user_setup RPC function...');
       
-      let company;
-      try {
-        const { data: existingCompany } = await supabase
-          .from('companies')
-          .select('id')
-          .eq('name', companyName)
-          .single();
-
-        if (existingCompany) {
-          company = existingCompany;
-          console.log('Found existing company:', company.id);
-        } else {
-          const { data: newCompany, error: companyError } = await supabase
-            .from('companies')
-            .insert([{ name: companyName }])
-            .select('id')
-            .single();
-          
-          if (companyError) {
-            if (companyError.code === '23505') {
-              console.log('Company already exists, fetching existing company');
-              const { data: retryCompany } = await supabase
-                .from('companies')
-                .select('id')
-                .eq('name', companyName)
-                .single();
-              company = retryCompany;
-            } else {
-              throw companyError;
-            }
-          } else {
-            company = newCompany;
-          }
-          console.log('Created/found company:', company?.id);
-        }
-      } catch (companyError) {
-        console.error('Error handling company creation:', companyError);
-        throw companyError;
-      }
-
-      if (!company?.id) {
-        throw new Error('Failed to create or find company');
-      }
-
-      try {
-        const { error: roleError } = await supabase
-          .from('company_users')
-          .insert([{ 
-            user_id: user.id, 
-            role: 'admin',
-            company_id: company.id
-          }]);
-
-        if (roleError && roleError.code !== '23505') {
-          throw roleError;
-        }
-        
-        console.log('Admin role assigned successfully');
-      } catch (roleError) {
-        console.error('Error assigning admin role:', roleError);
-        throw roleError;
+      const { data, error } = await supabase.rpc('complete_user_setup', {
+        target_user_id: user.id,
+        company_name: companyName
+      });
+      
+      if (error) {
+        console.error('Error completing user setup:', error);
+        throw error;
       }
       
-      await fetchUserRole(user.id);
+      console.log('Complete user setup result:', data);
       
+      const result = data as unknown as FixSetupResponse;
+      
+      if (result?.success) {
+        console.log('Setup completed successfully, refreshing user role');
+        await fetchUserRole(user.id);
+      } else {
+        console.error('Failed to complete setup:', result?.error);
+        throw new Error(result?.error || 'Failed to complete user setup');
+      }
     } catch (error) {
-      console.error('Error completing user setup:', error);
+      console.error('Error in completeUserSetup:', error);
       throw error;
     }
   };
