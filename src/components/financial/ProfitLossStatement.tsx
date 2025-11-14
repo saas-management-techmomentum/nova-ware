@@ -130,9 +130,12 @@ export const ProfitLossStatement: React.FC<ProfitLossStatementProps> = () => {
         new Date(inv.created_at) >= startDate && inv.status === 'paid'
       );
 
-      const filteredExpenses = (transactions as any[]).filter((exp: any) => 
-        new Date(exp.created_at) >= startDate && exp.transaction_type === 'expense'
-      );
+      // Type guard for transaction data - treat unknown data as empty array
+      const filteredExpenses: { created_at: string; transaction_type: string; total_amount: number; description?: string }[] = 
+        Array.isArray(transactions) && transactions.length > 0 ? 
+        (transactions as any[]).filter((exp: any) => 
+          exp && exp.created_at && new Date(exp.created_at) >= startDate && exp.transaction_type === 'expense'
+        ) : [];
 
       // Calculate revenue by service type
       const revenueByService = rates.reduce((acc, rate) => {

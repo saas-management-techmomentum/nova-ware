@@ -104,8 +104,7 @@ const OrderActions: React.FC<OrderActionsProps> = ({ order, onRefresh }) => {
       const { error } = await supabase
         .from('order_documents')
         .delete()
-        .eq('id', documentId)
-        .eq('user_id', user.id);
+        .eq('id', documentId);
 
       if (error) {
         console.error('Error deleting document:', error);
