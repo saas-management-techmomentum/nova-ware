@@ -70,7 +70,7 @@ export const ProfitLossStatement: React.FC<ProfitLossStatementProps> = () => {
         .eq('user_id', user.id);
 
       let transactionsQuery = supabase
-        .from('billing_transactions')
+        .from('billing_transactions' as any)
         .select('total_amount, transaction_type, created_at, description, warehouse_id')
         .eq('user_id', user.id);
 
@@ -130,7 +130,7 @@ export const ProfitLossStatement: React.FC<ProfitLossStatementProps> = () => {
         new Date(inv.created_at) >= startDate && inv.status === 'paid'
       );
 
-      const filteredExpenses = transactions.filter(exp => 
+      const filteredExpenses = (transactions as any[]).filter((exp: any) => 
         new Date(exp.created_at) >= startDate && exp.transaction_type === 'expense'
       );
 

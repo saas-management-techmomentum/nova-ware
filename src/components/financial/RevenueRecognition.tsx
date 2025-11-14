@@ -90,7 +90,11 @@ export const RevenueRecognition: React.FC = () => {
     );
   }
 
-  const totalRevenue = revenueEntries?.reduce((sum, entry) => sum + entry.total_amount, 0) || 0;
+  const totalRevenue = revenueEntries?.reduce((sum: number, entry: any) => {
+    const entryTotal = entry.journal_entry_lines?.reduce((lineSum: number, line: any) => 
+      lineSum + (line.credit_amount || 0), 0) || 0;
+    return sum + entryTotal;
+  }, 0) || 0;
   const completedOrders = revenueEntries?.length || 0;
 
   return (
@@ -216,7 +220,7 @@ export const RevenueRecognition: React.FC = () => {
                     )}
                     <TableCell className="text-right">
                       <div className="font-semibold text-emerald-400">
-                        {formatCurrency(entry.total_amount)}
+                        {formatCurrency((entry as any).total_amount || 0)}
                       </div>
                     </TableCell>
                     <TableCell>

@@ -259,12 +259,8 @@ const BatchAssignmentDialog = ({
         if (assignment.quantity <= 0) continue;
 
         if (assignment.isNewBatch) {
-          // Create new batch
-          const { data: generatedNumber } = await supabase
-            .rpc('generate_batch_number', {
-              product_uuid: selectedProduct.id,
-              user_uuid: user.id
-            });
+          // Create new batch with auto-generated batch number
+          const generatedNumber = `BATCH-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
           const { error: createError } = await supabase
             .from('product_batches')

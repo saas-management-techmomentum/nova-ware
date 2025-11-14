@@ -18,33 +18,12 @@ export const InventoryDebugPanel: React.FC<InventoryDebugPanelProps> = ({ invoic
   const { toast } = useToast();
 
   const debugInventoryReduction = async () => {
-    setIsDebugging(true);
+    setIsDebugging(false);
     try {
-      console.log('Starting debug for invoice input:', invoiceId);
-      
-      // Call the new RPC function with debug mode - it handles ID/number lookup internally
-      const { data: result, error } = await supabase.rpc('reduce_invoice_inventory', {
-        invoice_id_param: invoiceId,
-        execution_mode: 'debug'
-      });
-
-      console.log('Debug function response:', { result, error });
-
-      if (error) {
-        console.error('Database function error:', error);
-        throw error;
-      }
-
-      // Display comprehensive results
-      setDebugResults(result || {});
-      
-      const resultData: any = result || {};
       toast({
-        title: resultData.success ? "Debug Complete" : "Debug Failed",
-        description: resultData.success ? 
-          `Successfully processed ${resultData.successful_items || 0}/${resultData.total_items_processed || 0} items` :
-          resultData.message || "Check console for details",
-        variant: resultData.success ? "default" : "destructive"
+        title: "Feature Unavailable",
+        description: "This debug function requires database functions that haven't been created yet.",
+        variant: "destructive"
       });
     } catch (error) {
       console.error('Debug error:', error);
@@ -53,8 +32,6 @@ export const InventoryDebugPanel: React.FC<InventoryDebugPanelProps> = ({ invoic
         description: "Failed to run debug function",
         variant: "destructive"
       });
-    } finally {
-      setIsDebugging(false);
     }
   };
 

@@ -40,13 +40,14 @@ export const InventoryFixButton = () => {
         throw error;
       }
 
-      setResults(data || []);
+      const results = Array.isArray(data) ? data : [];
+      setResults(results as any);
       setShowResults(true);
 
-      if (data && data.length > 0) {
+      if (results.length > 0) {
         toast({
           title: "Success",
-          description: `Processed ${data.length} invoice items and reduced inventory accordingly`,
+          description: `Processed ${results.length} invoice items and reduced inventory accordingly`,
         });
       } else {
         toast({
