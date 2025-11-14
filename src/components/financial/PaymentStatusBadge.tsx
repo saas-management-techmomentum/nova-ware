@@ -29,12 +29,12 @@ export const PaymentStatusBadge: React.FC<PaymentStatusBadgeProps> = ({
     setIsLoading(true);
     try {
       const { data, error } = await supabase
-        .from('vendor_bills')
+        .from('vendor_bills' as any)
         .select('id, bill_number, amount, status, paid_amount, due_date')
         .eq('po_id', purchaseOrder.id);
 
       if (error) throw error;
-      setLinkedBills(data || []);
+      setLinkedBills((data as any) || []);
     } catch (err) {
       console.error('Error fetching linked bills:', err);
     } finally {
