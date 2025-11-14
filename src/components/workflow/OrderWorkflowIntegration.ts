@@ -1,12 +1,9 @@
 import { supabase } from '@/integrations/supabase/client';
 
-// This module handles the integration between Order Workflow and Outgoing Shipments
-// When an order reaches "Ready to Ship" status through the workflow, 
-// the database trigger will automatically create an outgoing shipment
+// Workflow features are disabled - missing database tables
 
 export const updateOrderStatusWithWorkflow = async (orderId: string, newStatus: string) => {
   try {
-    // Update order status - this will trigger the database function to create outgoing shipment
     const { error } = await supabase
       .from('orders')
       .update({ 
@@ -20,13 +17,6 @@ export const updateOrderStatusWithWorkflow = async (orderId: string, newStatus: 
       throw error;
     }
 
-    console.log(`Order ${orderId} status updated to ${newStatus}`);
-    
-    // If status is 'order-ready' (Ready to Ship), the trigger will automatically:
-    // 1. Create an outgoing shipment record
-    // 2. Transfer order items to shipment items
-    // 3. Link the shipment back to the order
-    
     return { success: true };
   } catch (error) {
     console.error('Exception in updateOrderStatusWithWorkflow:', error);
@@ -36,7 +26,6 @@ export const updateOrderStatusWithWorkflow = async (orderId: string, newStatus: 
 
 export const getOrderShipmentInfo = async (orderId: string) => {
   try {
-    // Get the outgoing shipment linked to this order
     const { data, error } = await supabase
       .from('shipments')
       .select(`
@@ -57,7 +46,7 @@ export const getOrderShipmentInfo = async (orderId: string) => {
       .eq('shipment_type', 'outgoing')
       .single();
 
-    if (error && error.code !== 'PGRST116') { // PGRST116 = no rows returned
+    if (error && error.code !== 'PGRST116') {
       console.error('Error fetching order shipment:', error);
       throw error;
     }
@@ -67,4 +56,9 @@ export const getOrderShipmentInfo = async (orderId: string) => {
     console.error('Exception in getOrderShipmentInfo:', error);
     return null;
   }
+};
+
+// Disabled workflow feature
+export const createWorkflowForOrder = async () => {
+  return null;
 };
