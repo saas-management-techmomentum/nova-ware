@@ -60,7 +60,10 @@ export const useGeneralLedger = () => ({
   journalEntries: [] as any[],
   glSummary: null as GLSummary | null,
   isLoading: false,
+  selectedWarehouse: null as string | null,
+  isInCorporateOverview: false,
   fetchJournalEntries: async () => {},
   fetchTrialBalance: async () => [] as TrialBalanceItem[],
+  getTrialBalance: async () => [] as TrialBalanceItem[],
   refetch: async () => {}
 });

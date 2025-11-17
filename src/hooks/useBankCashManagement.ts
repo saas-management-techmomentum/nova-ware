@@ -53,8 +53,9 @@ export const useBankCashManagement = () => ({
   } as BankDashboardMetrics,
   matchSuggestions: [] as MatchSuggestion[],
   isLoading: false,
-  addPettyCashEntry: async () => {},
-  reconcileAccount: async () => {},
-  applyMatchSuggestion: async () => {},
+  addPettyCashEntry: async (entry: Omit<PettyCashEntry, 'id' | 'created_at' | 'updated_at' | 'user_id'>) => {},
+  reconcileAccount: async (accountId: string, endingBalance: number) => {},
+  matchTransaction: async (transactionId: string, matchType: string, matchId: string) => {},
+  applyMatchSuggestion: async (suggestion: MatchSuggestion) => {},
   refetch: async () => {}
 });

@@ -53,8 +53,9 @@ export const useAccountsReceivable = () => ({
     customer: '',
     overdue: false
   },
-  setFilter: () => {},
-  recordPayment: async () => {},
+  setFilter: (filter: any) => {},
+  recordPayment: async (invoiceId: string, paymentData: any) => {},
+  sendPaymentReminder: async (invoiceId: string) => {},
   fetchARData: async () => {},
   refreshData: async () => {}
 });

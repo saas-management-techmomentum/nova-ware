@@ -547,7 +547,7 @@ export const PayrollManagement: React.FC = () => {
                               <Button 
                                 variant="outline" 
                                 size="sm"
-                                onClick={() => payPayrollEntry(entry.id, new Date().toISOString().split('T')[0])}
+                                onClick={() => payPayrollEntry(entry.id)}
                               >
                                 <DollarSign className="h-3 w-3 mr-1" />
                                 Pay

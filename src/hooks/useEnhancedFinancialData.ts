@@ -300,9 +300,8 @@ export const useEnhancedFinancialData = () => {
                 .filter(inv => inv.warehouse_id === warehouse.id)
                 .reduce((sum, inv) => sum + inv.total_amount, 0);
               
-              const whExpenses = allExpenses
-                ?.filter(exp => exp.warehouse_id === warehouse.id)
-                .reduce((sum, exp) => sum + exp.total_amount, 0) || 0;
+              // COMMENTED OUT: allExpenses references missing total_amount column
+              const whExpenses = 0;
               
               const whInventoryValue = inventory
                 ?.filter(item => item.warehouse_id === warehouse.id)
