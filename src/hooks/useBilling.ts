@@ -94,5 +94,6 @@ export const useBilling = () => ({
   toggleRecurringInvoice: async () => {},
   fetchBillingTransactions: async () => {},
   generateInvoiceFromTransactions: async () => ({} as Invoice),
+  sendInvoiceEmail: async (invoiceId: string, email: string, message: string) => ({ success: false, error: 'Feature unavailable' }),
   refreshData: async () => {}
 });

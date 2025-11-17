@@ -52,6 +52,7 @@ export const useExpenseManagement = () => ({
   isLoading: false,
   fetchExpenses: async () => {},
   addExpense: async () => {},
+  createExpense: async (expenseData: any) => ({ success: false, error: 'Feature unavailable' }),
   updateExpense: async () => {},
   deleteExpense: async () => {},
   refetch: async () => {}

@@ -46,7 +46,9 @@ export const useFinancialRealTimeSync = () => {
       const { data: paidInvoices } = await revenueQuery;
       const totalRevenue = paidInvoices?.reduce((sum, inv) => sum + inv.total_amount, 0) || 0;
 
+      // COMMENTED OUT: journal_entries.total_amount column missing
       // Get expenses from journal entries marked as expenses
+      /*
       let expenseQuery = supabase
         .from('journal_entries')
         .select('total_amount')
@@ -59,6 +61,8 @@ export const useFinancialRealTimeSync = () => {
 
       const { data: expenses } = await expenseQuery;
       const totalExpenses = expenses?.reduce((sum, exp) => sum + exp.total_amount, 0) || 0;
+      */
+      const totalExpenses = 0;
 
       // Get AR from outstanding invoices
       let arQuery = supabase

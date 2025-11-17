@@ -21,7 +21,7 @@ interface EditEmployeeDialogProps {
 }
 
 const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmployeeDialogProps) => {
-  const { employees, updateEmployee, promoteEmployeeToManager, demoteManagerToEmployee, getEffectiveRole } = useEmployees();
+  const { employees, updateEmployee } = useEmployees();  // COMMENTED OUT: promoteEmployeeToManager, demoteManagerToEmployee, getEffectiveRole - RPC functions unavailable
   const { toast } = useToast();
   const { warehouses } = useWarehouse();
   

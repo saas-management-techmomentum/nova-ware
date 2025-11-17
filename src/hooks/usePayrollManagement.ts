@@ -60,7 +60,9 @@ export const usePayrollManagement = () => ({
     hourlyRate: 0,
     overtimeRate: 0
   }),
-  createPayrollEntry: async () => {},
+  createPayrollEntry: async (payrollData: any) => {},
+  processPayrollEntry: async (entryId: string) => {},
+  payPayrollEntry: async (entryId: string) => {},
   bulkCreatePayroll: async () => {},
   updatePayrollEntry: async () => {},
   deletePayrollEntry: async () => {},
@@ -72,7 +74,12 @@ export const usePayrollManagement = () => ({
     totalNetPay: 0,
     pendingPayroll: 0,
     processedPayroll: 0,
-    paidPayroll: 0
-  } as PayrollSummary),
+    paidPayroll: 0,
+    totalPayroll: 0,
+    employeeCount: 0,
+    averagePayPerEmployee: 0,
+    unpaidEntries: 0,
+    ytdPayroll: 0
+  }),
   refreshData: async () => {}
 });

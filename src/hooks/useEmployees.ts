@@ -469,91 +469,24 @@ export const useEmployees = () => {
     }
   };
 
+  // COMMENTED OUT: RPC functions not available in database
+  // These functions would need to be created via migration
+  /*
   const promoteEmployeeToManager = async (employeeId: string, warehouseId: string) => {
-    try {
-      const { data, error } = await supabase.rpc('promote_employee_to_manager', {
-        employee_uuid: employeeId,
-        warehouse_uuid: warehouseId
-      });
-
-      if (error) throw error;
-
-      const result = data as any;
-      if (result?.success) {
-        await fetchEmployees();
-        toast({
-          title: "Success",
-          description: result.message || "Employee promoted to manager successfully",
-        });
-      } else {
-        toast({
-          title: "Error",
-          description: result?.error || "Failed to promote employee",
-          variant: "destructive",
-        });
-      }
-
-      return data;
-    } catch (error: any) {
-      console.error('Error promoting employee:', error);
-      toast({
-        title: "Error",
-        description: error.message || "Failed to promote employee",
-        variant: "destructive",
-      });
-      throw error;
-    }
+    // Requires: promote_employee_to_manager RPC function
+    return null;
   };
 
   const demoteManagerToEmployee = async (employeeId: string, warehouseId: string) => {
-    try {
-      const { data, error } = await supabase.rpc('demote_manager_to_employee', {
-        employee_uuid: employeeId,
-        warehouse_uuid: warehouseId
-      });
-
-      if (error) throw error;
-
-      const result = data as any;
-      if (result?.success) {
-        await fetchEmployees();
-        toast({
-          title: "Success",
-          description: result.message || "Manager demoted to employee successfully",
-        });
-      } else {
-        toast({
-          title: "Error",
-          description: result?.error || "Failed to demote manager",
-          variant: "destructive",
-        });
-      }
-
-      return data;
-    } catch (error: any) {
-      console.error('Error demoting manager:', error);
-      toast({
-        title: "Error",
-        description: error.message || "Failed to demote manager",
-        variant: "destructive",
-      });
-      throw error;
-    }
+    // Requires: demote_manager_to_employee RPC function
+    return null;
   };
 
   const getEffectiveRole = async (employeeId: string): Promise<string> => {
-    try {
-      const { data, error } = await supabase.rpc('get_effective_role', {
-        employee_uuid: employeeId
-      });
-
-      if (error) throw error;
-      return data || 'employee';
-    } catch (error) {
-      console.error('Error getting effective role:', error);
-      return 'employee';
-    }
+    // Requires: get_effective_role RPC function
+    return 'employee';
   };
+  */
 
   useEffect(() => {
     if (user?.id) {
@@ -570,9 +503,10 @@ export const useEmployees = () => {
     removeEmployee: deleteEmployee,
     resendInvitation,
     assignEmployeeToWarehouse,
-    promoteEmployeeToManager,
-    demoteManagerToEmployee,
-    getEffectiveRole,
+    // COMMENTED OUT: RPC functions not available
+    // promoteEmployeeToManager,
+    // demoteManagerToEmployee,
+    // getEffectiveRole,
     refreshEmployees: fetchEmployees
   };
 };
