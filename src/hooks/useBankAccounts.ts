@@ -1,3 +1,7 @@
+// COMMENTED OUT: bank_accounts.opening_balance column missing from database
+// This feature requires database schema updates before it can be enabled
+
+/*
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -130,3 +134,42 @@ export const useBankAccounts = () => {
     refetch: fetchBankAccounts
   };
 };
+*/
+
+export interface BankAccount {
+  id: string;
+  user_id: string;
+  warehouse_id?: string;
+  company_id?: string;
+  bank_name: string;
+  account_number: string;
+  account_type: string;
+  currency: string;
+  current_balance: number;
+  opening_balance: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CreateBankAccountData {
+  bank_name: string;
+  account_number: string;
+  account_type: string;
+  currency: string;
+  current_balance: number;
+  opening_balance: number;
+  warehouse_id?: string;
+  company_id?: string;
+}
+
+// Stub export to maintain compatibility
+export const useBankAccounts = () => ({
+  bankAccounts: [] as BankAccount[],
+  isLoading: false,
+  error: null,
+  addBankAccount: async (data: CreateBankAccountData) => {},
+  updateBankAccount: async (id: string, updates: Partial<CreateBankAccountData>) => {},
+  deleteBankAccount: async (id: string) => {},
+  refetch: async () => {}
+});

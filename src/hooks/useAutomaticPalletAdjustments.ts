@@ -1,4 +1,7 @@
+// COMMENTED OUT: cleanup_empty_pallets RPC function missing from database
+// This feature requires database schema updates before it can be enabled
 
+/*
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -97,3 +100,24 @@ export const useAutomaticPalletAdjustments = () => {
     cleanupEmptyPallets,
   };
 };
+*/
+
+export interface OrderFulfillmentLog {
+  id: string;
+  orderId: string;
+  affectedPallets: {
+    palletId: string;
+    oldQuantity: number;
+    newQuantity: number;
+    productSku: string;
+  }[];
+  timestamp: string;
+  status: 'processing' | 'completed' | 'error';
+}
+
+// Stub export to maintain compatibility
+export const useAutomaticPalletAdjustments = () => ({
+  fulfillmentLogs: [] as OrderFulfillmentLog[],
+  isProcessing: false,
+  cleanupEmptyPallets: async () => {}
+});
