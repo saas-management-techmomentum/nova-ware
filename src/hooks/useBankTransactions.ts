@@ -1,3 +1,7 @@
+// COMMENTED OUT: bank_transactions.updated_at column missing from database
+// This feature requires database schema updates before it can be enabled
+
+/*
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
@@ -135,3 +139,42 @@ export const useBankTransactions = () => {
     refetch: fetchBankTransactions
   };
 };
+*/
+
+export interface BankTransaction {
+  id: string;
+  bank_account_id: string;
+  user_id: string;
+  transaction_date: string;
+  description: string;
+  reference_number?: string;
+  amount: number;
+  transaction_type: 'debit' | 'credit';
+  status: 'matched' | 'unmatched' | 'pending';
+  gl_reference_id?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CreateBankTransactionData {
+  bank_account_id: string;
+  transaction_date: string;
+  description: string;
+  reference_number?: string;
+  amount: number;
+  transaction_type: 'debit' | 'credit';
+  status?: 'matched' | 'unmatched' | 'pending';
+  gl_reference_id?: string;
+}
+
+// Stub export to maintain compatibility
+export const useBankTransactions = () => ({
+  bankTransactions: [] as BankTransaction[],
+  isLoading: false,
+  error: null,
+  addBankTransaction: async (data: CreateBankTransactionData) => {},
+  updateBankTransaction: async (id: string, updates: Partial<CreateBankTransactionData>) => {},
+  updateTransactionStatus: async (id: string, status: 'matched' | 'unmatched' | 'pending') => {},
+  deleteBankTransaction: async (id: string) => {},
+  refetch: async () => {}
+});
