@@ -175,15 +175,7 @@ export const useWarehouseScopedFinancialData = () => {
       const { data: journalEntries } = await expenseQuery;
 
       // Calculate expenses disabled - journal_entries lacks total_amount
-      const filteredBreakdown = [] as Array<{
-        warehouse_id: string;
-        warehouse_name: string;
-        revenue: number;
-        expenses: number;
-      }>;
-
-      // Convert warehouse breakdown to array
-      const filteredBreakdownArray = Object.values(warehouseBreakdown);
+      // (warehouseBreakdown remains empty from invoice calculations above)
       let accountsQuery = supabase
         .from('accounts')
         .select('id, warehouse_id');
