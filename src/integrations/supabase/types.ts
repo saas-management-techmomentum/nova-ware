@@ -1199,6 +1199,57 @@ export type Database = {
           },
         ]
       }
+      order_statuses: {
+        Row: {
+          color: string | null
+          company_id: string | null
+          created_at: string | null
+          id: string
+          name: string
+          order_index: number
+          updated_at: string | null
+          user_id: string
+          warehouse_id: string | null
+        }
+        Insert: {
+          color?: string | null
+          company_id?: string | null
+          created_at?: string | null
+          id?: string
+          name: string
+          order_index?: number
+          updated_at?: string | null
+          user_id: string
+          warehouse_id?: string | null
+        }
+        Update: {
+          color?: string | null
+          company_id?: string | null
+          created_at?: string | null
+          id?: string
+          name?: string
+          order_index?: number
+          updated_at?: string | null
+          user_id?: string
+          warehouse_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_statuses_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_statuses_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       orders: {
         Row: {
           carrier: string | null
@@ -1666,6 +1717,45 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          created_at: string | null
+          display_name: string | null
+          id: string
+          location: string | null
+          onboarding_completed: boolean | null
+          onboarding_current_step: number | null
+          onboarding_enabled: boolean | null
+          updated_at: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          display_name?: string | null
+          id: string
+          location?: string | null
+          onboarding_completed?: boolean | null
+          onboarding_current_step?: number | null
+          onboarding_enabled?: boolean | null
+          updated_at?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          display_name?: string | null
+          id?: string
+          location?: string | null
+          onboarding_completed?: boolean | null
+          onboarding_current_step?: number | null
+          onboarding_enabled?: boolean | null
+          updated_at?: string | null
+        }
+        Relationships: []
       }
       purchase_orders: {
         Row: {

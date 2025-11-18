@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -14,6 +13,8 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Settings, Plus } from 'lucide-react';
 import { useOrders } from '@/contexts/OrdersContext';
+import { useAuth } from '@/contexts/AuthContext';
+import { useWarehouse } from '@/contexts/WarehouseContext';
 import {
   DndContext,
   DragEndEvent,
@@ -55,6 +56,12 @@ const colorOptions = [
 
 const OrderStatusManager = () => {
   const { orderStatuses, addOrderStatus, updateOrderStatusesOrder, deleteOrderStatus } = useOrders();
+  const { user } = useAuth();
+  const { selectedWarehouse, warehouses } = useWarehouse();
+  
+  // Get company_id from first warehouse or null
+  const companyId = warehouses[0]?.company_id || null;
+  
   const [isOpen, setIsOpen] = useState(false);
   const [newStatusName, setNewStatusName] = useState('');
   const [selectedColor, setSelectedColor] = useState('bg-slate-500');
@@ -81,7 +88,7 @@ const OrderStatusManager = () => {
   }, [orderStatuses]);
 
   const handleAddStatus = async () => {
-    if (!newStatusName.trim()) return;
+    if (!newStatusName.trim() || !user || !companyId) return;
 
     // Find the maximum order index from draggable statuses
     const maxOrderIndex = Math.max(...draggableStatuses.map(s => s.order_index), 0);
@@ -89,7 +96,9 @@ const OrderStatusManager = () => {
     await addOrderStatus({
       name: newStatusName.trim(),
       order_index: maxOrderIndex + 1,
-      color: selectedColor
+      color: selectedColor,
+      company_id: companyId,
+      warehouse_id: selectedWarehouse || undefined
     });
 
     setNewStatusName('');

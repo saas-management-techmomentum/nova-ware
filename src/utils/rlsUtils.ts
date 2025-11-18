@@ -58,28 +58,9 @@ export const getAccessibleWarehouses = async (): Promise<AccessibleWarehouse[]> 
 // Get user's data access scope
 export const getUserDataScope = async (): Promise<UserDataScope | null> => {
   try {
-    const { data, error } = await supabase.rpc('get_user_data_scope');
-    
-    if (error) {
-      console.error('Error fetching user data scope:', error);
-      return null;
-    }
-    
-    // Safe type conversion with validation
-    if (!data || typeof data !== 'object') {
-      return null;
-    }
-    
-    const scope = data as any;
-    return {
-      user_id: scope.user_id || '',
-      company_ids: Array.isArray(scope.company_ids) ? scope.company_ids : [],
-      admin_company_ids: Array.isArray(scope.admin_company_ids) ? scope.admin_company_ids : [],
-      warehouse_ids: Array.isArray(scope.warehouse_ids) ? scope.warehouse_ids : [],
-      is_multi_company_admin: Boolean(scope.is_multi_company_admin),
-      total_companies: Number(scope.total_companies) || 0,
-      total_warehouses: Number(scope.total_warehouses) || 0
-    };
+    // Disabled: RPC function not available
+    console.warn('getUserDataScope: RPC function not available');
+    return null;
   } catch (error) {
     console.error('Exception in getUserDataScope:', error);
     return null;
@@ -89,43 +70,9 @@ export const getUserDataScope = async (): Promise<UserDataScope | null> => {
 // Get company metrics with access control
 export const getCompanyMetrics = async (companyId: string): Promise<CompanyMetrics | null> => {
   try {
-    const { data, error } = await supabase.rpc('get_company_metrics', {
-      company_uuid: companyId
-    });
-    
-    if (error) {
-      console.error('Error fetching company metrics:', error);
-      return null;
-    }
-    
-    // Safe type conversion with validation
-    if (!data || typeof data !== 'object') {
-      return null;
-    }
-    
-    const metrics = data as any;
-    
-    // Check for error in the response
-    if (metrics.error) {
-      return {
-        company_id: companyId,
-        total_products: 0,
-        total_orders: 0,
-        total_warehouses: 0,
-        total_clients: 0,
-        generated_at: new Date().toISOString(),
-        error: metrics.error
-      };
-    }
-    
-    return {
-      company_id: metrics.company_id || companyId,
-      total_products: Number(metrics.total_products) || 0,
-      total_orders: Number(metrics.total_orders) || 0,
-      total_warehouses: Number(metrics.total_warehouses) || 0,
-      total_clients: Number(metrics.total_clients) || 0,
-      generated_at: metrics.generated_at || new Date().toISOString()
-    };
+    // Disabled: RPC function not available
+    console.warn('getCompanyMetrics: RPC function not available');
+    return null;
   } catch (error) {
     console.error('Exception in getCompanyMetrics:', error);
     return null;
@@ -135,15 +82,9 @@ export const getCompanyMetrics = async (companyId: string): Promise<CompanyMetri
 // Test RLS policies for current user
 export const testRLSPolicies = async () => {
   try {
-    const { data, error } = await supabase.rpc('test_rls_policies');
-    
-    if (error) {
-      console.error('Error testing RLS policies:', error);
-      return null;
-    }
-    
-    console.log('RLS Policy Test Results:', data);
-    return data;
+    // Disabled: RPC function not available
+    console.warn('testRLSPolicies: RPC function not available');
+    return null;
   } catch (error) {
     console.error('Exception in testRLSPolicies:', error);
     return null;
