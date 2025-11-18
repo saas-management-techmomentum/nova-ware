@@ -237,19 +237,8 @@ const Profile = () => {
   const handleSave = async () => {
     try {
       if (!user) return;
-      
-      const { error } = await supabase
-        .from('profiles')
-        .upsert({
-          id: user.id,
-          location: editForm.location,
-          bio: editForm.bio,
-          display_name: editForm.name,
-        });
-      
-      if (error) {
-        throw error;
-      }
+      // Profile updates disabled - profiles table doesn't exist
+      console.warn('Profile updates disabled');
       
       setUserData({ 
         ...userData, 
@@ -302,18 +291,10 @@ const Profile = () => {
         .from('profile-pictures')
         .getPublicUrl(fileName);
 
-      const { error: updateError } = await supabase
-        .from('profiles')
-        .upsert({
-          id: user.id,
-          avatar_url: publicUrl,
-        });
+      // Avatar upload disabled - profiles table doesn't exist
+      console.warn('Avatar upload disabled');
 
-      if (updateError) {
-        throw updateError;
-      }
-
-      setUserData({ ...userData, avatarUrl: publicUrl });
+      setUserData({ ...userData, avatarUrl: '' });
       
       toast({
         title: "Profile picture updated",

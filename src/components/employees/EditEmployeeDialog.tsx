@@ -182,7 +182,6 @@ const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmploye
                       </div>
                       {/* Role management buttons removed - RPCs not available */}
                     </div>
-                    </div>
                   </div>
                 </div>
               )}

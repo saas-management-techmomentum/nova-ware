@@ -174,6 +174,8 @@ const UserManagement: React.FC = () => {
       return;
     }
 
+    setLoading(true);
+    try {
       // Warehouse assignment disabled - RPC not available
       console.warn('Warehouse assignment feature disabled');
       toast({
