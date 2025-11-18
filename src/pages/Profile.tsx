@@ -111,7 +111,7 @@ const Profile = () => {
             company_id: item.company_id,
             company_name: item.companies?.name || 'Unknown Company',
             role: item.role,
-            permissions: item.permissions
+            permissions: {} // permissions column doesn't exist in company_users
           })) || [];
           setUserRoles(roles);
         }
@@ -307,16 +307,8 @@ const Profile = () => {
         .from('profile-pictures')
         .getPublicUrl(fileName);
 
-      const { error: updateError } = await supabase
-        .from('profiles')
-        .upsert({
-          id: user.id,
-          avatar_url: publicUrl,
-        });
-
-      if (updateError) {
-        throw updateError;
-      }
+      // Profile picture update disabled (profiles table not available)
+      // const { error: updateError } = await supabase.from('profiles').upsert({ ... });
 
       setUserData({ ...userData, avatarUrl: publicUrl });
       
