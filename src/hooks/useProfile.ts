@@ -1,12 +1,9 @@
+// NOTE: profiles table not present in DB; this hook uses client-side placeholder state only.
 import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 
 export interface Profile {
   id: string;
-  avatar_url?: string;
-  bio?: string;
-  location?: string;
   onboarding_enabled: boolean;
   onboarding_completed: boolean;
   onboarding_current_step: number;
@@ -18,68 +15,46 @@ export const useProfile = () => {
   const { user } = useAuth();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  const fetchProfile = async () => {
+  useEffect(() => {
     if (!user) {
+      setProfile(null);
       setIsLoading(false);
       return;
     }
 
-    try {
-      setIsLoading(true);
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', user.id)
-        .single();
-
-      if (error) {
-        throw error;
-      }
-
-      setProfile(data);
-      setError(null);
-    } catch (err) {
-      console.error('Error fetching profile:', err);
-      setError(err instanceof Error ? err.message : 'Failed to fetch profile');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    // Set client-side default profile
+    setProfile({
+      id: user.id,
+      onboarding_enabled: false,
+      onboarding_completed: true,
+      onboarding_current_step: 0,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    });
+    setIsLoading(false);
+  }, [user]);
 
   const updateProfile = async (updates: Partial<Profile>) => {
-    if (!user) return;
+    if (!profile) return { success: false };
 
-    try {
-      const { error } = await supabase
-        .from('profiles')
-        .update(updates)
-        .eq('id', user.id);
+    setProfile(prev => prev ? {
+      ...prev,
+      ...updates,
+      updated_at: new Date().toISOString(),
+    } : prev);
 
-      if (error) {
-        throw error;
-      }
-
-      // Update local state
-      setProfile(prev => prev ? { ...prev, ...updates } : null);
-      return { success: true };
-    } catch (err) {
-      console.error('Error updating profile:', err);
-      const message = err instanceof Error ? err.message : 'Failed to update profile';
-      setError(message);
-      return { success: false, error: message };
-    }
+    return { success: true };
   };
 
-  useEffect(() => {
-    fetchProfile();
-  }, [user]);
+  const fetchProfile = async () => {
+    // No-op since we use client-side state only
+  };
 
   return {
     profile,
     isLoading,
-    error,
+    error: null,
     fetchProfile,
     updateProfile,
   };

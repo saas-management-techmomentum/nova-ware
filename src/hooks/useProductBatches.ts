@@ -203,7 +203,6 @@ export const useProductBatches = (productId?: string) => {
 
   const allocateInventory = async (requiredQuantity: number) => {
     console.warn('allocateInventory is disabled (allocate_inventory_fefo RPC not available)');
-    toast.error('Batch allocation feature not available');
     return [];
   };
 
