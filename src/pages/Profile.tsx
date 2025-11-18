@@ -145,7 +145,6 @@ const Profile = () => {
         });
         
         // Get name from user metadata with improved priority order
-        // Priority: employee_name → first_name + last_name → display_name → 'User'
         let fullName = '';
         
         // First priority: employee_name (set during invitation)
@@ -160,15 +159,10 @@ const Profile = () => {
           fullName = [firstName, lastName].filter(Boolean).join(' ');
           console.log('Debug - Using first_name + last_name:', fullName);
         }
-        // Third priority: display_name from profiles table
-        else if (profileData?.display_name) {
-          fullName = profileData.display_name;
-          console.log('Debug - Using display_name from profile:', fullName);
-        }
         // Final fallback
         else {
-          fullName = 'User';
-          console.log('Debug - Using fallback name: User');
+          fullName = user.email?.split('@')[0] || 'User';
+          console.log('Debug - Using fallback name');
         }
         
         console.log('Debug - Final name determined:', fullName);
@@ -179,29 +173,23 @@ const Profile = () => {
         // Use employee role if available, otherwise fallback to company role
         const userRole = employeeData?.role || primaryRole?.role || 'employee';
         
-        // Use actual profile data
-        const avatarUrl = profileData?.avatar_url || user.user_metadata?.avatar_url || '';
-        const location = profileData?.location || '';
-        const bio = profileData?.bio || '';
-        
         setUserData({
           name: fullName,
           email: user.email || '',
           company: primaryCompany,
-          location: location,
+          location: '',
           joinDate: joinDateFormatted,
-          bio: bio,
-          avatarUrl: avatarUrl,
+          bio: '',
+          avatarUrl: user.user_metadata?.avatar_url || '',
           role: userRole,
           accountStatus: 'active',
           emailVerified: user.email_confirmed_at ? true : false,
         });
 
-        console.log('Comprehensive profile data loaded:', {
+        console.log('Profile data loaded:', {
           fullName,
           primaryCompany,
           userRole,
-          hasProfile: !!profileData,
           rolesCount: companyRolesData?.length || 0,
           warehousesCount: warehouseData?.length || 0
         });
