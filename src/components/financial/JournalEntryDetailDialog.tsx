@@ -145,7 +145,6 @@ export const JournalEntryDetailDialog: React.FC<JournalEntryDetailDialogProps> =
               <Table>
                 <TableHeader>
                   <TableRow className="border-slate-700">
-                    <TableHead className="text-slate-300">Line #</TableHead>
                     <TableHead className="text-slate-300">Account</TableHead>
                     <TableHead className="text-slate-300">Description</TableHead>
                     <TableHead className="text-slate-300 text-right">Debit</TableHead>
@@ -155,9 +154,6 @@ export const JournalEntryDetailDialog: React.FC<JournalEntryDetailDialogProps> =
                 <TableBody>
                   {entry.lines?.map((line) => (
                     <TableRow key={line.id} className="border-slate-700 hover:bg-slate-800/30">
-                      <TableCell className="text-slate-300 font-medium">
-                        {line.line_number}
-                      </TableCell>
                       <TableCell>
                         <div className="text-white">
                           {line.account?.account_code} - {line.account?.account_name}
@@ -217,26 +213,6 @@ export const JournalEntryDetailDialog: React.FC<JournalEntryDetailDialogProps> =
             </CardContent>
           </Card>
 
-          {/* Approval Information */}
-          {entry.approved_by && entry.approved_at && (
-            <Card className="bg-slate-800/50 border-slate-700">
-              <CardHeader>
-                <CardTitle className="text-white">Approval Information</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid gap-4 md:grid-cols-2">
-                  <div>
-                    <span className="text-sm text-slate-400">Approved By:</span>
-                    <div className="font-medium text-white">{entry.approved_by}</div>
-                  </div>
-                  <div>
-                    <span className="text-sm text-slate-400">Approved At:</span>
-                    <div className="font-medium text-white">{formatDateTime(entry.approved_at)}</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
         </div>
 
         {/* Actions */}

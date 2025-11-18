@@ -58,8 +58,8 @@ export const GeneralLedger = () => {
     const entries: any[] = [];
     
     journalEntries.forEach((entry) => {
-      if (entry.journal_entry_lines) {
-        entry.journal_entry_lines.forEach((line: any) => {
+      if (entry.lines) {
+        entry.lines.forEach((line: any) => {
           const account = line.accounts;
           entries.push({
             id: `${entry.id}-${line.id}`,
@@ -75,8 +75,10 @@ export const GeneralLedger = () => {
             warehouse: entry.warehouses?.name || 'Unassigned',
             warehouseId: entry.warehouse_id,
             status: entry.status,
-            module: entry.module || 'manual',
-            referenceId: entry.reference_id,
+            module: entry.reference?.includes('Invoice:') ? 'billing' : 
+                    entry.reference?.includes('Order:') ? 'orders' : 
+                    entry.reference?.includes('Payment:') ? 'payments' : 'manual',
+            referenceId: entry.reference || '',
           });
         });
       }
