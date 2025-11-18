@@ -344,12 +344,9 @@ const Orders = () => {
                             )}
                           </div>
 
-                          {/* Workflow Section */}
-                          <div>
-                            <OrderWorkflowPanel 
-                              orderId={order.id} 
-                              onStatusUpdate={handleStatusUpdate}
-                            />
+                          {/* Workflow panel disabled - order_workflows table not available */}
+                          <div className="text-sm text-neutral-400 p-4">
+                            Workflow features temporarily disabled
                           </div>
                           
                           {/* Shipment Integration */}
