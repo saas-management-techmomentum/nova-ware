@@ -61,22 +61,7 @@ const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmploye
     }
   }, [selectedEmployee]);
 
-  // Separate effect for fetching effective role to avoid infinite loops
-  useEffect(() => {
-    const fetchEffectiveRole = async () => {
-      if (selectedEmployee?.id) {
-        try {
-          const role = await getEffectiveRole(selectedEmployee.id);
-          console.log('Effective role loaded:', role);
-          setEffectiveRole(role);
-        } catch (error) {
-          console.error('Error fetching effective role:', error);
-        }
-      }
-    };
-
-    fetchEffectiveRole();
-  }, [selectedEmployee?.id]); // Only depend on the employee ID, not the function
+  // Role management removed - RPC functions not available
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
@@ -147,85 +132,7 @@ const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmploye
     }
   };
 
-  const handlePromoteToManager = async () => {
-    if (!selectedEmployeeId || !selectedEmployee?.assigned_warehouse_id) {
-      toast({
-        title: "Error",
-        description: "Employee must be assigned to a warehouse to be promoted to manager",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      console.log('Promoting employee to manager:', {
-        employeeId: selectedEmployeeId,
-        warehouseId: selectedEmployee.assigned_warehouse_id
-      });
-      
-      await promoteEmployeeToManager(selectedEmployeeId, selectedEmployee.assigned_warehouse_id);
-      
-      // Refresh effective role
-      const newRole = await getEffectiveRole(selectedEmployeeId);
-      console.log('New effective role after promotion:', newRole);
-      setEffectiveRole(newRole);
-      
-      toast({
-        title: "Success",
-        description: "Employee promoted to manager successfully",
-      });
-    } catch (error) {
-      console.error('Error promoting employee:', error);
-      toast({
-        title: "Error",
-        description: "Failed to promote employee to manager",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleDemoteToEmployee = async () => {
-    if (!selectedEmployeeId || !selectedEmployee?.assigned_warehouse_id) {
-      toast({
-        title: "Error",
-        description: "Employee must be assigned to a warehouse to change role",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      console.log('Demoting manager to employee:', {
-        employeeId: selectedEmployeeId,
-        warehouseId: selectedEmployee.assigned_warehouse_id
-      });
-      
-      await demoteManagerToEmployee(selectedEmployeeId, selectedEmployee.assigned_warehouse_id);
-      
-      // Refresh effective role
-      const newRole = await getEffectiveRole(selectedEmployeeId);
-      console.log('New effective role after demotion:', newRole);
-      setEffectiveRole(newRole);
-      
-      toast({
-        title: "Success",
-        description: "Manager demoted to employee successfully",
-      });
-    } catch (error) {
-      console.error('Error demoting manager:', error);
-      toast({
-        title: "Error",
-        description: "Failed to demote manager to employee",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // Role management functions removed - RPCs not available
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
