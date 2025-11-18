@@ -77,27 +77,20 @@ const Profile = () => {
         console.log('Debug - First name from metadata:', user.user_metadata?.first_name);
         console.log('Debug - Last name from metadata:', user.user_metadata?.last_name);
         
-        // Fetch user profile from profiles table
-        const { data: profileData, error: profileError } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', user.id)
-          .single();
-          
-        if (profileError && profileError.code !== 'PGRST116') {
-          console.error('Error fetching profile:', profileError);
-        }
+        // Profile fetch disabled (profiles table not available)
+        // const { data: profileData, error: profileError } = await supabase
+        //   .from('profiles')
+        //   .select('*')
+        //   .eq('id', user.id)
+        //   .single();
         
-        console.log('Debug - Profile data from table:', profileData);
-        setProfile(profileData || null);
+        setProfile(null);
         
-        // Fetch user roles and company information
         const { data: companyRolesData, error: companyRolesError } = await supabase
           .from('company_users')
           .select(`
             company_id,
             role,
-            permissions,
             companies (
               name
             )

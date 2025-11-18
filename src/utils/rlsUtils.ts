@@ -55,24 +55,11 @@ export const getAccessibleWarehouses = async (): Promise<AccessibleWarehouse[]> 
   }
 };
 
-// Get user's data access scope
+// Get user's data access scope - DISABLED (RPC not available)
 export const getUserDataScope = async (): Promise<UserDataScope | null> => {
-  try {
-    const { data, error } = await supabase.rpc('get_user_data_scope');
-    
-    if (error) {
-      console.error('Error fetching user data scope:', error);
-      return null;
-    }
-    
-    // Safe type conversion with validation
-    if (!data || typeof data !== 'object') {
-      return null;
-    }
-    
-    const scope = data as any;
-    return {
-      user_id: scope.user_id || '',
+  console.warn('getUserDataScope is disabled (get_user_data_scope RPC not available)');
+  return null;
+};
       company_ids: Array.isArray(scope.company_ids) ? scope.company_ids : [],
       admin_company_ids: Array.isArray(scope.admin_company_ids) ? scope.admin_company_ids : [],
       warehouse_ids: Array.isArray(scope.warehouse_ids) ? scope.warehouse_ids : [],
