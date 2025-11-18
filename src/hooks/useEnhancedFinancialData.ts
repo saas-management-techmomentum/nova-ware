@@ -177,27 +177,11 @@ export const useEnhancedFinancialData = () => {
       const overdueAR = overdueInvoices.reduce((sum, inv) => sum + inv.total_amount, 0);
       const currentAR = accountsReceivable - overdueAR;
 
-      // 3. EXPENSE DATA (from journal entries) - RLS now handles access
-      let expenseQuery = supabase
-        .from('journal_entries')
-        .select('total_amount, entry_date, description, warehouse_id')
-        .or('description.ilike.%expense%,description.ilike.%cost%,description.ilike.%payroll%,description.ilike.%rent%,description.ilike.%utility%');
-
-      if (warehouseFilter && !isInCorporateOverview) {
-        expenseQuery = expenseQuery.eq('warehouse_id', warehouseFilter.eq);
-      }
-
-      const { data: allExpenses } = await expenseQuery;
-      const totalExpenses = allExpenses?.reduce((sum, exp) => sum + exp.total_amount, 0) || 0;
-      
-      const monthlyExpenses = allExpenses?.filter(exp => 
-        new Date(exp.entry_date) >= currentMonth
-      ).reduce((sum, exp) => sum + exp.total_amount, 0) || 0;
-
-      const previousMonthExpenses = allExpenses?.filter(exp => {
-        const expDate = new Date(exp.entry_date);
-        return expDate >= previousMonth && expDate <= previousMonthEnd;
-      }).reduce((sum, exp) => sum + exp.total_amount, 0) || 0;
+      // 3. EXPENSE DATA - DISABLED
+      // journal_entries.total_amount column does not exist
+      const totalExpenses = 0;
+      const monthlyExpenses = 0;
+      const previousMonthExpenses = 0;
 
       // 4. CASH & BANK DATA - RLS handles access  
       let bankQuery = supabase

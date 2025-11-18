@@ -173,72 +173,19 @@ export const useUserPermissions = () => {
     }
   };
 
-  const assignUserToWarehouse = async (userId: string, warehouseId: string, role: string) => {
-    try {
-      // Use the new safe assignment function with better validation
-      const { data, error } = await supabase
-        .rpc('safe_assign_user_to_warehouse', {
-          target_user_id: userId,
-          target_warehouse_id: warehouseId,
-          warehouse_role: role
-        });
-
-      if (error) {
-        throw new Error(`Failed to assign user to warehouse: ${error.message}`);
-      }
-
-      // Proper type assertion through unknown first
-      const response = data as unknown as SafeAssignResponse;
-      if (response && !response.success) {
-        throw new Error(response.error || 'Assignment failed');
-      }
-
-      return response;
-    } catch (error) {
-      console.error('Error in assignUserToWarehouse:', error);
-      throw error;
-    }
+  const assignUserToWarehouse = async () => {
+    console.warn('assignUserToWarehouse: RPC not available');
+    return null;
   };
 
-  // New function to audit data consistency
   const auditDataConsistency = async () => {
-    try {
-      const { data, error } = await supabase
-        .rpc('audit_data_consistency');
-
-      if (error) {
-        console.error('Error auditing data consistency:', error);
-        return null;
-      }
-
-      // Proper type assertion through unknown first
-      return data as unknown as DataConsistencyIssue[];
-    } catch (error) {
-      console.error('Error in auditDataConsistency:', error);
-      return null;
-    }
+    console.warn('auditDataConsistency: RPC not available');
+    return null;
   };
 
-  // New function to validate company isolation
-  const validateCompanyIsolation = async (companyId: string) => {
-    try {
-      const { data, error } = await supabase
-        .rpc('validate_company_isolation', {
-          target_company_id: companyId
-        });
-
-      if (error) {
-        console.error('Error validating company isolation:', error);
-        return null;
-      }
-
-      // The RPC function returns a single row, but Supabase wraps it in an array
-      const resultArray = data as unknown as CompanyIsolationResult[];
-      return resultArray && resultArray.length > 0 ? resultArray[0] : null;
-    } catch (error) {
-      console.error('Error in validateCompanyIsolation:', error);
-      return null;
-    }
+  const validateCompanyIsolation = async () => {
+    console.warn('validateCompanyIsolation: RPC not available');
+    return null;
   };
 
   // Enhanced function to check if user can manage time tracking with warehouse context

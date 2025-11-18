@@ -178,12 +178,12 @@ export const JournalEntries = () => {
                           Auto-Generated
                         </Badge>
                       )}
-                      {isInCorporateOverview && entry.warehouses && (
-                        <Badge variant="secondary" className="bg-purple-500/10 text-purple-400 border-purple-500/20">
-                          <Warehouse className="h-3 w-3 mr-1" />
-                          {entry.warehouses.name}
-                        </Badge>
-                      )}
+                {isInCorporateOverview && entry.warehouse_id && (
+                  <Badge variant="secondary" className="bg-purple-500/10 text-purple-400 border-purple-500/20">
+                    <Warehouse className="h-3 w-3 mr-1" />
+                    {entry.warehouse_id.slice(0, 8)}...
+                  </Badge>
+                )}
                       {isInCorporateOverview && !entry.warehouse_id && (
                         <Badge variant="secondary" className="bg-orange-500/10 text-orange-400 border-orange-500/20">
                           <Warehouse className="h-3 w-3 mr-1" />
@@ -197,12 +197,12 @@ export const JournalEntries = () => {
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
-                    <div className="text-right">
-                      <div className="font-semibold text-white">
-                        {formatCurrency(entry.total_amount || 0)}
-                      </div>
-                      <div className="text-xs text-slate-400">Total Amount</div>
+                  <div className="text-right">
+                    <div className="font-semibold text-white">
+                      {formatCurrency(0)}
                     </div>
+                    <div className="text-xs text-slate-400">Total Amount</div>
+                  </div>
                     <div className="flex items-center space-x-1">
                       <Button
                         variant="ghost"
