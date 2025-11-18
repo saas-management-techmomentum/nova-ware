@@ -47,7 +47,7 @@ interface InventoryContextType {
   updateProduct: (updatedProduct: InventoryItem) => void;
   deleteProduct: (id: string) => void;
   generatePredictions: () => PredictionResult[];
-  processShipmentItems: (items: any[]) => Promise<void>;
+  processShipmentItems: (items: any[]) => Promise<{ createdProducts: string[]; updatedProducts: string[] } | void>;
   addInventoryTransaction: (transaction: any) => void;
   transactions: any[];
   refreshPredictions: () => void;
@@ -70,7 +70,7 @@ interface InventoryProviderProps {
 export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }) => {
   // For predictive analysis, ignore warehouse filtering to get ALL products
   const { inventoryItems: baseItems, isLoading, refetch } = useWarehouseScopedInventory(true);
-  const { selectedWarehouse } = useWarehouse();
+  const { selectedWarehouse, warehouses } = useWarehouse();
   const { user } = useAuth();
   const { employees } = useEmployees();
   const { isAdmin, userRoles } = useUserPermissions();
@@ -386,17 +386,50 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
 
     console.log('Processing shipment items for inventory update:', items);
 
+    const createdProducts: string[] = [];
+    const updatedProducts: string[] = [];
+
     try {
       for (const item of items) {
         // Find the product by SKU in the current warehouse
-        const product = inventoryItems.find(p => 
+        let product = inventoryItems.find(p => 
           p.sku === item.sku && 
           (p.warehouse_id === selectedWarehouse || !p.warehouse_id)
         );
 
+        // If product doesn't exist, create it
         if (!product) {
-          console.warn(`Product with SKU ${item.sku} not found in warehouse inventory`);
-          continue;
+          console.log(`Product with SKU ${item.sku} not found - creating new product`);
+          
+          const companyId = warehouses.find(w => w.warehouse_id === selectedWarehouse)?.company_id || null;
+          
+          const { data: newProduct, error: createError } = await supabase
+            .from('products')
+            .insert({
+              sku: item.sku,
+              name: item.name || `Product ${item.sku}`,
+              quantity: 0, // Start at 0, will be updated below
+              stock: 0,
+              user_id: user.id,
+              warehouse_id: selectedWarehouse,
+              company_id: companyId,
+              unit_price: 0,
+              cost_price: 0,
+              low_stock_threshold: 10,
+            })
+            .select()
+            .single();
+
+          if (createError) {
+            console.error(`Error creating product ${item.sku}:`, createError);
+            throw createError;
+          }
+
+          console.log(`Created new product: ${newProduct.name} (${newProduct.sku})`);
+          product = newProduct as any;
+          createdProducts.push(product.name);
+        } else {
+          updatedProducts.push(product.name);
         }
 
         // Calculate net quantity to add (received - damaged)
@@ -470,10 +503,15 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
       }
 
       console.log('Shipment processing completed successfully');
+      console.log(`Created products: ${createdProducts.length}, Updated products: ${updatedProducts.length}`);
       
       // Invalidate inventory queries to update UI
       await queryClient.invalidateQueries({ queryKey: ['inventory'] });
       
+      return {
+        createdProducts,
+        updatedProducts,
+      };
     } catch (error) {
       console.error('Exception processing shipment items:', error);
       throw error;

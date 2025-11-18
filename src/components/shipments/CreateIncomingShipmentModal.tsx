@@ -40,6 +40,7 @@ import { useShipmentsQuery } from '@/hooks/queries/useShipmentsQuery';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useWarehouse } from '@/contexts/WarehouseContext';
+import { useInventory } from '@/contexts/InventoryContext';
 import ShipmentItemsManager from '@/components/inventory/ShipmentItemsManager';
 
 interface CreateIncomingShipmentModalProps {
@@ -61,6 +62,7 @@ const CreateIncomingShipmentModal = ({ open, onOpenChange, onUpdate }: CreateInc
   const { toast } = useToast();
   const { user } = useAuth();
   const { selectedWarehouse, warehouses } = useWarehouse();
+  const { processShipmentItems } = useInventory();
   const { data: shipmentsData, isLoading: shipmentsLoading, refetch } = useShipmentsQuery();
 
   const [activeTab, setActiveTab] = useState('pending');
@@ -171,14 +173,25 @@ const CreateIncomingShipmentModal = ({ open, onOpenChange, onUpdate }: CreateInc
           if (itemError) throw itemError;
         }
       }
+
+      // Process inventory updates and create new products if needed
+      const result = await processShipmentItems(receivingItems.map(item => ({
+        ...item,
+        shipment_id: shipment.id
+      }))) as any;
       
       setSelectedShipment(null);
       setReceivingItems([]);
       refetch();
+      onUpdate(); // Refresh inventory on parent component
+      
+      // Show detailed success message
+      const createdCount = result?.createdProducts?.length || 0;
+      const updatedCount = result?.updatedProducts?.length || 0;
       
       toast({
-        title: "Shipment Updated",
-        description: `Shipment ${shipment.id} has been processed successfully.`,
+        title: "Shipment Received Successfully",
+        description: `Processed ${receivingItems.length} items. ${createdCount > 0 ? `Created ${createdCount} new product(s). ` : ''}Updated ${updatedCount} existing product(s).`,
       });
     } catch (error) {
       console.error('Error updating shipment:', error);
