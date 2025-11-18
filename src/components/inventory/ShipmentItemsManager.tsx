@@ -3,22 +3,16 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Trash2, Plus, Search, Check, ChevronsUpDown } from 'lucide-react';
+import { Trash2, Plus } from 'lucide-react';
 import { useInventory } from '@/contexts/InventoryContext';
 import { Badge } from '@/components/ui/badge';
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from '@/components/ui/command';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import {
   Table,
   TableBody,
@@ -50,14 +44,14 @@ const ShipmentItemsManager = ({ items, onItemsChange, isReceiving = false }: Shi
     name: '',
     expected_qty: 0
   });
-  const [skuComboboxOpen, setSkuComboboxOpen] = useState(false);
-  const [skuSearch, setSkuSearch] = useState('');
+  const [isNewProductMode, setIsNewProductMode] = useState(false);
 
   const addItem = () => {
     if (!newItem.sku || !newItem.name || newItem.expected_qty <= 0) return;
     
     onItemsChange([...items, { ...newItem }]);
     setNewItem({ sku: '', name: '', expected_qty: 0 });
+    setIsNewProductMode(false);
   };
 
   const removeItem = (index: number) => {
@@ -80,17 +74,7 @@ const ShipmentItemsManager = ({ items, onItemsChange, isReceiving = false }: Shi
         sku: value,
         name: product.name
       });
-      setSkuSearch('');
-    } else {
-      // Manual entry - new product
-      setNewItem({
-        ...newItem,
-        sku: value,
-        name: '' // Clear name so user can enter it
-      });
-      setSkuSearch('');
     }
-    setSkuComboboxOpen(false);
   };
 
   const isExistingProduct = (sku: string) => {
@@ -172,93 +156,92 @@ const ShipmentItemsManager = ({ items, onItemsChange, isReceiving = false }: Shi
       <h4 className="text-md font-medium">Expected Items</h4>
       
       {/* Add new item form */}
-      <div className="grid grid-cols-4 gap-4 items-end">
-        <div className="space-y-2">
-          <Label className="text-neutral-300">SKU</Label>
-          <Popover open={skuComboboxOpen} onOpenChange={setSkuComboboxOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={skuComboboxOpen}
-                className="w-full justify-between text-foreground bg-background border-input hover:bg-accent hover:text-accent-foreground"
-              >
-                <span className="flex items-center gap-2">
-                  {newItem.sku || "Type or select SKU..."}
-                  {newItem.sku && (
-                    isExistingProduct(newItem.sku) ? (
-                      <Badge variant="secondary" className="ml-2 text-xs bg-green-500/20 text-green-400 border-green-500/30">
-                        Existing
-                      </Badge>
-                    ) : (
-                      <Badge variant="secondary" className="ml-2 text-xs bg-blue-500/20 text-blue-400 border-blue-500/30">
-                        New
-                      </Badge>
-                    )
-                  )}
-                </span>
-                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-[300px] p-0 bg-popover border-border" align="start">
-              <Command className="bg-popover">
-                <CommandInput 
-                  placeholder="Search or enter new SKU..." 
-                  value={skuSearch}
-                  onValueChange={setSkuSearch}
-                  className="text-foreground"
-                />
-                <CommandEmpty>
-                  <div className="p-2 text-sm text-muted-foreground">
-                    {skuSearch ? (
-                      <button
-                        onClick={() => handleSkuSelect(skuSearch)}
-                        className="w-full text-left p-2 hover:bg-accent rounded-md text-foreground"
-                      >
-                        Use "{skuSearch}" as new SKU
-                      </button>
-                    ) : (
-                      "Type to add new SKU..."
-                    )}
-                  </div>
-                </CommandEmpty>
-                <CommandGroup className="max-h-[200px] overflow-auto">
-                  {inventoryItems.map((product) => (
-                    <CommandItem
-                      key={product.sku}
-                      value={product.sku}
-                      onSelect={handleSkuSelect}
-                      className="text-foreground hover:bg-accent"
-                    >
-                      <Check
-                        className={cn(
-                          "mr-2 h-4 w-4",
-                          newItem.sku === product.sku ? "opacity-100" : "opacity-0"
-                        )}
-                      />
-                      <div className="flex flex-col">
+      <div className="p-4 rounded-lg border border-border bg-card">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="space-y-2">
+            <Label className="text-neutral-300">SKU</Label>
+            {!isNewProductMode ? (
+              <>
+                <Select
+                  value={newItem.sku || undefined}
+                  onValueChange={handleSkuSelect}
+                >
+                  <SelectTrigger className="w-full text-foreground bg-background border-input">
+                    <SelectValue placeholder="Select existing product SKU" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-popover text-popover-foreground">
+                    {inventoryItems.map((product) => (
+                      <SelectItem key={product.sku} value={product.sku}>
                         <span className="font-medium">{product.sku}</span>
-                        <span className="text-xs text-muted-foreground">{product.name}</span>
-                      </div>
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              </Command>
-            </PopoverContent>
-          </Popover>
-        </div>
-        <div className="space-y-2">
-          <Label className="text-neutral-300">Product Name</Label>
-          <Input
-            value={newItem.name}
-            onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
-            placeholder={isExistingProduct(newItem.sku) ? "Auto-filled from product" : "Enter name for new product"}
-            disabled={isExistingProduct(newItem.sku)}
-            className="text-foreground bg-background border-input disabled:opacity-50"
-          />
-        </div>
-        <div className="space-y-2">
-          <Label className="text-neutral-300">Expected Quantity</Label>
+                        {' – '}
+                        <span className="text-xs text-muted-foreground">
+                          {product.name}
+                        </span>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                  <span>Select from inventory</span>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      setIsNewProductMode(true);
+                      setNewItem({ sku: '', name: '', expected_qty: 0 });
+                    }}
+                    className="h-auto p-1 text-xs"
+                  >
+                    New product
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <>
+                <Input
+                  value={newItem.sku}
+                  onChange={(e) =>
+                    setNewItem({ ...newItem, sku: e.target.value.trim() })
+                  }
+                  placeholder="Enter new product SKU"
+                  className="text-foreground bg-background border-input"
+                />
+                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                  <Badge variant="secondary" className="text-xs">New Product</Badge>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      setIsNewProductMode(false);
+                      setNewItem({ sku: '', name: '', expected_qty: 0 });
+                    }}
+                    className="h-auto p-1 text-xs"
+                  >
+                    Use existing
+                  </Button>
+                </div>
+              </>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <Label className="text-neutral-300">Product Name</Label>
+            <Input
+              value={newItem.name}
+              onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
+              placeholder={
+                !isNewProductMode && isExistingProduct(newItem.sku) 
+                  ? 'Auto-filled from product'
+                  : 'Enter name for new product'
+              }
+              disabled={!isNewProductMode && isExistingProduct(newItem.sku)}
+              className="text-foreground bg-background border-input disabled:opacity-50"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label className="text-neutral-300">Expected Quantity</Label>
           <Input
             type="number"
             min="1"
@@ -267,15 +250,16 @@ const ShipmentItemsManager = ({ items, onItemsChange, isReceiving = false }: Shi
             placeholder="Qty"
             className="text-foreground bg-background border-input"
           />
+          </div>
+          <Button 
+            onClick={addItem} 
+            className="gap-2"
+            disabled={!newItem.sku || !newItem.name || !newItem.expected_qty}
+          >
+            <Plus className="h-4 w-4" />
+            Add
+          </Button>
         </div>
-        <Button 
-          onClick={addItem} 
-          className="gap-2"
-          disabled={!newItem.sku || !newItem.name || !newItem.expected_qty}
-        >
-          <Plus className="h-4 w-4" />
-          Add
-        </Button>
       </div>
 
       {/* Items list */}
