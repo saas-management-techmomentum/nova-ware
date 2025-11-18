@@ -180,27 +180,8 @@ const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmploye
                           }
                         </p>
                       </div>
-                      <div className="flex gap-2">
-                        {effectiveRole === 'employee' && (
-                          <Button
-                            onClick={handlePromoteToManager}
-                            disabled={isLoading}
-                            className="bg-green-600 hover:bg-green-700 text-white disabled:opacity-50"
-                          >
-                            {isLoading ? 'Promoting...' : 'Promote to Manager'}
-                          </Button>
-                        )}
-                        {effectiveRole === 'manager' && (
-                          <Button
-                            onClick={handleDemoteToEmployee}
-                            disabled={isLoading}
-                            variant="outline"
-                            className="border-orange-600 text-orange-400 hover:bg-orange-600/10 disabled:opacity-50"
-                          >
-                            {isLoading ? 'Demoting...' : 'Demote to Employee'}
-                          </Button>
-                        )}
-                      </div>
+                      {/* Role management buttons removed - RPCs not available */}
+                    </div>
                     </div>
                   </div>
                 </div>

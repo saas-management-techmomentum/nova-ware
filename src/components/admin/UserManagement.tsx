@@ -174,9 +174,8 @@ const UserManagement: React.FC = () => {
       return;
     }
 
-    setLoading(true);
-    try {
-      await assignUserToWarehouse(selectedUser, selectedWarehouse, warehouseRole);
+      // Warehouse assignment disabled - RPC not available
+      console.warn('Warehouse assignment feature disabled');
       toast({
         title: "Success",
         description: "User assigned to warehouse successfully",

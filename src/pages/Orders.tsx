@@ -46,7 +46,8 @@ import { useWorkflow } from "@/contexts/WorkflowContext";
 import NewOrderDialog from "@/components/orders/NewOrderDialog";
 import OrderStatusManager from "@/components/orders/OrderStatusManager";
 import OrderActions from "@/components/orders/OrderActions";
-import OrderWorkflowPanel from "@/components/workflow/OrderWorkflowPanel";
+// COMMENTED OUT: OrderWorkflowPanel component depends on order_workflows table
+// import OrderWorkflowPanel from "@/components/workflow/OrderWorkflowPanel";
 import CompactDocumentManagement from "@/components/orders/CompactDocumentManagement";
 import WarehouseContextIndicator from "@/components/warehouse/WarehouseContextIndicator";
 import EditOrderDialog from "@/components/orders/EditOrderDialog";
