@@ -178,12 +178,7 @@ export const JournalEntries = () => {
                           Auto-Generated
                         </Badge>
                       )}
-                      {isInCorporateOverview && entry.warehouses && (
-                        <Badge variant="secondary" className="bg-purple-500/10 text-purple-400 border-purple-500/20">
-                          <Warehouse className="h-3 w-3 mr-1" />
-                          {entry.warehouses.name}
-                        </Badge>
-                      )}
+                  {/* Warehouse name display disabled until warehouses relation is added to journal_entries */}
                       {isInCorporateOverview && !entry.warehouse_id && (
                         <Badge variant="secondary" className="bg-orange-500/10 text-orange-400 border-orange-500/20">
                           <Warehouse className="h-3 w-3 mr-1" />

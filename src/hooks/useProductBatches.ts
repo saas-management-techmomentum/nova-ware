@@ -16,13 +16,8 @@ export const useProductBatches = (productId?: string) => {
     setIsLoading(true);
     try {
       let query = supabase
-        .from('product_batches')
-        .select(`
-          *,
-          pallet_locations!location_id (
-            location
-          )
-        `)
+      .from('product_batches')
+      .select('*')
         .eq('product_id', id)
         .eq('user_id', user.id)
         .order('expiration_date', { ascending: true, nullsFirst: false })
@@ -53,7 +48,7 @@ export const useProductBatches = (productId?: string) => {
         warehouse_id: batch.warehouse_id,
         company_id: batch.company_id,
         location_id: batch.location_id,
-        location_name: batch.pallet_locations?.location,
+        location_name: undefined, // pallet_locations relation disabled
         created_at: new Date(batch.created_at),
         updated_at: new Date(batch.updated_at)
       }));

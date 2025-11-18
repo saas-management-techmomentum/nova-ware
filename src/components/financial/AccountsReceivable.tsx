@@ -555,7 +555,10 @@ export const AccountsReceivable: React.FC = () => {
         open={paymentDialogOpen}
         onOpenChange={setPaymentDialogOpen}
         invoice={selectedInvoiceForPayment}
-        onRecordPayment={recordPayment}
+        onRecordPayment={(paymentData) => {
+          if (!selectedInvoiceForPayment) return;
+          return recordPayment(selectedInvoiceForPayment.id, paymentData);
+        }}
       />
 
       <CustomerLedgerDialog
