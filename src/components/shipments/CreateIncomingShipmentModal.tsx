@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import {
   Dialog,
   DialogContent,
@@ -59,11 +60,12 @@ interface LocalShipmentItem {
 }
 
 const CreateIncomingShipmentModal = ({ open, onOpenChange, onUpdate }: CreateIncomingShipmentModalProps) => {
+  const queryClient = useQueryClient();
   const { toast } = useToast();
   const { user } = useAuth();
   const { selectedWarehouse, warehouses } = useWarehouse();
   const { processShipmentItems } = useInventory();
-  const { data: shipmentsData, isLoading: shipmentsLoading, refetch } = useShipmentsQuery();
+  const { data: shipmentsData, isLoading: shipmentsLoading } = useShipmentsQuery();
 
   const [activeTab, setActiveTab] = useState('pending');
   const [showAddForm, setShowAddForm] = useState(false);
@@ -182,7 +184,7 @@ const CreateIncomingShipmentModal = ({ open, onOpenChange, onUpdate }: CreateInc
       
       setSelectedShipment(null);
       setReceivingItems([]);
-      refetch();
+      queryClient.invalidateQueries({ queryKey: ['shipments'] });
       onUpdate(); // Refresh inventory on parent component
       
       // Show detailed success message
@@ -274,7 +276,7 @@ const CreateIncomingShipmentModal = ({ open, onOpenChange, onUpdate }: CreateInc
       });
       setNewShipmentItems([]);
       setShowAddForm(false);
-      refetch();
+      queryClient.invalidateQueries({ queryKey: ['shipments'] });
       onUpdate();
     } catch (error) {
       console.error('Error adding shipment:', error);

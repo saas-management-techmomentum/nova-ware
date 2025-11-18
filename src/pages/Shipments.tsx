@@ -28,6 +28,7 @@ import {
 import { useShipmentsQuery } from '@/hooks/queries/useShipmentsQuery';
 import { usePurchaseOrders } from '@/hooks/usePurchaseOrders';
 import { useShipmentStatusSync } from '@/hooks/useShipmentStatusSync';
+import { useShipmentsRealtime } from '@/hooks/useShipmentsRealtime';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
@@ -45,8 +46,12 @@ const ShipmentsPage = () => {
   const { data: shipmentsData, refetch } = useShipmentsQuery();
   const { purchaseOrders, refetch: refetchPOs } = usePurchaseOrders();
   
-  // Enable real-time status synchronization
+  // Enable real-time synchronization for INSERT and UPDATE events
   useShipmentStatusSync();
+  useShipmentsRealtime({ 
+    onShipmentChange: () => refetch(),
+    warehouseId: undefined 
+  });
   
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
