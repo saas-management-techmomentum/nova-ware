@@ -95,15 +95,10 @@ export const useProductBatches = (productId?: string) => {
         companyId = warehouseData?.company_id;
       }
 
-      // Generate batch number if not provided
+      // Generate batch number client-side (RPC not available)
       let batchNumber = batchData.batch_number;
       if (!batchNumber) {
-        const { data: generatedNumber } = await supabase
-          .rpc('generate_batch_number', {
-            product_uuid: productId,
-            user_uuid: user.id
-          });
-        batchNumber = generatedNumber;
+        batchNumber = `BATCH-${Date.now()}`;
       }
 
       const { data, error } = await supabase

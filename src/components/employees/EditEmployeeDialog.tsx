@@ -61,22 +61,12 @@ const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmploye
     }
   }, [selectedEmployee]);
 
-  // Separate effect for fetching effective role to avoid infinite loops
+  // Effective role is derived from employee.role locally (RPC not available)
   useEffect(() => {
-    const fetchEffectiveRole = async () => {
-      if (selectedEmployee?.id) {
-        try {
-          const role = await getEffectiveRole(selectedEmployee.id);
-          console.log('Effective role loaded:', role);
-          setEffectiveRole(role);
-        } catch (error) {
-          console.error('Error fetching effective role:', error);
-        }
-      }
-    };
-
-    fetchEffectiveRole();
-  }, [selectedEmployee?.id]); // Only depend on the employee ID, not the function
+    if (selectedEmployee) {
+      setEffectiveRole(selectedEmployee.role || 'employee');
+    }
+  }, [selectedEmployee]);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
