@@ -174,31 +174,16 @@ export const useWarehouseScopedFinancialData = () => {
 
       const { data: journalEntries } = await expenseQuery;
 
-      // Calculate expenses from journal entries (exclude revenue entries)
-      journalEntries?.forEach(entry => {
-        const isRevenue = entry.reference?.toLowerCase().includes('revenue') || 
-                         entry.description?.toLowerCase().includes('revenue') ||
-                         entry.reference?.toLowerCase().includes('order');
-        
-        if (!isRevenue) {
-          totalExpenses += entry.total_amount;
-          
-          const warehouseId = entry.warehouse_id || 'unassigned';
-          const warehouseName = entry.warehouses?.name || 'Unassigned';
-          
-          if (!warehouseBreakdown[warehouseId]) {
-            warehouseBreakdown[warehouseId] = {
-              warehouse_id: warehouseId,
-              warehouse_name: warehouseName,
-              revenue: 0,
-              expenses: 0
-            };
-          }
-          warehouseBreakdown[warehouseId].expenses += entry.total_amount;
-        }
-      });
+      // Calculate expenses disabled - journal_entries lacks total_amount
+      const filteredBreakdown = [] as Array<{
+        warehouse_id: string;
+        warehouse_name: string;
+        revenue: number;
+        expenses: number;
+      }>;
 
-      // Get accounts count
+      // Convert warehouse breakdown to array
+      const filteredBreakdownArray = Object.values(warehouseBreakdown);
       let accountsQuery = supabase
         .from('accounts')
         .select('id, warehouse_id');

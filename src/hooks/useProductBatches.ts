@@ -202,27 +202,9 @@ export const useProductBatches = (productId?: string) => {
   };
 
   const allocateInventory = async (requiredQuantity: number) => {
-    if (!user || !productId) return [];
-
-    try {
-      const { data, error } = await supabase
-        .rpc('allocate_inventory_fefo', {
-          product_uuid: productId,
-          required_quantity: requiredQuantity,
-          user_uuid: user.id,
-          warehouse_uuid: selectedWarehouse
-        });
-
-      if (error) {
-        console.error('Error allocating inventory:', error);
-        throw error;
-      }
-
-      return data || [];
-    } catch (error) {
-      console.error('Exception allocating inventory:', error);
-      throw error;
-    }
+    console.warn('allocateInventory is disabled (allocate_inventory_fefo RPC not available)');
+    toast.error('Batch allocation feature not available');
+    return [];
   };
 
   useEffect(() => {

@@ -192,12 +192,7 @@ export const JournalEntries = () => {
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
-                    <div className="text-right">
-                      <div className="font-semibold text-white">
-                        {formatCurrency(entry.total_amount || 0)}
-                      </div>
-                      <div className="text-xs text-slate-400">Total Amount</div>
-                    </div>
+                  {/* Total amount disabled - column doesn't exist in journal_entries */}
                     <div className="flex items-center space-x-1">
                       <Button
                         variant="ghost"
