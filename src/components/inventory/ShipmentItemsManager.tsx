@@ -3,15 +3,22 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Trash2, Plus, Search } from 'lucide-react';
+import { Trash2, Plus, Search, Check, ChevronsUpDown } from 'lucide-react';
 import { useInventory } from '@/contexts/InventoryContext';
+import { Badge } from '@/components/ui/badge';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from '@/components/ui/command';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { cn } from '@/lib/utils';
 import {
   Table,
   TableBody,
@@ -43,6 +50,8 @@ const ShipmentItemsManager = ({ items, onItemsChange, isReceiving = false }: Shi
     name: '',
     expected_qty: 0
   });
+  const [skuComboboxOpen, setSkuComboboxOpen] = useState(false);
+  const [skuSearch, setSkuSearch] = useState('');
 
   const addItem = () => {
     if (!newItem.sku || !newItem.name || newItem.expected_qty <= 0) return;
@@ -63,15 +72,29 @@ const ShipmentItemsManager = ({ items, onItemsChange, isReceiving = false }: Shi
     onItemsChange(updatedItems);
   };
 
-  const handleSkuSelect = (sku: string) => {
-    const product = inventoryItems.find(p => p.sku === sku);
+  const handleSkuSelect = (value: string) => {
+    const product = inventoryItems.find(p => p.sku === value);
     if (product) {
       setNewItem({
         ...newItem,
-        sku: sku,
+        sku: value,
         name: product.name
       });
+      setSkuSearch('');
+    } else {
+      // Manual entry - new product
+      setNewItem({
+        ...newItem,
+        sku: value,
+        name: '' // Clear name so user can enter it
+      });
+      setSkuSearch('');
     }
+    setSkuComboboxOpen(false);
+  };
+
+  const isExistingProduct = (sku: string) => {
+    return inventoryItems.some(p => p.sku === sku);
   };
 
   if (isReceiving) {
@@ -117,9 +140,15 @@ const ShipmentItemsManager = ({ items, onItemsChange, isReceiving = false }: Shi
                     />
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm text-muted-foreground">
-                      {currentProduct ? currentProduct.stock : 'N/A'}
-                    </span>
+                    {currentProduct ? (
+                      <span className="text-sm text-muted-foreground">
+                        Current: {currentProduct.stock}
+                      </span>
+                    ) : (
+                      <Badge variant="secondary" className="text-xs bg-blue-500/20 text-blue-400 border-blue-500/30">
+                        New Product
+                      </Badge>
+                    )}
                   </TableCell>
                   <TableCell>
                     <Input
@@ -145,38 +174,98 @@ const ShipmentItemsManager = ({ items, onItemsChange, isReceiving = false }: Shi
       {/* Add new item form */}
       <div className="grid grid-cols-4 gap-4 items-end">
         <div className="space-y-2">
-          <Label className="text-slate-300">SKU</Label>
-          <Select value={newItem.sku} onValueChange={handleSkuSelect}>
-            <SelectTrigger className="text-slate-900">
-              <SelectValue placeholder="Select SKU" className="text-slate-900" />
-            </SelectTrigger>
-            <SelectContent className="bg-white border border-slate-200 shadow-lg z-50">
-              {inventoryItems.map((product) => (
-                <SelectItem key={product.sku} value={product.sku} className="text-slate-900 hover:bg-slate-100">
-                  {product.sku} - {product.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <Label className="text-neutral-300">SKU</Label>
+          <Popover open={skuComboboxOpen} onOpenChange={setSkuComboboxOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={skuComboboxOpen}
+                className="w-full justify-between text-foreground bg-background border-input hover:bg-accent hover:text-accent-foreground"
+              >
+                <span className="flex items-center gap-2">
+                  {newItem.sku || "Type or select SKU..."}
+                  {newItem.sku && (
+                    isExistingProduct(newItem.sku) ? (
+                      <Badge variant="secondary" className="ml-2 text-xs bg-green-500/20 text-green-400 border-green-500/30">
+                        Existing
+                      </Badge>
+                    ) : (
+                      <Badge variant="secondary" className="ml-2 text-xs bg-blue-500/20 text-blue-400 border-blue-500/30">
+                        New
+                      </Badge>
+                    )
+                  )}
+                </span>
+                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[300px] p-0 bg-popover border-border" align="start">
+              <Command className="bg-popover">
+                <CommandInput 
+                  placeholder="Search or enter new SKU..." 
+                  value={skuSearch}
+                  onValueChange={setSkuSearch}
+                  className="text-foreground"
+                />
+                <CommandEmpty>
+                  <div className="p-2 text-sm text-muted-foreground">
+                    {skuSearch ? (
+                      <button
+                        onClick={() => handleSkuSelect(skuSearch)}
+                        className="w-full text-left p-2 hover:bg-accent rounded-md text-foreground"
+                      >
+                        Use "{skuSearch}" as new SKU
+                      </button>
+                    ) : (
+                      "Type to add new SKU..."
+                    )}
+                  </div>
+                </CommandEmpty>
+                <CommandGroup className="max-h-[200px] overflow-auto">
+                  {inventoryItems.map((product) => (
+                    <CommandItem
+                      key={product.sku}
+                      value={product.sku}
+                      onSelect={handleSkuSelect}
+                      className="text-foreground hover:bg-accent"
+                    >
+                      <Check
+                        className={cn(
+                          "mr-2 h-4 w-4",
+                          newItem.sku === product.sku ? "opacity-100" : "opacity-0"
+                        )}
+                      />
+                      <div className="flex flex-col">
+                        <span className="font-medium">{product.sku}</span>
+                        <span className="text-xs text-muted-foreground">{product.name}</span>
+                      </div>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </Command>
+            </PopoverContent>
+          </Popover>
         </div>
         <div className="space-y-2">
-          <Label className="text-slate-300">Product Name</Label>
+          <Label className="text-neutral-300">Product Name</Label>
           <Input
             value={newItem.name}
             onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
-            placeholder="Product name"
-            className="text-slate-900"
+            placeholder={isExistingProduct(newItem.sku) ? "Auto-filled from product" : "Enter name for new product"}
+            disabled={isExistingProduct(newItem.sku)}
+            className="text-foreground bg-background border-input disabled:opacity-50"
           />
         </div>
         <div className="space-y-2">
-          <Label className="text-slate-300">Expected Quantity</Label>
+          <Label className="text-neutral-300">Expected Quantity</Label>
           <Input
             type="number"
             min="1"
             value={newItem.expected_qty || ''}
             onChange={(e) => setNewItem({ ...newItem, expected_qty: parseInt(e.target.value) || 0 })}
             placeholder="Qty"
-            className="text-slate-900"
+            className="text-foreground bg-background border-input"
           />
         </div>
         <Button 
