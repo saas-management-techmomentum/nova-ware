@@ -12,7 +12,7 @@ import WarehouseContextIndicator from '@/components/warehouse/WarehouseContextIn
 
 const OrderProcessingDetails = () => {
   const { selectedWarehouse, isUserAdmin } = useWarehouse();
-  const { data: workflowMetrics, isLoading: metricsLoading } = useWorkflowMetrics();
+  const { metrics: workflowMetrics, isLoading: metricsLoading } = useWorkflowMetrics();
 
   // Show loading state when data is being fetched
   if (metricsLoading) {

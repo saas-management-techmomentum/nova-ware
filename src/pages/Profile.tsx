@@ -91,13 +91,12 @@ const Profile = () => {
         console.log('Debug - Profile data from table:', profileData);
         setProfile(profileData || null);
         
-        // Fetch user roles and company information
+        // Fetch user roles and company information (without permissions column)
         const { data: companyRolesData, error: companyRolesError } = await supabase
           .from('company_users')
           .select(`
             company_id,
             role,
-            permissions,
             companies (
               name
             )
@@ -117,8 +116,7 @@ const Profile = () => {
           const roles = companyRolesData?.map(item => ({
             company_id: item.company_id,
             company_name: item.companies?.name || 'Unknown Company',
-            role: item.role,
-            permissions: item.permissions
+            role: item.role
           })) || [];
           setUserRoles(roles);
         }

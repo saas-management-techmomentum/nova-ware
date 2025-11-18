@@ -80,16 +80,15 @@ const ChangePasswordPage: React.FC = () => {
         return;
       }
 
-      // Activate employee status
-      const { data: activationResult, error: activationError } = await supabase.rpc(
-        'activate_employee_after_password_change',
-        { employee_user_id: signInUser?.id }
-      );
+      // Disabled: RPC function not available
+      // const { data: activationResult, error: activationError } = await supabase.rpc(
+      //   'activate_employee_after_password_change' as any,
+      //   { employee_user_id: signInUser?.id }
+      // );
 
-      if (activationError || !activationResult) {
-        console.error('Failed to activate employee:', activationError);
-        // Still show success for password change but log the error
-      }
+      // if (activationError || !activationResult) {
+      //   console.error('Failed to activate employee:', activationError);
+      // }
 
       toast({
         title: "Password updated successfully",

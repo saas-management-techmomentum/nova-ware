@@ -176,10 +176,12 @@ const UserManagement: React.FC = () => {
 
     setLoading(true);
     try {
-      await assignUserToWarehouse(selectedUser, selectedWarehouse, warehouseRole);
+      // Disabled: RPC function not available
+      // await assignUserToWarehouse(selectedUser, selectedWarehouse, warehouseRole);
       toast({
-        title: "Success",
-        description: "User assigned to warehouse successfully",
+        title: "Feature Unavailable",
+        description: "Warehouse assignment requires additional database setup",
+        variant: "destructive",
       });
       setSelectedUser('');
       setSelectedWarehouse('');
