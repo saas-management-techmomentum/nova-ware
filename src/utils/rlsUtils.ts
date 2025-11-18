@@ -57,33 +57,8 @@ export const getAccessibleWarehouses = async (): Promise<AccessibleWarehouse[]> 
 
 // Get user's data access scope
 export const getUserDataScope = async (): Promise<UserDataScope | null> => {
-  try {
-    const { data, error } = await supabase.rpc('get_user_data_scope');
-    
-    if (error) {
-      console.error('Error fetching user data scope:', error);
-      return null;
-    }
-    
-    // Safe type conversion with validation
-    if (!data || typeof data !== 'object') {
-      return null;
-    }
-    
-    const scope = data as any;
-    return {
-      user_id: scope.user_id || '',
-      company_ids: Array.isArray(scope.company_ids) ? scope.company_ids : [],
-      admin_company_ids: Array.isArray(scope.admin_company_ids) ? scope.admin_company_ids : [],
-      warehouse_ids: Array.isArray(scope.warehouse_ids) ? scope.warehouse_ids : [],
-      is_multi_company_admin: Boolean(scope.is_multi_company_admin),
-      total_companies: Number(scope.total_companies) || 0,
-      total_warehouses: Number(scope.total_warehouses) || 0
-    };
-  } catch (error) {
-    console.error('Exception in getUserDataScope:', error);
-    return null;
-  }
+  console.warn('getUserDataScope: RPC not available');
+  return null;
 };
 
 // Get company metrics with access control
