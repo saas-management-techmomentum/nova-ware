@@ -303,6 +303,69 @@ export type Database = {
           },
         ]
       }
+      billing_transactions: {
+        Row: {
+          amount: number
+          category: string | null
+          company_id: string
+          created_at: string | null
+          description: string
+          id: string
+          reference: string | null
+          status: string | null
+          transaction_date: string
+          transaction_type: string
+          updated_at: string | null
+          user_id: string
+          warehouse_id: string | null
+        }
+        Insert: {
+          amount: number
+          category?: string | null
+          company_id: string
+          created_at?: string | null
+          description: string
+          id?: string
+          reference?: string | null
+          status?: string | null
+          transaction_date?: string
+          transaction_type: string
+          updated_at?: string | null
+          user_id: string
+          warehouse_id?: string | null
+        }
+        Update: {
+          amount?: number
+          category?: string | null
+          company_id?: string
+          created_at?: string | null
+          description?: string
+          id?: string
+          reference?: string | null
+          status?: string | null
+          transaction_date?: string
+          transaction_type?: string
+          updated_at?: string | null
+          user_id?: string
+          warehouse_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "billing_transactions_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "billing_transactions_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       clients: {
         Row: {
           billing_address: string | null
@@ -428,6 +491,7 @@ export type Database = {
           company_id: string | null
           created_at: string | null
           id: string
+          permissions: Json | null
           role: string
           updated_at: string | null
           user_id: string
@@ -439,6 +503,7 @@ export type Database = {
           company_id?: string | null
           created_at?: string | null
           id?: string
+          permissions?: Json | null
           role: string
           updated_at?: string | null
           user_id: string
@@ -450,6 +515,7 @@ export type Database = {
           company_id?: string | null
           created_at?: string | null
           id?: string
+          permissions?: Json | null
           role?: string
           updated_at?: string | null
           user_id?: string
@@ -1015,12 +1081,14 @@ export type Database = {
         Row: {
           company_id: string | null
           created_at: string | null
+          created_by: string | null
           description: string
           entry_date: string
           entry_number: string
           id: string
           reference: string | null
           status: string | null
+          total_amount: number | null
           updated_at: string | null
           user_id: string
           warehouse_id: string | null
@@ -1028,12 +1096,14 @@ export type Database = {
         Insert: {
           company_id?: string | null
           created_at?: string | null
+          created_by?: string | null
           description: string
           entry_date: string
           entry_number: string
           id?: string
           reference?: string | null
           status?: string | null
+          total_amount?: number | null
           updated_at?: string | null
           user_id: string
           warehouse_id?: string | null
@@ -1041,12 +1111,14 @@ export type Database = {
         Update: {
           company_id?: string | null
           created_at?: string | null
+          created_by?: string | null
           description?: string
           entry_date?: string
           entry_number?: string
           id?: string
           reference?: string | null
           status?: string | null
+          total_amount?: number | null
           updated_at?: string | null
           user_id?: string
           warehouse_id?: string | null
@@ -1243,6 +1315,70 @@ export type Database = {
           },
           {
             foreignKeyName: "order_statuses_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      order_workflows: {
+        Row: {
+          company_id: string
+          completed_at: string | null
+          created_at: string | null
+          id: string
+          order_id: string
+          picking_strategy: string | null
+          started_at: string | null
+          status: string | null
+          updated_at: string | null
+          user_id: string
+          warehouse_id: string | null
+        }
+        Insert: {
+          company_id: string
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          order_id: string
+          picking_strategy?: string | null
+          started_at?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_id: string
+          warehouse_id?: string | null
+        }
+        Update: {
+          company_id?: string
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          order_id?: string
+          picking_strategy?: string | null
+          started_at?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string
+          warehouse_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_workflows_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_workflows_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_workflows_warehouse_id_fkey"
             columns: ["warehouse_id"]
             isOneToOne: false
             referencedRelation: "warehouses"
@@ -2119,6 +2255,41 @@ export type Database = {
           },
         ]
       }
+      user_roles: {
+        Row: {
+          company_id: string
+          created_at: string | null
+          created_by: string | null
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          company_id: string
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          company_id?: string
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_roles_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       vendor_bill_payments: {
         Row: {
           amount: number
@@ -2448,11 +2619,76 @@ export type Database = {
           },
         ]
       }
+      workflow_steps: {
+        Row: {
+          actual_time: number | null
+          assigned_to: string | null
+          completed_at: string | null
+          created_at: string | null
+          estimated_time: number | null
+          id: string
+          started_at: string | null
+          status: string | null
+          step_name: string
+          workflow_id: string
+        }
+        Insert: {
+          actual_time?: number | null
+          assigned_to?: string | null
+          completed_at?: string | null
+          created_at?: string | null
+          estimated_time?: number | null
+          id?: string
+          started_at?: string | null
+          status?: string | null
+          step_name: string
+          workflow_id: string
+        }
+        Update: {
+          actual_time?: number | null
+          assigned_to?: string | null
+          completed_at?: string | null
+          created_at?: string | null
+          estimated_time?: number | null
+          id?: string
+          started_at?: string | null
+          status?: string | null
+          step_name?: string
+          workflow_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workflow_steps_assigned_to_fkey"
+            columns: ["assigned_to"]
+            isOneToOne: false
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "workflow_steps_workflow_id_fkey"
+            columns: ["workflow_id"]
+            isOneToOne: false
+            referencedRelation: "order_workflows"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      allocate_inventory_fefo: {
+        Args: {
+          p_product_id: string
+          p_quantity: number
+          p_warehouse_id?: string
+        }
+        Returns: {
+          allocated_qty: number
+          batch_id: string
+        }[]
+      }
       assign_employee_to_warehouse: {
         Args: { employee_uuid: string; warehouse_uuid: string }
         Returns: boolean
@@ -2473,6 +2709,7 @@ export type Database = {
         Args: { target_user_id: string }
         Returns: Json
       }
+      generate_batch_number: { Args: never; Returns: string }
       generate_po_number: { Args: never; Returns: string }
       get_accessible_warehouses:
         | { Args: { user_uuid: string }; Returns: string[] }
@@ -2491,15 +2728,32 @@ export type Database = {
         Returns: string
       }
       get_user_company_ids: { Args: { user_uuid: string }; Returns: string[] }
+      get_user_data_scope: { Args: { p_user_id?: string }; Returns: Json }
       get_user_task_metrics: { Args: { user_uuid: string }; Returns: Json }
+      has_role: {
+        Args: {
+          _company_id: string
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
       is_company_admin: {
         Args: { comp_id: string; user_uuid: string }
+        Returns: boolean
+      }
+      safe_assign_user_to_warehouse: {
+        Args: {
+          p_access_level?: string
+          p_user_id: string
+          p_warehouse_id: string
+        }
         Returns: boolean
       }
       user_needs_password_change: { Args: never; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "manager" | "employee" | "viewer"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -2626,6 +2880,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "manager", "employee", "viewer"],
+    },
   },
 } as const
