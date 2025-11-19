@@ -88,7 +88,7 @@ export const useShipmentsQuery = ({
   const isAdmin = userRoles.some(role => role.role === 'admin');
 
   return useQuery({
-    queryKey: ['shipments', selectedWarehouse, user?.id, page, limit, status, search, employees.length],
+    queryKey: ['shipments', selectedWarehouse, user?.id, page, limit, status, search],
     queryFn: async () => {
       if (!user) throw new Error('No authenticated user');
 
@@ -209,7 +209,7 @@ export const useShipmentsQuery = ({
         hasMore: (count || 0) > page * limit
       };
     },
-    enabled: !!user && employees.length > 0, // Wait for employees to load
+    enabled: !!user,
   });
 };
 
