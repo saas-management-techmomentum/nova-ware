@@ -66,6 +66,23 @@ const ShipmentsPage = () => {
   const [selectedOrderForShipment, setSelectedOrderForShipment] = useState<any>(null);
   const [isIncomingShipmentModalOpen, setIsIncomingShipmentModalOpen] = useState(false);
 
+  // Helper function to normalize status values from database
+  const normalizeStatus = (status?: string) => {
+    if (!status) return 'pending';
+    const s = status.toLowerCase().trim();
+
+    // Handle common variants
+    if (s === 'partially_received' || s === 'partial' || s === 'partially received') {
+      return 'partially-received';
+    }
+
+    if (s === 'on route' || s === 'on-route' || s === 'in-transit' || s === 'in transit') {
+      return 'on-route';
+    }
+
+    return s;
+  };
+
   // Filter for incoming shipments only
   const incomingShipments = useMemo(() => {
     return shipmentsData?.data?.filter(shipment => 
@@ -86,13 +103,20 @@ const ShipmentsPage = () => {
   const pendingInTransitShipments = useMemo(() => {
     const allShipments = shipmentsData?.data || [];
     return allShipments.filter(shipment => {
-      const isPendingOrInTransit = shipment.status === 'pending' || shipment.status === 'partially-received';
+      const status = normalizeStatus(shipment.status);
+      
+      const isPendingOrInTransit = 
+        status === 'pending' || 
+        status === 'partially-received' ||
+        status === 'on-route';
+      
       const matchesSearch = 
         shipment.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
         shipment.supplier.toLowerCase().includes(searchTerm.toLowerCase()) ||
         shipment.order_reference.toLowerCase().includes(searchTerm.toLowerCase());
       
-      const matchesStatus = statusFilter === 'all' || shipment.status === statusFilter;
+      const normalizedFilter = normalizeStatus(statusFilter);
+      const matchesStatus = statusFilter === 'all' || status === normalizedFilter;
       
       return isPendingOrInTransit && matchesSearch && matchesStatus;
     });
@@ -101,22 +125,32 @@ const ShipmentsPage = () => {
   // Filter shipments by received and completed status
   const receivedCompletedShipments = useMemo(() => {
     return incomingShipments.filter(shipment => {
-      const isReceivedOrCompleted = shipment.status === 'received' || shipment.status === 'inspected';
+      const status = normalizeStatus(shipment.status);
+      
+      const isReceivedOrCompleted = 
+        status === 'received' || 
+        status === 'inspected' ||
+        status === 'completed';
+      
       const matchesSearch = 
         shipment.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
         shipment.supplier.toLowerCase().includes(searchTerm.toLowerCase()) ||
         shipment.order_reference.toLowerCase().includes(searchTerm.toLowerCase());
       
-      const matchesStatus = statusFilter === 'all' || shipment.status === statusFilter;
+      const normalizedFilter = normalizeStatus(statusFilter);
+      const matchesStatus = statusFilter === 'all' || status === normalizedFilter;
       
       return isReceivedOrCompleted && matchesSearch && matchesStatus;
     });
   }, [incomingShipments, searchTerm, statusFilter]);
 
-  const getStatusBadge = (status: string) => {
+  const getStatusBadge = (rawStatus: string) => {
+    const status = normalizeStatus(rawStatus);
     switch (status) {
       case 'pending':
         return <Badge className="bg-yellow-500/20 text-yellow-300 border border-yellow-500/30 gap-1"><Clock className="h-3 w-3" />Pending</Badge>;
+      case 'on-route':
+        return <Badge className="bg-blue-500/20 text-blue-300 border border-blue-500/30 gap-1"><Truck className="h-3 w-3" />On Route</Badge>;
       case 'partially-received':
         return <Badge className="bg-orange-500/20 text-orange-300 border border-orange-500/30 gap-1"><Package className="h-3 w-3" />Partially Received</Badge>;
       case 'received':
