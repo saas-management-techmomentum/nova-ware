@@ -135,20 +135,19 @@ export const useShipmentsQuery = ({
         `)
         .order('created_at', { ascending: false });
 
-      // Apply warehouse-aware filtering logic
-      if (isAssignedEmployee) {
-        // Assigned employee sees ALL data for their warehouse
-        query = query.eq('warehouse_id', currentEmployee.assigned_warehouse_id);
-      } else if (isAdmin && selectedWarehouse) {
-        // Admin with warehouse selected - show all data for that warehouse
-        query = query.eq('warehouse_id', selectedWarehouse);
-      } else if (isAdmin && !selectedWarehouse) {
-        // Admin with "All Warehouses" - show all user's data
-        query = query.eq('user_id', user.id);
-      } else {
-        // Unassigned employee - show only their own data
-        query = query.eq('user_id', user.id);
-      }
+      // Rely on RLS for company / warehouse scoping.
+      // Previously we added additional client-side filters based on
+      // selectedWarehouse, assigned warehouse, and admin status.
+      // This caused some valid shipments to be filtered out when the
+      // local warehouse selection didn’t perfectly match the row data.
+      //
+      // To ensure all accessible shipments are returned, we now avoid
+      // adding extra filters here and let the database policies enforce
+      // visibility.
+      
+      // NOTE: If you need stricter scoping in the future, prefer
+      // adding it to the RLS policies or a dedicated RPC instead of
+      // duplicating that logic in the client.
 
       if (status) {
         query = query.eq('status', status);
