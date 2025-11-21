@@ -51,14 +51,6 @@ async function sendCustomInvitationEmail(
 ): Promise<void> {
   const resendApiKey = Deno.env.get("RESEND_API_KEY");
   
-  console.log('=== EMAIL SENDING DEBUG ===');
-  console.log('Resend API Key exists:', !!resendApiKey);
-  console.log('Resend API Key length:', resendApiKey?.length || 0);
-  console.log('Sending email to:', email);
-  console.log('From address:', "Warehouse Management <noreply@quantrawms.com>");
-  console.log('Company name:', companyName);
-  console.log('Employee name:', employeeName);
-  console.log('Login URL:', loginUrl);
   
   if (!resendApiKey) {
     throw new Error('RESEND_API_KEY environment variable is not set');
@@ -128,7 +120,7 @@ async function sendCustomInvitationEmail(
     console.log('Attempting to send email via Resend...');
     
     const emailData = {
-      from: "Warehouse Management <noreply@quantrawms.com>",
+      from: "Warehouse Management <noreply@logistixwms.com>",
       to: [email],
       subject: `Welcome to ${companyName} - Your Account is Ready!`,
       html: emailHtml,
@@ -230,7 +222,7 @@ const handler = async (req: Request): Promise<Response> => {
     if (existingUser) {
       // If user exists, send password reset email instead
       const { error: resetError } = await supabaseAdmin.auth.resetPasswordForEmail(email, {
-        redirectTo: `https://quantrawms.com/auth`
+        redirectTo: `https://logistixwms.com/auth`
       });
       
       if (resetError) {
@@ -345,7 +337,7 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     // Generate login URL - always use production URL
-    const loginUrl = 'https://quantrawms.com/auth';
+    const loginUrl = 'https://logistixwms.com/auth';
 
     // Send custom invitation email with password
     try {

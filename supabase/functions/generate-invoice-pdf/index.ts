@@ -69,12 +69,12 @@ serve(async (req) => {
     const allItems = [...productItems, ...serviceItems];
 
     let companyInfo = {
-      name: 'QuantraWMS',
-      address: '123 Business Street',
-      city: 'City, State 12345',
+      name: 'LogitixWMS',
+      address: '1000',
+      city: 'Skopje MKD',
       phone: '(555) 123-4567',
-      email: 'support@quantrawms.com',
-      website: 'quantrawms.com',
+      email: 'support@unsynth.ai',
+      website: 'logistixwms.com',
     };
 
     try {

@@ -35,7 +35,7 @@ serve(async (req) => {
 
     // Validate required environment variables
     const resendApiKey = Deno.env.get('RESEND_API_KEY');
-    const resendDomain = Deno.env.get('RESEND_DOMAIN') || 'quantrawms.com';
+    const resendDomain = Deno.env.get('RESEND_DOMAIN') || 'logistixwms.com';
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     
@@ -120,12 +120,12 @@ serve(async (req) => {
 
     // Get company info for email template
     let companyInfo = {
-      name: 'QuantraWMS',
-      address: '123 Business Street',
-      city: 'City, State 12345',
+      name: 'LogitixWMS',
+      address: '1000',
+      city: 'Skopje MKD',
       phone: '(555) 123-4567',
-      email: 'support@quantrawms.com',
-      website: 'quantrawms.com',
+      email: 'support@unsynth.ai',
+      website: 'logistixwms.com',
     };
 
     try {
