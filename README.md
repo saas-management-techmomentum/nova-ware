@@ -1,4 +1,4 @@
-# Welcome to your Logistix
+# Welcome to Logistix WMS
 
 ## Project info
 
