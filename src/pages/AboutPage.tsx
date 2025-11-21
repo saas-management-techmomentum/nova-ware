@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { 
+import {
   ArrowLeft,
   Package,
   BarChart3,
@@ -19,12 +19,12 @@ import {
   Target
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { 
-  Card, 
+import {
+  Card,
   CardContent,
   CardDescription,
-  CardHeader, 
-  CardTitle 
+  CardHeader,
+  CardTitle
 } from '@/components/ui/card';
 import {
   Accordion,
@@ -130,9 +130,9 @@ const AboutPage = () => {
       <header className="relative z-10 bg-gradient-to-r from-neutral-900/90 to-neutral-800/90 backdrop-blur-sm py-16 px-6 border-b border-neutral-700/50">
         <div className="max-w-7xl mx-auto">
           <div className="mb-8">
-            <Button 
-              asChild 
-              variant="ghost" 
+            <Button
+              asChild
+              variant="ghost"
               className="text-neutral-300 hover:text-white hover:bg-neutral-800/50 transition-all duration-200"
             >
               <Link to="/" className="flex items-center gap-2">
@@ -146,7 +146,7 @@ const AboutPage = () => {
               About LogistiX
             </h1>
             <p className="text-xl text-neutral-300 max-w-3xl mx-auto leading-relaxed">
-              Advanced warehouse management software designed for modern businesses. 
+              Advanced warehouse management software designed for modern businesses.
               Streamline operations, track inventory intelligently, and scale your business with confidence.
             </p>
           </div>
@@ -166,7 +166,7 @@ const AboutPage = () => {
                 Real-time insights and automation that drive results
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {keyMetrics.map((metric, index) => (
                 <Card key={index} className="bg-neutral-800/50 border-neutral-700 backdrop-blur-sm hover:bg-neutral-800/70 transition-all duration-300 group">
@@ -196,12 +196,12 @@ const AboutPage = () => {
                 Everything you need to run an efficient, modern warehouse operation
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {coreFeatures.map((feature, index) => (
                 <Card key={index} className="bg-neutral-800/40 border-neutral-700 hover:bg-neutral-800/60 transition-all duration-300 hover:shadow-xl hover:shadow-neutral-500/10 group">
                   <CardHeader>
-                    <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <div className="mb-4 transition-transform duration-300">
                       {feature.icon}
                     </div>
                     <CardTitle className="text-white text-xl">{feature.title}</CardTitle>
@@ -226,7 +226,7 @@ const AboutPage = () => {
                 Built with cutting-edge technologies for reliability and performance
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <Card className="bg-neutral-800/40 border-neutral-700 text-center">
                 <CardHeader>
@@ -235,12 +235,12 @@ const AboutPage = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-neutral-300">
-                    Powered by Supabase with PostgreSQL for enterprise-grade data management, 
+                    Powered by Supabase with PostgreSQL for enterprise-grade data management,
                     real-time subscriptions, and row-level security.
                   </p>
                 </CardContent>
               </Card>
-              
+
               <Card className="bg-neutral-800/40 border-neutral-700 text-center">
                 <CardHeader>
                   <Zap className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
@@ -248,12 +248,12 @@ const AboutPage = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-neutral-300">
-                    React-based frontend with optimized queries, intelligent caching, 
+                    React-based frontend with optimized queries, intelligent caching,
                     and responsive design for desktop and mobile use.
                   </p>
                 </CardContent>
               </Card>
-              
+
               <Card className="bg-neutral-800/40 border-neutral-700 text-center">
                 <CardHeader>
                   <Shield className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
@@ -261,7 +261,7 @@ const AboutPage = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-neutral-300">
-                    Multi-tenant architecture with role-based access control, 
+                    Multi-tenant architecture with role-based access control,
                     data isolation, and comprehensive audit trails.
                   </p>
                 </CardContent>
@@ -281,7 +281,7 @@ const AboutPage = () => {
                 Learn more about LogistiX's capabilities and features
               </p>
             </div>
-            
+
             <Accordion type="single" collapsible className="w-full">
               {faqs.map((faq, index) => (
                 <AccordionItem key={index} value={`item-${index}`} className="border-neutral-700">
@@ -307,7 +307,7 @@ const AboutPage = () => {
               Experience the power of modern warehouse management with LogistiX's comprehensive platform.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button asChild size="lg" className="bg-neutral-800 text-white hover:bg-neutral-700 transition-all duration-200 hover:scale-105">
+              <Button asChild size="lg" className="bg-neutral-800 text-white hover:bg-neutral-700 transition-all duration-200">
                 <Link to="/app">Get Started Now</Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-neutral-600 text-neutral-300 hover:bg-neutral-800 hover:text-white transition-all duration-200">
@@ -326,7 +326,7 @@ const AboutPage = () => {
             <div className="text-xl font-bold">LogistiX</div>
           </div>
           <div className="text-neutral-400 text-sm">
-            &copy; {new Date().getFullYear()} LogistiX. Advanced Warehouse Management Software.
+            © {new Date().getFullYear()} LogistiX. Advanced Warehouse Management Platform. Designed and developed by Unsynth.ai
           </div>
         </div>
       </footer>
