@@ -160,7 +160,7 @@ const AuthPage = () => {
       <Card className="w-full max-w-md bg-white/5 backdrop-blur-sm border-white/10 text-white relative z-10">
         <CardHeader className="text-center">
           <img 
-            src="/lovable-uploads/dd870201-0ebd-4ec5-9c73-0cf538750747.png" 
+            src="/uploads/dd870201-0ebd-4ec5-9c73-0cf538750747.png" 
             alt="Logo" 
             className="h-16 w-16 mx-auto mb-4 opacity-90"
           />

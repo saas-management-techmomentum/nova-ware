@@ -1,10 +1,5 @@
 
-/**
- * Supabase Adapter
- * 
- * This adapter handles integration with Supabase services.
- * It's designed to work alongside Lovable's native Supabase integration.
- */
+
 
 import integrationService, { ServiceConfig } from './integrationService';
 import { supabase } from '@/integrations/supabase/client';
@@ -48,11 +43,10 @@ class SupabaseAdapter {
   
   /**
    * Initialize Supabase client
-   * This is a placeholder that would be replaced when using Lovable's native Supabase integration
    */
   async initialize(): Promise<boolean> {
     if (!this.isConfigured()) {
-      console.warn('Supabase not configured. Use Lovable\'s native Supabase integration.');
+      console.warn('Supabase not configured.');
       return false;
     }
     

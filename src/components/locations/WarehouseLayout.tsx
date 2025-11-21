@@ -121,7 +121,7 @@ const WarehouseLayout = ({
   // Preload warehouse layout image
   useEffect(() => {
     const img = new Image();
-    img.src = '/lovable-uploads/e934f213-896d-49a6-bda0-781cbee8840b.png';
+    img.src = '/uploads/e934f213-896d-49a6-bda0-781cbee8840b.png';
     img.onload = () => {
       setLayoutImageLoaded(true);
       layoutImageRef.current = img;
