@@ -120,7 +120,7 @@ async function sendCustomInvitationEmail(
     console.log('Attempting to send email via Resend...');
     
     const emailData = {
-      from: "Warehouse Management <noreply@logistixwms.com>",
+      from: "Warehouse Management <support@logistixwms.com>",
       to: [email],
       subject: `Welcome to ${companyName} - Your Account is Ready!`,
       html: emailHtml,
