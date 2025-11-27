@@ -13,7 +13,7 @@ import { VendorDetailDialog } from '@/components/vendors/VendorDetailDialog';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function VendorDatabase() {
-  const { vendors, isLoading, getVendorDashboardData } = useVendors();
+  const { vendors, isLoading, getVendorDashboardData, refetch } = useVendors();
   const { selectedWarehouse } = useWarehouse();
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState<'all' | 'active' | 'inactive'>('all');
@@ -265,6 +265,7 @@ export default function VendorDatabase() {
       <AddVendorDialog
         open={showAddDialog}
         onOpenChange={setShowAddDialog}
+        onSuccess={refetch}
       />
 
       <EditVendorDialog

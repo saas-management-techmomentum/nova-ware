@@ -46,9 +46,10 @@ type VendorFormData = z.infer<typeof vendorSchema>;
 interface AddVendorDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onSuccess?: () => void;
 }
 
-export function AddVendorDialog({ open, onOpenChange }: AddVendorDialogProps) {
+export function AddVendorDialog({ open, onOpenChange, onSuccess }: AddVendorDialogProps) {
   const { createVendor } = useVendors();
   const STORAGE_KEY = 'vendor-form-draft';
 
@@ -103,6 +104,7 @@ export function AddVendorDialog({ open, onOpenChange }: AddVendorDialogProps) {
       localStorage.removeItem(STORAGE_KEY);
       form.reset();
       onOpenChange(false);
+      onSuccess?.();
     }
   };
 
