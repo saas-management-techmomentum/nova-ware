@@ -63,7 +63,7 @@ export function useVendors() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { user } = useAuth();
-  const { selectedWarehouse } = useWarehouse();
+  const { selectedWarehouse, warehouses } = useWarehouse();
   const { toast } = useToast();
 
   const fetchVendors = async () => {
@@ -104,11 +104,26 @@ export function useVendors() {
     }
 
     try {
+      // Get company_id from the selected warehouse
+      const selectedWarehouseData = warehouses.find(w => w.warehouse_id === selectedWarehouse);
+      const companyId = selectedWarehouseData?.company_id;
+      
+      // Validation: Ensure we have a company_id
+      if (!companyId) {
+        console.error('No company_id found for warehouse:', selectedWarehouse);
+        toast({
+          title: "Error",
+          description: "Could not determine company for this vendor. Please select a warehouse.",
+          variant: "destructive",
+        });
+        return null;
+      }
+
       const newVendor = {
         ...vendorData,
         user_id: user.id,
-        warehouse_id: null,
-        company_id: null,
+        warehouse_id: selectedWarehouse,
+        company_id: companyId,
         payment_terms: vendorData.payment_terms || 'Net 30',
         is_active: true,
       };
