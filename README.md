@@ -1,5 +1,5 @@
 # Welcome to Logistix WMS
 
-## Project info
+## Project info.
 
 **URL**: https://logistixwms.com
