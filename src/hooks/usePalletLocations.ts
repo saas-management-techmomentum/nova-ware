@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useEmployees } from '@/hooks/useEmployees';
+import { useWarehouse } from '@/contexts/WarehouseContext';
 import { toast } from '@/hooks/use-toast';
 
 export interface PalletProduct {
@@ -22,6 +23,7 @@ export interface PalletLocation {
 export const usePalletLocations = () => {
   const { user } = useAuth();
   const { employees } = useEmployees();
+  const { selectedWarehouse, warehouses } = useWarehouse();
   const [pallets, setPallets] = useState<PalletLocation[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -159,6 +161,21 @@ export const usePalletLocations = () => {
     if (!user?.id) return;
 
     try {
+      // Get company_id from the selected warehouse
+      const selectedWarehouseData = warehouses.find(w => w.warehouse_id === selectedWarehouse);
+      const companyId = selectedWarehouseData?.company_id;
+      
+      // Validation: Ensure we have a company_id
+      if (!companyId) {
+        console.error('No company_id found for warehouse:', selectedWarehouse);
+        toast({
+          title: "Error",
+          description: "Could not determine company for this location. Please select a warehouse.",
+          variant: "destructive",
+        });
+        return;
+      }
+
       // Check if location ID already exists
       const exists = await checkLocationIdExists(palletData.id);
       if (exists) {
@@ -171,7 +188,9 @@ export const usePalletLocations = () => {
         .insert({
           id: palletData.id,
           location: palletData.location,
-          user_id: user.id
+          user_id: user.id,
+          company_id: companyId,
+          warehouse_id: selectedWarehouse
         });
 
       if (palletError) {
@@ -188,7 +207,9 @@ export const usePalletLocations = () => {
           pallet_id: palletData.id,
           product_id: product.product_id,
           quantity: product.qty,
-          user_id: user.id
+          user_id: user.id,
+          company_id: companyId,
+          warehouse_id: selectedWarehouse
         }));
 
         const { error: productError } = await supabase
