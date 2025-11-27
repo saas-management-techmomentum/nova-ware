@@ -434,7 +434,7 @@ const LandingPage = () => {
                   <img 
                     src="/logistix-logo.png" 
                     alt="LogistiX WMS" 
-                    className="h-20 w-auto"
+                    className="h-40 w-auto"
                   />
                 </div>
                 <p className="text-neutral-400 max-w-md leading-relaxed">
