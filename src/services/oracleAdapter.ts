@@ -41,7 +41,7 @@ class OracleAdapter {
     }
     
     try {
-      console.log('Oracle adapter initialized');
+  
       integrationService.updateServiceStatus('other', true);
       return true;
     } catch (error) {

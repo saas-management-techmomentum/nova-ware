@@ -152,12 +152,10 @@ export const CustomerLedgerDialog: React.FC<CustomerLedgerDialogProps> = ({
 
   const sendStatement = () => {
     // Implementation for sending customer statement
-    console.log('Sending statement to customer:', customer?.contact_email);
   };
 
   const exportLedger = () => {
     // Implementation for exporting ledger data
-    console.log('Exporting ledger for customer:', customer?.name);
   };
 
   useEffect(() => {

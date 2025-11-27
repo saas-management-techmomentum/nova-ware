@@ -28,7 +28,6 @@ const SetupCompletionBanner = () => {
       try {
         await completeUserSetup();
       } catch (setupError) {
-        console.log('Regular setup failed, trying fix function:', setupError);
         await fixIncompleteSetup();
       }
       

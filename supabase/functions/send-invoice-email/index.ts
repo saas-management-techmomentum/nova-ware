@@ -23,7 +23,6 @@ serve(async (req) => {
   }
 
   try {
-    console.log('Starting invoice email send request');
     
     const { invoiceId, recipientEmail, customMessage }: SendInvoiceEmailRequest = await req.json();
     
@@ -31,7 +30,6 @@ serve(async (req) => {
       throw new Error('Invoice ID and recipient email are required');
     }
 
-    console.log('Sending invoice email for:', invoiceId, 'to:', recipientEmail);
 
     // Validate required environment variables
     const resendApiKey = Deno.env.get('RESEND_API_KEY');
@@ -43,7 +41,7 @@ serve(async (req) => {
       throw new Error('RESEND_API_KEY environment variable is required');
     }
 
-    console.log('Using domain:', resendDomain);
+
 
     // Initialize Supabase client
     const supabase = createClient(supabaseUrl, supabaseKey);
@@ -63,12 +61,10 @@ serve(async (req) => {
       throw new Error('Invalid authentication token');
     }
 
-    console.log('User authenticated:', user.id);
 
     // Generate the PDF by calling the generate-invoice-pdf function directly via HTTP
     // This ensures we get the raw binary response instead of processed data
     const pdfUrl = `${supabaseUrl}/functions/v1/generate-invoice-pdf`;
-    console.log('Calling PDF generation at:', pdfUrl);
     
     const pdfResponse = await fetch(pdfUrl, {
       method: 'POST',
@@ -91,7 +87,6 @@ serve(async (req) => {
     const pdfArrayBuffer = await pdfResponse.arrayBuffer();
     const pdfBytes = new Uint8Array(pdfArrayBuffer);
     
-    console.log('PDF generated successfully, size:', pdfBytes.length, 'bytes');
 
     // Get invoice details for email content
     const { data: invoice, error: invoiceError } = await supabase
@@ -255,8 +250,6 @@ ${companyInfo.name}`;
     </body>
     </html>`;
 
-    // Send email with Resend using the binary PDF attachment
-    console.log('Sending email with PDF attachment of size:', pdfBytes.length, 'bytes');
     
     const emailResponse = await resend.emails.send({
       from: `${companyInfo.name} <invoices@${resendDomain}>`,
@@ -275,8 +268,6 @@ ${companyInfo.name}`;
       console.error('Resend error:', emailResponse.error);
       throw new Error(`Failed to send email: ${emailResponse.error.message || 'Unknown Resend error'}`);
     }
-
-    console.log('Email sent successfully:', emailResponse.data);
 
     // Update invoice with email sent timestamp
     const { error: updateError } = await supabase

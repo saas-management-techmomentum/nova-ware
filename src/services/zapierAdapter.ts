@@ -38,7 +38,6 @@ class ZapierAdapter {
     }
     
     try {
-      console.log('Zapier adapter initialized');
       integrationService.updateServiceStatus('zapier', true);
       return true;
     } catch (error) {

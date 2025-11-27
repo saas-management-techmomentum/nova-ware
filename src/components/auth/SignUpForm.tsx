@@ -74,13 +74,9 @@ const SignUpForm = ({ onTabChange }: SignUpFormProps) => {
   async function onSubmit(data: FormValues) {
     try {
       setIsLoading(true);
-
-      console.log('Starting signup process...');
       
       // Sign up the user with company name in metadata
       await signUp(data.email, data.password, data.firstName, data.lastName, data.companyName, data.invitationCode);
-      
-      console.log('User signup completed successfully');
       
       toast({
         title: "Account Created Successfully!",

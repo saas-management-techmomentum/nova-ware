@@ -14,10 +14,8 @@ serve(async (req) => {
   try {
     const { invitationCode } = await req.json();
     
-    console.log('Validating invitation code...');
     
     if (!invitationCode) {
-      console.log('No invitation code provided');
       return new Response(
         JSON.stringify({ 
           success: false, 
@@ -49,8 +47,6 @@ serve(async (req) => {
 
     // Validate the invitation code
     const isValid = invitationCode.trim() === validInvitationCode.trim();
-    
-    console.log(`Invitation code validation result: ${isValid}`);
     
     if (isValid) {
       return new Response(
