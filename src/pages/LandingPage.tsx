@@ -430,16 +430,12 @@ const LandingPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
               {/* Brand Section */}
               <div className="lg:col-span-2 space-y-6">
-                <div className="flex items-center space-x-3">
-                  <div className="h-10 w-10 bg-neutral-800 rounded-xl flex items-center justify-center">
-                    <Building2 className="h-6 w-6 text-white" />
-                  </div>
-                  <span className="text-2xl font-bold text-white">
-                    LogistiX
-                  </span>
-                  <Badge className="bg-neutral-800/50 text-neutral-300 border-neutral-600">
-                    WMS
-                  </Badge>
+                <div className="flex items-center">
+                  <img 
+                    src="/logistix-logo.png" 
+                    alt="LogistiX WMS" 
+                    className="h-12 w-auto"
+                  />
                 </div>
                 <p className="text-neutral-400 max-w-md leading-relaxed">
                   Next-generation warehouse management system designed for speed, accuracy, and control across every warehouse you manage.
