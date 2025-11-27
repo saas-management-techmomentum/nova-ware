@@ -28,7 +28,7 @@ export interface Client {
 export const useWarehouseScopedClients = () => {
   const [clients, setClients] = useState<Client[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { selectedWarehouse } = useWarehouse();
+  const { selectedWarehouse, warehouses } = useWarehouse();
   const { user } = useAuth();
   const { employees } = useEmployees();
   const { isAdmin, userRoles } = useUserPermissions();
@@ -120,12 +120,23 @@ export const useWarehouseScopedClients = () => {
       const employeeAssignedWarehouse = getEmployeeAssignedWarehouse();
       const warehouseToAssign = isAdmin ? selectedWarehouse : employeeAssignedWarehouse;
 
+      // Get company_id from the selected/assigned warehouse
+      const selectedWarehouseData = warehouses.find(w => w.warehouse_id === warehouseToAssign);
+      const companyId = selectedWarehouseData?.company_id;
+      
+      // Validation: Ensure we have a company_id
+      if (!companyId) {
+        console.error('No company_id found for warehouse:', warehouseToAssign);
+        throw new Error('Could not determine company for this client');
+      }
+
       const { data, error } = await supabase
         .from('clients')
         .insert([{
           ...clientData,
           user_id: user.id,
           warehouse_id: warehouseToAssign,
+          company_id: companyId,
         }])
         .select()
         .single();
