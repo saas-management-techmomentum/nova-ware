@@ -41,7 +41,7 @@ class SAPAdapter {
     }
     
     try {
-      console.log('SAP adapter initialized');
+    
       integrationService.updateServiceStatus('other', true);
       return true;
     } catch (error) {

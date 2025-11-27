@@ -12,8 +12,6 @@ interface PageAccessPermissionsProps {
 
 const PageAccessPermissions = ({ permissions, onPermissionChange, disabled = false }: PageAccessPermissionsProps) => {
   const handleSwitchChange = (permission: keyof PagePermissions, checked: boolean) => {
-    console.log('Switch clicked:', permission, 'new value:', checked);
-    console.log('Current permissions before change:', permissions);
     onPermissionChange(permission, checked);
   };
 

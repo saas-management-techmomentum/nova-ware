@@ -39,7 +39,7 @@ class WooCommerceAdapter {
     }
     
     try {
-      console.log('WooCommerce adapter initialized');
+     
       integrationService.updateServiceStatus('woocommerce', true);
       return true;
     } catch (error) {
@@ -60,7 +60,7 @@ class WooCommerceAdapter {
     }
     
     try {
-      console.log('Syncing inventory to WooCommerce:', products);
+
       return true;
     } catch (error) {
       console.error('Failed to sync inventory to WooCommerce:', error);
@@ -78,7 +78,6 @@ class WooCommerceAdapter {
     }
     
     try {
-      console.log('Importing orders from WooCommerce');
       return [];
     } catch (error) {
       console.error('Failed to import orders from WooCommerce:', error);

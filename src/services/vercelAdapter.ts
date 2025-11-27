@@ -40,7 +40,6 @@ class VercelAdapter {
     
     try {
       // This would verify the Vercel token and project access
-      console.log('Vercel adapter initialized');
       integrationService.updateServiceStatus('vercel', true);
       return true;
     } catch (error) {

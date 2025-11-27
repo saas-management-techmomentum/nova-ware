@@ -42,7 +42,7 @@ const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmploye
   // Main effect for loading employee data
   useEffect(() => {
     if (selectedEmployee) {
-      console.log('Loading employee data:', selectedEmployee);
+
       setFormData({
         name: selectedEmployee.name || '',
         position: selectedEmployee.position || '',
@@ -56,7 +56,6 @@ const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmploye
         ...defaultPagePermissions,
         ...(selectedEmployee.page_permissions || {})
       };
-      console.log('Loading permissions:', currentPermissions);
       setPagePermissions(currentPermissions);
     }
   }, [selectedEmployee]);
@@ -71,13 +70,11 @@ const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmploye
   };
 
   const handlePermissionChange = (permission: keyof PagePermissions, value: boolean) => {
-    console.log('Permission change received in dialog:', permission, value);
     setPagePermissions(prev => {
       const newPermissions = {
         ...prev,
         [permission]: value
       };
-      console.log('Updated permissions state:', newPermissions);
       return newPermissions;
     });
   };
@@ -103,7 +100,6 @@ const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmploye
 
     setIsLoading(true);
     try {
-      console.log('Saving employee with permissions:', pagePermissions);
       await updateEmployee(selectedEmployeeId, {
         name: formData.name,
         position: formData.position,

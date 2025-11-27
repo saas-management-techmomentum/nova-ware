@@ -28,14 +28,8 @@ export interface Shipment {
   company_id?: string;
   created_at: string;
   updated_at: string;
-  tracking_number?: string;
   source_po_id?: string;
-  source_order_id?: string;
-  customer_name?: string;
-  shipping_address?: string;
   shipment_type?: 'incoming' | 'outgoing';
-  carrier?: string;
-  shipping_method?: string;
   items: ShipmentItem[];
 }
 
@@ -100,7 +94,7 @@ export const useShipmentsQuery = ({
 
       console.log('🏪 Employee assignment check:', { isAssignedEmployee, assignedWarehouse: currentEmployee?.assigned_warehouse_id });
 
-      // Query shipments with their related items and new fields
+      // Query shipments with their related items
       let query = supabase
         .from('shipments')
         .select(`
@@ -116,13 +110,7 @@ export const useShipmentsQuery = ({
           warehouse_id, 
           company_id,
           source_po_id,
-          source_order_id,
-          customer_name,
-          shipping_address,
           shipment_type,
-          carrier,
-          shipping_method,
-          tracking_number,
           shipment_items(
             id,
             sku,
@@ -190,13 +178,7 @@ export const useShipmentsQuery = ({
           created_at: shipment.created_at,
           updated_at: shipment.updated_at,
           source_po_id: shipment.source_po_id,
-          source_order_id: shipment.source_order_id,
-          customer_name: shipment.customer_name,
-          shipping_address: shipment.shipping_address,
           shipment_type: shipment.shipment_type || 'incoming',
-          carrier: shipment.carrier,
-          shipping_method: shipment.shipping_method,
-          tracking_number: shipment.tracking_number,
           items: shipment.shipment_items || [],
         };
       });

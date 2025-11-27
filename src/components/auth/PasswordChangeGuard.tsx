@@ -14,7 +14,6 @@ const PasswordChangeGuard: React.FC<PasswordChangeGuardProps> = ({ children }) =
 
   useEffect(() => {
     if (isAuthReady && needsPasswordChange && location.pathname !== '/change-password') {
-      console.log('User needs password change, redirecting to /change-password');
       navigate('/change-password', { replace: true });
     }
   }, [needsPasswordChange, isAuthReady, location.pathname, navigate]);

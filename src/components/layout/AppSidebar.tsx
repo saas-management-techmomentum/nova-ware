@@ -102,17 +102,7 @@ const AppSidebar = () => {
         return 'Operational';
     }
   };
-  
-  // Debug logging
-  console.log('AppSidebar Debug:', {
-    warehouses,
-    selectedWarehouse,
-    canViewAllWarehouses,
-    isUserAdmin,
-    warehousesLength: warehouses.length,
-    warehouseAssignments,
-    permissionsLoading
-  });
+
   
   // Define all menu items
   const allMenuItems = [
@@ -212,7 +202,6 @@ const AppSidebar = () => {
   const menuItems = getFilteredMenuItems(baseMenuItems);
   
   const handleWarehouseChange = (warehouseId: string | null) => {
-    console.log('Changing warehouse to:', warehouseId);
     setSelectedWarehouse(warehouseId);
   };
 
@@ -232,7 +221,6 @@ const AppSidebar = () => {
   };
 
   const handleWarehouseAdded = async () => {
-    console.log('Warehouse added, refreshing list');
     await refreshWarehouses();
   };
 

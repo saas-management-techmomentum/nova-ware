@@ -1,6 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.8";
-import { Resend } from "npm:resend@2.0.0";
+import { Resend } from "https://esm.sh/resend@2.0.0";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -117,21 +117,17 @@ async function sendCustomInvitationEmail(
   `;
 
   try {
-    console.log('Attempting to send email via Resend...');
     
     const emailData = {
-      from: "Warehouse Management <noreply@logistixwms.com>",
+      from: "Warehouse Management <support@logistixwms.com>",
       to: [email],
       subject: `Welcome to ${companyName} - Your Account is Ready!`,
       html: emailHtml,
     };
     
-    console.log('Email payload:', JSON.stringify(emailData, null, 2));
     
     const result = await resend.emails.send(emailData);
     
-    console.log('Resend API response:', JSON.stringify(result, null, 2));
-    console.log('Email sent successfully!');
     
     return result;
   } catch (error: any) {
@@ -141,13 +137,7 @@ async function sendCustomInvitationEmail(
     console.error('Error message:', error.message);
     console.error('Error stack:', error.stack);
     console.error('Full error object:', JSON.stringify(error, null, 2));
-    
-    // Try to extract more specific error info
-    if (error.response) {
-      console.error('HTTP Response status:', error.response.status);
-      console.error('HTTP Response data:', error.response.data);
-    }
-    
+     
     throw new Error(`Resend API Error: ${error.message}`);
   }
 }
@@ -160,7 +150,6 @@ const handler = async (req: Request): Promise<Response> => {
 
   try {
     const requestBody = await req.json();
-    console.log('Request received:', { ...requestBody, temporaryPassword: '[REDACTED]' });
     
     const { employeeId, email, temporaryPassword, companyId, companyName, role, warehouseId, warehouseName }: InviteEmployeeRequest = requestBody;
     
@@ -208,8 +197,6 @@ const handler = async (req: Request): Promise<Response> => {
 
     const finalCompanyName = companyName || companyData?.name || 'Your Company';
 
-    // Check if user already exists
-    console.log('Checking if user exists with email:', email);
     const { data: userList, error: userListError } = await supabaseAdmin.auth.admin.listUsers();
     
     if (userListError) {
@@ -252,7 +239,6 @@ const handler = async (req: Request): Promise<Response> => {
       ? temporaryPassword 
       : generateSecurePassword();
     
-    console.log('Creating user with email:', email);
 
     // Create user with email confirmed since we're sending custom email
     const { data: authUser, error: authError } = await supabaseAdmin.auth.admin.createUser({
@@ -278,7 +264,6 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error('User creation failed - no user returned');
     }
 
-    console.log('Auth user created:', authUser.user.id);
 
     // Update employee record with ONLY auth-related fields - preserve all existing data
     const { error: updateError } = await supabaseAdmin
@@ -299,12 +284,16 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     // Create company_users entry (use upsert to handle duplicates)
+    // Set approval_status to 'approved' since admin invited = auto-approved
     const { error: companyUserError } = await supabaseAdmin
       .from('company_users')
       .upsert({
         user_id: authUser.user.id,
         company_id: companyId,
-        role: role
+        role: role,
+        approval_status: 'approved',
+        approved_at: new Date().toISOString(),
+        approved_by: authUser.user.id
       }, {
         onConflict: 'user_id,company_id'
       });
@@ -349,13 +338,11 @@ const handler = async (req: Request): Promise<Response> => {
         loginUrl,
         warehouseName
       );
-      console.log('Custom invitation email sent successfully');
     } catch (emailError) {
       console.error('Error sending custom email:', emailError);
       throw new Error(`Failed to send invitation email: ${emailError.message}`);
     }
 
-    console.log('Employee invitation completed successfully');
 
     return new Response(
       JSON.stringify({

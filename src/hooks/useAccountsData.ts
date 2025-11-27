@@ -47,7 +47,6 @@ export const useAccountsData = () => {
 
   const fetchAccounts = async () => {
     try {
-      console.log('🔄 Fetching accounts via RLS policies');
       
       const { data, error } = await supabase
         .from('accounts')
@@ -58,7 +57,6 @@ export const useAccountsData = () => {
         .eq('is_active', true)
         .order('account_code', { ascending: true });
 
-      console.log('📊 Accounts query result:', { data: data?.length || 0, error });
 
       if (error) throw error;
       setAccounts(data || []);

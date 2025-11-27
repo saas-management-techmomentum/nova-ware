@@ -550,6 +550,7 @@ export type Database = {
           initials: string | null
           invited_at: string | null
           name: string
+          needs_password_change: boolean | null
           other_deductions_amount: number | null
           page_permissions: Json | null
           pay_type: string | null
@@ -583,6 +584,7 @@ export type Database = {
           initials?: string | null
           invited_at?: string | null
           name: string
+          needs_password_change?: boolean | null
           other_deductions_amount?: number | null
           page_permissions?: Json | null
           pay_type?: string | null
@@ -616,6 +618,7 @@ export type Database = {
           initials?: string | null
           invited_at?: string | null
           name?: string
+          needs_password_change?: boolean | null
           other_deductions_amount?: number | null
           page_permissions?: Json | null
           pay_type?: string | null
@@ -2678,6 +2681,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      activate_employee_after_password_change: {
+        Args: { employee_user_id: string }
+        Returns: boolean
+      }
       allocate_inventory_fefo: {
         Args: {
           p_product_id: string
