@@ -286,8 +286,7 @@ const handler = async (req: Request): Promise<Response> => {
       .update({
         user_id_auth: authUser.user.id,
         status: 'invited',
-        invited_at: new Date().toISOString(),
-        needs_password_change: true
+        invited_at: new Date().toISOString()
       })
       .eq('id', employeeId);
 
