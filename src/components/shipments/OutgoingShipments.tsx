@@ -71,8 +71,7 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
     let filtered = outgoingShipments.filter(shipment => {
       const matchesSearch = 
         shipment.order_reference.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (shipment.customer_name && shipment.customer_name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        (shipment.tracking_number && shipment.tracking_number.toLowerCase().includes(searchTerm.toLowerCase()));
+        shipment.supplier.toLowerCase().includes(searchTerm.toLowerCase());
       
       const matchesStatus = selectedStatus === 'all' || shipment.status === selectedStatus;
       // For outgoing shipments, carrier info might be stored differently
@@ -187,7 +186,7 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
                   <div className="relative w-72">
                     <Search className="absolute left-3 top-2.5 h-4 w-4 text-neutral-400" />
                     <Input
-                      placeholder="Search by Order ID, Customer Name, or Tracking Number..."
+                      placeholder="Search by Order ID or Supplier..."
                       className="pl-9 bg-neutral-700/50 border-neutral-600 text-white placeholder:text-neutral-400 focus:border-gray-600/50 focus:ring-1 focus:ring-gray-600/30"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
@@ -265,11 +264,8 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
                       <TableRow className="border-neutral-700">
                         <TableHead className="font-medium text-neutral-300 w-[50px]"></TableHead>
                         <TableHead className="font-medium text-neutral-300">Order ID</TableHead>
-                        <TableHead className="font-medium text-neutral-300">Customer Name</TableHead>
+                        <TableHead className="font-medium text-neutral-300">Supplier</TableHead>
                         <TableHead className="font-medium text-neutral-300">Order Date</TableHead>
-                        <TableHead className="font-medium text-neutral-300">Shipping Method</TableHead>
-                        <TableHead className="font-medium text-neutral-300">Carrier</TableHead>
-                        <TableHead className="font-medium text-neutral-300">Tracking Number</TableHead>
                         <TableHead className="font-medium text-neutral-300">Ship Date</TableHead>
                         <TableHead className="font-medium text-neutral-300">Status</TableHead>
                         <TableHead className="font-medium text-neutral-300">Items</TableHead>
@@ -295,21 +291,12 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
                               </Button>
                             </TableCell>
                             <TableCell className="font-medium text-white">{shipment.order_reference}</TableCell>
-                            <TableCell className="text-neutral-300">{shipment.customer_name || '-'}</TableCell>
+                            <TableCell className="text-neutral-300">{shipment.supplier}</TableCell>
                             <TableCell className="text-neutral-300">
                               <div className="flex items-center gap-2">
                                 <Calendar className="h-4 w-4 text-neutral-400" />
                                 {new Date(shipment.created_at).toLocaleDateString()}
                               </div>
-                            </TableCell>
-                            <TableCell className="text-neutral-300">
-                              {shipment.shipping_method || '-'}
-                            </TableCell>
-                            <TableCell className="text-neutral-300">
-                              {shipment.carrier || '-'}
-                            </TableCell>
-                            <TableCell className="text-neutral-300">
-                              {shipment.tracking_number || '-'}
                             </TableCell>
                             <TableCell className="text-neutral-300">
                               {shipment.expected_date ? new Date(shipment.expected_date).toLocaleDateString() : '-'}
@@ -334,7 +321,7 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
                           </TableRow>
                            {expandedShipments.has(shipment.id) && (
                             <TableRow className="border-neutral-700">
-                              <TableCell colSpan={11} className="p-0">
+                              <TableCell colSpan={8} className="p-0">
                                 <div className="bg-neutral-700/20 border-l-2 border-gray-600/50 p-6 ml-6 space-y-6">
                                   {/* Shipment Items Section */}
                                   <div>
@@ -391,24 +378,10 @@ const OutgoingShipments: React.FC<OutgoingShipmentsProps> = ({ className }) => {
                                         <span className="text-sm text-neutral-400">Expected Ship Date:</span>
                                         <span className="text-sm text-gray-300">{new Date(shipment.expected_date).toLocaleDateString()}</span>
                                       </div>
-                                      {shipment.tracking_number && (
-                                        <div className="flex items-center justify-between">
-                                          <span className="text-sm text-neutral-400">Tracking Number:</span>
-                                          <span className="text-sm text-gray-300 font-mono">{shipment.tracking_number}</span>
-                                        </div>
-                                      )}
-                                      {shipment.customer_name && (
-                                        <div className="flex items-center justify-between">
-                                          <span className="text-sm text-neutral-400">Customer:</span>
-                                          <span className="text-sm text-neutral-300">{shipment.customer_name}</span>
-                                        </div>
-                                      )}
-                                      {shipment.shipping_address && (
-                                        <div className="flex items-start justify-between">
-                                          <span className="text-sm text-neutral-400">Shipping Address:</span>
-                                          <span className="text-sm text-neutral-300 text-right max-w-xs">{shipment.shipping_address}</span>
-                                        </div>
-                                      )}
+                                      <div className="flex items-center justify-between">
+                                        <span className="text-sm text-neutral-400">Supplier:</span>
+                                        <span className="text-sm text-neutral-300">{shipment.supplier}</span>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
