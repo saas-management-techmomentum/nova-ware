@@ -299,12 +299,16 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     // Create company_users entry (use upsert to handle duplicates)
+    // Set approval_status to 'approved' since admin invited = auto-approved
     const { error: companyUserError } = await supabaseAdmin
       .from('company_users')
       .upsert({
         user_id: authUser.user.id,
         company_id: companyId,
-        role: role
+        role: role,
+        approval_status: 'approved',
+        approved_at: new Date().toISOString(),
+        approved_by: authUser.user.id
       }, {
         onConflict: 'user_id,company_id'
       });
