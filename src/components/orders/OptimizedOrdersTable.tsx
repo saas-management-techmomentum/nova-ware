@@ -68,9 +68,9 @@ export const OptimizedOrdersTable: React.FC<OptimizedOrdersTableProps> = ({ clas
       )
     },
     {
-      id: 'id',
-      header: 'Order ID',
-      accessorKey: 'id' as const,
+      id: 'invoice_number',
+      header: 'Invoice #',
+      accessorKey: 'invoice_number' as const,
       width: 150
     },
     {

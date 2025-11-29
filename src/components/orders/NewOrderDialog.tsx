@@ -207,7 +207,7 @@ const NewOrderDialog: React.FC = () => {
       const clientName = getClientNameById(clientId);
 
       const newOrder = {
-        id: invoiceNumber,
+        invoice_number: invoiceNumber,
         client: clientName,
         date: orderDate,
         status,

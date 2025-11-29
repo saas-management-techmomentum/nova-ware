@@ -1396,6 +1396,7 @@ export type Database = {
           created_at: string | null
           customer_name: string
           id: string
+          invoice_number: string | null
           ship_date: string | null
           shipment_status: string | null
           shipping_address: string | null
@@ -1412,6 +1413,7 @@ export type Database = {
           created_at?: string | null
           customer_name: string
           id?: string
+          invoice_number?: string | null
           ship_date?: string | null
           shipment_status?: string | null
           shipping_address?: string | null
@@ -1428,6 +1430,7 @@ export type Database = {
           created_at?: string | null
           customer_name?: string
           id?: string
+          invoice_number?: string | null
           ship_date?: string | null
           shipment_status?: string | null
           shipping_address?: string | null

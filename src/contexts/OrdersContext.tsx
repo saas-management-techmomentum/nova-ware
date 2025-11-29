@@ -115,7 +115,7 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
       const { data: order, error: orderError } = await supabase
         .from('orders')
         .insert([{
-          id: orderData.id,
+          invoice_number: orderData.invoice_number,
           customer_name: orderData.client,
           status: orderData.status,
           user_id: user.id,
