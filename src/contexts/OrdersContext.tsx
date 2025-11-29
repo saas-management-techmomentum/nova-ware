@@ -234,8 +234,9 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
         throw error;
       }
 
-      // Auto-create outgoing shipment when order is shipped or ready
-      if (dbUpdates.status === 'order-shipped' || dbUpdates.status === 'order-ready') {
+      // Auto-create outgoing shipment when order status changes to any shipping status
+      const outgoingShipmentStatuses = ['order-ready', 'ready-to-ship', 'shipped', 'order-shipped'];
+      if (outgoingShipmentStatuses.includes(dbUpdates.status)) {
         console.log('Order marked as shipped/ready, checking for outgoing shipment...');
         
         // Get the order details to create shipment
@@ -272,7 +273,15 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
                 supplier: orderData.customer_name,
                 order_reference: orderData.invoice_number || id,
                 expected_date: orderData.ship_date || new Date().toISOString().split('T')[0],
-                status: dbUpdates.status === 'order-shipped' ? 'shipped' : 'pending',
+                status: (() => {
+                  const statusMapping: { [key: string]: string } = {
+                    'order-ready': 'ready-to-ship',
+                    'ready-to-ship': 'ready-to-ship',
+                    'shipped': 'shipped',
+                    'order-shipped': 'shipped'
+                  };
+                  return statusMapping[dbUpdates.status] || 'ready-to-ship';
+                })(),
                 user_id: user.id,
                 warehouse_id: selectedWarehouse,
                 company_id: warehouseData?.company_id,
