@@ -298,6 +298,9 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
       <DialogContent className="bg-neutral-900 border-neutral-800 text-white max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-xl font-semibold">Create New Invoice</DialogTitle>
+          <p className="text-xs text-neutral-400 mt-2">
+            <span className="text-red-500">*</span> Required fields
+          </p>
         </DialogHeader>
         
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -370,6 +373,9 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
             {/* Customer Section */}
             <Card className="bg-neutral-800/30 border-neutral-700">
               <CardContent className="p-4">
+                <Label className="text-neutral-300 mb-2 block">
+                  Customer <span className="text-red-500">*</span>
+                </Label>
                 <div className="mb-4">
                   <AddClientDialog 
                     onClientAdded={handleClientAdded}
@@ -400,7 +406,9 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-neutral-300">Invoice number</Label>
+                  <Label className="text-neutral-300">
+                    Invoice number <span className="text-red-500">*</span>
+                  </Label>
                   <Input
                     value={formData.invoice_number}
                     onChange={(e) => setFormData({...formData, invoice_number: e.target.value})}
@@ -420,7 +428,9 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-neutral-300">Invoice date</Label>
+                  <Label className="text-neutral-300">
+                    Invoice date <span className="text-red-500">*</span>
+                  </Label>
                   <div className="relative">
                     <Input
                       type="date"
@@ -432,7 +442,9 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
                   </div>
                 </div>
                 <div>
-                  <Label className="text-neutral-300">Payment due</Label>
+                  <Label className="text-neutral-300">
+                    Payment due <span className="text-red-500">*</span>
+                  </Label>
                   <div className="relative">
                     <Input
                       type="date"
@@ -452,7 +464,9 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
           <div className="space-y-4">
             {/* Items Header */}
             <div className="grid grid-cols-12 gap-4 p-3 bg-neutral-800/20 rounded-lg">
-              <div className="col-span-4 text-neutral-300 font-medium">Items</div>
+              <div className="col-span-4 text-neutral-300 font-medium">
+                Items <span className="text-red-500">*</span>
+              </div>
               <div className="col-span-2 text-neutral-300 font-medium text-center">Stock</div>
               <div className="col-span-2 text-neutral-300 font-medium text-center">Quantity</div>
               <div className="col-span-2 text-neutral-300 font-medium text-center">Price</div>
