@@ -39,6 +39,18 @@ const NewOrderDialog: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Default statuses as fallback when no custom statuses exist
+  const defaultStatuses = [
+    { id: 'default-pending', name: 'Pending', color: 'bg-yellow-500' },
+    { id: 'default-processing', name: 'Processing', color: 'bg-blue-500' },
+    { id: 'default-shipped', name: 'Shipped', color: 'bg-purple-500' },
+    { id: 'default-delivered', name: 'Delivered', color: 'bg-green-500' },
+    { id: 'default-cancelled', name: 'Cancelled', color: 'bg-red-500' },
+  ];
+
+  // Use custom statuses if available, otherwise use defaults
+  const availableStatuses = orderStatuses.length > 0 ? orderStatuses : defaultStatuses;
+
   const [invoiceNumber, setInvoiceNumber] = useState('');
   const [clientId, setClientId] = useState('');
   const [orderDate, setOrderDate] = useState(new Date().toISOString().split('T')[0]);
@@ -51,11 +63,11 @@ const NewOrderDialog: React.FC = () => {
 
   // Set default status when statuses are loaded
   useEffect(() => {
-    if (orderStatuses.length > 0 && !status) {
-      const firstStatus = orderStatuses[0];
+    if (availableStatuses.length > 0 && !status) {
+      const firstStatus = availableStatuses[0];
       setStatus(firstStatus.name.toLowerCase().replace(/\s+/g, '-'));
     }
-  }, [orderStatuses, status]);
+  }, [availableStatuses, status]);
 
   // Auto-add product when selected
   useEffect(() => {
@@ -213,7 +225,7 @@ const NewOrderDialog: React.FC = () => {
       setInvoiceNumber('');
       setClientId('');
       setOrderDate(new Date().toISOString().split('T')[0]);
-      setStatus(orderStatuses.length > 0 ? orderStatuses[0].name.toLowerCase().replace(/\s+/g, '-') : '');
+      setStatus(availableStatuses.length > 0 ? availableStatuses[0].name.toLowerCase().replace(/\s+/g, '-') : '');
       setOrderItems([]);
       setSelectedProductId('');
       setQuantity(1);
@@ -299,7 +311,7 @@ const NewOrderDialog: React.FC = () => {
                 <SelectValue placeholder="Select status" />
               </SelectTrigger>
               <SelectContent>
-                {orderStatuses.map((statusOption) => (
+                {availableStatuses.map((statusOption) => (
                   <SelectItem 
                     key={statusOption.id} 
                     value={statusOption.name.toLowerCase().replace(/\s+/g, '-')}

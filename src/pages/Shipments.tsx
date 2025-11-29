@@ -308,27 +308,14 @@ const ShipmentsPage = () => {
                       </div>
                     </TableCell>
                     <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Select onValueChange={(value) => handleStatusUpdate(shipment.id, value)}>
-                          <SelectTrigger className="w-auto h-8 bg-neutral-800/50 border-neutral-700 text-white">
-                            <SelectValue placeholder="Update Status" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="pending">Pending</SelectItem>
-                            <SelectItem value="partially-received">Partially Received</SelectItem>
-                            <SelectItem value="received">Received</SelectItem>
-                            <SelectItem value="inspected">Inspected</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-8 w-8 p-0 hover:bg-neutral-700"
-                          onClick={() => handleViewShipment(shipment)}
-                        >
-                          <Eye className="h-4 w-4 text-neutral-400" />
-                        </Button>
-                      </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 w-8 p-0 hover:bg-neutral-700"
+                        onClick={() => handleViewShipment(shipment)}
+                      >
+                        <Eye className="h-4 w-4 text-neutral-400" />
+                      </Button>
                     </TableCell>
                   </TableRow>
                   {expandedShipments.has(shipment.id) && (
