@@ -439,12 +439,12 @@ export const useWarehouseScopedBilling = () => {
       }
 
       // Make direct fetch request to edge function
-      const response = await fetch(`https://whmpesmpkvfcbycsrasr.supabase.co/functions/v1/generate-invoice-pdf`, {
+      const response = await fetch(`https://stejrgorjpuojorrwbvk.supabase.co/functions/v1/generate-invoice-pdf`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${session.access_token}`,
           'Content-Type': 'application/json',
-          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndobXBlc21wa3ZmY2J5Y3NyYXNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzODM0ODksImV4cCI6MjA2Mzk1OTQ4OX0.oG00P0r-_-4eF3OH6y7VvmQEaJqqPQDMaz4rAdGyCV0'
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN0ZWpyZ29yanB1b2pvcnJ3YnZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1ODA3MDksImV4cCI6MjA3ODE1NjcwOX0.i8SMUfbWmyTnO6h6k36XICqtjxBxRz37NhisCuIYaX8'
         },
         body: JSON.stringify({ invoiceId })
       });
