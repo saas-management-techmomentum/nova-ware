@@ -1396,6 +1396,7 @@ export type Database = {
           created_at: string | null
           customer_name: string
           id: string
+          invoice_id: string | null
           invoice_number: string | null
           ship_date: string | null
           shipment_status: string | null
@@ -1413,6 +1414,7 @@ export type Database = {
           created_at?: string | null
           customer_name: string
           id?: string
+          invoice_id?: string | null
           invoice_number?: string | null
           ship_date?: string | null
           shipment_status?: string | null
@@ -1430,6 +1432,7 @@ export type Database = {
           created_at?: string | null
           customer_name?: string
           id?: string
+          invoice_id?: string | null
           invoice_number?: string | null
           ship_date?: string | null
           shipment_status?: string | null
@@ -1447,6 +1450,13 @@ export type Database = {
             columns: ["company_id"]
             isOneToOne: false
             referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
             referencedColumns: ["id"]
           },
           {
@@ -2085,6 +2095,7 @@ export type Database = {
           created_at: string | null
           expected_date: string
           id: string
+          order_id: string | null
           order_reference: string
           received_date: string | null
           shipment_type: string | null
@@ -2100,6 +2111,7 @@ export type Database = {
           created_at?: string | null
           expected_date: string
           id?: string
+          order_id?: string | null
           order_reference: string
           received_date?: string | null
           shipment_type?: string | null
@@ -2115,6 +2127,7 @@ export type Database = {
           created_at?: string | null
           expected_date?: string
           id?: string
+          order_id?: string | null
           order_reference?: string
           received_date?: string | null
           shipment_type?: string | null
@@ -2131,6 +2144,13 @@ export type Database = {
             columns: ["company_id"]
             isOneToOne: false
             referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shipments_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
             referencedColumns: ["id"]
           },
           {
