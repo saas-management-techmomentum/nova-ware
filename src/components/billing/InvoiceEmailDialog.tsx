@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Mail, Paperclip, Send, CheckCircle, AlertCircle } from 'lucide-react';
-import { useBilling } from '@/hooks/useBilling';
+import { useBilling } from '@/contexts/BillingContext';
 import { useToast } from '@/components/ui/use-toast';
 
 interface InvoiceEmailDialogProps {
