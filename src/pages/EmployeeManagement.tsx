@@ -27,15 +27,15 @@ const EmployeeManagement = () => {
   const { selectedWarehouse, isUserAdmin } = useWarehouse();
   const { tasks } = useTasks();
   const { employees, resendInvitation } = useEmployees();
-  const { warehouseAssignments, isAdmin } = useUserPermissions();
+  const { warehouseAssignments, isAdmin, userRoles } = useUserPermissions();
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isRemoveDialogOpen, setIsRemoveDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
-  // Check if user can manage employees (admin or manager)
-  const canManageEmployees = isAdmin || warehouseAssignments.some(w => 
-    w.warehouse_id === selectedWarehouse && w.role === 'manager'
-  );
+  // Check if user can manage employees (admin or company-level/warehouse-level manager)
+  const canManageEmployees = isAdmin || 
+    userRoles.some(role => role.role === 'admin' || role.role === 'manager') ||
+    warehouseAssignments.some(w => w.warehouse_id === selectedWarehouse && w.role === 'manager');
 
   // Calculate task metrics
   const taskMetrics = useMemo(() => {
