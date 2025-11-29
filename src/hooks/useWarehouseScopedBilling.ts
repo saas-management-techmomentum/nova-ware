@@ -54,7 +54,7 @@ export const useWarehouseScopedBilling = () => {
   const [billingRates, setBillingRates] = useState<BillingRate[]>([]);
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { selectedWarehouse } = useWarehouse();
+  const { selectedWarehouse, companyId } = useWarehouse();
   const { toast } = useToast();
 
   const fetchBillingRates = async () => {
@@ -186,6 +186,11 @@ export const useWarehouseScopedBilling = () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error('User not authenticated');
 
+      // Validate company_id is available
+      if (!companyId) {
+        throw new Error('Company ID not available. Please select a warehouse first.');
+      }
+
       // Validate inventory availability before creating invoice
       if (invoiceData.items && invoiceData.items.length > 0) {
         const itemsForValidation = invoiceData.items.map(item => ({
@@ -223,6 +228,7 @@ export const useWarehouseScopedBilling = () => {
         invoice_number: invoiceNumber,
         user_id: user.id,
         warehouse_id: selectedWarehouse,
+        company_id: companyId,
         ...invoiceFields,
         status: 'draft', // Always start as draft
       };
