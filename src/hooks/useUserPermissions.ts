@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
+import { useUserRolesQuery } from '@/hooks/queries/useUserRolesQuery';
+import { useWarehousesQuery } from '@/hooks/queries/useWarehousesQuery';
 
 export interface UserRole {
   company_id: string;
@@ -33,82 +35,44 @@ interface CompanyIsolationResult {
 }
 
 export const useUserPermissions = () => {
-  const { user, session, isAuthReady } = useAuth();
-  const [userRoles, setUserRoles] = useState<UserRole[]>([]);
-  const [warehouseAssignments, setWarehouseAssignments] = useState<WarehouseAssignment[]>([]);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [userCompanyIds, setUserCompanyIds] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchUserPermissions = async () => {
-    if (!isAuthReady || !user?.id || !session?.access_token) {
-      console.log('Skipping permissions fetch - auth not ready');
-      setLoading(false);
-      return;
-    }
-
-    try {
-      console.log('Fetching permissions for user:', user.id);
-      
-      const { data: companyRoles, error } = await supabase
-        .from('company_users')
-        .select('company_id, role')
-        .eq('user_id', user.id);
-
-      if (error) {
-        console.error('Error fetching company roles:', error);
-        throw error;
-      }
-      
-      const typedCompanyRoles: UserRole[] = (companyRoles || []).map(role => ({
-        company_id: role.company_id,
-        role: role.role as 'admin' | 'manager' | 'employee'
+  const { user, isAuthReady } = useAuth();
+  
+  // Use cached React Query hooks for user roles and warehouses
+  const { data: userRolesData, isLoading: rolesLoading } = useUserRolesQuery();
+  const { data: warehousesData, isLoading: warehousesLoading } = useWarehousesQuery();
+  
+  // Derive state from cached queries
+  const userRoles = useMemo(() => {
+    return (userRolesData || []).map(role => ({
+      company_id: role.company_id,
+      role: role.role as 'admin' | 'manager' | 'employee'
+    }));
+  }, [userRolesData]);
+  
+  const isAdmin = useMemo(() => {
+    return userRoles.some(role => role.role === 'admin');
+  }, [userRoles]);
+  
+  const userCompanyIds = useMemo(() => {
+    return userRoles.map(role => role.company_id);
+  }, [userRoles]);
+  
+  const warehouseAssignments = useMemo(() => {
+    if (!warehousesData) return [];
+    
+    return warehousesData
+      .filter(item => userCompanyIds.includes(item.company_id))
+      .map(item => ({
+        warehouse_id: item.warehouse_id,
+        warehouse_name: item.warehouse_name,
+        warehouse_code: item.warehouse_code,
+        role: item.access_level as 'admin' | 'manager' | 'employee'
       }));
-      
-      setUserRoles(typedCompanyRoles);
-      const adminStatus = typedCompanyRoles.some(role => role.role === 'admin');
-      setIsAdmin(adminStatus);
-      const companyIds = typedCompanyRoles.map(role => role.company_id);
-      setUserCompanyIds(companyIds);
+  }, [warehousesData, userCompanyIds]);
+  
+  const loading = rolesLoading || warehousesLoading;
 
-      // Fetch warehouse assignments
-      const { data: warehouseData, error: warehouseError } = await supabase
-        .from('warehouse_users')
-        .select(`
-          warehouse_id,
-          role,
-          warehouses!inner (
-            name,
-            code,
-            company_id
-          )
-        `)
-        .eq('user_id', user.id);
-
-      if (!warehouseError && warehouseData) {
-        const filteredWarehouseData = warehouseData.filter(item => 
-          companyIds.includes(item.warehouses.company_id)
-        );
-
-        const assignments = filteredWarehouseData.map(item => ({
-          warehouse_id: item.warehouse_id,
-          warehouse_name: item.warehouses.name,
-          warehouse_code: item.warehouses.code,
-          role: item.role as 'admin' | 'manager' | 'employee'
-        }));
-
-        setWarehouseAssignments(assignments);
-      }
-    } catch (error) {
-      console.error('Error fetching user permissions:', error);
-      setUserRoles([]);
-      setIsAdmin(false);
-      setUserCompanyIds([]);
-      setWarehouseAssignments([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // Removed: fetchUserPermissions is now handled by React Query hooks
 
   const canAccessWarehouse = (warehouseId: string) => {
     return isAdmin || warehouseAssignments.some(w => w.warehouse_id === warehouseId);
@@ -144,9 +108,8 @@ export const useUserPermissions = () => {
   };
 
   const refreshPermissions = async () => {
-    console.log('Manual permissions refresh triggered');
-    setLoading(true);
-    await fetchUserPermissions();
+    console.log('Manual permissions refresh triggered - React Query will handle cache invalidation');
+    // React Query automatically handles refetching via invalidation
   };
 
   // Enhanced user assignment functions with better error handling
@@ -257,21 +220,7 @@ export const useUserPermissions = () => {
     return task.assigned_to === currentEmployeeId;
   };
 
-  useEffect(() => {
-    if (isAuthReady) {
-      if (user?.id && session?.access_token) {
-        console.log('Auth ready with valid session, fetching permissions');
-        fetchUserPermissions();
-      } else {
-        console.log('Auth ready but no valid session, resetting permissions');
-        setUserRoles([]);
-        setIsAdmin(false);
-        setUserCompanyIds([]);
-        setWarehouseAssignments([]);
-        setLoading(false);
-      }
-    }
-  }, [isAuthReady, user?.id, session?.access_token]);
+  // Removed: useEffect is no longer needed as React Query handles data fetching
 
   return {
     userRoles,

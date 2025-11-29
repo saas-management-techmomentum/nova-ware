@@ -156,9 +156,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         console.log('Current user after force refresh:', currentSession.user.id);
         setSession(currentSession);
         setUser(currentSession.user as AuthUser);
-        await fetchUserRole(currentSession.user.id);
-        await checkPasswordChangeStatus(currentSession.user.id);
-        await fetchEmployeeData(currentSession.user.id);
+        
+        // Parallelize all three queries for faster loading
+        await Promise.all([
+          fetchUserRole(currentSession.user.id),
+          checkPasswordChangeStatus(currentSession.user.id),
+          fetchEmployeeData(currentSession.user.id)
+        ]);
       } else {
         console.log('No valid session found after force refresh');
         setUserRole(null);
@@ -322,9 +326,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           setTimeout(() => {
             if (mounted) {
               console.log('Fetching user role, password status, and employee data after auth state change');
-              fetchUserRole(session.user.id);
-              checkPasswordChangeStatus(session.user.id);
-              fetchEmployeeData(session.user.id);
+              
+              // Parallelize all three queries for faster loading
+              Promise.all([
+                fetchUserRole(session.user.id),
+                checkPasswordChangeStatus(session.user.id),
+                fetchEmployeeData(session.user.id)
+              ]).catch(error => {
+                console.error('Error fetching user data:', error);
+              });
               
               if (event === 'SIGNED_IN') {
                 setTimeout(() => {
@@ -364,9 +374,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           
           if (session?.user && session.access_token) {
             console.log('Fetching user role, password status, and employee data for initial session');
-            await fetchUserRole(session.user.id);
-            await checkPasswordChangeStatus(session.user.id);
-            await fetchEmployeeData(session.user.id);
+            
+            // Parallelize all three queries for faster loading
+            await Promise.all([
+              fetchUserRole(session.user.id),
+              checkPasswordChangeStatus(session.user.id),
+              fetchEmployeeData(session.user.id)
+            ]);
             
             setTimeout(() => {
               completeUserSetup().catch(error => {
