@@ -21,6 +21,7 @@ import { X } from 'lucide-react';
 import { useOrders } from '@/contexts/OrdersContext';
 import { useClients } from '@/contexts/ClientsContext';
 import { useInventory } from '@/contexts/InventoryContext';
+import { useBilling } from '@/contexts/BillingContext';
 
 interface OrderItem {
   productId: string;
@@ -36,6 +37,7 @@ const NewOrderDialog: React.FC = () => {
   const { addOrder, orderStatuses } = useOrders();
   const { clients, isLoading: clientsLoading } = useClients();
   const { inventoryItems, isLoading: productsLoading } = useInventory();
+  const { invoices, isLoading: invoicesLoading } = useBilling();
   const [open, setOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -51,7 +53,7 @@ const NewOrderDialog: React.FC = () => {
   // Use custom statuses if available, otherwise use defaults
   const availableStatuses = orderStatuses.length > 0 ? orderStatuses : defaultStatuses;
 
-  const [invoiceNumber, setInvoiceNumber] = useState('');
+  const [selectedInvoiceId, setSelectedInvoiceId] = useState('');
   const [clientId, setClientId] = useState('');
   const [orderDate, setOrderDate] = useState(new Date().toISOString().split('T')[0]);
   const [status, setStatus] = useState('');
@@ -174,6 +176,15 @@ const NewOrderDialog: React.FC = () => {
     
     if (isSubmitting) return;
     
+    if (!selectedInvoiceId) {
+      toast({
+        title: "Select Invoice",
+        description: "Please select an invoice for this order.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     if (!clientId) {
       toast({
         title: "Select Client",
@@ -205,9 +216,11 @@ const NewOrderDialog: React.FC = () => {
 
     try {
       const clientName = getClientNameById(clientId);
+      const selectedInvoice = invoices.find(inv => inv.id === selectedInvoiceId);
 
       const newOrder = {
-        invoice_number: invoiceNumber,
+        invoice_id: selectedInvoiceId,
+        invoice_number: selectedInvoice?.invoice_number || '',
         client: clientName,
         date: orderDate,
         status,
@@ -222,7 +235,7 @@ const NewOrderDialog: React.FC = () => {
       await addOrder(newOrder);
 
       // Reset form
-      setInvoiceNumber('');
+      setSelectedInvoiceId('');
       setClientId('');
       setOrderDate(new Date().toISOString().split('T')[0]);
       setStatus(availableStatuses.length > 0 ? availableStatuses[0].name.toLowerCase().replace(/\s+/g, '-') : '');
@@ -257,14 +270,31 @@ const NewOrderDialog: React.FC = () => {
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 pt-4">
           <div className="grid gap-2">
-            <Label htmlFor="invoiceNumber">Invoice #</Label>
-            <Input
-              id="invoiceNumber"
-              placeholder="INV-XXXX"
-              required
-              value={invoiceNumber}
-              onChange={(e) => setInvoiceNumber(e.target.value)}
-            />
+            <Label htmlFor="invoice">Invoice</Label>
+            <Select
+              value={selectedInvoiceId}
+              onValueChange={setSelectedInvoiceId}
+              disabled={invoicesLoading}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder={invoicesLoading ? "Loading invoices..." : invoices.length > 0 ? "Select invoice" : "No invoices found"} />
+              </SelectTrigger>
+              <SelectContent className="max-h-[300px]">
+                {invoices.length === 0 && !invoicesLoading ? (
+                  <div className="px-2 py-4 text-center text-sm text-muted-foreground">
+                    No invoices found
+                  </div>
+                ) : (
+                  invoices
+                    .filter(inv => inv.status === 'sent' || inv.status === 'approved' || inv.status === 'paid')
+                    .map((invoice) => (
+                      <SelectItem key={invoice.id} value={invoice.id}>
+                        {invoice.invoice_number} - {invoice.client_name} - ${invoice.total_amount.toFixed(2)}
+                      </SelectItem>
+                    ))
+                )}
+              </SelectContent>
+            </Select>
           </div>
           
           <div className="grid gap-2">

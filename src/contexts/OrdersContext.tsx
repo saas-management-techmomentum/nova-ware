@@ -115,6 +115,7 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
       const { data: order, error: orderError } = await supabase
         .from('orders')
         .insert([{
+          invoice_id: orderData.invoice_id,
           invoice_number: orderData.invoice_number,
           customer_name: orderData.client,
           status: orderData.status,
@@ -267,6 +268,7 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
             const { data: newShipment, error: shipmentError } = await supabase
               .from('shipments')
               .insert([{
+                order_id: id,
                 supplier: orderData.customer_name,
                 order_reference: orderData.invoice_number || id,
                 expected_date: orderData.ship_date || new Date().toISOString().split('T')[0],
