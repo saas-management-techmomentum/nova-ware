@@ -252,7 +252,13 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
         items: invoiceItems
       };
 
-      await addInvoice(invoiceData);
+      const result = await addInvoice(invoiceData);
+
+      // Only show success and close dialog if invoice was actually created
+      if (!result) {
+        // Error toast already shown by addInvoice, just exit
+        return;
+      }
 
       toast({
         title: "Invoice Created Successfully",
