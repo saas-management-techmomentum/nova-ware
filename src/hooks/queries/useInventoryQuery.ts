@@ -51,7 +51,7 @@ export const useInventoryQuery = ({
   ignoreWarehouseFilter = false
 }: UseInventoryQueryProps = {}) => {
   const { user } = useAuth();
-  const { selectedWarehouse } = useWarehouse();
+  const { selectedWarehouse, companyId } = useWarehouse();
   const { employees } = useEmployees();
   const { userRoles } = useUserPermissions();
 
@@ -125,9 +125,9 @@ export const useInventoryQuery = ({
       } else if (isAdmin && selectedWarehouse) {
         // Admin with warehouse selected - show all data for that warehouse
         query = query.eq('warehouse_id', selectedWarehouse);
-      } else if (isAdmin && !selectedWarehouse) {
-        // Admin with "All Warehouses" - show all data for user
-        query = query.eq('user_id', user.id);
+      } else if (isAdmin && !selectedWarehouse && companyId) {
+        // Admin with "All Warehouses" (Corporate View) - show all data for company
+        query = query.eq('company_id', companyId);
       } else {
         // Unassigned employee - show only their own data
         query = query.eq('user_id', user.id);
@@ -221,7 +221,12 @@ export const useInventoryQuery = ({
         hasMore: isCorporateOverview ? false : (count || 0) > page * limit
       };
     },
-    enabled: !!user && employees.length > 0, // Wait for employees to load
+    enabled: !!user && (
+      // Admins: wait until we know companyId for corporate view
+      (isAdmin && !!companyId) || 
+      // Employees: wait until employee data loads
+      employees.length > 0
+    ),
   });
 };
 

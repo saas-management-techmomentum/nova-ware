@@ -41,6 +41,7 @@ interface WarehouseContextType {
   canViewAllWarehouses: boolean;
   refreshWarehouses: () => Promise<void>;
   isUserAdmin: boolean;
+  companyId: string | null;
 }
 
 const WarehouseContext = createContext<WarehouseContextType | undefined>(undefined);
@@ -198,6 +199,12 @@ export const WarehouseProvider: React.FC<WarehouseProviderProps> = ({ children }
     // React Query automatically handles refetching via invalidation
   };
 
+  // Derive company ID from warehouses (all warehouses belong to same company)
+  const companyId = useMemo(() => {
+    if (!warehouses.length) return null;
+    return warehouses[0].company_id;
+  }, [warehouses]);
+
   const value = {
     warehouses,
     selectedWarehouse,
@@ -205,7 +212,8 @@ export const WarehouseProvider: React.FC<WarehouseProviderProps> = ({ children }
     isLoading,
     canViewAllWarehouses,
     refreshWarehouses,
-    isUserAdmin: isAdmin
+    isUserAdmin: isAdmin,
+    companyId,
   };
 
   return (
