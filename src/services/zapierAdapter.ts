@@ -58,7 +58,6 @@ class ZapierAdapter {
     }
     
     try {
-      console.log('Triggering Zapier webhook:', webhookUrl, payload);
       
       const response = await fetch(webhookUrl, {
         method: 'POST',

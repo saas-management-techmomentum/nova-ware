@@ -40,7 +40,7 @@ class QuickBooksAdapter {
     }
     
     try {
-      console.log('QuickBooks adapter initialized');
+
       integrationService.updateServiceStatus('quickbooks', true);
       return true;
     } catch (error) {
@@ -61,7 +61,6 @@ class QuickBooksAdapter {
     }
     
     try {
-      console.log('Syncing customers to QuickBooks:', customers);
       return true;
     } catch (error) {
       console.error('Failed to sync customers to QuickBooks:', error);
@@ -79,7 +78,6 @@ class QuickBooksAdapter {
     }
     
     try {
-      console.log('Creating invoice in QuickBooks:', invoiceData);
       return true;
     } catch (error) {
       console.error('Failed to create invoice in QuickBooks:', error);

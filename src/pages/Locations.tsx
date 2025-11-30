@@ -285,9 +285,7 @@ const Locations = () => {
     }
   };
 
-  const handleBarcodeScan = (barcode: string, mode: ScanMode) => {
-    console.log(`Scanned barcode: ${barcode} in ${mode} mode`);
-    
+  const handleBarcodeScan = (barcode: string, mode: ScanMode) => {   
     // Find product by barcode/UPC
     const product = products.find(p => p.upc === barcode || p.sku === barcode);
     

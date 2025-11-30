@@ -367,13 +367,6 @@ export const useEnhancedFinancialData = () => {
         lastUpdated: new Date().toISOString()
       });
 
-      console.log('Enhanced financial data updated:', {
-        totalRevenue,
-        totalExpenses,
-        netIncome,
-        warehouse: selectedWarehouse || 'All',
-        isCorpOverview: isInCorporateOverview
-      });
 
     } catch (error) {
       console.error('Error fetching enhanced financial data:', error);
@@ -404,7 +397,7 @@ export const useEnhancedFinancialData = () => {
           schema: 'public',
           table: tableName
         }, (payload) => {
-          console.log(`${tableName} change detected:`, payload);
+        
           fetchEnhancedFinancialData();
         })
         .subscribe();

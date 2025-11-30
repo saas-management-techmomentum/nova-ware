@@ -69,7 +69,7 @@ export const useProductTransfer = () => {
     setIsTransferring(true);
 
     try {
-      console.log('Starting product transfer:', transferRequest);
+  
 
       for (const item of transferRequest.items) {
         // Get source product
@@ -217,7 +217,7 @@ export const useProductTransfer = () => {
         variant: "default",
       });
 
-      console.log('Product transfer completed successfully');
+    
     } catch (error) {
       console.error('Product transfer failed:', error);
       toast({

@@ -50,7 +50,6 @@ export const useLowStockItems = () => {
 
       setIsLoading(true);
       try {
-        console.log('Fetching low stock items for user:', user.id);
         
         // Get employee info to check for warehouse assignment
         const { data: employees } = await supabase

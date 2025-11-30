@@ -40,7 +40,7 @@ class ShopifyAdapter {
     
     try {
       // This would verify the Shopify API connection
-      console.log('Shopify adapter initialized');
+    
       integrationService.updateServiceStatus('shopify', true);
       return true;
     } catch (error) {
@@ -56,7 +56,7 @@ class ShopifyAdapter {
    */
   disconnect(): void {
     integrationService.disconnect('shopify');
-    console.log('Shopify adapter disconnected');
+   
   }
   
   /**
@@ -70,7 +70,7 @@ class ShopifyAdapter {
     }
     
     try {
-      console.log('Syncing inventory to Shopify:', products);
+    
       // Implementation would go here
       return true;
     } catch (error) {
@@ -90,7 +90,6 @@ class ShopifyAdapter {
     }
     
     try {
-      console.log('Importing orders from Shopify');
       // Implementation would go here
       return [];
     } catch (error) {

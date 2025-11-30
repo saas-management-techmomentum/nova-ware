@@ -157,13 +157,6 @@ export const OnboardingProvider: React.FC<{ children: ReactNode }> = ({ children
     }));
   }, [hasPageAccess, permissionsLoading]);
 
-  console.log('Onboarding steps filtered:', {
-    totalSteps: allOnboardingSteps.length,
-    accessibleSteps: filteredSteps.length,
-    stepTitles: filteredSteps.map(s => s.title),
-    permissionsLoading
-  });
-
   // Get onboarding state from profile
   const isOnboardingEnabled = profile?.onboarding_enabled || false;
   const onboardingCompleted = profile?.onboarding_completed || false;

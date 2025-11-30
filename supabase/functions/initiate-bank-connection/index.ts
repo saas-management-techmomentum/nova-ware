@@ -13,7 +13,6 @@ serve(async (req) => {
   }
 
   try {
-    console.log('Function started...')
     
     // Parse request body
     let requestBody;
@@ -34,7 +33,6 @@ serve(async (req) => {
     const { user_id } = requestBody
 
     if (!user_id) {
-      console.log('Missing user_id')
       return new Response(
         JSON.stringify({ error: 'User ID is required' }),
         { 
@@ -44,14 +42,10 @@ serve(async (req) => {
       )
     }
 
-    console.log('User ID received:', user_id)
 
     // Initialize Supabase client
     const supabaseUrl = Deno.env.get('SUPABASE_URL')
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
-    
-    console.log('Supabase URL present:', !!supabaseUrl)
-    console.log('Supabase Key present:', !!supabaseKey)
 
     if (!supabaseUrl || !supabaseKey) {
       return new Response(
@@ -64,17 +58,11 @@ serve(async (req) => {
     }
 
     const supabase = createClient(supabaseUrl, supabaseKey)
-    console.log('Supabase client created')
 
     // Plaid configuration
     const plaidClientId = Deno.env.get('PLAID_CLIENT_ID')
     const plaidSecret = Deno.env.get('PLAID_SECRET')
     const plaidEnv = Deno.env.get('PLAID_ENV') || 'sandbox'
-
-    console.log('Checking Plaid credentials...')
-    console.log('PLAID_CLIENT_ID present:', !!plaidClientId)
-    console.log('PLAID_SECRET present:', !!plaidSecret)
-    console.log('PLAID_ENV:', plaidEnv)
 
     if (!plaidClientId || !plaidSecret) {
       console.error('Plaid credentials not configured')
@@ -95,7 +83,7 @@ serve(async (req) => {
       )
     }
 
-    console.log('All credentials present, creating Plaid link token...')
+
 
     // For now, return success to test if we get this far
     return new Response(

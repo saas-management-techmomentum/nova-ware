@@ -106,8 +106,7 @@ const AuthPage = () => {
   const onSignUp = async (data: SignUpFormValues) => {
     try {
       setIsLoading(true);
-      
-      console.log('Starting signup process...');
+
       
       await signUp(data.email, data.password, data.firstName, data.lastName, data.companyName, data.invitationCode);
       

@@ -128,7 +128,7 @@ export const processInvoiceWithAI = async (file: File): Promise<ProcessedInvoice
         
         const fileType = file.type.split('/')[1] || 'jpeg';
         
-        console.log('Calling AI processing function...');
+       
         
         const { data, error } = await supabase.functions.invoke('process-invoice-ai', {
           body: {
@@ -146,7 +146,7 @@ export const processInvoiceWithAI = async (file: File): Promise<ProcessedInvoice
           throw new Error(data.error || 'AI processing failed');
         }
         
-        console.log('AI extracted data:', data.extractedData);
+       
         
         const processedItems: ProcessedInvoiceItem[] = data.extractedData.items.map((item: any) => ({
           upc: item.upc || '',

@@ -85,7 +85,7 @@ export const useBatchAllocation = () => {
         throw error;
       }
 
-      console.log(`Allocated ${quantity} units using ${strategy} strategy:`, data);
+      
       
       return data as AllocationResult[];
     } catch (error) {
@@ -140,7 +140,7 @@ export const useBatchAllocation = () => {
       if (fetchError) throw fetchError;
 
       if (!allocations || allocations.length === 0) {
-        console.log('No allocations to reverse for order:', orderId);
+  
         return;
       }
 
@@ -182,7 +182,6 @@ export const useBatchAllocation = () => {
       if (deleteError) throw deleteError;
 
       console.log(`Reversed allocations for order ${orderId}:`, allocations);
-
       toast({
         title: "Allocation Reversed",
         description: "Inventory has been restored to batches.",

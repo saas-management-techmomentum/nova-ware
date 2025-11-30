@@ -25,7 +25,6 @@ Deno.serve(async (req) => {
   }
 
   try {
-    console.log('🔄 Starting recurring invoice processing...');
 
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseServiceRoleKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
@@ -34,7 +33,6 @@ Deno.serve(async (req) => {
 
     // Get today's date
     const today = new Date().toISOString().split('T')[0];
-    console.log('📅 Processing invoices for date:', today);
 
     // Query active recurring invoices due today or earlier
     const { data: recurringInvoices, error: queryError } = await supabase
@@ -47,8 +45,6 @@ Deno.serve(async (req) => {
       console.error('❌ Error querying recurring invoices:', queryError);
       throw queryError;
     }
-
-    console.log(`📋 Found ${recurringInvoices?.length || 0} recurring invoices to process`);
 
     if (!recurringInvoices || recurringInvoices.length === 0) {
       return new Response(
@@ -71,7 +67,6 @@ Deno.serve(async (req) => {
     // Process each recurring invoice
     for (const recurring of recurringInvoices as RecurringInvoice[]) {
       try {
-        console.log(`\n🔄 Processing recurring invoice ${recurring.id}`);
 
         const templateData = recurring.template_data;
         if (!templateData) {
@@ -122,7 +117,6 @@ Deno.serve(async (req) => {
           .single();
 
         if (invoiceError) throw invoiceError;
-        console.log(`✅ Created invoice ${invoice.invoice_number}`);
 
         // Insert invoice items
         if (templateData.items && templateData.items.length > 0) {
@@ -143,7 +137,6 @@ Deno.serve(async (req) => {
             .insert(itemsToInsert);
 
           if (itemsError) throw itemsError;
-          console.log(`✅ Created ${itemsToInsert.length} invoice items`);
         }
 
         // Calculate next invoice date
@@ -180,7 +173,6 @@ Deno.serve(async (req) => {
         if (updateError) throw updateError;
 
         if (shouldDeactivate) {
-          console.log(`🛑 Deactivated recurring invoice ${recurring.id} (end date reached)`);
           results.deactivated++;
         } else {
           console.log(`📅 Updated next invoice date to ${nextInvoiceDate}`);
@@ -194,7 +186,6 @@ Deno.serve(async (req) => {
       }
     }
 
-    console.log('\n✅ Recurring invoice processing complete:', results);
 
     return new Response(
       JSON.stringify({

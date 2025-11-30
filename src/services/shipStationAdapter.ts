@@ -39,7 +39,7 @@ class ShipStationAdapter {
     }
     
     try {
-      console.log('ShipStation adapter initialized');
+  
       integrationService.updateServiceStatus('shipstation', true);
       return true;
     } catch (error) {
@@ -60,7 +60,6 @@ class ShipStationAdapter {
     }
     
     try {
-      console.log('Creating order in ShipStation:', orderData);
       return true;
     } catch (error) {
       console.error('Failed to create order in ShipStation:', error);
@@ -78,7 +77,6 @@ class ShipStationAdapter {
     }
     
     try {
-      console.log('Getting shipping rates from ShipStation:', rateData);
       return [];
     } catch (error) {
       console.error('Failed to get shipping rates from ShipStation:', error);

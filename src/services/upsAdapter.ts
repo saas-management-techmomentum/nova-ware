@@ -41,7 +41,7 @@ class UPSAdapter {
     }
     
     try {
-      console.log('UPS adapter initialized');
+ 
       integrationService.updateServiceStatus('ups', true);
       return true;
     } catch (error) {
@@ -62,7 +62,7 @@ class UPSAdapter {
     }
     
     try {
-      console.log('Creating UPS shipping label:', shipmentData);
+     
       // Implementation would go here
       return { trackingNumber: 'UPS123456789', labelUrl: 'https://example.com/ups-label.pdf' };
     } catch (error) {
@@ -81,7 +81,6 @@ class UPSAdapter {
     }
     
     try {
-      console.log('Tracking UPS shipment:', trackingNumber);
       // Implementation would go here
       return { status: 'In Transit', location: 'Atlanta, GA' };
     } catch (error) {

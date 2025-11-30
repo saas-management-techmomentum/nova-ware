@@ -40,7 +40,6 @@ class BigCommerceAdapter {
     }
     
     try {
-      console.log('BigCommerce adapter initialized');
       integrationService.updateServiceStatus('other', true);
       return true;
     } catch (error) {
@@ -61,7 +60,6 @@ class BigCommerceAdapter {
     }
     
     try {
-      console.log('Syncing inventory to BigCommerce:', products);
       return true;
     } catch (error) {
       console.error('Failed to sync inventory to BigCommerce:', error);

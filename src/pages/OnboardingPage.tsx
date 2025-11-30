@@ -88,7 +88,6 @@ const OnboardingPage = () => {
   });
 
   function onSubmit(data: FormValues) {
-    console.log(data);
     toast("Account setup initiated", {
       description: "We'll review your information and contact you shortly.",
     });

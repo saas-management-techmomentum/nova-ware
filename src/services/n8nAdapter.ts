@@ -39,7 +39,7 @@ class N8nAdapter {
     
     try {
       // This would ping the n8n webhook to verify it's working
-      console.log('n8n adapter initialized');
+
       integrationService.updateServiceStatus('n8n', true);
       return true;
     } catch (error) {
@@ -61,20 +61,6 @@ class N8nAdapter {
     }
     
     try {
-      console.log(`Triggering n8n workflow: ${workflowName}`, payload);
-      
-      // This would actually call the n8n webhook
-      // const response = await fetch(config.webhookUrl, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({
-      //     workflow: workflowName,
-      //     data: payload
-      //   }),
-      //   mode: 'no-cors'
-      // });
       
       return true;
     } catch (error) {

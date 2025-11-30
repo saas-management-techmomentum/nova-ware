@@ -44,11 +44,6 @@ export const WarehouseEmployeeProvider: React.FC<{ children: React.ReactNode }> 
       return;
     }
 
-    console.log('🔍 WarehouseEmployee: Evaluating user:', user.id);
-    console.log('📊 Current employees data:', employees);
-    console.log('🏷️ User roles:', userRoles);
-    console.log('👑 Is admin:', isAdmin);
-
     // Check if user is admin or manager - regardless of approval status
     const canManageEmployees = userRoles.some(role => 
       (role.role === 'admin' || role.role === 'manager')
@@ -56,7 +51,6 @@ export const WarehouseEmployeeProvider: React.FC<{ children: React.ReactNode }> 
     );
     
     if (isAdmin || canManageEmployees) {
-      console.log('🎭 User is admin/manager - not warehouse employee');
       setIsWarehouseEmployee(false);
       setAssignedWarehouseId(null);
       return;
@@ -64,14 +58,14 @@ export const WarehouseEmployeeProvider: React.FC<{ children: React.ReactNode }> 
 
     // Find current employee record - this should work regardless of approval status
     const currentEmployee = employees.find(emp => emp.user_id_auth === user.id);
-    console.log('👷 Found employee record:', currentEmployee);
+
     
     if (currentEmployee?.assigned_warehouse_id) {
-      console.log('✅ Employee has assigned warehouse:', currentEmployee.assigned_warehouse_id);
+  
       setIsWarehouseEmployee(true);
       setAssignedWarehouseId(currentEmployee.assigned_warehouse_id);
     } else {
-      console.log('❌ No assigned warehouse found for employee');
+   
       setIsWarehouseEmployee(false);
       setAssignedWarehouseId(null);
     }

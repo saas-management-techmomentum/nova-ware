@@ -29,7 +29,7 @@ export const useCurrentEmployee = () => {
           .single();
 
         if (error) {
-          console.log('No employee record found for user:', user.id);
+         
           setCurrentEmployee(null);
         } else {
           setCurrentEmployee(employee);

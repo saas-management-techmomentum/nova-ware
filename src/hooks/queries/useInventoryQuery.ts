@@ -73,21 +73,7 @@ export const useInventoryQuery = ({
 
       const assignedWarehouse = getEmployeeAssignedWarehouse();
       const warehouseFilter = isAdmin ? selectedWarehouse : assignedWarehouse;
-      
-      console.log('🔍 Inventory Query Debug:', {
-        user: user?.id,
-        userShort: user?.id?.slice(-8),
-        isAdmin,
-        isAssignedEmployee: !!isAssignedEmployee,
-        selectedWarehouse: selectedWarehouse?.slice(-8) || 'null',
-        assignedWarehouse: assignedWarehouse?.slice(-8) || 'null',
-        warehouseFilter: warehouseFilter?.slice(-8) || 'null',
-        employees: employees.length,
-        ignoreWarehouseFilter,
-        filteringStrategy: isAssignedEmployee ? 'assigned-employee' : 
-                          isAdmin && selectedWarehouse ? 'admin-with-selection' :
-                          isAdmin && !selectedWarehouse ? 'admin-corporate' : 'unassigned-employee'
-      });
+    
 
       let query = supabase
         .from('products')

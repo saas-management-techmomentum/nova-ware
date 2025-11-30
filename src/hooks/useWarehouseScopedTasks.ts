@@ -45,8 +45,6 @@ export const useWarehouseScopedTasks = () => {
       const companyId = warehouses.length > 0 ? warehouses[0].company_id : null;
       const isAdmin = userRoles.some(role => role.role === 'admin');
       
-      console.log('Fetching tasks for warehouse:', selectedWarehouse || 'all warehouses');
-      console.log('Company ID:', companyId, 'Is Admin:', isAdmin);
       
       // Simple query - let RLS policies handle access control
       let query = supabase
@@ -57,11 +55,9 @@ export const useWarehouseScopedTasks = () => {
       // Apply filtering based on user role and selection
       if (selectedWarehouse) {
         // Specific warehouse selected - filter by warehouse
-        console.log('Filtering by selected warehouse:', selectedWarehouse);
         query = query.eq('warehouse_id', selectedWarehouse);
       } else if (isAdmin && !selectedWarehouse && companyId) {
         // Admin with "All Warehouses" (Corporate View) - show all tasks for company
-        console.log('Admin corporate view: Filtering by company:', companyId);
         query = query.eq('company_id', companyId);
       }
       
