@@ -1985,6 +1985,7 @@ export type Database = {
           created_at: string | null
           frequency: string
           id: string
+          interval_count: number | null
           is_active: boolean | null
           next_invoice_date: string
           template_data: Json
@@ -1998,6 +1999,7 @@ export type Database = {
           created_at?: string | null
           frequency: string
           id?: string
+          interval_count?: number | null
           is_active?: boolean | null
           next_invoice_date: string
           template_data: Json
@@ -2011,6 +2013,7 @@ export type Database = {
           created_at?: string | null
           frequency?: string
           id?: string
+          interval_count?: number | null
           is_active?: boolean | null
           next_invoice_date?: string
           template_data?: Json
