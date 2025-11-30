@@ -60,6 +60,7 @@ const NewOrderDialog: React.FC = () => {
   const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
   const [selectedProductId, setSelectedProductId] = useState('');
   const [quantity, setQuantity] = useState(1);
+  const [allocationStrategy, setAllocationStrategy] = useState<'FIFO' | 'LIFO' | 'FEFO'>('FIFO');
 
   const getClientNameById = (cid: string) => clients.find(c => c.id === cid)?.name || '';
 
@@ -232,7 +233,7 @@ const NewOrderDialog: React.FC = () => {
         })),
       };
 
-      await addOrder(newOrder);
+      await addOrder(newOrder, allocationStrategy);
 
       // Reset form
       setSelectedInvoiceId('');
@@ -352,6 +353,35 @@ const NewOrderDialog: React.FC = () => {
                     </div>
                   </SelectItem>
                 ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="grid gap-2">
+            <Label htmlFor="allocation">Inventory Allocation Strategy</Label>
+            <Select value={allocationStrategy} onValueChange={(value: 'FIFO' | 'LIFO' | 'FEFO') => setAllocationStrategy(value)}>
+              <SelectTrigger id="allocation">
+                <SelectValue placeholder="Select allocation strategy" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="FIFO">
+                  <div className="flex flex-col">
+                    <span className="font-medium">FIFO (First In, First Out)</span>
+                    <span className="text-xs text-muted-foreground">Oldest inventory first</span>
+                  </div>
+                </SelectItem>
+                <SelectItem value="LIFO">
+                  <div className="flex flex-col">
+                    <span className="font-medium">LIFO (Last In, First Out)</span>
+                    <span className="text-xs text-muted-foreground">Newest inventory first</span>
+                  </div>
+                </SelectItem>
+                <SelectItem value="FEFO">
+                  <div className="flex flex-col">
+                    <span className="font-medium">FEFO (First Expired, First Out)</span>
+                    <span className="text-xs text-muted-foreground">By expiration date</span>
+                  </div>
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
