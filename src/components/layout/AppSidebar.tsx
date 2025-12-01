@@ -344,9 +344,9 @@ const AppSidebar = () => {
             }
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className="grid grid-cols-2 gap-2 px-3">
+            <SidebarMenu className="grid grid-cols-1 gap-2 px-3">
               {permissionsLoading ? (
-                <div className="col-span-2 flex items-center justify-center py-4">
+                <div className="col-span-1 flex items-center justify-center py-4">
                   <Loader2 className="h-5 w-5 animate-spin text-neutral-400" />
                   <span className="ml-2 text-sm text-neutral-400">Loading permissions...</span>
                 </div>
