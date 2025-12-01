@@ -3,6 +3,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useWarehouse } from '@/contexts/WarehouseContext';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { createExpenseJournalEntry } from '@/utils/journalEntryGenerator';
 
 export interface ExpenseRecord {
   id: string;
@@ -197,7 +198,19 @@ export const useExpenseManagement = () => {
 
       if (error) throw error;
 
-      toast.success('Expense created successfully');
+      // Create journal entry for the expense
+      await createExpenseJournalEntry({
+        description: expenseData.description!,
+        transaction_date: expenseData.transaction_date || new Date().toISOString().split('T')[0],
+        amount: expenseData.amount!,
+        category: expenseData.category,
+        reference: expenseData.reference,
+        user_id: user.id,
+        company_id: companyData?.company_id!,
+        warehouse_id: selectedWarehouse || expenseData.warehouse_id || null,
+      });
+
+      toast.success('Expense and journal entry created successfully');
       await fetchExpenses();
       return { success: true, data };
     } catch (error: any) {

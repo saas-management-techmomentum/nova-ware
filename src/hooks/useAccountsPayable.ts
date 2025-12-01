@@ -3,6 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useWarehouse } from '@/contexts/WarehouseContext';
 import { toast } from '@/hooks/use-toast';
+import { createVendorBillJournalEntry, createBillPaymentJournalEntry } from '@/utils/journalEntryGenerator';
 
 export interface VendorBill {
   id: string;
@@ -267,9 +268,21 @@ export const useAccountsPayable = () => {
 
       if (insertError) throw insertError;
 
+      // Create journal entry for the bill
+      await createVendorBillJournalEntry({
+        bill_number: billData.bill_number!,
+        issue_date: billData.issue_date!,
+        amount: billData.amount!,
+        vendor_name: billData.vendor_name!,
+        description: billData.description,
+        user_id: user.id,
+        company_id: companyId,
+        warehouse_id: selectedWarehouse || null,
+      });
+
       toast({
         title: 'Success',
-        description: 'Vendor bill created successfully',
+        description: 'Vendor bill and journal entry created successfully',
       });
 
       await fetchBills();
@@ -338,9 +351,20 @@ export const useAccountsPayable = () => {
 
       if (updateError) throw updateError;
 
+      // Create journal entry for the payment
+      await createBillPaymentJournalEntry({
+        bill_number: bill.bill_number,
+        payment_date: paymentData.payment_date!,
+        amount: paymentAmount,
+        vendor_name: bill.vendor_name,
+        user_id: user.id,
+        company_id: bill.company_id!,
+        warehouse_id: bill.warehouse_id || null,
+      });
+
       toast({
         title: 'Success',
-        description: 'Payment recorded successfully',
+        description: 'Payment and journal entry recorded successfully',
       });
 
       await fetchBills();

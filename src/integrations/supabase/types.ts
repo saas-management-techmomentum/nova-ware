@@ -3115,6 +3115,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      seed_chart_of_accounts_for_company: {
+        Args: { p_company_id: string; p_user_id: string }
+        Returns: undefined
+      }
       user_needs_password_change: { Args: never; Returns: boolean }
     }
     Enums: {
