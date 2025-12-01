@@ -1417,6 +1417,7 @@ export type Database = {
       }
       order_documents: {
         Row: {
+          company_id: string | null
           file_name: string
           file_size: number | null
           file_type: string | null
@@ -1424,8 +1425,11 @@ export type Database = {
           id: string
           order_id: string | null
           uploaded_at: string | null
+          user_id: string | null
+          warehouse_id: string | null
         }
         Insert: {
+          company_id?: string | null
           file_name: string
           file_size?: number | null
           file_type?: string | null
@@ -1433,8 +1437,11 @@ export type Database = {
           id?: string
           order_id?: string | null
           uploaded_at?: string | null
+          user_id?: string | null
+          warehouse_id?: string | null
         }
         Update: {
+          company_id?: string | null
           file_name?: string
           file_size?: number | null
           file_type?: string | null
@@ -1442,13 +1449,29 @@ export type Database = {
           id?: string
           order_id?: string | null
           uploaded_at?: string | null
+          user_id?: string | null
+          warehouse_id?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "order_documents_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "order_documents_order_id_fkey"
             columns: ["order_id"]
             isOneToOne: false
             referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_documents_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "warehouses"
             referencedColumns: ["id"]
           },
         ]
