@@ -75,6 +75,52 @@ export const useBatchAllocation = () => {
         console.error('Allocation error:', error);
         
         if (error.message.includes('Insufficient inventory')) {
+          // Check if product has stock in products table but no batches
+          const { data: product } = await supabase
+            .from('products')
+            .select('quantity, name, sku')
+            .eq('id', productId)
+            .single();
+          
+          if (product && product.quantity >= quantity) {
+            // Auto-create a default batch from product stock
+            const batchNumber = `BATCH-${Date.now()}`;
+            const { error: batchError } = await supabase.from('product_batches').insert({
+              product_id: productId,
+              batch_number: batchNumber,
+              quantity: product.quantity,
+              cost_price: 0,
+              received_date: new Date().toISOString(),
+              user_id: user.id,
+              warehouse_id: selectedWarehouse,
+              company_id: companyId
+            });
+
+            if (batchError) {
+              console.error('Failed to create auto-batch:', batchError);
+              throw batchError;
+            }
+            
+            // Retry allocation with the newly created batch
+            const { data: retryData, error: retryError } = await supabase.rpc('allocate_and_deduct_inventory', {
+              p_order_id: orderId,
+              p_order_item_id: orderItemId,
+              p_product_id: productId,
+              p_quantity: quantity,
+              p_strategy: strategy,
+              p_user_id: user.id,
+              p_warehouse_id: selectedWarehouse,
+              p_company_id: companyId
+            });
+
+            if (retryError) {
+              console.error('Retry allocation error:', retryError);
+              throw retryError;
+            }
+
+            return retryData as AllocationResult[];
+          }
+          
           toast({
             title: "Insufficient Inventory",
             description: `Not enough inventory available for this product.`,
