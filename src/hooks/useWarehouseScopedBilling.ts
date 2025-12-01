@@ -3,6 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useWarehouse } from '@/contexts/WarehouseContext';
 import { useToast } from '@/components/ui/use-toast';
 import { CreateInvoiceData, InventoryValidationResult } from '@/types/billing';
+import { createInvoiceJournalEntry, createInvoicePaymentJournalEntry } from '@/utils/journalEntryGenerator';
 
 export interface BillingRate {
   id: string;
@@ -288,6 +289,20 @@ export const useWarehouseScopedBilling = () => {
         
         // Update the data object to reflect the new status
         data.status = invoiceData.status;
+
+        // Create journal entry for sent/approved invoices
+        if (invoiceData.status === 'sent' || invoiceData.status === 'approved') {
+          await createInvoiceJournalEntry({
+            id: data.id,
+            invoice_number: data.invoice_number,
+            invoice_date: data.invoice_date,
+            total_amount: data.total_amount,
+            client_name: data.client_name,
+            user_id: data.user_id,
+            company_id: companyId!,
+            warehouse_id: selectedWarehouse,
+          });
+        }
       }
 
       await fetchInvoices();
@@ -314,6 +329,13 @@ export const useWarehouseScopedBilling = () => {
 
   const updateInvoiceStatus = async (invoiceId: string, status: 'draft' | 'sent' | 'approved' | 'paid' | 'overdue' | 'cancelled') => {
     try {
+      // Get the invoice details for journal entry
+      const { data: invoice } = await supabase
+        .from('invoices')
+        .select('*')
+        .eq('id', invoiceId)
+        .single();
+
       const { error } = await supabase
         .from('invoices')
         .update({ status, updated_at: new Date().toISOString() })
@@ -334,11 +356,36 @@ export const useWarehouseScopedBilling = () => {
         );
       }
 
-      // Database trigger will automatically handle inventory reduction for status changes
+      // Create journal entries based on status change
+      if (invoice && companyId) {
+        if (status === 'sent' || status === 'approved') {
+          // Create AR/Revenue entry (only if not already created)
+          await createInvoiceJournalEntry({
+            id: invoice.id,
+            invoice_number: invoice.invoice_number,
+            invoice_date: invoice.invoice_date,
+            total_amount: invoice.total_amount,
+            client_name: invoice.client_name,
+            user_id: invoice.user_id,
+            company_id: companyId,
+            warehouse_id: invoice.warehouse_id,
+          });
+        } else if (status === 'paid') {
+          // Create Cash/AR entry
+          await createInvoicePaymentJournalEntry({
+            invoice_number: invoice.invoice_number,
+            payment_date: new Date().toISOString().split('T')[0],
+            amount: invoice.total_amount,
+            user_id: invoice.user_id,
+            company_id: companyId,
+            warehouse_id: invoice.warehouse_id,
+          });
+        }
+      }
 
       toast({
         title: "Invoice updated",
-        description: `Invoice status changed to ${status}.${status === 'sent' || status === 'approved' || status === 'paid' ? ' Inventory reduced automatically.' : ''}`,
+        description: `Invoice status changed to ${status}.${status === 'sent' || status === 'approved' || status === 'paid' ? ' Journal entry created automatically.' : ''}`,
       });
     } catch (error: any) {
       console.error('Error updating invoice status:', error);
