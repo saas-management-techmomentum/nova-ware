@@ -40,7 +40,7 @@ export const useEnhancedLocationManagement = () => {
           table: 'pallet_locations'
         },
         (payload) => {
-          console.log('Location update:', payload);
+        
           setRealtimeMovements(prev => [...prev.slice(-9), payload]);
           fetchPallets(); // Refresh data
           

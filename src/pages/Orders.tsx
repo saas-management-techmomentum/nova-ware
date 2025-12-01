@@ -163,7 +163,6 @@ const Orders = () => {
 
   const handleLabelsUpdate = (orderId: string, labels: any) => {
     // Handle labels update if needed
-    console.log('Labels updated for order:', orderId, labels);
   };
 
   const handleEditOrder = (order: any) => {

@@ -41,7 +41,6 @@ class FedExAdapter {
     }
     
     try {
-      console.log('FedEx adapter initialized');
       integrationService.updateServiceStatus('fedex', true);
       return true;
     } catch (error) {
@@ -62,7 +61,6 @@ class FedExAdapter {
     }
     
     try {
-      console.log('Creating FedEx shipping label:', shipmentData);
       // Implementation would go here
       return { trackingNumber: 'FEDEX123456789', labelUrl: 'https://example.com/label.pdf' };
     } catch (error) {
@@ -81,7 +79,6 @@ class FedExAdapter {
     }
     
     try {
-      console.log('Tracking FedEx shipment:', trackingNumber);
       // Implementation would go here
       return { status: 'In Transit', location: 'Memphis, TN' };
     } catch (error) {

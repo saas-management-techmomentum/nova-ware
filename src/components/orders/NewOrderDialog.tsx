@@ -21,6 +21,8 @@ import { X } from 'lucide-react';
 import { useOrders } from '@/contexts/OrdersContext';
 import { useClients } from '@/contexts/ClientsContext';
 import { useInventory } from '@/contexts/InventoryContext';
+import { useBilling } from '@/contexts/BillingContext';
+import { supabase } from '@/integrations/supabase/client';
 
 interface OrderItem {
   productId: string;
@@ -36,26 +38,89 @@ const NewOrderDialog: React.FC = () => {
   const { addOrder, orderStatuses } = useOrders();
   const { clients, isLoading: clientsLoading } = useClients();
   const { inventoryItems, isLoading: productsLoading } = useInventory();
+  const { invoices, isLoading: invoicesLoading } = useBilling();
   const [open, setOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [invoiceNumber, setInvoiceNumber] = useState('');
+  // Default statuses as fallback when no custom statuses exist
+  const defaultStatuses = [
+    { id: 'default-pending', name: 'Pending', color: 'bg-yellow-500' },
+    { id: 'default-processing', name: 'Processing', color: 'bg-blue-500' },
+    { id: 'default-shipped', name: 'Shipped', color: 'bg-purple-500' },
+    { id: 'default-delivered', name: 'Delivered', color: 'bg-green-500' },
+    { id: 'default-cancelled', name: 'Cancelled', color: 'bg-red-500' },
+  ];
+
+  // Use custom statuses if available, otherwise use defaults
+  const availableStatuses = orderStatuses.length > 0 ? orderStatuses : defaultStatuses;
+
+  const [selectedInvoiceId, setSelectedInvoiceId] = useState('');
   const [clientId, setClientId] = useState('');
   const [orderDate, setOrderDate] = useState(new Date().toISOString().split('T')[0]);
   const [status, setStatus] = useState('');
   const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
   const [selectedProductId, setSelectedProductId] = useState('');
   const [quantity, setQuantity] = useState(1);
+  const [allocationStrategy, setAllocationStrategy] = useState<'FIFO' | 'LIFO' | 'FEFO'>('FIFO');
+  const [invoiceItemsLoaded, setInvoiceItemsLoaded] = useState(false);
 
   const getClientNameById = (cid: string) => clients.find(c => c.id === cid)?.name || '';
 
   // Set default status when statuses are loaded
   useEffect(() => {
-    if (orderStatuses.length > 0 && !status) {
-      const firstStatus = orderStatuses[0];
+    if (availableStatuses.length > 0 && !status) {
+      const firstStatus = availableStatuses[0];
       setStatus(firstStatus.name.toLowerCase().replace(/\s+/g, '-'));
     }
-  }, [orderStatuses, status]);
+  }, [availableStatuses, status]);
+
+  // Auto-populate order items from selected invoice
+  useEffect(() => {
+    if (selectedInvoiceId && !invoiceItemsLoaded) {
+      const selectedInvoice = invoices.find(inv => inv.id === selectedInvoiceId);
+      if (selectedInvoice) {
+        // Fetch invoice items from supabase
+        const fetchInvoiceItems = async () => {
+          try {
+            const { data: invoiceItems, error } = await supabase
+              .from('invoice_items')
+              .select('*')
+              .eq('invoice_id', selectedInvoiceId);
+
+            if (error) {
+              console.error('Error fetching invoice items:', error);
+              return;
+            }
+
+            if (invoiceItems && invoiceItems.length > 0) {
+              const mappedItems: OrderItem[] = invoiceItems.map(item => ({
+                productId: item.product_id || '',
+                sku: item.sku,
+                name: item.name,
+                qty: item.quantity,
+                unit_price: item.unit_price
+              }));
+              setOrderItems(mappedItems);
+              setInvoiceItemsLoaded(true);
+            }
+          } catch (err) {
+            console.error('Error loading invoice items:', err);
+          }
+        };
+
+        fetchInvoiceItems();
+
+        // Auto-set client from invoice
+        if (selectedInvoice.client_id) {
+          setClientId(selectedInvoice.client_id);
+        }
+      }
+    } else if (!selectedInvoiceId && invoiceItemsLoaded) {
+      // Reset when invoice is deselected
+      setOrderItems([]);
+      setInvoiceItemsLoaded(false);
+    }
+  }, [selectedInvoiceId, invoices, invoiceItemsLoaded]);
 
   // Auto-add product when selected
   useEffect(() => {
@@ -162,6 +227,15 @@ const NewOrderDialog: React.FC = () => {
     
     if (isSubmitting) return;
     
+    if (!selectedInvoiceId) {
+      toast({
+        title: "Select Invoice",
+        description: "Please select an invoice for this order.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     if (!clientId) {
       toast({
         title: "Select Client",
@@ -193,9 +267,11 @@ const NewOrderDialog: React.FC = () => {
 
     try {
       const clientName = getClientNameById(clientId);
+      const selectedInvoice = invoices.find(inv => inv.id === selectedInvoiceId);
 
       const newOrder = {
-        id: invoiceNumber,
+        invoice_id: selectedInvoiceId,
+        invoice_number: selectedInvoice?.invoice_number || '',
         client: clientName,
         date: orderDate,
         status,
@@ -207,16 +283,17 @@ const NewOrderDialog: React.FC = () => {
         })),
       };
 
-      await addOrder(newOrder);
+      await addOrder(newOrder, allocationStrategy);
 
       // Reset form
-      setInvoiceNumber('');
+      setSelectedInvoiceId('');
       setClientId('');
       setOrderDate(new Date().toISOString().split('T')[0]);
-      setStatus(orderStatuses.length > 0 ? orderStatuses[0].name.toLowerCase().replace(/\s+/g, '-') : '');
+      setStatus(availableStatuses.length > 0 ? availableStatuses[0].name.toLowerCase().replace(/\s+/g, '-') : '');
       setOrderItems([]);
       setSelectedProductId('');
       setQuantity(1);
+      setInvoiceItemsLoaded(false);
 
       setOpen(false);
     } catch (error) {
@@ -245,14 +322,31 @@ const NewOrderDialog: React.FC = () => {
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 pt-4">
           <div className="grid gap-2">
-            <Label htmlFor="invoiceNumber">Invoice #</Label>
-            <Input
-              id="invoiceNumber"
-              placeholder="INV-XXXX"
-              required
-              value={invoiceNumber}
-              onChange={(e) => setInvoiceNumber(e.target.value)}
-            />
+            <Label htmlFor="invoice">Invoice</Label>
+            <Select
+              value={selectedInvoiceId}
+              onValueChange={setSelectedInvoiceId}
+              disabled={invoicesLoading}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder={invoicesLoading ? "Loading invoices..." : invoices.length > 0 ? "Select invoice" : "No invoices found"} />
+              </SelectTrigger>
+              <SelectContent className="max-h-[300px]">
+                {invoices.length === 0 && !invoicesLoading ? (
+                  <div className="px-2 py-4 text-center text-sm text-muted-foreground">
+                    No invoices found
+                  </div>
+                ) : (
+                  invoices
+                    .filter(inv => inv.status === 'sent' || inv.status === 'approved' || inv.status === 'paid')
+                    .map((invoice) => (
+                      <SelectItem key={invoice.id} value={invoice.id}>
+                        {invoice.invoice_number} - {invoice.client_name} - ${invoice.total_amount.toFixed(2)}
+                      </SelectItem>
+                    ))
+                )}
+              </SelectContent>
+            </Select>
           </div>
           
           <div className="grid gap-2">
@@ -299,7 +393,7 @@ const NewOrderDialog: React.FC = () => {
                 <SelectValue placeholder="Select status" />
               </SelectTrigger>
               <SelectContent>
-                {orderStatuses.map((statusOption) => (
+                {availableStatuses.map((statusOption) => (
                   <SelectItem 
                     key={statusOption.id} 
                     value={statusOption.name.toLowerCase().replace(/\s+/g, '-')}
@@ -314,89 +408,132 @@ const NewOrderDialog: React.FC = () => {
             </Select>
           </div>
 
-          {/* Product Selection Section */}
-          <div className="border-t pt-4">
-            <div className="grid gap-2">
-              <Label>Add Products to Order</Label>
-              <div className="flex gap-2">
-                <Select
-                  value={selectedProductId}
-                  onValueChange={setSelectedProductId}
-                  disabled={productsLoading}
-                >
-                  <SelectTrigger className="flex-1">
-                    <SelectValue placeholder={
-                      productsLoading ? "Loading products..." : 
-                      inventoryItems.length > 0 ? "Select product to add..." : 
-                      "No products found in current warehouse"
-                    } />
-                  </SelectTrigger>
-                  <SelectContent className="max-h-[200px]">
-                    {inventoryItems.length === 0 && !productsLoading ? (
-                      <div className="px-2 py-4 text-center text-sm text-muted-foreground">
-                        No products found in current warehouse
-                      </div>
-                    ) : (
-                      inventoryItems.map((product) => (
-                        <SelectItem key={product.id} value={product.id}>
-                          <div className="flex flex-col">
-                            <span>{product.name}</span>
-                            <span className="text-xs text-muted-foreground">SKU: {product.sku} | Stock: {product.stock}</span>
-                          </div>
-                        </SelectItem>
-                      ))
-                    )}
-                  </SelectContent>
-                </Select>
-                <Input
-                  type="number"
-                  placeholder="Qty"
-                  value={quantity}
-                  onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                  className="w-20"
-                  min="1"
-                />
-              </div>
-            </div>
+          <div className="grid gap-2">
+            <Label htmlFor="allocation">Inventory Allocation Strategy</Label>
+            <Select value={allocationStrategy} onValueChange={(value: 'FIFO' | 'LIFO' | 'FEFO') => setAllocationStrategy(value)}>
+              <SelectTrigger id="allocation">
+                <SelectValue placeholder="Select allocation strategy" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="FIFO">
+                  <div className="flex flex-col">
+                    <span className="font-medium">FIFO (First In, First Out)</span>
+                    <span className="text-xs text-muted-foreground">Oldest inventory first</span>
+                  </div>
+                </SelectItem>
+                <SelectItem value="LIFO">
+                  <div className="flex flex-col">
+                    <span className="font-medium">LIFO (Last In, First Out)</span>
+                    <span className="text-xs text-muted-foreground">Newest inventory first</span>
+                  </div>
+                </SelectItem>
+                <SelectItem value="FEFO">
+                  <div className="flex flex-col">
+                    <span className="font-medium">FEFO (First Expired, First Out)</span>
+                    <span className="text-xs text-muted-foreground">By expiration date</span>
+                  </div>
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
 
-            {/* Selected Products List */}
-            {orderItems.length > 0 && (
-              <div className="mt-4">
-                <Label className="text-sm font-medium">Order Items ({orderItems.length})</Label>
-                <div className="mt-2 space-y-2 max-h-32 overflow-y-auto">
-                  {orderItems.map((item) => (
-                    <div key={item.productId} className="flex items-center justify-between bg-muted/50 p-2 rounded">
-                      <div className="flex-1">
-                        <span className="text-sm font-medium">{item.name}</span>
-                        <div className="text-xs text-muted-foreground">
-                          SKU: {item.sku}
-                          {item.unit_price && ` | $${item.unit_price}`}
+          {/* Product Selection Section - Only shown if invoice is NOT selected */}
+          {!selectedInvoiceId && (
+            <div className="border-t pt-4">
+              <div className="grid gap-2">
+                <Label>Add Products to Order</Label>
+                <div className="flex gap-2">
+                  <Select
+                    value={selectedProductId}
+                    onValueChange={setSelectedProductId}
+                    disabled={productsLoading}
+                  >
+                    <SelectTrigger className="flex-1">
+                      <SelectValue placeholder={
+                        productsLoading ? "Loading products..." : 
+                        inventoryItems.length > 0 ? "Select product to add..." : 
+                        "No products found in current warehouse"
+                      } />
+                    </SelectTrigger>
+                    <SelectContent className="max-h-[200px]">
+                      {inventoryItems.length === 0 && !productsLoading ? (
+                        <div className="px-2 py-4 text-center text-sm text-muted-foreground">
+                          No products found in current warehouse
                         </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Input
-                          type="number"
-                          value={item.qty}
-                          onChange={(e) => updateItemQuantity(item.productId, parseInt(e.target.value) || 0)}
-                          className="w-16 h-8 text-center"
-                          min="1"
-                        />
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => removeProductFromOrder(item.productId)}
-                          className="h-6 w-6 p-0"
-                        >
-                          <X className="h-3 w-3" />
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
+                      ) : (
+                        inventoryItems.map((product) => (
+                          <SelectItem key={product.id} value={product.id}>
+                            <div className="flex flex-col">
+                              <span>{product.name}</span>
+                              <span className="text-xs text-muted-foreground">SKU: {product.sku} | Stock: {product.stock}</span>
+                            </div>
+                          </SelectItem>
+                        ))
+                      )}
+                    </SelectContent>
+                  </Select>
+                  <Input
+                    type="number"
+                    placeholder="Qty"
+                    value={quantity}
+                    onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                    className="w-20"
+                    min="1"
+                  />
                 </div>
               </div>
-            )}
-          </div>
+            </div>
+          )}
+
+          {/* Order Items List - Shown for both manual and invoice-based orders */}
+          {orderItems.length > 0 && (
+            <div className="mt-4 border-t pt-4">
+              <div className="flex items-center justify-between mb-2">
+                <Label className="text-sm font-medium">Order Items ({orderItems.length})</Label>
+                {selectedInvoiceId && (
+                  <Badge variant="secondary" className="text-xs">From Invoice</Badge>
+                )}
+              </div>
+              <div className="space-y-2 max-h-48 overflow-y-auto">
+                {orderItems.map((item) => (
+                  <div key={item.productId} className="flex items-center justify-between bg-muted/50 p-2 rounded">
+                    <div className="flex-1">
+                      <span className="text-sm font-medium">{item.name}</span>
+                      <div className="text-xs text-muted-foreground">
+                        SKU: {item.sku}
+                        {item.unit_price && ` | $${item.unit_price}`}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Badge variant="outline" className="text-xs">
+                        Qty: {item.qty}
+                      </Badge>
+                      {!selectedInvoiceId && (
+                        <>
+                          <Input
+                            type="number"
+                            value={item.qty}
+                            onChange={(e) => updateItemQuantity(item.productId, parseInt(e.target.value) || 0)}
+                            className="w-16 h-8 text-center"
+                            min="1"
+                          />
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => removeProductFromOrder(item.productId)}
+                            className="h-6 w-6 p-0"
+                          >
+                            <X className="h-3 w-3" />
+                          </Button>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           <DialogFooter>
             <DialogClose asChild>

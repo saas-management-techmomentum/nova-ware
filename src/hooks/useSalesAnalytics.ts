@@ -74,7 +74,7 @@ export const useSalesAnalytics = () => {
         return;
       }
 
-      console.log('Fetched order items for analytics:', orderItems?.length || 0);
+   
 
       if (!orderItems || orderItems.length === 0) {
         setAnalytics({
@@ -175,13 +175,6 @@ export const useSalesAnalytics = () => {
           return b.currentStock - a.currentStock; // Higher stock first
         })
         .slice(0, 10);
-
-      console.log('Sales analytics calculated:', {
-        bestSellersCount: bestSellers.length,
-        slowMovingCount: slowMovingItems.length,
-        totalItemsSold,
-        totalRevenue
-      });
 
       setAnalytics({
         bestSellers,

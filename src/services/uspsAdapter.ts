@@ -39,7 +39,7 @@ class USPSAdapter {
     }
     
     try {
-      console.log('USPS adapter initialized');
+ 
       integrationService.updateServiceStatus('usps', true);
       return true;
     } catch (error) {
@@ -60,7 +60,7 @@ class USPSAdapter {
     }
     
     try {
-      console.log('Creating USPS shipping label:', shipmentData);
+      
       // Implementation would go here
       return { trackingNumber: 'USPS123456789', labelUrl: 'https://example.com/usps-label.pdf' };
     } catch (error) {
@@ -79,7 +79,7 @@ class USPSAdapter {
     }
     
     try {
-      console.log('Tracking USPS shipment:', trackingNumber);
+    
       // Implementation would go here
       return { status: 'In Transit', location: 'Chicago, IL' };
     } catch (error) {

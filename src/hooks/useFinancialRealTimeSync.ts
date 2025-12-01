@@ -99,16 +99,6 @@ export const useFinancialRealTimeSync = () => {
       const { data: inventory } = await inventoryQuery;
       const inventoryValue = inventory?.reduce((sum, item) => sum + (item.quantity * (item.cost_price || 0)), 0) || 0;
 
-      console.log('Real-time financial sync completed:', {
-        totalRevenue,
-        totalExpenses,
-        netIncome: totalRevenue - totalExpenses,
-        accountsReceivable,
-        cashBalance,
-        inventoryValue,
-        warehouse: warehouseFilter || 'All',
-        isCorpOverview
-      });
 
       return {
         totalRevenue,
@@ -148,7 +138,7 @@ export const useFinancialRealTimeSync = () => {
         table: 'invoices',
         filter: `user_id=eq.${user.id}`
       }, (payload) => {
-        console.log('Invoice change detected:', payload);
+     
         triggerDataSync();
       })
       .subscribe();
@@ -164,7 +154,7 @@ export const useFinancialRealTimeSync = () => {
         table: 'journal_entries',
         filter: `user_id=eq.${user.id}`
       }, (payload) => {
-        console.log('Journal entry change detected:', payload);
+      
         triggerDataSync();
       })
       .subscribe();
@@ -180,7 +170,7 @@ export const useFinancialRealTimeSync = () => {
         table: 'bank_transactions',
         filter: `user_id=eq.${user.id}`
       }, (payload) => {
-        console.log('Bank transaction change detected:', payload);
+        
         triggerDataSync();
       })
       .subscribe();
@@ -196,7 +186,7 @@ export const useFinancialRealTimeSync = () => {
         table: 'products',
         filter: `user_id=eq.${user.id}`
       }, (payload) => {
-        console.log('Inventory change detected:', payload);
+  
         triggerDataSync();
       })
       .subscribe();
@@ -212,7 +202,7 @@ export const useFinancialRealTimeSync = () => {
         table: 'accounts',
         filter: `user_id=eq.${user.id}`
       }, (payload) => {
-        console.log('Account change detected:', payload);
+  
         triggerDataSync();
       })
       .subscribe();

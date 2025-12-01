@@ -51,8 +51,12 @@ export const useWarehouseScopedClients = () => {
     
     setIsLoading(true);
     try {
+      // Get companyId from warehouses
+      const companyId = warehouses.length > 0 ? warehouses[0].company_id : null;
+      
       console.log('Fetching clients for warehouse:', selectedWarehouse || 'all warehouses');
       console.log('User ID:', user.id);
+      console.log('Company ID:', companyId);
       
       // Get employee info to check for warehouse assignment
       const { data: employeeData } = await supabase
@@ -83,10 +87,10 @@ export const useWarehouseScopedClients = () => {
         // Admin with warehouse selected - show all clients for that warehouse
         console.log('Admin: Filtering clients by selected warehouse:', selectedWarehouse);
         query = query.eq('warehouse_id', selectedWarehouse);
-      } else if (isUserAdmin && !selectedWarehouse) {
-        // Admin with "All Warehouses" - show all clients for user
-        console.log('Admin: Showing all clients for user');
-        query = query.eq('user_id', user.id);
+      } else if (isUserAdmin && !selectedWarehouse && companyId) {
+        // Admin with "All Warehouses" (Corporate View) - show all clients for company
+        console.log('Admin: Showing all clients for company:', companyId);
+        query = query.eq('company_id', companyId);
       } else {
         // Unassigned employee - show only their own clients
         console.log('Unassigned employee: Showing only own clients');

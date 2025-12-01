@@ -73,12 +73,22 @@ export function useVendors() {
       setIsLoading(true);
       setError(null);
 
+      // Get companyId from warehouses
+      const companyId = warehouses.length > 0 ? warehouses[0].company_id : null;
+
       let query = supabase
         .from('vendors')
         .select('*');
 
-      // All authenticated users can view vendors (RLS policies handle security)
-      // Only INSERT/UPDATE/DELETE operations are restricted by user_id
+      // Filter vendors by company (corporate view or specific warehouse)
+      if (companyId) {
+        query = query.eq('company_id', companyId);
+      }
+
+      // Apply warehouse filtering if specific warehouse is selected
+      if (selectedWarehouse) {
+        query = query.eq('warehouse_id', selectedWarehouse);
+      }
 
       const { data, error } = await query.order('vendor_name');
 

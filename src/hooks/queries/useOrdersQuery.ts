@@ -62,7 +62,7 @@ export const useOrdersQuery = ({
   search 
 }: UseOrdersQueryProps = {}) => {
   const { user } = useAuth();
-  const { selectedWarehouse } = useWarehouse();
+  const { selectedWarehouse, companyId } = useWarehouse();
   const { employees } = useEmployees();
   const { userRoles } = useUserPermissions();
 
@@ -84,25 +84,10 @@ export const useOrdersQuery = ({
       const currentEmployee = employees.find(emp => emp.user_id_auth === user.id);
       const isAssignedEmployee = currentEmployee?.assigned_warehouse_id; // Prioritize warehouse assignment over admin status
 
-      // First fetch orders
+      // First fetch orders - optimized column selection
       let query = supabase
         .from('orders')
-        .select(`
-          id,
-          customer_name,
-          status,
-          created_at,
-          updated_at,
-          user_id,
-          warehouse_id,
-          company_id,
-          shipping_address,
-          shipping_method,
-          carrier,
-          tracking_number,
-          ship_date,
-          shipment_status
-        `)
+        .select('id,customer_name,status,created_at,updated_at,user_id,warehouse_id,company_id,shipping_address,shipping_method,carrier,tracking_number,ship_date,shipment_status')
         .order('created_at', { ascending: false });
 
       // Apply warehouse-aware filtering logic
@@ -112,9 +97,9 @@ export const useOrdersQuery = ({
       } else if (isAdmin && selectedWarehouse) {
         // Admin with warehouse selected - show all data for that warehouse
         query = query.eq('warehouse_id', selectedWarehouse);
-      } else if (isAdmin && !selectedWarehouse) {
-        // Admin with "All Warehouses" - show all user's data
-        query = query.eq('user_id', user.id);
+      } else if (isAdmin && !selectedWarehouse && companyId) {
+        // Admin with "All Warehouses" (Corporate View) - show all data for company
+        query = query.eq('company_id', companyId);
       } else {
         // Unassigned employee - show only their own data
         query = query.eq('user_id', user.id);
@@ -141,36 +126,16 @@ export const useOrdersQuery = ({
       if (orders && orders.length > 0) {
         const orderIds = orders.map(order => order.id);
         
-        // Fetch order items
+        // Fetch order items - optimized query
         const { data: orderItems } = await supabase
           .from('order_items')
-          .select(`
-            id,
-            order_id,
-            sku,
-            quantity,
-            product_id,
-            unit_price,
-            products(
-              id,
-              name,
-              sku
-            )
-          `)
+          .select('id,order_id,sku,quantity,product_id,unit_price,products(id,name,sku)')
           .in('order_id', orderIds);
 
-        // Fetch order documents
+        // Fetch order documents - optimized query
         const { data: orderDocuments } = await supabase
           .from('order_documents')
-          .select(`
-            id,
-            order_id,
-            file_name,
-            file_url,
-            file_type,
-            file_size,
-            uploaded_at
-          `)
+          .select('id,order_id,file_name,file_url,file_type,file_size,uploaded_at')
           .in('order_id', orderIds);
 
         // Group order items by order_id
@@ -211,7 +176,12 @@ export const useOrdersQuery = ({
         hasMore: (count || 0) > page * limit
       };
     },
-    enabled: !!user && employees.length > 0, // Wait for employees to load
+    enabled: !!user && (
+      // Admins: wait until we know companyId for corporate view
+      (isAdmin && !!companyId) || 
+      // Employees: wait until employee data loads
+      employees.length > 0
+    ),
   });
 };
 

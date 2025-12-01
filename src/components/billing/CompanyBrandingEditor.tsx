@@ -260,7 +260,9 @@ export const CompanyBrandingEditor: React.FC<CompanyBrandingEditorProps> = ({
     <Card className="bg-card border-border">
       <CardHeader className="pb-4">
         <div className="flex justify-between items-center">
-          <CardTitle className="text-lg">Company Information</CardTitle>
+          <CardTitle className="text-lg">
+            Company Information
+          </CardTitle>
           <div className="flex gap-2">
             <Button
               type="button"
@@ -285,6 +287,9 @@ export const CompanyBrandingEditor: React.FC<CompanyBrandingEditorProps> = ({
       </CardHeader>
       
       <CardContent className="space-y-4">
+        <p className="text-xs text-muted-foreground">
+          <span className="text-red-500">*</span> Required fields
+        </p>
         {/* Template Selector */}
         {templates.length > 0 && (
           <div>
@@ -368,7 +373,9 @@ export const CompanyBrandingEditor: React.FC<CompanyBrandingEditorProps> = ({
 
           {/* Company Name */}
           <div className="col-span-2">
-            <Label>Company Name</Label>
+            <Label>
+              Company Name <span className="text-red-500">*</span>
+            </Label>
             <Input
               value={companyInfo.name}
               onChange={(e) => setCompanyInfo(prev => ({ ...prev, name: e.target.value }))}

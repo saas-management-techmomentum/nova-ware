@@ -60,7 +60,6 @@ class SupabaseAdapter {
         return false;
       }
       
-      console.log('Supabase adapter initialized - ready for native integration');
       integrationService.updateServiceStatus('supabase', true);
       return true;
     } catch (error) {

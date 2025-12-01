@@ -41,7 +41,6 @@ class AmazonFBAAdapter {
     }
     
     try {
-      console.log('Amazon FBA adapter initialized');
       integrationService.updateServiceStatus('other', true);
       return true;
     } catch (error) {
@@ -57,7 +56,6 @@ class AmazonFBAAdapter {
    */
   disconnect(): void {
     integrationService.disconnect('other');
-    console.log('Amazon FBA adapter disconnected');
   }
   
   /**
@@ -70,7 +68,6 @@ class AmazonFBAAdapter {
     }
     
     try {
-      console.log('Syncing inventory to Amazon FBA:', products);
       return true;
     } catch (error) {
       console.error('Failed to sync inventory to Amazon FBA:', error);

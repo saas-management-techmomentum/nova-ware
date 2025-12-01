@@ -12,7 +12,7 @@ export interface SessionValidationResult {
 
 export const validateSession = async (): Promise<SessionValidationResult> => {
   try {
-    console.log('Validating session...');
+
     
     const { data: { session }, error } = await supabase.auth.getSession();
     
@@ -39,12 +39,6 @@ export const validateSession = async (): Promise<SessionValidationResult> => {
     const isExpired = session.expires_at ? new Date(session.expires_at * 1000) < new Date() : false;
     const isValid = hasAccessToken && !isExpired;
     
-    console.log('Session validation result:', {
-      isValid,
-      hasAccessToken,
-      isExpired,
-      userId: session.user?.id
-    });
     
     return {
       isValid,
@@ -101,25 +95,19 @@ export const testDatabaseMutation = async (): Promise<boolean> => {
       return false;
     }
     
-    console.log('Database mutation test with RLS validation passed:', rlsResults);
     return true;
   } catch (error) {
-    console.error('Database mutation test failed:', error);
     return false;
   }
 };
 
 export const ensureValidSession = async (): Promise<boolean> => {
-  console.log('Ensuring valid session...');
   
   const validation = await validateSession();
   
   if (!validation.isValid) {
-    console.log('Session invalid, attempting refresh...');
     return await forceSessionRefresh();
   }
-  
-  console.log('Session is already valid');
   return true;
 };
 
@@ -131,7 +119,7 @@ export const testDataIntegrity = async (): Promise<{
   rlsResults?: any;
 }> => {
   try {
-    console.log('Testing data integrity with RLS enforcement...');
+  
     
     // Run RLS policy tests
     const rlsResults = await testRLSPolicies();

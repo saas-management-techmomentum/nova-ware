@@ -233,6 +233,80 @@ export type Database = {
           },
         ]
       }
+      batch_allocations: {
+        Row: {
+          allocated_at: string | null
+          allocation_strategy: string
+          batch_id: string | null
+          company_id: string | null
+          created_at: string | null
+          id: string
+          order_id: string | null
+          order_item_id: string | null
+          product_id: string | null
+          quantity: number
+          user_id: string
+          warehouse_id: string | null
+        }
+        Insert: {
+          allocated_at?: string | null
+          allocation_strategy: string
+          batch_id?: string | null
+          company_id?: string | null
+          created_at?: string | null
+          id?: string
+          order_id?: string | null
+          order_item_id?: string | null
+          product_id?: string | null
+          quantity: number
+          user_id: string
+          warehouse_id?: string | null
+        }
+        Update: {
+          allocated_at?: string | null
+          allocation_strategy?: string
+          batch_id?: string | null
+          company_id?: string | null
+          created_at?: string | null
+          id?: string
+          order_id?: string | null
+          order_item_id?: string | null
+          product_id?: string | null
+          quantity?: number
+          user_id?: string
+          warehouse_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "batch_allocations_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "product_batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "batch_allocations_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "batch_allocations_order_item_id_fkey"
+            columns: ["order_item_id"]
+            isOneToOne: false
+            referencedRelation: "order_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "batch_allocations_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       billing_rates: {
         Row: {
           client_id: string | null
@@ -1396,6 +1470,8 @@ export type Database = {
           created_at: string | null
           customer_name: string
           id: string
+          invoice_id: string | null
+          invoice_number: string | null
           ship_date: string | null
           shipment_status: string | null
           shipping_address: string | null
@@ -1412,6 +1488,8 @@ export type Database = {
           created_at?: string | null
           customer_name: string
           id?: string
+          invoice_id?: string | null
+          invoice_number?: string | null
           ship_date?: string | null
           shipment_status?: string | null
           shipping_address?: string | null
@@ -1428,6 +1506,8 @@ export type Database = {
           created_at?: string | null
           customer_name?: string
           id?: string
+          invoice_id?: string | null
+          invoice_number?: string | null
           ship_date?: string | null
           shipment_status?: string | null
           shipping_address?: string | null
@@ -1444,6 +1524,13 @@ export type Database = {
             columns: ["company_id"]
             isOneToOne: false
             referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
             referencedColumns: ["id"]
           },
           {
@@ -1688,6 +1775,7 @@ export type Database = {
           expiration_date: string | null
           id: string
           location_id: string | null
+          location_name: string | null
           notes: string | null
           product_id: string | null
           quantity: number
@@ -1705,6 +1793,7 @@ export type Database = {
           expiration_date?: string | null
           id?: string
           location_id?: string | null
+          location_name?: string | null
           notes?: string | null
           product_id?: string | null
           quantity?: number
@@ -1722,6 +1811,7 @@ export type Database = {
           expiration_date?: string | null
           id?: string
           location_id?: string | null
+          location_name?: string | null
           notes?: string | null
           product_id?: string | null
           quantity?: number
@@ -1970,8 +2060,10 @@ export type Database = {
           client_id: string | null
           company_id: string | null
           created_at: string | null
+          end_date: string | null
           frequency: string
           id: string
+          interval_count: number | null
           is_active: boolean | null
           next_invoice_date: string
           template_data: Json
@@ -1983,8 +2075,10 @@ export type Database = {
           client_id?: string | null
           company_id?: string | null
           created_at?: string | null
+          end_date?: string | null
           frequency: string
           id?: string
+          interval_count?: number | null
           is_active?: boolean | null
           next_invoice_date: string
           template_data: Json
@@ -1996,8 +2090,10 @@ export type Database = {
           client_id?: string | null
           company_id?: string | null
           created_at?: string | null
+          end_date?: string | null
           frequency?: string
           id?: string
+          interval_count?: number | null
           is_active?: boolean | null
           next_invoice_date?: string
           template_data?: Json
@@ -2082,6 +2178,7 @@ export type Database = {
           created_at: string | null
           expected_date: string
           id: string
+          order_id: string | null
           order_reference: string
           received_date: string | null
           shipment_type: string | null
@@ -2097,6 +2194,7 @@ export type Database = {
           created_at?: string | null
           expected_date: string
           id?: string
+          order_id?: string | null
           order_reference: string
           received_date?: string | null
           shipment_type?: string | null
@@ -2112,6 +2210,7 @@ export type Database = {
           created_at?: string | null
           expected_date?: string
           id?: string
+          order_id?: string | null
           order_reference?: string
           received_date?: string | null
           shipment_type?: string | null
@@ -2128,6 +2227,13 @@ export type Database = {
             columns: ["company_id"]
             isOneToOne: false
             referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shipments_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
             referencedColumns: ["id"]
           },
           {
@@ -2685,6 +2791,25 @@ export type Database = {
         Args: { employee_user_id: string }
         Returns: boolean
       }
+      allocate_and_deduct_inventory: {
+        Args: {
+          p_company_id: string
+          p_order_id: string
+          p_order_item_id: string
+          p_product_id: string
+          p_quantity: number
+          p_strategy: string
+          p_user_id: string
+          p_warehouse_id: string
+        }
+        Returns: {
+          allocated_qty: number
+          allocation_id: string
+          batch_id: string
+          batch_number: string
+          location_name: string
+        }[]
+      }
       allocate_inventory_fefo: {
         Args: {
           p_product_id: string
@@ -2694,6 +2819,34 @@ export type Database = {
         Returns: {
           allocated_qty: number
           batch_id: string
+          batch_number: string
+          location_name: string
+        }[]
+      }
+      allocate_inventory_fifo: {
+        Args: {
+          p_product_id: string
+          p_quantity: number
+          p_warehouse_id?: string
+        }
+        Returns: {
+          allocated_qty: number
+          batch_id: string
+          batch_number: string
+          location_name: string
+        }[]
+      }
+      allocate_inventory_lifo: {
+        Args: {
+          p_product_id: string
+          p_quantity: number
+          p_warehouse_id?: string
+        }
+        Returns: {
+          allocated_qty: number
+          batch_id: string
+          batch_number: string
+          location_name: string
         }[]
       }
       assign_employee_to_warehouse: {

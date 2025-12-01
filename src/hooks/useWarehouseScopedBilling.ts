@@ -54,7 +54,7 @@ export const useWarehouseScopedBilling = () => {
   const [billingRates, setBillingRates] = useState<BillingRate[]>([]);
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { selectedWarehouse } = useWarehouse();
+  const { selectedWarehouse, companyId } = useWarehouse();
   const { toast } = useToast();
 
   const fetchBillingRates = async () => {
@@ -186,6 +186,11 @@ export const useWarehouseScopedBilling = () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error('User not authenticated');
 
+      // Validate company_id is available
+      if (!companyId) {
+        throw new Error('Company ID not available. Please select a warehouse first.');
+      }
+
       // Validate inventory availability before creating invoice
       if (invoiceData.items && invoiceData.items.length > 0) {
         const itemsForValidation = invoiceData.items.map(item => ({
@@ -223,6 +228,7 @@ export const useWarehouseScopedBilling = () => {
         invoice_number: invoiceNumber,
         user_id: user.id,
         warehouse_id: selectedWarehouse,
+        company_id: companyId,
         ...invoiceFields,
         status: 'draft', // Always start as draft
       };
@@ -346,13 +352,74 @@ export const useWarehouseScopedBilling = () => {
 
   const createRecurringInvoice = async (recurringData: any) => {
     try {
-      // Implementation for recurring invoices
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('User not authenticated');
+
+      if (!companyId) {
+        throw new Error('Company ID not available. Please select a warehouse first.');
+      }
+
       console.log('Creating recurring invoice:', recurringData);
+
+      // Fetch the template invoice with all items
+      const { data: templateInvoice, error: templateError } = await supabase
+        .from('invoices')
+        .select(`
+          *,
+          clients(
+            name,
+            contact_email,
+            contact_phone,
+            billing_address,
+            payment_terms_days
+          ),
+          invoice_items(*)
+        `)
+        .eq('id', recurringData.template_invoice_id)
+        .single();
+
+      if (templateError) throw templateError;
+      if (!templateInvoice) throw new Error('Template invoice not found');
+
+      // Prepare template data with client information
+      const templateData = {
+        ...templateInvoice,
+        client_name: templateInvoice.clients?.name || templateInvoice.client_name,
+        client_contact_email: templateInvoice.clients?.contact_email || templateInvoice.client_contact_email,
+        client_contact_phone: templateInvoice.clients?.contact_phone || templateInvoice.client_contact_phone,
+        client_billing_address: templateInvoice.clients?.billing_address || templateInvoice.client_billing_address,
+        client_payment_terms_days: templateInvoice.clients?.payment_terms_days || templateInvoice.client_payment_terms_days,
+        items: templateInvoice.invoice_items
+      };
+
+      // Insert recurring invoice
+      const { data, error } = await supabase
+        .from('recurring_invoices')
+        .insert({
+          user_id: user.id,
+          warehouse_id: selectedWarehouse,
+          company_id: companyId,
+          client_id: recurringData.client_id,
+          frequency: recurringData.frequency,
+          interval_count: recurringData.interval_count || 1,
+          next_invoice_date: recurringData.next_invoice_date,
+          end_date: recurringData.end_date || null,
+          is_active: true,
+          template_data: templateData
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      console.log('Recurring invoice created successfully:', data);
       
       toast({
         title: "Recurring invoice created",
-        description: "Your recurring invoice has been set up successfully.",
+        description: `Your recurring invoice has been set up successfully. Next invoice: ${recurringData.next_invoice_date}`,
       });
+
+      return data;
     } catch (error: any) {
       console.error('Error creating recurring invoice:', error);
       toast({
@@ -360,6 +427,7 @@ export const useWarehouseScopedBilling = () => {
         description: error.message,
         variant: "destructive",
       });
+      throw error;
     }
   };
 
@@ -433,12 +501,12 @@ export const useWarehouseScopedBilling = () => {
       }
 
       // Make direct fetch request to edge function
-      const response = await fetch(`https://whmpesmpkvfcbycsrasr.supabase.co/functions/v1/generate-invoice-pdf`, {
+      const response = await fetch(`https://stejrgorjpuojorrwbvk.supabase.co/functions/v1/generate-invoice-pdf`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${session.access_token}`,
           'Content-Type': 'application/json',
-          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndobXBlc21wa3ZmY2J5Y3NyYXNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgzODM0ODksImV4cCI6MjA2Mzk1OTQ4OX0.oG00P0r-_-4eF3OH6y7VvmQEaJqqPQDMaz4rAdGyCV0'
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN0ZWpyZ29yanB1b2pvcnJ3YnZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1ODA3MDksImV4cCI6MjA3ODE1NjcwOX0.i8SMUfbWmyTnO6h6k36XICqtjxBxRz37NhisCuIYaX8'
         },
         body: JSON.stringify({ invoiceId })
       });

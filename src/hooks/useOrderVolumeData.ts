@@ -135,13 +135,6 @@ export const useOrderVolumeData = () => {
       const totalRevenue = months.reduce((sum, month) => sum + month.revenue, 0);
       const hasData = totalOrders > 0;
 
-      console.log('Order volume data calculated:', {
-        monthsWithData: months.filter(m => m.totalOrders > 0).length,
-        totalOrders,
-        totalRevenue,
-        hasData
-      });
-
       setOrderVolumeData({
         monthlyData: months,
         totalOrders,

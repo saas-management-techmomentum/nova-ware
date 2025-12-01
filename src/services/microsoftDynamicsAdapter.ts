@@ -41,7 +41,6 @@ class MicrosoftDynamicsAdapter {
     }
     
     try {
-      console.log('Microsoft Dynamics adapter initialized');
       integrationService.updateServiceStatus('other', true);
       return true;
     } catch (error) {

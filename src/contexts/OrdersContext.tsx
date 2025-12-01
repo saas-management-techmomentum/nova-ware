@@ -7,6 +7,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useWarehouse } from './WarehouseContext';
 import { useAuth } from './AuthContext';
 import { useToast } from '@/hooks/use-toast';
+import { useBatchAllocation } from '@/hooks/useBatchAllocation';
 
 // Define the item type for creating new shipments (without id and shipment_id)
 interface CreateShipmentItem {
@@ -22,7 +23,7 @@ interface OrdersContextType {
   orders: any[];
   isLoading: boolean;
   refetch: () => void;
-  addOrder: (order: any) => Promise<void>;
+  addOrder: (order: any, allocationStrategy?: 'FIFO' | 'LIFO' | 'FEFO') => Promise<void>;
   updateOrder: (id: string, updates: any) => Promise<void>;
   deleteOrder: (id: string) => Promise<void>;
   shipments: Shipment[];
@@ -63,6 +64,7 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
   const { selectedWarehouse } = useWarehouse();
   const { user } = useAuth();
   const { toast } = useToast();
+  const { allocateInventory, reverseAllocation } = useBatchAllocation();
 
   // Set up real-time updates for shipments
   useShipmentsRealtime({
@@ -73,7 +75,7 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
     warehouseId: selectedWarehouse || undefined,
   });
 
-  const addOrder = async (orderData: any) => {
+  const addOrder = async (orderData: any, allocationStrategy: 'FIFO' | 'LIFO' | 'FEFO' = 'FIFO') => {
     if (!user) {
       console.error('No user found');
       toast({
@@ -95,7 +97,7 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
     }
 
     try {
-      console.log('Adding order to database:', orderData);
+      console.log('Adding order to database with allocation strategy:', allocationStrategy, orderData);
       
       // Get warehouse and company info
       const { data: warehouseData, error: warehouseError } = await supabase
@@ -115,7 +117,8 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
       const { data: order, error: orderError } = await supabase
         .from('orders')
         .insert([{
-          id: orderData.id,
+          invoice_id: orderData.invoice_id,
+          invoice_number: orderData.invoice_number,
           customer_name: orderData.client,
           status: orderData.status,
           user_id: user.id,
@@ -137,49 +140,72 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
 
       console.log('Order added successfully:', order);
 
-      // If there are items, add them with inventory validation
+      // If there are items, add them and allocate inventory using batch system
       if (orderData.items && orderData.items.length > 0) {
-        const itemsToInsert = orderData.items.map((item: any) => ({
-          order_id: order.id,
-          sku: item.sku,
-          quantity: item.qty,
-          product_id: item.product_id,
-          unit_price: item.unit_price
-        }));
+        try {
+          // First, insert order items
+          const { data: insertedItems, error: itemsError } = await supabase
+            .from('order_items')
+            .insert(
+              orderData.items.map((item: any) => ({
+                order_id: order.id,
+                sku: item.sku,
+                quantity: item.qty,
+                product_id: item.product_id,
+                unit_price: item.unit_price
+              }))
+            )
+            .select();
 
-        const { error: itemsError } = await supabase
-          .from('order_items')
-          .insert(itemsToInsert);
-
-        if (itemsError) {
-          console.error('Error adding order items:', itemsError);
-          
-          // Check if it's an inventory error
-          if (itemsError.message?.includes('Insufficient inventory')) {
-            // Delete the order since inventory validation failed
+          if (itemsError) {
+            console.error('Error adding order items:', itemsError);
             await supabase.from('orders').delete().eq('id', order.id);
-            
-            toast({
-              title: "Insufficient Inventory",
-              description: itemsError.message,
-              variant: "destructive"
-            });
-          } else {
             toast({
               title: "Error",
               description: "Failed to add order items: " + itemsError.message,
               variant: "destructive"
             });
+            throw itemsError;
           }
-          throw itemsError;
-        }
 
-        console.log('Order items added successfully - inventory automatically reduced');
+          // Now allocate inventory from batches for each item
+          for (const orderItem of insertedItems || []) {
+            try {
+              const allocations = await allocateInventory(
+                order.id,
+                orderItem.id,
+                orderItem.product_id!,
+                orderItem.quantity,
+                allocationStrategy
+              );
+              
+              console.log(`Allocated ${orderItem.quantity} units for ${orderItem.sku} using ${allocationStrategy}:`, allocations);
+            } catch (allocationError: any) {
+              console.error('Allocation error:', allocationError);
+              
+              // Rollback: delete order and items
+              await supabase.from('orders').delete().eq('id', order.id);
+              
+              toast({
+                title: "Allocation Failed",
+                description: allocationError.message || "Failed to allocate inventory from batches",
+                variant: "destructive"
+              });
+              throw allocationError;
+            }
+          }
+
+          console.log(`Order items added and inventory allocated using ${allocationStrategy} strategy`);
+          
+        } catch (error) {
+          console.error('Error in order items/allocation:', error);
+          throw error;
+        }
       }
 
       toast({
         title: "Success",
-        description: "Order created successfully",
+        description: `Order created successfully using ${allocationStrategy} allocation`,
       });
 
       // Trigger refetch to show the new order
@@ -233,6 +259,90 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
         throw error;
       }
 
+      // Auto-create outgoing shipment when order status changes to any shipping status
+      const outgoingShipmentStatuses = ['order-ready', 'ready-to-ship', 'shipped', 'order-shipped'];
+      if (outgoingShipmentStatuses.includes(dbUpdates.status)) {
+        console.log('Order marked as shipped/ready, checking for outgoing shipment...');
+        
+        // Get the order details to create shipment
+        const { data: orderData } = await supabase
+          .from('orders')
+          .select('*, items:order_items(*)')
+          .eq('id', id)
+          .single();
+        
+        if (orderData) {
+          // Check if outgoing shipment already exists for this order
+          const { data: existingShipment } = await supabase
+            .from('shipments')
+            .select('id')
+            .eq('order_reference', orderData.invoice_number || id)
+            .eq('shipment_type', 'outgoing')
+            .maybeSingle();
+
+          if (!existingShipment) {
+            console.log('Creating outgoing shipment for order:', id);
+            
+            // Get warehouse and company info
+            const { data: warehouseData } = await supabase
+              .from('warehouses')
+              .select('company_id')
+              .eq('id', selectedWarehouse)
+              .single();
+            
+            // Create outgoing shipment record
+            const { data: newShipment, error: shipmentError } = await supabase
+              .from('shipments')
+              .insert([{
+                order_id: id,
+                supplier: orderData.customer_name,
+                order_reference: orderData.invoice_number || id,
+                expected_date: orderData.ship_date || new Date().toISOString().split('T')[0],
+                status: (() => {
+                  const statusMapping: { [key: string]: string } = {
+                    'order-ready': 'ready-to-ship',
+                    'ready-to-ship': 'ready-to-ship',
+                    'shipped': 'shipped',
+                    'order-shipped': 'shipped'
+                  };
+                  return statusMapping[dbUpdates.status] || 'ready-to-ship';
+                })(),
+                user_id: user.id,
+                warehouse_id: selectedWarehouse,
+                company_id: warehouseData?.company_id,
+                shipment_type: 'outgoing'
+              }])
+              .select()
+              .single();
+
+            if (shipmentError) {
+              console.error('Error creating outgoing shipment:', shipmentError);
+            } else if (newShipment && orderData.items && orderData.items.length > 0) {
+              // Create shipment items from order items
+              const shipmentItems = orderData.items.map((item: any) => ({
+                shipment_id: newShipment.id,
+                sku: item.sku,
+                name: item.sku,
+                expected_qty: item.quantity,
+                received_qty: 0
+              }));
+              
+              const { error: itemsError } = await supabase
+                .from('shipment_items')
+                .insert(shipmentItems);
+
+              if (itemsError) {
+                console.error('Error creating shipment items:', itemsError);
+              } else {
+                console.log('Outgoing shipment created successfully:', newShipment.id);
+              }
+            }
+          } else {
+            console.log('Outgoing shipment already exists for this order');
+          }
+        }
+      }
+
       toast({
         title: "Success",
         description: "Order updated successfully",
@@ -260,6 +370,14 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
     try {
       console.log('Deleting order:', id);
       
+      // First, reverse any batch allocations
+      try {
+        await reverseAllocation(id);
+        console.log('Batch allocations reversed for order:', id);
+      } catch (reverseError) {
+        console.warn('Error reversing allocations (order may not have allocations):', reverseError);
+      }
+      
       const { error } = await supabase
         .from('orders')
         .delete()
@@ -278,7 +396,7 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
 
       toast({
         title: "Success",
-        description: "Order deleted successfully",
+        description: "Order deleted and inventory restored",
       });
       
       refetch();

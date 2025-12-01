@@ -1,9 +1,11 @@
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './AuthContext';
 import { useUserPermissions } from '@/hooks/useUserPermissions';
-import { getAccessibleWarehouses, type AccessibleWarehouse } from '@/utils/rlsUtils';
+import { useWarehousesQuery } from '@/hooks/queries/useWarehousesQuery';
+import { useCurrentEmployeeQuery } from '@/hooks/queries/useCurrentEmployeeQuery';
+import { useUserRolesQuery } from '@/hooks/queries/useUserRolesQuery';
 
 export interface Warehouse {
   id: string;
@@ -39,6 +41,7 @@ interface WarehouseContextType {
   canViewAllWarehouses: boolean;
   refreshWarehouses: () => Promise<void>;
   isUserAdmin: boolean;
+  companyId: string | null;
 }
 
 const WarehouseContext = createContext<WarehouseContextType | undefined>(undefined);
@@ -88,17 +91,46 @@ const clearWarehouseSelection = () => {
 };
 
 export const WarehouseProvider: React.FC<WarehouseProviderProps> = ({ children }) => {
-  const [warehouses, setWarehouses] = useState<UserWarehouse[]>([]);
+  const { user } = useAuth();
+  
+  // Use cached React Query hooks for faster loading
+  const { data: warehousesData, isLoading: warehousesLoading } = useWarehousesQuery();
+  const { data: currentEmployee, isLoading: employeeLoading } = useCurrentEmployeeQuery();
+  const { data: userRolesData, isLoading: rolesLoading } = useUserRolesQuery();
+  
   const [selectedWarehouse, setSelectedWarehouseState] = useState<string | null>(() => {
     // Initialize with persisted selection on mount
     const persisted = loadWarehouseSelection();
     console.log('🚀 Initial load - persisted selection:', persisted);
     return persisted;
   });
-  const [isLoading, setIsLoading] = useState(true);
-  const [canViewAllWarehouses, setCanViewAllWarehouses] = useState(false);
-  const { user } = useAuth();
-  const { isAdmin, loading: permissionsLoading } = useUserPermissions();
+  
+  // Derive isAdmin from cached user roles data
+  const isAdmin = useMemo(() => {
+    return userRolesData?.some(role => role.role === 'admin') || false;
+  }, [userRolesData]);
+  
+  // Transform warehouses data from cached query
+  const warehouses = useMemo(() => {
+    if (!warehousesData) return [];
+    
+    return warehousesData.map(item => ({
+      warehouse_id: item.warehouse_id,
+      warehouse_name: item.warehouse_name,
+      warehouse_code: item.warehouse_code,
+      user_role: item.access_level,
+      is_manager: ['admin', 'manager'].includes(item.access_level),
+      access_level: item.access_level,
+      company_id: item.company_id
+    }));
+  }, [warehousesData]);
+  
+  // Determine if user can view all warehouses
+  const canViewAllWarehouses = useMemo(() => {
+    return isAdmin || warehouses.length > 1;
+  }, [isAdmin, warehouses.length]);
+  
+  const isLoading = warehousesLoading || employeeLoading || rolesLoading;
 
   // Enhanced setSelectedWarehouse with persistence
   const setSelectedWarehouse = (warehouseId: string | null) => {
@@ -108,129 +140,80 @@ export const WarehouseProvider: React.FC<WarehouseProviderProps> = ({ children }
     console.log('💾 Warehouse selection saved to localStorage');
   };
 
-  const fetchUserWarehouses = async () => {
-    if (!user || permissionsLoading) {
-      setIsLoading(false);
-      return;
-    }
+  // Handle warehouse selection logic when data changes
+  useEffect(() => {
+    if (warehousesLoading || !warehouses.length) return;
 
-    try {
-      console.log('🏭 Fetching user warehouses for user:', user.id, 'isAdmin:', isAdmin);
-
-      // Check if user is an employee with an assigned warehouse
-      let assignedWarehouseId = user.user_metadata?.['warehouse_id'];
+    console.log('🏭 Processing warehouse selection logic');
+    
+    const assignedWarehouseId = currentEmployee?.assigned_warehouse_id;
+    
+    // Check for persisted selection first
+    const persistedSelection = loadWarehouseSelection();
+    console.log('💾 Loaded persisted selection:', persistedSelection);
+    
+    let shouldUsePersistedSelection = false;
+    
+    if (persistedSelection) {
+      // Validate that the persisted warehouse is still accessible
+      const isValidSelection = warehouses.some(warehouse => warehouse.warehouse_id === persistedSelection);
+      console.log('✅ Persisted selection valid:', isValidSelection);
       
-      // If not in metadata, check the employees table
-      if (!assignedWarehouseId) {
-        try {
-          const { data: employeeData } = await supabase
-            .from('employees')
-            .select('assigned_warehouse_id')
-            .eq('user_id_auth', user.id)
-            .single();
-          
-          assignedWarehouseId = employeeData?.assigned_warehouse_id;
-          console.log('🎯 Employee assigned warehouse from employees table:', assignedWarehouseId);
-        } catch (error) {
-          console.log('No employee record found for user:', user.id);
-        }
+      if (isValidSelection) {
+        console.log('🎯 Using persisted selection:', persistedSelection);
+        setSelectedWarehouseState(persistedSelection);
+        shouldUsePersistedSelection = true;
       } else {
-        console.log('🎯 Employee assigned warehouse from metadata:', assignedWarehouseId);
+        console.log('❌ Clearing invalid persisted selection');
+        clearWarehouseSelection();
       }
-
-      // Use the new RLS-enforced function
-      const accessibleWarehouses = await getAccessibleWarehouses();
-      
-      const typedData = accessibleWarehouses.map(item => ({
-        warehouse_id: item.warehouse_id,
-        warehouse_name: item.warehouse_name,
-        warehouse_code: item.warehouse_code,
-        user_role: item.access_level,
-        is_manager: ['admin', 'manager'].includes(item.access_level),
-        access_level: item.access_level,
-        company_id: item.company_id
-      }));
-
-      console.log('📦 Accessible warehouses loaded:', typedData);
-      setWarehouses(typedData);
-      
-      // Set permissions based on user role
-      const hasAdminAccess = isAdmin;
-      const hasMultipleWarehouses = typedData.length > 1;
-      setCanViewAllWarehouses(hasAdminAccess || hasMultipleWarehouses);
-      
-      // Check for persisted selection first
-      const persistedSelection = loadWarehouseSelection();
-      console.log('💾 Loaded persisted selection:', persistedSelection);
-      
-      let shouldUsePersistedSelection = false;
-      
-      if (persistedSelection) {
-        // Validate that the persisted warehouse is still accessible
-        const isValidSelection = typedData.some(warehouse => warehouse.warehouse_id === persistedSelection);
-        console.log('✅ Persisted selection valid:', isValidSelection);
-        
-        if (isValidSelection) {
-          console.log('🎯 Using persisted selection:', persistedSelection);
-          setSelectedWarehouseState(persistedSelection);
-          shouldUsePersistedSelection = true;
-        } else {
-          console.log('❌ Clearing invalid persisted selection');
-          clearWarehouseSelection();
-        }
-      }
-      
-      // Apply warehouse selection logic based on user role
-      if (!shouldUsePersistedSelection) {
-        console.log('🤖 Applying role-based warehouse selection...');
-        
-        if (hasAdminAccess) {
-          console.log('👑 Admin user: setting to Corporate Overview');
-          setSelectedWarehouse(null); // Corporate overview for admins
-        } else if (assignedWarehouseId && typedData.some(w => w.warehouse_id === assignedWarehouseId)) {
-          // Force employees to their assigned warehouse
-          console.log('👷 Employee forced to assigned warehouse:', assignedWarehouseId);
-          setSelectedWarehouse(assignedWarehouseId);
-        } else if (typedData.length === 1) {
-          // Single warehouse access
-          console.log('🏠 Single warehouse: auto-selecting');
-          setSelectedWarehouse(typedData[0].warehouse_id);
-        } else if (typedData.length > 0) {
-          // Fallback to first available warehouse
-          console.log('🏢 Multiple warehouses: selecting first available');
-          setSelectedWarehouse(typedData[0].warehouse_id);
-        }
-      } else {
-        console.log('✨ Skipping smart defaults - using persisted selection');
-      }
-      
-    } catch (error) {
-      console.error('Error in fetchUserWarehouses:', error);
-    } finally {
-      setIsLoading(false);
     }
-  };
+    
+    // Apply warehouse selection logic based on user role
+    if (!shouldUsePersistedSelection) {
+      console.log('🤖 Applying role-based warehouse selection...');
+      
+      if (isAdmin) {
+        console.log('👑 Admin user: setting to Corporate Overview');
+        setSelectedWarehouse(null); // Corporate overview for admins
+      } else if (assignedWarehouseId && warehouses.some(w => w.warehouse_id === assignedWarehouseId)) {
+        // Force employees to their assigned warehouse
+        console.log('👷 Employee forced to assigned warehouse:', assignedWarehouseId);
+        setSelectedWarehouse(assignedWarehouseId);
+      } else if (warehouses.length === 1) {
+        // Single warehouse access
+        console.log('🏠 Single warehouse: auto-selecting');
+        setSelectedWarehouse(warehouses[0].warehouse_id);
+      } else if (warehouses.length > 0) {
+        // Fallback to first available warehouse
+        console.log('🏢 Multiple warehouses: selecting first available');
+        setSelectedWarehouse(warehouses[0].warehouse_id);
+      }
+    } else {
+      console.log('✨ Skipping smart defaults - using persisted selection');
+    }
+  }, [warehousesData, currentEmployee, isAdmin, warehousesLoading]);
 
   const refreshWarehouses = async () => {
-    console.log('Refreshing warehouses with RLS enforcement...');
-    setIsLoading(true);
-    await fetchUserWarehouses();
+    console.log('Refreshing warehouses - React Query will handle cache invalidation');
+    // React Query automatically handles refetching via invalidation
   };
 
-  useEffect(() => {
-    if (!permissionsLoading) {
-      fetchUserWarehouses();
-    }
-  }, [user, isAdmin, permissionsLoading]);
+  // Derive company ID from warehouses (all warehouses belong to same company)
+  const companyId = useMemo(() => {
+    if (!warehouses.length) return null;
+    return warehouses[0].company_id;
+  }, [warehouses]);
 
   const value = {
     warehouses,
     selectedWarehouse,
     setSelectedWarehouse,
-    isLoading: isLoading || permissionsLoading,
+    isLoading,
     canViewAllWarehouses,
     refreshWarehouses,
-    isUserAdmin: isAdmin
+    isUserAdmin: isAdmin,
+    companyId,
   };
 
   return (

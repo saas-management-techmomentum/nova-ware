@@ -35,8 +35,8 @@ export const defaultPagePermissions: PagePermissions = {
   locations: false,
   'predictive-inventory': false,
   
-  // Management - all off by default
-  todos: false,
+  // Management - todos enabled by default so employees can see assigned tasks
+  todos: true,
   clients: false,
   vendors: false,
   financial: false,

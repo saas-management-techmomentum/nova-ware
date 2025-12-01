@@ -73,3 +73,6 @@ verify_jwt = true
 
 [functions.invite-employee]
 verify_jwt = true
+
+[functions.process-recurring-invoices]
+verify_jwt = false

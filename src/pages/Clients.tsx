@@ -56,9 +56,7 @@ const Clients = () => {
 
   const handleDeleteClient = async (id: string) => {
     try {
-      console.log('Attempting to delete client with ID:', id);
       await deleteClient(id);
-      console.log('Client deleted successfully');
     } catch (error) {
       console.error('Error deleting client:', error);
     }

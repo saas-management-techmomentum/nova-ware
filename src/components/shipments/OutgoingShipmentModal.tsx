@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Order } from '@/hooks/useWarehouseScopedOrders';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { useBilling, Invoice } from '@/hooks/useBilling';
+import { useOrders } from '@/contexts/OrdersContext';
 import { Calendar, Package, Truck, Hash, FileText } from 'lucide-react';
 
 interface OutgoingShipmentModalProps {
@@ -35,17 +35,15 @@ const OutgoingShipmentModal: React.FC<OutgoingShipmentModalProps> = ({
   const [shippingMethod, setShippingMethod] = useState('');
   const [shipDate, setShipDate] = useState('');
   const [shipmentStatus, setShipmentStatus] = useState('pending');
-  const [selectedInvoiceId, setSelectedInvoiceId] = useState('');
+  const [selectedOrderId, setSelectedOrderId] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-  const { invoices, fetchBillingData } = useBilling();
+  const { orders } = useOrders();
 
-  // Fetch billing data when modal opens
-  useEffect(() => {
-    if (open) {
-      fetchBillingData();
-    }
-  }, [open, fetchBillingData]);
+  // Filter orders that don't have shipments yet
+  const ordersWithoutShipments = orders.filter(order => 
+    order.status !== 'order-shipped' && order.invoice_number
+  );
 
   // Reset form when order/shipment changes or modal opens
   useEffect(() => {
@@ -56,7 +54,7 @@ const OutgoingShipmentModal: React.FC<OutgoingShipmentModalProps> = ({
       setShippingMethod(order.shipping_method || '');
       setShipDate(order.ship_date || '');
       setShipmentStatus(order.shipment_status?.toLowerCase() || 'pending');
-      setSelectedInvoiceId(''); // Reset invoice selection for existing orders
+      setSelectedOrderId(''); // Reset order selection for existing orders
     } else if (shipment) {
       // Initialize with existing values from the shipment
       setCarrier(shipment.carrier || '');
@@ -64,7 +62,7 @@ const OutgoingShipmentModal: React.FC<OutgoingShipmentModalProps> = ({
       setShippingMethod(shipment.shipping_method || '');
       setShipDate(shipment.expected_date || '');
       setShipmentStatus(shipment.status?.toLowerCase() || 'pending');
-      setSelectedInvoiceId(''); // Reset invoice selection for existing shipments
+      setSelectedOrderId(''); // Reset order selection for existing shipments
     } else if (open) {
       // Reset form for new shipment
       setCarrier('');
@@ -72,16 +70,16 @@ const OutgoingShipmentModal: React.FC<OutgoingShipmentModalProps> = ({
       setShippingMethod('');
       setShipDate('');
       setShipmentStatus('pending');
-      setSelectedInvoiceId('');
+      setSelectedOrderId('');
     }
   }, [order, shipment, open]);
 
   const handleSave = async () => {
     // Validate required fields for new shipments
-    if (!order && !shipment && !selectedInvoiceId) {
+    if (!order && !shipment && !selectedOrderId) {
       toast({
         title: "Error",
-        description: "Please select an invoice for the new shipment",
+        description: "Please select an order for the new shipment",
         variant: "destructive",
       });
       return;
@@ -158,39 +156,44 @@ const OutgoingShipmentModal: React.FC<OutgoingShipmentModalProps> = ({
           description: "Shipment information updated successfully",
         });
       } else {
-        // Get the selected invoice details
-        const selectedInvoice = invoices.find(inv => inv.id === selectedInvoiceId);
-        if (!selectedInvoice) {
+        // Get the selected order
+        const selectedOrder = orders.find(o => o.id === selectedOrderId);
+        if (!selectedOrder) {
           toast({
             title: "Error",
-            description: "Selected invoice not found",
+            description: "Selected order not found",
             variant: "destructive",
           });
           return;
         }
 
-        // Create new outgoing shipment order linked to the invoice
-        const user = await supabase.auth.getUser();
-        const newOrderId = `SHIP-${selectedInvoice.invoice_number}-${Date.now()}`;
-        
-        const { error } = await supabase
+        // Get user and warehouse info
+        const { data: { user } } = await supabase.auth.getUser();
+        const { data: orderData } = await supabase
           .from('orders')
-          .insert([{
-            id: newOrderId,
-            customer_name: selectedInvoice.client_id || 'Customer', // We'll need to fetch client name if needed
-            status: 'Ship order',
-            shipment_status: shipmentStatus,
-            carrier,
-            tracking_number: trackingNumber,
-            shipping_method: shippingMethod,
-            ship_date: shipDate || null,
-            user_id: user.data.user?.id,
-            // Link to the invoice for reference
-            notes: `Created from Invoice: ${selectedInvoice.invoice_number}`
-          }]);
+          .select('warehouse_id, company_id, items:order_items(*)')
+          .eq('id', selectedOrderId)
+          .single();
 
-        if (error) {
-          console.error('Error creating shipment:', error);
+        // Create new outgoing shipment linked to the order
+        const { data: newShipment, error: shipmentError } = await supabase
+          .from('shipments')
+          .insert([{
+            order_id: selectedOrderId,
+            order_reference: selectedOrder.invoice_number || selectedOrderId,
+            supplier: selectedOrder.customer_name,
+            expected_date: shipDate || new Date().toISOString().split('T')[0],
+            status: shipmentStatus,
+            shipment_type: 'outgoing',
+            user_id: user?.id,
+            warehouse_id: orderData?.warehouse_id,
+            company_id: orderData?.company_id
+          }])
+          .select()
+          .single();
+
+        if (shipmentError) {
+          console.error('Error creating shipment:', shipmentError);
           toast({
             title: "Error",
             description: "Failed to create shipment",
@@ -199,9 +202,22 @@ const OutgoingShipmentModal: React.FC<OutgoingShipmentModalProps> = ({
           return;
         }
 
+        // Create shipment items from order items
+        if (newShipment && orderData?.items && orderData.items.length > 0) {
+          const shipmentItems = orderData.items.map((item: any) => ({
+            shipment_id: newShipment.id,
+            sku: item.sku,
+            name: item.sku,
+            expected_qty: item.quantity,
+            received_qty: 0
+          }));
+          
+          await supabase.from('shipment_items').insert(shipmentItems);
+        }
+
         toast({
           title: "Success",
-          description: `New shipment created for Invoice ${selectedInvoice.invoice_number}`,
+          description: `New shipment created for Order ${selectedOrder.invoice_number}`,
         });
       }
 
@@ -255,30 +271,34 @@ const OutgoingShipmentModal: React.FC<OutgoingShipmentModalProps> = ({
             </div>
           )}
 
-          {/* Invoice Selection - Required for new shipments */}
+          {/* Order Selection - Required for new shipments */}
           {!order && !shipment && (
             <div className="space-y-2">
-              <Label htmlFor="invoice-select" className="text-neutral-300 flex items-center gap-2">
+              <Label htmlFor="order-select" className="text-neutral-300 flex items-center gap-2">
                 <FileText className="h-4 w-4" />
-                Invoice Number *
+                Select Order *
               </Label>
-              <Select value={selectedInvoiceId} onValueChange={setSelectedInvoiceId}>
+              <Select value={selectedOrderId} onValueChange={setSelectedOrderId}>
                 <SelectTrigger className="bg-neutral-800/50 border-neutral-700 text-white">
-                  <SelectValue placeholder="Select an invoice" />
+                  <SelectValue placeholder="Select an order" />
                 </SelectTrigger>
                 <SelectContent>
-                  {invoices
-                    .filter(invoice => invoice.status === 'sent' || invoice.status === 'approved' || invoice.status === 'paid')
-                    .map((invoice) => (
-                      <SelectItem key={invoice.id} value={invoice.id}>
-                        {invoice.invoice_number} - ${invoice.total_amount.toFixed(2)} ({invoice.status})
+                  {ordersWithoutShipments.length === 0 ? (
+                    <div className="px-2 py-4 text-center text-sm text-muted-foreground">
+                      No available orders
+                    </div>
+                  ) : (
+                    ordersWithoutShipments.map((order) => (
+                      <SelectItem key={order.id} value={order.id}>
+                        {order.invoice_number} - {order.customer_name} ({order.status})
                       </SelectItem>
-                    ))}
+                    ))
+                  )}
                 </SelectContent>
               </Select>
-              {!selectedInvoiceId && (
+              {!selectedOrderId && (
                 <p className="text-xs text-amber-300">
-                  * Invoice selection is required for new shipments
+                  * Order selection is required for new shipments
                 </p>
               )}
             </div>

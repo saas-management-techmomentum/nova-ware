@@ -10,7 +10,7 @@ interface BillingContextType {
   addBillingRate: (rateData: Omit<BillingRate, 'id' | 'created_at' | 'updated_at' | 'user_id' | 'warehouse_id'>) => Promise<BillingRate | null>;
   addInvoice: (invoiceData: CreateInvoiceData) => Promise<Invoice | null>;
   updateInvoiceStatus: (invoiceId: string, status: 'draft' | 'sent' | 'approved' | 'paid' | 'overdue' | 'cancelled') => Promise<void>;
-  createRecurringInvoice: (recurringData: any) => Promise<void>;
+  createRecurringInvoice: (recurringData: any) => Promise<any>;
   validateInventoryAvailability: (items: { product_id: string; quantity: number }[]) => Promise<InventoryValidationResult>;
   generateInvoicePDF: (invoiceId: string) => Promise<string | undefined>;
   sendInvoiceEmail: (invoiceId: string, recipientEmail: string, customMessage?: string) => Promise<any>;

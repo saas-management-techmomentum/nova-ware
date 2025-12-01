@@ -59,15 +59,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const checkPasswordChangeStatus = async (userId: string) => {
     try {
-      console.log('Checking password change status for user:', userId);
-      
+
       const { data, error } = await supabase.rpc('user_needs_password_change');
       
       if (error) {
         console.error('Error checking password change status:', error);
         setNeedsPasswordChange(false);
       } else {
-        console.log('Password change status:', data);
         setNeedsPasswordChange(data || false);
       }
     } catch (error) {
@@ -77,7 +75,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const refreshSession = async () => {
-    console.log('Manually refreshing session...');
     try {
       const { data, error } = await supabase.auth.refreshSession();
       if (error) {
@@ -86,10 +83,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         if (sessionData.session) {
           setSession(sessionData.session);
           setUser(sessionData.session.user as AuthUser);
-          console.log('Fallback: Using existing session');
         }
       } else {
-        console.log('Session refreshed successfully:', data.session?.user?.id);
         setSession(data.session);
         setUser(data.session?.user as AuthUser ?? null);
       }
@@ -100,7 +95,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const fetchEmployeeData = async (userId: string) => {
     try {
-      console.log('Fetching employee data for user:', userId);
       
       const { data: employeeData, error } = await supabase
         .from('employees')
@@ -117,7 +111,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       }
       
       if (employeeData) {
-        console.log('Employee data found:', employeeData);
         setEmployee({
           id: employeeData.id,
           name: employeeData.name,
@@ -145,7 +138,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const forceRefreshAuth = async () => {
-    console.log('Force refreshing authentication state...');
     try {
       await refreshSession();
       await new Promise(resolve => setTimeout(resolve, 500));
@@ -153,14 +145,16 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       const { data: { session: currentSession } } = await supabase.auth.getSession();
       
       if (currentSession?.user && currentSession.access_token) {
-        console.log('Current user after force refresh:', currentSession.user.id);
         setSession(currentSession);
         setUser(currentSession.user as AuthUser);
-        await fetchUserRole(currentSession.user.id);
-        await checkPasswordChangeStatus(currentSession.user.id);
-        await fetchEmployeeData(currentSession.user.id);
+        
+        // Parallelize all three queries for faster loading
+        await Promise.all([
+          fetchUserRole(currentSession.user.id),
+          checkPasswordChangeStatus(currentSession.user.id),
+          fetchEmployeeData(currentSession.user.id)
+        ]);
       } else {
-        console.log('No valid session found after force refresh');
         setUserRole(null);
         setIsUserAdmin(false);
         setNeedsPasswordChange(null);
@@ -173,8 +167,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const fetchUserRole = async (userId: string) => {
     try {
-      console.log('Fetching user role for:', userId);
-      
+    
       await new Promise(resolve => setTimeout(resolve, 100));
       
       const { data: { session: currentSession } } = await supabase.auth.getSession();
@@ -185,7 +178,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         return;
       }
       
-      console.log('Making role fetch request with valid session');
       const { data: roleData, error } = await supabase
         .from('company_users')
         .select('role, company_id')
@@ -198,19 +190,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         return;
       }
       
-      console.log('Raw role data from database:', roleData);
       
       if (roleData && roleData.length > 0) {
         const adminRole = roleData.find(entry => entry.role === 'admin');
         const primaryRole = adminRole ? 'admin' : roleData[0].role;
         
-        console.log('User role determined:', primaryRole);
-        console.log('Is admin:', !!adminRole);
-        
         setUserRole(primaryRole);
         setIsUserAdmin(!!adminRole);
       } else {
-        console.log('No role data found for user');
         setUserRole(null);
         setIsUserAdmin(false);
       }
@@ -224,7 +211,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const completeUserSetup = async () => {
     if (!user) return;
     
-    console.log('Completing user setup for:', user.id);
     
     try {
       const companyName = user.user_metadata?.company_name;
@@ -232,8 +218,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         console.error('No company name found in user metadata');
         return;
       }
-      
-      console.log('Calling complete_user_setup RPC function...');
+
       
       const { data, error } = await supabase.rpc('complete_user_setup', {
         target_user_id: user.id,
@@ -244,13 +229,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         console.error('Error completing user setup:', error);
         throw error;
       }
-      
-      console.log('Complete user setup result:', data);
+
       
       const result = data as unknown as FixSetupResponse;
       
       if (result?.success) {
-        console.log('Setup completed successfully, refreshing user role');
         await fetchUserRole(user.id);
       } else {
         console.error('Failed to complete setup:', result?.error);
@@ -265,8 +248,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const fixIncompleteSetup = async () => {
     if (!user) return;
     
-    console.log('Attempting to fix incomplete setup for user:', user.id);
-    
     try {
       const { data, error } = await supabase.rpc('fix_incomplete_user_setup', {
         target_user_id: user.id
@@ -277,12 +258,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         throw error;
       }
       
-      console.log('Fix incomplete setup result:', data);
       
       const result = data as unknown as FixSetupResponse;
       
       if (result?.success) {
-        console.log('Setup fixed successfully, refreshing user role');
         await fetchUserRole(user.id);
       } else {
         console.error('Failed to fix setup:', result?.error);
@@ -307,13 +286,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   useEffect(() => {
     let mounted = true;
 
-    console.log('AuthProvider initializing...');
-
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         if (!mounted) return;
-
-        console.log('Auth state changed:', event, session?.user?.id);
         
         setSession(session);
         setUser(session?.user as AuthUser ?? null);
@@ -321,10 +296,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         if (session?.user && session.access_token) {
           setTimeout(() => {
             if (mounted) {
-              console.log('Fetching user role, password status, and employee data after auth state change');
-              fetchUserRole(session.user.id);
-              checkPasswordChangeStatus(session.user.id);
-              fetchEmployeeData(session.user.id);
+              
+              // Parallelize all three queries for faster loading
+              Promise.all([
+                fetchUserRole(session.user.id),
+                checkPasswordChangeStatus(session.user.id),
+                fetchEmployeeData(session.user.id)
+              ]).catch(error => {
+                console.error('Error fetching user data:', error);
+              });
               
               if (event === 'SIGNED_IN') {
                 setTimeout(() => {
@@ -348,25 +328,21 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const getInitialSession = async () => {
       try {
-        console.log('Getting initial session...');
         const { data: { session } } = await supabase.auth.getSession();
         
         if (mounted) {
-          console.log('Initial session check:', {
-            hasSession: !!session,
-            hasUser: !!session?.user,
-            hasAccessToken: !!session?.access_token,
-            userId: session?.user?.id
-          });
           
           setSession(session);
           setUser(session?.user as AuthUser ?? null);
           
           if (session?.user && session.access_token) {
-            console.log('Fetching user role, password status, and employee data for initial session');
-            await fetchUserRole(session.user.id);
-            await checkPasswordChangeStatus(session.user.id);
-            await fetchEmployeeData(session.user.id);
+            
+            // Parallelize all three queries for faster loading
+            await Promise.all([
+              fetchUserRole(session.user.id),
+              checkPasswordChangeStatus(session.user.id),
+              fetchEmployeeData(session.user.id)
+            ]);
             
             setTimeout(() => {
               completeUserSetup().catch(error => {
@@ -388,7 +364,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     getInitialSession();
 
     return () => {
-      console.log('AuthProvider cleanup');
       mounted = false;
       subscription.unsubscribe();
     };
@@ -428,7 +403,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const signIn = async (email: string, password: string) => {
-    console.log('Signing in user...');
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -464,17 +438,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     needsPasswordChange,
   };
 
-  console.log('AuthProvider rendering with state:', {
-    isAuthReady,
-    hasUser: !!user,
-    hasSession: !!session,
-    hasAccessToken: !!session?.access_token,
-    hasEmployee: !!employee,
-    employeeName: employee?.name,
-    userRole,
-    isUserAdmin,
-    needsPasswordChange
-  });
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

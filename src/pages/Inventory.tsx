@@ -191,7 +191,7 @@ const Inventory = () => {
 
   const handleAddProduct = async (product: any) => {
     try {
-      console.log('Adding product from inventory page:', product);
+    
       await addProduct(product);
       // Toast is now handled in AddProductDialog, so no duplicate here
     } catch (error) {

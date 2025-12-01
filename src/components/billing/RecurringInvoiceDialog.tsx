@@ -30,9 +30,9 @@ export const RecurringInvoiceDialog: React.FC<RecurringInvoiceDialogProps> = ({
     end_date: '',
   });
 
-  // Filter invoices that can be used as templates (draft or sent status)
+  // Filter invoices that can be used as templates (any status except cancelled)
   const templateInvoices = invoices.filter(inv => 
-    inv.status === 'draft' || inv.status === 'sent'
+    inv.status !== 'cancelled'
   );
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -107,9 +107,9 @@ export const RecurringInvoiceDialog: React.FC<RecurringInvoiceDialogProps> = ({
                 <SelectTrigger className="bg-slate-700/50 border-slate-600">
                   <SelectValue placeholder="Select client" />
                 </SelectTrigger>
-                <SelectContent className="bg-slate-800 border-slate-700">
+                <SelectContent className="z-[100] bg-neutral-900 border-neutral-700">
                   {clients.map((client) => (
-                    <SelectItem key={client.id} value={client.id}>
+                    <SelectItem key={client.id} value={client.id} className="text-neutral-100">
                       {client.name}
                     </SelectItem>
                   ))}
@@ -126,12 +126,18 @@ export const RecurringInvoiceDialog: React.FC<RecurringInvoiceDialogProps> = ({
                 <SelectTrigger className="bg-slate-700/50 border-slate-600">
                   <SelectValue placeholder="Select template" />
                 </SelectTrigger>
-                <SelectContent className="bg-slate-800 border-slate-700">
-                  {templateInvoices.map((invoice) => (
-                    <SelectItem key={invoice.id} value={invoice.id}>
-                      {invoice.invoice_number} - ${invoice.total_amount.toFixed(2)}
-                    </SelectItem>
-                  ))}
+                <SelectContent className="z-[100] bg-neutral-900 border-neutral-700">
+                  {templateInvoices.length === 0 ? (
+                    <div className="px-2 py-4 text-center text-sm text-neutral-400">
+                      No invoices available as templates
+                    </div>
+                  ) : (
+                    templateInvoices.map((invoice) => (
+                      <SelectItem key={invoice.id} value={invoice.id} className="text-neutral-100">
+                        {invoice.invoice_number} - ${invoice.total_amount.toFixed(2)}
+                      </SelectItem>
+                    ))
+                  )}
                 </SelectContent>
               </Select>
             </div>
@@ -148,11 +154,11 @@ export const RecurringInvoiceDialog: React.FC<RecurringInvoiceDialogProps> = ({
                 <SelectTrigger className="bg-slate-700/50 border-slate-600">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-slate-800 border-slate-700">
-                  <SelectItem value="weekly">Weekly</SelectItem>
-                  <SelectItem value="monthly">Monthly</SelectItem>
-                  <SelectItem value="quarterly">Quarterly</SelectItem>
-                  <SelectItem value="yearly">Yearly</SelectItem>
+                <SelectContent className="z-[100] bg-neutral-900 border-neutral-700">
+                  <SelectItem value="weekly" className="text-neutral-100">Weekly</SelectItem>
+                  <SelectItem value="monthly" className="text-neutral-100">Monthly</SelectItem>
+                  <SelectItem value="quarterly" className="text-neutral-100">Quarterly</SelectItem>
+                  <SelectItem value="yearly" className="text-neutral-100">Yearly</SelectItem>
                 </SelectContent>
               </Select>
             </div>

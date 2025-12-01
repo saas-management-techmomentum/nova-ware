@@ -13,15 +13,14 @@ export const calculateProductSales = (
   inventoryItems: InventoryItem[],
   transactions: InventoryTransaction[]
 ): { bestSellers: ProductSalesData[]; worstSellers: ProductSalesData[] } => {
-  console.log('Calculating product sales from transactions:', transactions.length);
+
   
   // Calculate total sales for each product
   const salesMap = new Map<string, number>();
   
   // Count outgoing transactions (sales) - ensure we're only counting actual sales
   const outgoingTransactions = transactions.filter(t => t.type === 'outgoing');
-  console.log('Outgoing transactions found:', outgoingTransactions.length);
-  
+
   outgoingTransactions.forEach(transaction => {
     const currentSales = salesMap.get(transaction.itemId) || 0;
     salesMap.set(transaction.itemId, currentSales + transaction.quantity);
@@ -39,7 +38,6 @@ export const calculateProductSales = (
     };
   });
   
-  console.log('Product sales data calculated:', productSalesData.length, 'products');
   
   // Sort by total sold (descending for best sellers)
   const bestSellers = [...productSalesData]
@@ -57,17 +55,6 @@ export const calculateProductSales = (
       return b.currentStock - a.currentStock;
     });
   
-  console.log('Best sellers:', bestSellers.slice(0, 5).map(item => ({
-    name: item.name,
-    sold: item.totalSold,
-    stock: item.currentStock
-  })));
-  
-  console.log('Worst sellers:', worstSellers.slice(0, 5).map(item => ({
-    name: item.name,
-    sold: item.totalSold,
-    stock: item.currentStock
-  })));
   
   return {
     bestSellers,
