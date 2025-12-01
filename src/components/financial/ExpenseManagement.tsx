@@ -50,9 +50,23 @@ export const ExpenseManagement: React.FC = () => {
     payment_date: new Date().toISOString().split('T')[0],
     notes: ''
   });
+  
+  // View/Edit dialog states
+  const [selectedExpense, setSelectedExpense] = useState<any>(null);
+  const [isViewExpenseOpen, setIsViewExpenseOpen] = useState(false);
+  const [isEditExpenseOpen, setIsEditExpenseOpen] = useState(false);
+  const [editForm, setEditForm] = useState({
+    description: '',
+    vendor: '',
+    category: '',
+    amount: 0,
+    status: '',
+    payment_date: '',
+    notes: ''
+  });
 
   const { toast } = useToast();
-  const { expenses, metrics, isLoading, createExpense, refetch } = useExpenseManagement();
+  const { expenses, metrics, isLoading, createExpense, updateExpense, deleteExpense, refetch } = useExpenseManagement();
   const { vendors, isLoading: vendorsLoading } = useVendors();
 
   const formatCurrency = (amount: number) => {
@@ -134,6 +148,48 @@ export const ExpenseManagement: React.FC = () => {
         description: result.error || "Failed to create expense.",
         variant: "destructive"
       });
+    }
+  };
+
+  const handleViewExpense = (expense: any) => {
+    setSelectedExpense(expense);
+    setIsViewExpenseOpen(true);
+  };
+
+  const handleEditExpense = (expense: any) => {
+    setSelectedExpense(expense);
+    setEditForm({
+      description: expense.description,
+      vendor: expense.vendor || '',
+      category: expense.category || '',
+      amount: expense.amount,
+      status: expense.status,
+      payment_date: expense.transaction_date,
+      notes: expense.reference || ''
+    });
+    setIsEditExpenseOpen(true);
+  };
+
+  const handleSaveEdit = async () => {
+    if (!selectedExpense) return;
+    
+    await updateExpense(selectedExpense.id, {
+      description: editForm.description,
+      vendor: editForm.vendor,
+      category: editForm.category,
+      amount: editForm.amount,
+      status: editForm.status,
+      transaction_date: editForm.payment_date,
+      reference: editForm.notes
+    });
+
+    setIsEditExpenseOpen(false);
+    setSelectedExpense(null);
+  };
+
+  const handleDeleteExpense = async (expense: any) => {
+    if (window.confirm('Are you sure you want to delete this expense? This action cannot be undone.')) {
+      await deleteExpense(expense.id);
     }
   };
 
@@ -481,11 +537,14 @@ export const ExpenseManagement: React.FC = () => {
                         </TableCell>
                         <TableCell>
                           <div className="flex items-center gap-1">
-                            <Button variant="ghost" size="sm">
+                            <Button variant="ghost" size="sm" onClick={() => handleViewExpense(expense)}>
                               <Eye className="h-4 w-4" />
                             </Button>
-                            <Button variant="ghost" size="sm">
+                            <Button variant="ghost" size="sm" onClick={() => handleEditExpense(expense)}>
                               <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button variant="ghost" size="sm" onClick={() => handleDeleteExpense(expense)}>
+                              <Trash2 className="h-4 w-4 text-red-500" />
                             </Button>
                           </div>
                         </TableCell>
@@ -545,6 +604,162 @@ export const ExpenseManagement: React.FC = () => {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* View Expense Dialog */}
+      <Dialog open={isViewExpenseOpen} onOpenChange={setIsViewExpenseOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Expense Details</DialogTitle>
+          </DialogHeader>
+          {selectedExpense && (
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label className="text-muted-foreground">Description</Label>
+                  <p className="font-medium">{selectedExpense.description}</p>
+                </div>
+                <div>
+                  <Label className="text-muted-foreground">Amount</Label>
+                  <p className="font-medium">{formatCurrency(selectedExpense.amount)}</p>
+                </div>
+                <div>
+                  <Label className="text-muted-foreground">Vendor</Label>
+                  <p className="font-medium">{selectedExpense.vendor || '-'}</p>
+                </div>
+                <div>
+                  <Label className="text-muted-foreground">Category</Label>
+                  <p className="font-medium">{selectedExpense.category || '-'}</p>
+                </div>
+                <div>
+                  <Label className="text-muted-foreground">Date</Label>
+                  <p className="font-medium">{new Date(selectedExpense.transaction_date).toLocaleDateString()}</p>
+                </div>
+                <div>
+                  <Label className="text-muted-foreground">Status</Label>
+                  {getStatusBadge(selectedExpense.status)}
+                </div>
+                {selectedExpense.reference && (
+                  <div className="col-span-2">
+                    <Label className="text-muted-foreground">Notes</Label>
+                    <p className="font-medium">{selectedExpense.reference}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Expense Dialog */}
+      <Dialog open={isEditExpenseOpen} onOpenChange={setIsEditExpenseOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Edit Expense</DialogTitle>
+            <DialogDescription>Update expense details and payment status</DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="space-y-4">
+              <div>
+                <Label>Description</Label>
+                <Input 
+                  value={editForm.description}
+                  onChange={(e) => setEditForm(prev => ({ ...prev, description: e.target.value }))}
+                />
+              </div>
+              <div>
+                <Label>Vendor</Label>
+                <Select 
+                  value={editForm.vendor}
+                  onValueChange={(value) => setEditForm(prev => ({ ...prev, vendor: value }))}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a vendor" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {vendors.filter(v => v.is_active).map((vendor) => (
+                      <SelectItem key={vendor.id} value={vendor.vendor_name}>
+                        {vendor.vendor_name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Category</Label>
+                <Select 
+                  value={editForm.category}
+                  onValueChange={(value) => setEditForm(prev => ({ ...prev, category: value }))}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Rent & Facilities">Rent & Facilities</SelectItem>
+                    <SelectItem value="Utilities">Utilities</SelectItem>
+                    <SelectItem value="Equipment & Maintenance">Equipment & Maintenance</SelectItem>
+                    <SelectItem value="Transportation">Transportation</SelectItem>
+                    <SelectItem value="Office Supplies">Office Supplies</SelectItem>
+                    <SelectItem value="Software & Technology">Software & Technology</SelectItem>
+                    <SelectItem value="Insurance">Insurance</SelectItem>
+                    <SelectItem value="Marketing & Advertising">Marketing & Advertising</SelectItem>
+                    <SelectItem value="Other Expenses">Other Expenses</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div>
+                <Label>Amount</Label>
+                <Input 
+                  type="number"
+                  value={editForm.amount || ''}
+                  onChange={(e) => setEditForm(prev => ({ ...prev, amount: parseFloat(e.target.value) || 0 }))}
+                />
+              </div>
+              <div>
+                <Label>Payment Status</Label>
+                <Select 
+                  value={editForm.status}
+                  onValueChange={(value) => setEditForm(prev => ({ ...prev, status: value }))}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="pending">Pending</SelectItem>
+                    <SelectItem value="paid">Paid</SelectItem>
+                    <SelectItem value="overdue">Overdue</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Date</Label>
+                <Input 
+                  type="date"
+                  value={editForm.payment_date}
+                  onChange={(e) => setEditForm(prev => ({ ...prev, payment_date: e.target.value }))}
+                />
+              </div>
+              <div>
+                <Label>Notes</Label>
+                <Textarea 
+                  value={editForm.notes}
+                  onChange={(e) => setEditForm(prev => ({ ...prev, notes: e.target.value }))}
+                  rows={3}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-end gap-2 mt-4">
+            <Button variant="outline" onClick={() => setIsEditExpenseOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleSaveEdit}>
+              Save Changes
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
