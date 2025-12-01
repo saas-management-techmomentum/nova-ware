@@ -2,7 +2,13 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Bell, User, LogOut, Home, HelpCircle, Menu } from "lucide-react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Switch } from "@/components/ui/switch";
 import { useAuth } from "@/contexts/AuthContext";
@@ -11,18 +17,9 @@ import WarehouseSelector from "@/components/warehouse/WarehouseSelector";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import ApprovalStatusIndicator from "@/components/user/ApprovalStatusIndicator";
 const AppHeader = () => {
-  const {
-    user,
-    employee,
-    signOut
-  } = useAuth();
+  const { user, employee, signOut } = useAuth();
   const navigate = useNavigate();
-  const {
-    isOnboardingEnabled,
-    toggleOnboarding,
-    startOnboarding,
-    isLoading: onboardingLoading
-  } = useOnboarding();
+  const { isOnboardingEnabled, toggleOnboarding, startOnboarding, isLoading: onboardingLoading } = useOnboarding();
   const handleSignOut = async () => {
     try {
       await signOut();
@@ -78,7 +75,8 @@ const AppHeader = () => {
   const handleStartOnboarding = () => {
     startOnboarding();
   };
-  return <header className="h-16 border-b border-neutral-800 bg-neutral-950/80 backdrop-blur-sm z-20">
+  return (
+    <header className="h-16 border-b border-neutral-800 bg-neutral-950/80 backdrop-blur-sm z-20">
       <div className="h-full px-6">
         <div className="flex items-center justify-end h-full my-0">
           <div className="flex items-center gap-4">
@@ -87,17 +85,10 @@ const AppHeader = () => {
               <WarehouseSelector />
             </div>
 
-            {/* Back to Landing Page */}
-            <Button asChild variant="ghost" size="icon" className="h-10 w-10 rounded-full border border-neutral-700 bg-neutral-800/50 text-neutral-400 hover:text-white">
-              <Link to="/">
-                <Home className="h-5 w-5" />
-              </Link>
-            </Button>
-
             {/* Notifications */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full border border-neutral-700 bg-neutral-800/50">
+                <Button variant="ghost" size="icon" className="h-10 w-10">
                   <Bell className="h-5 w-5 text-neutral-400" />
                 </Button>
               </DropdownMenuTrigger>
@@ -149,15 +140,22 @@ const AppHeader = () => {
                       <HelpCircle className="h-4 w-4 text-muted-foreground" />
                       <span className="text-sm">Onboarding</span>
                     </div>
-                    <Switch checked={isOnboardingEnabled} onCheckedChange={handleOnboardingToggle} disabled={onboardingLoading} className="scale-75" />
+                    <Switch
+                      checked={isOnboardingEnabled}
+                      onCheckedChange={handleOnboardingToggle}
+                      disabled={onboardingLoading}
+                      className="scale-75"
+                    />
                   </div>
                 </div>
 
                 {/* Start Onboarding Option */}
-                {isOnboardingEnabled && <DropdownMenuItem onClick={handleStartOnboarding} className="cursor-pointer">
+                {isOnboardingEnabled && (
+                  <DropdownMenuItem onClick={handleStartOnboarding} className="cursor-pointer">
                     <HelpCircle className="mr-2 h-4 w-4" />
                     <span>Start Tour</span>
-                  </DropdownMenuItem>}
+                  </DropdownMenuItem>
+                )}
 
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-red-600 focus:text-red-600">
@@ -169,6 +167,7 @@ const AppHeader = () => {
           </div>
         </div>
       </div>
-    </header>;
+    </header>
+  );
 };
 export default AppHeader;
