@@ -43,7 +43,7 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
   
   const [isProcessing, setIsProcessing] = useState(false);
   const [processingStep, setProcessingStep] = useState('');
-  const [markAsPaid, setMarkAsPaid] = useState(true); // Default to true for immediate inventory reduction
+  const [markAsPaid, setMarkAsPaid] = useState(false); // Default to false (draft status)
   
   const [formData, setFormData] = useState({
     client_id: '',
@@ -247,7 +247,7 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
         tax_amount: 0,
         total_amount: total,
         notes: formData.notes,
-        status: markAsPaid ? 'paid' : 'sent', // Use 'paid' for immediate inventory reduction
+        status: markAsPaid ? 'paid' : 'draft', // Use 'draft' by default, 'paid' for immediate inventory reduction
         template_id: selectedTemplate?.id || null,
         items: invoiceItems
       };
@@ -264,7 +264,7 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
         title: "Invoice Created Successfully",
         description: markAsPaid 
           ? "Invoice created and inventory has been reduced automatically."
-          : "Invoice created. Inventory will be reduced when marked as paid.",
+          : "Invoice created as draft. Inventory will be reduced when the status is changed to sent, paid, or approved.",
         variant: "default",
       });
 
@@ -296,7 +296,7 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
     });
     setItems([]);
     setInventoryWarnings([]);
-    setMarkAsPaid(true);
+    setMarkAsPaid(false);
   };
 
   return (
@@ -352,7 +352,7 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
           />
 
           {/* Payment Status Toggle */}
-          {/* <Card className="bg-slate-700/30 border-slate-600">
+          <Card className="bg-neutral-800/30 border-neutral-700">
             <CardContent className="p-4">
               <div className="flex items-center space-x-2">
                 <Checkbox 
@@ -360,19 +360,19 @@ export const CreateInvoiceDialog: React.FC<CreateInvoiceDialogProps> = ({ open, 
                   checked={markAsPaid}
                   onCheckedChange={(checked) => setMarkAsPaid(checked === true)}
                 />
-                <Label htmlFor="markAsPaid" className="text-slate-300 cursor-pointer">
+                <Label htmlFor="markAsPaid" className="text-neutral-300 cursor-pointer">
                   Mark as paid (reduces inventory immediately)
                 </Label>
-                <Info className="h-4 w-4 text-slate-400" />
+                <Info className="h-4 w-4 text-neutral-400" />
               </div>
-              <p className="text-xs text-slate-400 mt-2">
+              <p className="text-xs text-neutral-400 mt-2">
                 {markAsPaid 
                   ? "Inventory will be reduced when this invoice is created"
-                  : "Inventory will be reduced when the invoice is marked as paid later"
+                  : "Inventory will be reduced when the invoice status is changed to sent, paid, or approved"
                 }
               </p>
             </CardContent>
-          </Card> */}
+          </Card>
 
           {/* Header Section */}
           <div className="grid grid-cols-2 gap-8">
