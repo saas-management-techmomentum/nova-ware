@@ -67,7 +67,7 @@ export const useInventoryValuations = () => {
     valuationMethod: 'FIFO'
   });
   const [isLoading, setIsLoading] = useState(true);
-  const { selectedWarehouse } = useWarehouse();
+  const { selectedWarehouse, companyId } = useWarehouse();
   const { user } = useAuth();
 
   const fetchInventoryValuations = async () => {
@@ -365,6 +365,7 @@ export const useInventoryValuations = () => {
     reason: string;
   }) => {
     if (!user) return { success: false, error: 'No user authenticated' };
+    if (!companyId) return { success: false, error: 'No company context available' };
 
     try {
       // Get product details for cost calculation
@@ -389,6 +390,7 @@ export const useInventoryValuations = () => {
           notes: `${adjustmentData.adjustment_type}: ${adjustmentData.reason}`,
           user_id: user.id,
           warehouse_id: selectedWarehouse,
+          company_id: companyId,
           remaining_stock: product.quantity - adjustmentData.quantity
         });
 

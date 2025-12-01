@@ -391,6 +391,7 @@ export type Database = {
           transaction_type: string
           updated_at: string | null
           user_id: string
+          vendor: string | null
           warehouse_id: string | null
         }
         Insert: {
@@ -406,6 +407,7 @@ export type Database = {
           transaction_type: string
           updated_at?: string | null
           user_id: string
+          vendor?: string | null
           warehouse_id?: string | null
         }
         Update: {
@@ -421,6 +423,7 @@ export type Database = {
           transaction_type?: string
           updated_at?: string | null
           user_id?: string
+          vendor?: string | null
           warehouse_id?: string | null
         }
         Relationships: [
@@ -720,6 +723,90 @@ export type Database = {
             columns: ["company_id"]
             isOneToOne: false
             referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      financial_reports: {
+        Row: {
+          company_id: string | null
+          created_at: string | null
+          date_range_end: string | null
+          date_range_start: string | null
+          description: string | null
+          file_format: string | null
+          file_size: string | null
+          file_url: string | null
+          frequency: string | null
+          generated_data: Json | null
+          id: string
+          is_template: boolean | null
+          last_generated_at: string | null
+          parameters: Json | null
+          report_name: string
+          report_type: string
+          status: string | null
+          updated_at: string | null
+          user_id: string
+          warehouse_id: string | null
+        }
+        Insert: {
+          company_id?: string | null
+          created_at?: string | null
+          date_range_end?: string | null
+          date_range_start?: string | null
+          description?: string | null
+          file_format?: string | null
+          file_size?: string | null
+          file_url?: string | null
+          frequency?: string | null
+          generated_data?: Json | null
+          id?: string
+          is_template?: boolean | null
+          last_generated_at?: string | null
+          parameters?: Json | null
+          report_name: string
+          report_type: string
+          status?: string | null
+          updated_at?: string | null
+          user_id: string
+          warehouse_id?: string | null
+        }
+        Update: {
+          company_id?: string | null
+          created_at?: string | null
+          date_range_end?: string | null
+          date_range_start?: string | null
+          description?: string | null
+          file_format?: string | null
+          file_size?: string | null
+          file_url?: string | null
+          frequency?: string | null
+          generated_data?: Json | null
+          id?: string
+          is_template?: boolean | null
+          last_generated_at?: string | null
+          parameters?: Json | null
+          report_name?: string
+          report_type?: string
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string
+          warehouse_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "financial_reports_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "financial_reports_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "warehouses"
             referencedColumns: ["id"]
           },
         ]
@@ -1262,6 +1349,72 @@ export type Database = {
           },
         ]
       }
+      notifications: {
+        Row: {
+          action_type: string | null
+          company_id: string
+          created_at: string | null
+          entity_id: string | null
+          entity_type: string | null
+          id: string
+          is_read: boolean | null
+          message: string
+          metadata: Json | null
+          read_at: string | null
+          title: string
+          type: string
+          user_id: string
+          warehouse_id: string | null
+        }
+        Insert: {
+          action_type?: string | null
+          company_id: string
+          created_at?: string | null
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          is_read?: boolean | null
+          message: string
+          metadata?: Json | null
+          read_at?: string | null
+          title: string
+          type: string
+          user_id: string
+          warehouse_id?: string | null
+        }
+        Update: {
+          action_type?: string | null
+          company_id?: string
+          created_at?: string | null
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          is_read?: boolean | null
+          message?: string
+          metadata?: Json | null
+          read_at?: string | null
+          title?: string
+          type?: string
+          user_id?: string
+          warehouse_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notifications_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       order_documents: {
         Row: {
           file_name: string
@@ -1645,6 +1798,121 @@ export type Database = {
           },
           {
             foreignKeyName: "pallet_products_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payroll_entries: {
+        Row: {
+          bonus_amount: number | null
+          company_id: string | null
+          created_at: string | null
+          dental_insurance: number | null
+          employee_id: string
+          federal_tax: number | null
+          gross_pay: number
+          health_insurance: number | null
+          hourly_rate: number
+          hours_worked: number
+          id: string
+          medicare: number | null
+          net_pay: number
+          notes: string | null
+          other_deductions: number | null
+          overtime_hours: number | null
+          overtime_rate: number | null
+          pay_date: string | null
+          pay_period_end: string
+          pay_period_start: string
+          retirement_401k: number | null
+          social_security: number | null
+          state_tax: number | null
+          status: string | null
+          total_deductions: number | null
+          updated_at: string | null
+          user_id: string
+          warehouse_id: string | null
+        }
+        Insert: {
+          bonus_amount?: number | null
+          company_id?: string | null
+          created_at?: string | null
+          dental_insurance?: number | null
+          employee_id: string
+          federal_tax?: number | null
+          gross_pay?: number
+          health_insurance?: number | null
+          hourly_rate?: number
+          hours_worked?: number
+          id?: string
+          medicare?: number | null
+          net_pay?: number
+          notes?: string | null
+          other_deductions?: number | null
+          overtime_hours?: number | null
+          overtime_rate?: number | null
+          pay_date?: string | null
+          pay_period_end: string
+          pay_period_start: string
+          retirement_401k?: number | null
+          social_security?: number | null
+          state_tax?: number | null
+          status?: string | null
+          total_deductions?: number | null
+          updated_at?: string | null
+          user_id: string
+          warehouse_id?: string | null
+        }
+        Update: {
+          bonus_amount?: number | null
+          company_id?: string | null
+          created_at?: string | null
+          dental_insurance?: number | null
+          employee_id?: string
+          federal_tax?: number | null
+          gross_pay?: number
+          health_insurance?: number | null
+          hourly_rate?: number
+          hours_worked?: number
+          id?: string
+          medicare?: number | null
+          net_pay?: number
+          notes?: string | null
+          other_deductions?: number | null
+          overtime_hours?: number | null
+          overtime_rate?: number | null
+          pay_date?: string | null
+          pay_period_end?: string
+          pay_period_start?: string
+          retirement_401k?: number | null
+          social_security?: number | null
+          state_tax?: number | null
+          status?: string | null
+          total_deductions?: number | null
+          updated_at?: string | null
+          user_id?: string
+          warehouse_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payroll_entries_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payroll_entries_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payroll_entries_warehouse_id_fkey"
             columns: ["warehouse_id"]
             isOneToOne: false
             referencedRelation: "warehouses"
@@ -2454,6 +2722,7 @@ export type Database = {
           id: string
           issue_date: string
           notes: string | null
+          paid_amount: number | null
           po_id: string | null
           status: string | null
           updated_at: string | null
@@ -2471,6 +2740,7 @@ export type Database = {
           id?: string
           issue_date: string
           notes?: string | null
+          paid_amount?: number | null
           po_id?: string | null
           status?: string | null
           updated_at?: string | null
@@ -2488,6 +2758,7 @@ export type Database = {
           id?: string
           issue_date?: string
           notes?: string | null
+          paid_amount?: number | null
           po_id?: string | null
           status?: string | null
           updated_at?: string | null
@@ -2909,6 +3180,10 @@ export type Database = {
           p_warehouse_id: string
         }
         Returns: boolean
+      }
+      seed_chart_of_accounts_for_company: {
+        Args: { p_company_id: string; p_user_id: string }
+        Returns: undefined
       }
       user_needs_password_change: { Args: never; Returns: boolean }
     }

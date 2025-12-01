@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { useExpenseManagement } from '@/hooks/useExpenseManagement';
+import { useVendors } from '@/hooks/useVendors';
 import { 
   Receipt, 
   TrendingUp, 
@@ -52,6 +53,7 @@ export const ExpenseManagement: React.FC = () => {
 
   const { toast } = useToast();
   const { expenses, metrics, isLoading, createExpense, refetch } = useExpenseManagement();
+  const { vendors, isLoading: vendorsLoading } = useVendors();
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -185,11 +187,21 @@ export const ExpenseManagement: React.FC = () => {
                   </div>
                   <div>
                     <Label>Vendor/Payee *</Label>
-                    <Input 
-                      placeholder="Who was paid"
+                    <Select 
                       value={expenseForm.vendor}
-                      onChange={(e) => setExpenseForm(prev => ({ ...prev, vendor: e.target.value }))}
-                    />
+                      onValueChange={(value) => setExpenseForm(prev => ({ ...prev, vendor: value }))}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a vendor" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {vendors.filter(v => v.is_active).map((vendor) => (
+                          <SelectItem key={vendor.id} value={vendor.vendor_name}>
+                            {vendor.vendor_name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div>
                     <Label>Category *</Label>
@@ -443,7 +455,9 @@ export const ExpenseManagement: React.FC = () => {
                     {filteredExpenses.map((expense) => (
                       <TableRow key={expense.id}>
                         <TableCell className="text-muted-foreground">
-                          {new Date(expense.entry_date).toLocaleDateString()}
+                          {expense.transaction_date 
+                            ? new Date(expense.transaction_date).toLocaleDateString() 
+                            : 'No date'}
                         </TableCell>
                         <TableCell>
                           <div>

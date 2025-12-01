@@ -1,9 +1,11 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Bell } from "lucide-react";
+import { Bell, Home } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
+import WarehouseSelector from "@/components/warehouse/WarehouseSelector";
 
 const Header = () => {
   const { toast } = useToast();
@@ -13,6 +15,11 @@ const Header = () => {
       <div className="flex-1 max-w-xl">
         <Input placeholder="Search products, orders, shipments..." />
       </div>
+      <Link to="/app">
+        <Button variant="ghost" size="icon" aria-label="Home">
+          <Home className="h-5 w-5" />
+        </Button>
+      </Link>
       <Button
         variant="ghost"
         size="icon"
@@ -23,6 +30,7 @@ const Header = () => {
       >
         <Bell className="h-5 w-5" />
       </Button>
+      <WarehouseSelector />
       <Avatar>
         <AvatarFallback>WM</AvatarFallback>
       </Avatar>

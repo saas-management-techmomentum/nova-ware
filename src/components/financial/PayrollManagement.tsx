@@ -99,12 +99,12 @@ export const PayrollManagement: React.FC = () => {
 
     try {
       await createPayrollEntry({
-        employeeId: selectedEmployee,
-        payPeriodStart: newPayrollData.payPeriodStart.toISOString().split('T')[0],
-        payPeriodEnd: newPayrollData.payPeriodEnd.toISOString().split('T')[0],
-        hoursWorked: parseFloat(newPayrollData.hoursWorked),
-        overtimeHours: newPayrollData.overtimeHours ? parseFloat(newPayrollData.overtimeHours) : 0,
-        bonusAmount: newPayrollData.bonusAmount ? parseFloat(newPayrollData.bonusAmount) : 0,
+        employee_id: selectedEmployee,
+        pay_period_start: newPayrollData.payPeriodStart.toISOString().split('T')[0],
+        pay_period_end: newPayrollData.payPeriodEnd.toISOString().split('T')[0],
+        hours_worked: parseFloat(newPayrollData.hoursWorked),
+        overtime_hours: newPayrollData.overtimeHours ? parseFloat(newPayrollData.overtimeHours) : 0,
+        bonus_amount: newPayrollData.bonusAmount ? parseFloat(newPayrollData.bonusAmount) : 0,
       });
 
       // Reset form

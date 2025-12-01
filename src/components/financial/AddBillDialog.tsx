@@ -62,7 +62,7 @@ export const AddBillDialog: React.FC<AddBillDialogProps> = ({
       const { data, error } = await supabase
         .from('purchase_orders')
         .select('id, po_number, vendor_name, total_amount, status')
-        .eq('status', 'approved')
+        .in('status', ['approved', 'confirmed', 'received', 'draft'])
         .order('created_at', { ascending: false });
 
       if (error) throw error;

@@ -17,12 +17,16 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth } from "@/contexts/AuthContext";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { Badge } from '@/components/ui/badge';
-import { X } from 'lucide-react';
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { X, CalendarIcon } from 'lucide-react';
 import { useOrders } from '@/contexts/OrdersContext';
 import { useClients } from '@/contexts/ClientsContext';
 import { useInventory } from '@/contexts/InventoryContext';
 import { useBilling } from '@/contexts/BillingContext';
 import { supabase } from '@/integrations/supabase/client';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
 
 interface OrderItem {
   productId: string;
@@ -56,7 +60,7 @@ const NewOrderDialog: React.FC = () => {
 
   const [selectedInvoiceId, setSelectedInvoiceId] = useState('');
   const [clientId, setClientId] = useState('');
-  const [orderDate, setOrderDate] = useState(new Date().toISOString().split('T')[0]);
+  const [orderDate, setOrderDate] = useState<Date>(new Date());
   const [status, setStatus] = useState('');
   const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
   const [selectedProductId, setSelectedProductId] = useState('');
@@ -273,7 +277,7 @@ const NewOrderDialog: React.FC = () => {
         invoice_id: selectedInvoiceId,
         invoice_number: selectedInvoice?.invoice_number || '',
         client: clientName,
-        date: orderDate,
+        date: format(orderDate, 'yyyy-MM-dd'),
         status,
         items: orderItems.map(item => ({ 
           sku: item.sku, 
@@ -288,7 +292,7 @@ const NewOrderDialog: React.FC = () => {
       // Reset form
       setSelectedInvoiceId('');
       setClientId('');
-      setOrderDate(new Date().toISOString().split('T')[0]);
+      setOrderDate(new Date());
       setStatus(availableStatuses.length > 0 ? availableStatuses[0].name.toLowerCase().replace(/\s+/g, '-') : '');
       setOrderItems([]);
       setSelectedProductId('');
@@ -377,13 +381,30 @@ const NewOrderDialog: React.FC = () => {
 
           <div className="grid gap-2">
             <Label htmlFor="orderDate">Order Date</Label>
-            <Input
-              id="orderDate"
-              type="date"
-              required
-              value={orderDate}
-              onChange={(e) => setOrderDate(e.target.value)}
-            />
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  id="orderDate"
+                  variant="outline"
+                  className={cn(
+                    "w-full justify-start text-left font-normal",
+                    !orderDate && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {orderDate ? format(orderDate, "MM/dd/yyyy") : <span>Pick a date</span>}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  mode="single"
+                  selected={orderDate}
+                  onSelect={(date) => date && setOrderDate(date)}
+                  initialFocus
+                  className="p-3 pointer-events-auto"
+                />
+              </PopoverContent>
+            </Popover>
           </div>
 
           <div className="grid gap-2">
