@@ -24,6 +24,7 @@ import { useCurrentEmployee } from '@/hooks/useCurrentEmployee';
 import { EmployeeStatusBadge } from '@/components/employees/EmployeeStatusBadge';
 import ViewTaskModal from '@/components/tasks/ViewTaskModal';
 import EditTaskModal from '@/components/tasks/EditTaskModal';
+import { toast } from 'sonner';
 
 interface EmployeeTasksTabProps {
   canManageEmployees: boolean;
@@ -31,7 +32,7 @@ interface EmployeeTasksTabProps {
 }
 
 const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees, onResendInvitation }) => {
-  const { tasks, isLoading, addTask, updateTask, deleteTask, startTask, pauseTask, resumeTask, completeTask } = useTasks();
+  const { tasks, isLoading, addTask, updateTask, deleteTask, startTask, pauseTask, resumeTask, completeTask, refetch } = useTasks();
   const { employees } = useEmployees();
   const { selectedWarehouse, canViewAllWarehouses } = useWarehouse();
   const { user } = useAuth();
@@ -215,9 +216,12 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
   const handleSaveEditTask = async (taskId: string, updates: any) => {
     try {
       await updateTask(taskId, updates);
+      await refetch();
       setEditTaskModal({ isOpen: false, task: null });
+      toast.success('Task updated successfully');
     } catch (error) {
       console.error('Error updating task:', error);
+      toast.error('Failed to update task');
       throw error;
     }
   };
