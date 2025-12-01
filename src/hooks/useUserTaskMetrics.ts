@@ -21,7 +21,7 @@ export const useUserTaskMetrics = () => {
         throw new Error('User not authenticated');
       }
 
-      console.log('Fetching user-specific task metrics for:', user.id);
+
       
       const { data, error } = await supabase.rpc('get_user_task_metrics', {
         user_uuid: user.id
@@ -32,7 +32,7 @@ export const useUserTaskMetrics = () => {
         throw error;
       }
 
-      console.log('User task metrics:', data);
+   
       
       // Safely convert the JSON response to UserTaskMetrics
       const metrics = data as unknown as UserTaskMetrics;

@@ -11,7 +11,7 @@ export const useWarehouseMetricsRealtime = (selectedWarehouse?: string) => {
   useEffect(() => {
     if (!user) return;
 
-    console.log('Setting up real-time subscriptions for warehouse metrics');
+
 
     // Subscribe to orders changes
     const ordersChannel = supabase
@@ -25,7 +25,7 @@ export const useWarehouseMetricsRealtime = (selectedWarehouse?: string) => {
           filter: `user_id=eq.${user.id}${selectedWarehouse ? ` and warehouse_id=eq.${selectedWarehouse}` : ''}`
         },
         (payload) => {
-          console.log('Orders changed, refreshing metrics:', payload);
+
           
           // Show notification for significant order status changes
           if (payload.eventType === 'UPDATE' && payload.new && payload.old) {
@@ -59,7 +59,7 @@ export const useWarehouseMetricsRealtime = (selectedWarehouse?: string) => {
           filter: `user_id=eq.${user.id}${selectedWarehouse ? ` and warehouse_id=eq.${selectedWarehouse}` : ''}`
         },
         (payload) => {
-          console.log('Products changed, refreshing metrics:', payload);
+     
           queryClient.invalidateQueries({ queryKey: ['warehouseMetrics', selectedWarehouse] });
         }
       )
@@ -77,7 +77,7 @@ export const useWarehouseMetricsRealtime = (selectedWarehouse?: string) => {
           filter: `user_id=eq.${user.id}${selectedWarehouse ? ` and warehouse_id=eq.${selectedWarehouse}` : ''}`
         },
         (payload) => {
-          console.log('Inventory history changed, refreshing metrics:', payload);
+
           queryClient.invalidateQueries({ queryKey: ['warehouseMetrics', selectedWarehouse] });
           
           // Show toast notification for significant inventory changes
@@ -96,7 +96,7 @@ export const useWarehouseMetricsRealtime = (selectedWarehouse?: string) => {
       .subscribe();
 
     return () => {
-      console.log('Cleaning up real-time subscriptions');
+
       supabase.removeChannel(ordersChannel);
       supabase.removeChannel(productsChannel);
       supabase.removeChannel(inventoryChannel);

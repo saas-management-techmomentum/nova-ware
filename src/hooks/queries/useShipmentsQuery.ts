@@ -86,13 +86,10 @@ export const useShipmentsQuery = ({
     queryFn: async () => {
       if (!user) throw new Error('No authenticated user');
 
-      console.log('🚚 Fetching shipments for user:', user.id);
 
       const assignedWarehouse = getEmployeeAssignedWarehouse();
       const currentEmployee = employees.find(emp => emp.user_id_auth === user.id);
       const isAssignedEmployee = currentEmployee?.assigned_warehouse_id; // Prioritize warehouse assignment over admin status
-
-      console.log('🏪 Employee assignment check:', { isAssignedEmployee, assignedWarehouse: currentEmployee?.assigned_warehouse_id });
 
       // Query shipments with their related items
       let query = supabase
@@ -153,17 +150,16 @@ export const useShipmentsQuery = ({
 
       const { data, error, count } = await query;
 
-      console.log('📦 Raw shipment data with items:', data);
-      console.log('📊 Query count:', count);
+
 
       if (error) {
-        console.error('❌ Shipments query error:', error);
+
         throw error;
       }
       
       // Use shipment data directly - no transformation needed
       const transformedData: Shipment[] = (data || []).map((shipment: any) => {
-        console.log('✅ Using shipment data directly:', shipment);
+
         
         return {
           id: shipment.id,
@@ -183,8 +179,7 @@ export const useShipmentsQuery = ({
         };
       });
       
-      console.log('🎯 Final transformed data with items:', transformedData);
-      
+ 
       return {
         data: transformedData,
         count: count || 0,
@@ -208,7 +203,7 @@ export const useShipmentDetailsQuery = (shipmentId: string) => {
     queryFn: async () => {
       if (!user || !shipmentId) throw new Error('Missing user or shipment ID');
 
-      console.log('🔍 Fetching shipment details for:', shipmentId);
+
 
       const { data, error } = await supabase
         .from('shipment_items')
@@ -224,11 +219,10 @@ export const useShipmentDetailsQuery = (shipmentId: string) => {
         .eq('shipment_id', shipmentId);
 
       if (error) {
-        console.error('❌ Shipment details query error:', error);
         throw error;
       }
 
-      console.log('📋 Raw shipment details:', data);
+
 
       // Use shipment item data directly
       const transformedItems: ShipmentItem[] = (data || []).map((item: any) => ({
@@ -241,8 +235,6 @@ export const useShipmentDetailsQuery = (shipmentId: string) => {
         damaged_qty: item.damaged_qty,
         notes: item.notes,
       }));
-
-      console.log('✅ Transformed shipment details:', transformedItems);
       
       return transformedItems;
     },

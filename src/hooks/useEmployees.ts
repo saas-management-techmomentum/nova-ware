@@ -28,6 +28,7 @@ export interface Employee {
   emergency_contact_phone?: string;
   pay_type?: 'hourly' | 'salary';
   hourly_rate?: number;
+  annual_salary?: number;
   tax_withholding_status?: 'single' | 'married' | 'head-of-household';
   health_insurance_amount?: number;
   dental_insurance_amount?: number;

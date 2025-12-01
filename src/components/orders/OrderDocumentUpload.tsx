@@ -7,6 +7,7 @@ import { Upload, FileText, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
+import { useWarehouse } from '@/contexts/WarehouseContext';
 
 interface OrderDocumentUploadProps {
   orderId: string;
@@ -23,8 +24,11 @@ export const OrderDocumentUpload: React.FC<OrderDocumentUploadProps> = ({
 }) => {
   const { toast } = useToast();
   const { user } = useAuth();
+  const { selectedWarehouse, warehouses } = useWarehouse();
   const [uploading, setUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const currentWarehouse = warehouses.find(w => w.warehouse_id === selectedWarehouse);
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -105,6 +109,8 @@ export const OrderDocumentUpload: React.FC<OrderDocumentUploadProps> = ({
         .insert({
           order_id: orderId,
           user_id: user.id,
+          company_id: currentWarehouse?.company_id,
+          warehouse_id: selectedWarehouse,
           file_name: selectedFile.name,
           file_url: urlData.publicUrl,
           file_type: selectedFile.type,

@@ -11,19 +11,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Switch } from "@/components/ui/switch";
-import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import WarehouseSelector from "@/components/warehouse/WarehouseSelector";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import ApprovalStatusIndicator from "@/components/user/ApprovalStatusIndicator";
-
 const AppHeader = () => {
-  const [companyName] = useState("LogistiX");
-  const { user, employee, signOut } = useAuth(); // Add employee from context
+  const { user, employee, signOut } = useAuth();
   const navigate = useNavigate();
   const { isOnboardingEnabled, toggleOnboarding, startOnboarding, isLoading: onboardingLoading } = useOnboarding();
-
   const handleSignOut = async () => {
     try {
       await signOut();
@@ -32,7 +28,6 @@ const AppHeader = () => {
       console.error("Error signing out:", error);
     }
   };
-
   const getUserInitials = () => {
     if (!user) return "U";
 
@@ -54,7 +49,6 @@ const AppHeader = () => {
     const lastName = user.user_metadata?.last_name || "";
     return (firstName[0] || "") + (lastName[0] || "") || "U";
   };
-
   const getUserName = () => {
     if (!user) return "User";
 
@@ -73,52 +67,28 @@ const AppHeader = () => {
     const firstName = user.user_metadata?.first_name || "";
     const lastName = user.user_metadata?.last_name || "";
     const fullName = [firstName, lastName].filter(Boolean).join(" ");
-
     return fullName || "User";
   };
-
   const handleOnboardingToggle = async () => {
     await toggleOnboarding();
   };
-
   const handleStartOnboarding = () => {
     startOnboarding();
   };
-
   return (
     <header className="h-16 border-b border-neutral-800 bg-neutral-950/80 backdrop-blur-sm z-20">
       <div className="h-full px-6">
-        <div className="flex items-center justify-between h-full">
-          <div className="flex items-center gap-3">
-            <h1 className="text-lg font-semibold text-white">{companyName}</h1>
-          </div>
-
+        <div className="flex items-center justify-end h-full my-0">
           <div className="flex items-center gap-4">
             {/* Warehouse Selector */}
             <div data-onboarding="warehouse-selector">
               <WarehouseSelector />
             </div>
 
-            {/* Back to Landing Page */}
-            <Button
-              asChild
-              variant="ghost"
-              size="icon"
-              className="h-10 w-10 rounded-full border border-neutral-700 bg-neutral-800/50 text-neutral-400 hover:text-white"
-            >
-              <Link to="/">
-                <Home className="h-5 w-5" />
-              </Link>
-            </Button>
-
             {/* Notifications */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-10 w-10 rounded-full border border-neutral-700 bg-neutral-800/50"
-                >
+                <Button variant="ghost" size="icon" className="h-10 w-10">
                   <Bell className="h-5 w-5 text-neutral-400" />
                 </Button>
               </DropdownMenuTrigger>
@@ -200,5 +170,4 @@ const AppHeader = () => {
     </header>
   );
 };
-
 export default AppHeader;
