@@ -19,6 +19,9 @@ interface Task {
   status: 'pending' | 'in_progress' | 'completed' | 'cancelled';
   due_date?: string;
   assigned_to?: string;
+  time_tracking_status?: 'not_started' | 'in_progress' | 'paused' | 'completed';
+  completed_at?: string;
+  is_paused?: boolean;
 }
 
 interface Employee {
@@ -69,14 +72,32 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
     
     setIsLoading(true);
     try {
+      // Map status to time_tracking_status
+      const getTimeTrackingStatus = (status: string) => {
+        switch (status) {
+          case 'pending': return 'not_started';
+          case 'in_progress': return 'in_progress';
+          case 'completed': return 'completed';
+          case 'cancelled': return 'completed';
+          default: return 'not_started';
+        }
+      };
+      
       const updates: Partial<Task> = {
         title: formData.title,
         description: formData.description,
         priority: formData.priority,
         status: formData.status,
+        time_tracking_status: getTimeTrackingStatus(formData.status),
         due_date: formData.due_date?.toISOString(),
         assigned_to: formData.assigned_to === 'unassigned' ? undefined : formData.assigned_to
       };
+      
+      // If status changed to completed, also set completed_at
+      if (formData.status === 'completed' && task.status !== 'completed') {
+        updates.completed_at = new Date().toISOString();
+        updates.is_paused = false;
+      }
 
       await onSave(task.id, updates);
       onClose();
