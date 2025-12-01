@@ -234,7 +234,7 @@ const AppSidebar = () => {
         </Link>
         <SidebarTrigger className="ml-auto lg:hidden text-neutral-300 hover:text-white transition-colors" />
       </div>
-      <SidebarContent className="bg-neutral-950 h-full">
+      <SidebarContent className="bg-neutral-950 h-full overflow-hidden">
         {shouldShowDropdown && (
           <SidebarGroup>
             <SidebarGroupContent>
@@ -355,7 +355,7 @@ const AppSidebar = () => {
                   <SidebarMenuItem key={item.title}>
                     <Link 
                       to={item.path}
-                      className="flex flex-col items-center gap-1.5 p-2 transition-all duration-200"
+                      className="flex flex-col items-start gap-1.5 p-2 transition-all duration-200"
                     >
                       <div className={`p-2.5 rounded-lg border transition-all ${
                         location.pathname === item.path 
@@ -364,7 +364,7 @@ const AppSidebar = () => {
                       }`}>
                         <item.icon className="w-6 h-6" />
                       </div>
-                      <span className={`text-[10px] text-center leading-tight ${
+                      <span className={`text-[10px] leading-tight ${
                         location.pathname === item.path 
                           ? 'text-white font-medium' 
                           : 'text-neutral-400'
