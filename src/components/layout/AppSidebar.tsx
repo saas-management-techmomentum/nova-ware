@@ -133,9 +133,6 @@ const AppSidebar = () => {
 
   return (
     <Sidebar className="w-24">
-      <div className="h-16 flex items-center justify-center border-b border-neutral-800 bg-neutral-950">
-        <SidebarTrigger className="lg:hidden text-neutral-300 hover:text-white transition-colors" />
-      </div>
       <SidebarContent className="bg-neutral-950 h-full overflow-hidden">
         
         <SidebarGroup>
