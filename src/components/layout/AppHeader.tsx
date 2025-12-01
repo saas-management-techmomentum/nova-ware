@@ -86,7 +86,7 @@ const AppHeader = () => {
   return (
     <header className="h-16 border-b border-neutral-800 bg-neutral-950/80 backdrop-blur-sm z-20">
       <div className="h-full px-6">
-        <div className="flex items-center justify-between h-full">
+        <div className="flex items-center justify-end h-full">
           <div className="flex items-center gap-4">
             {/* Warehouse Selector */}
             <div data-onboarding="warehouse-selector">
