@@ -40,6 +40,16 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
   
   const isInCorporateOverview = canViewAllWarehouses && selectedWarehouse === null;
   
+  // Filter employees by selected warehouse
+  const warehouseFilteredEmployees = useMemo(() => {
+    if (!selectedWarehouse) {
+      // Corporate overview - show all employees
+      return employees;
+    }
+    // Filter employees by assigned warehouse
+    return employees.filter(emp => emp.assigned_warehouse_id === selectedWarehouse);
+  }, [employees, selectedWarehouse]);
+  
   const [showAddForm, setShowAddForm] = useState(false);
   const [selectedTab, setSelectedTab] = useState<'all' | 'unassigned' | string>('all');
   const [newTask, setNewTask] = useState({
@@ -86,8 +96,8 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
     const currentEmployee = employees.find(emp => emp.user_id_auth === user?.id);
     const myTasks = currentEmployee ? tasksToShow.filter(task => task.assigned_to === currentEmployee.id) : [];
     
-    // Calculate task counts per employee
-    const employeeTaskCounts = employees.reduce((acc, employee) => {
+    // Calculate task counts per employee (filtered by warehouse)
+    const employeeTaskCounts = warehouseFilteredEmployees.reduce((acc, employee) => {
       const employeeTasks = tasksToShow.filter(task => task.assigned_to === employee.id);
       acc[employee.id] = {
         total: employeeTasks.length,
@@ -124,7 +134,7 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
       employeeTaskData: employeeTaskCounts,
       myTasks
     };
-  }, [tasks, selectedTab, canManageEmployees, user, employees]);
+  }, [tasks, selectedTab, canManageEmployees, user, employees, warehouseFilteredEmployees, selectedWarehouse, getEffectiveWarehouseRole]);
 
   const handleAddTask = async () => {
     if (!newTask.title.trim() || !selectedWarehouse) return;
@@ -551,7 +561,7 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
                     </SelectTrigger>
                     <SelectContent className="bg-neutral-800 border-neutral-700 z-50">
                       <SelectItem value="unassigned">Unassigned</SelectItem>
-                      {employees.map((employee) => (
+                      {warehouseFilteredEmployees.map((employee) => (
                         <SelectItem key={employee.id} value={employee.id}>
                           {employee.name} - {employee.position}
                         </SelectItem>
@@ -620,7 +630,7 @@ const EmployeeTasksTab: React.FC<EmployeeTasksTabProps> = ({ canManageEmployees,
                   Unassigned ({taskCounts.unassigned})
                 </button>
                 
-                {employees.map((employee) => (
+                {warehouseFilteredEmployees.map((employee) => (
                   <button
                     key={employee.id}
                     onClick={() => setSelectedTab(employee.id)}
