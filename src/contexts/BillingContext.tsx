@@ -1,16 +1,19 @@
 
 import React, { createContext, useContext, ReactNode } from 'react';
-import { useWarehouseScopedBilling, BillingRate, Invoice } from '@/hooks/useWarehouseScopedBilling';
+import { useWarehouseScopedBilling, BillingRate, Invoice, RecurringInvoice } from '@/hooks/useWarehouseScopedBilling';
 import { CreateInvoiceData, InventoryValidationResult } from '@/types/billing';
 
 interface BillingContextType {
   billingRates: BillingRate[];
   invoices: Invoice[];
+  recurringInvoices: RecurringInvoice[];
   isLoading: boolean;
   addBillingRate: (rateData: Omit<BillingRate, 'id' | 'created_at' | 'updated_at' | 'user_id' | 'warehouse_id'>) => Promise<BillingRate | null>;
   addInvoice: (invoiceData: CreateInvoiceData) => Promise<Invoice | null>;
   updateInvoiceStatus: (invoiceId: string, status: 'draft' | 'sent' | 'approved' | 'paid' | 'overdue' | 'cancelled') => Promise<void>;
   createRecurringInvoice: (recurringData: any) => Promise<any>;
+  updateRecurringInvoice: (id: string, updates: Partial<RecurringInvoice>) => Promise<void>;
+  deleteRecurringInvoice: (id: string) => Promise<void>;
   validateInventoryAvailability: (items: { product_id: string; quantity: number }[]) => Promise<InventoryValidationResult>;
   generateInvoicePDF: (invoiceId: string) => Promise<string | undefined>;
   sendInvoiceEmail: (invoiceId: string, recipientEmail: string, customMessage?: string) => Promise<any>;

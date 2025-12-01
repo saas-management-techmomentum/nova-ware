@@ -8,7 +8,7 @@ import { Pagination, PaginationContent, PaginationItem, PaginationLink, Paginati
 import { Badge } from '@/components/ui/badge';
 import { useBilling } from '@/contexts/BillingContext';
 import { useWarehouse } from '@/contexts/WarehouseContext';
-import { Plus, Send, Download, CreditCard, Eye, FileText, ArrowRight, Building2, AlertTriangle, Mail, MailCheck } from 'lucide-react';
+import { Plus, Send, Download, CreditCard, Eye, FileText, ArrowRight, Building2, AlertTriangle, Mail, MailCheck, Repeat, Pause, Play, Trash2 } from 'lucide-react';
 import { CreateInvoiceDialog } from './CreateInvoiceDialog';
 import { InvoiceViewDialog } from './InvoiceViewDialog';
 import { InvoiceEmailDialog } from './InvoiceEmailDialog';
@@ -16,7 +16,7 @@ import { RecurringInvoiceDialog } from './RecurringInvoiceDialog';
 import { InvoiceStatusBadge } from './InvoiceStatusBadge';
 
 export const EnhancedInvoiceManagement = () => {
-  const { invoices, isLoading, updateInvoiceStatus, generateInvoicePDF, createPaymentLink } = useBilling();
+  const { invoices, recurringInvoices, isLoading, updateInvoiceStatus, generateInvoicePDF, createPaymentLink, updateRecurringInvoice, deleteRecurringInvoice } = useBilling();
   const { selectedWarehouse, canViewAllWarehouses, warehouses } = useWarehouse();
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [showViewDialog, setShowViewDialog] = useState(false);
@@ -460,7 +460,111 @@ export const EnhancedInvoiceManagement = () => {
         </CardContent>
       </Card>
 
-      <CreateInvoiceDialog 
+      {/* Recurring Invoices Section */}
+      <Card className="bg-neutral-900/50 border-neutral-800">
+        <CardHeader>
+          <CardTitle className="text-white flex items-center">
+            <Repeat className="h-5 w-5 mr-2 text-neutral-400" />
+            Recurring Invoices
+            <span className="ml-2 text-sm text-neutral-400">
+              ({recurringInvoices.length} schedule{recurringInvoices.length !== 1 ? 's' : ''})
+            </span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {recurringInvoices.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-12 text-neutral-400">
+              <Repeat className="h-16 w-16 mb-4 text-neutral-500" />
+              <p className="text-lg font-medium mb-2">No recurring invoices</p>
+              <p className="text-sm text-neutral-500 text-center max-w-md mb-4">
+                Set up recurring invoices to automatically generate invoices on a schedule.
+              </p>
+              {!isInCorporateOverview && (
+                <Button onClick={() => setShowRecurringDialog(true)} variant="outline" className="border-neutral-700">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Create Recurring Invoice
+                </Button>
+              )}
+            </div>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow className="border-neutral-800">
+                  <TableHead className="text-neutral-300">Client</TableHead>
+                  <TableHead className="text-neutral-300">Template Invoice</TableHead>
+                  <TableHead className="text-neutral-300">Frequency</TableHead>
+                  <TableHead className="text-neutral-300">Next Invoice</TableHead>
+                  <TableHead className="text-neutral-300">End Date</TableHead>
+                  <TableHead className="text-neutral-300">Status</TableHead>
+                  <TableHead className="text-neutral-300">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {recurringInvoices.map((recurring) => (
+                  <TableRow key={recurring.id} className="border-neutral-700">
+                    <TableCell className="text-white">
+                      {recurring.template_data?.client_name || 'Unknown Client'}
+                    </TableCell>
+                    <TableCell className="text-neutral-300">
+                      <div className="flex flex-col">
+                        <span className="font-medium">{recurring.template_data?.invoice_number || 'N/A'}</span>
+                        <span className="text-sm text-neutral-400">
+                          ${recurring.template_data?.total_amount?.toFixed(2) || '0.00'}
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-neutral-300">
+                      Every {recurring.interval_count} {recurring.frequency}
+                    </TableCell>
+                    <TableCell className="text-neutral-300">
+                      {new Date(recurring.next_invoice_date).toLocaleDateString()}
+                    </TableCell>
+                    <TableCell className="text-neutral-300">
+                      {recurring.end_date 
+                        ? new Date(recurring.end_date).toLocaleDateString()
+                        : <span className="text-neutral-500 italic">No end date</span>
+                      }
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant={recurring.is_active ? 'default' : 'secondary'} className={recurring.is_active ? 'bg-green-600/20 text-green-400 border-green-600/30' : ''}>
+                        {recurring.is_active ? 'Active' : 'Paused'}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center space-x-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => updateRecurringInvoice(recurring.id, { is_active: !recurring.is_active })}
+                          className="border-neutral-700"
+                          title={recurring.is_active ? 'Pause recurring invoice' : 'Resume recurring invoice'}
+                        >
+                          {recurring.is_active ? (
+                            <Pause className="h-4 w-4" />
+                          ) : (
+                            <Play className="h-4 w-4" />
+                          )}
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => deleteRecurringInvoice(recurring.id)}
+                          className="border-red-600/30 text-red-400 hover:bg-red-600/10"
+                          title="Delete recurring invoice"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </CardContent>
+      </Card>
+
+      <CreateInvoiceDialog
         open={showCreateDialog} 
         onOpenChange={setShowCreateDialog}
       />
