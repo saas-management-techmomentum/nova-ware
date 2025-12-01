@@ -3,6 +3,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useWarehouse } from '@/contexts/WarehouseContext';
 import { toast } from '@/hooks/use-toast';
+import { jsPDF } from 'jspdf';
+import * as XLSX from 'xlsx';
 
 interface FinancialReport {
   id: string;
@@ -275,18 +277,139 @@ export const useFinancialReports = () => {
     }
   };
 
+  const formatCurrency = (value: number): string => {
+    return (value || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  };
+
+  const getReportTypeLabel = (type: string): string => {
+    const labels: Record<string, string> = {
+      'profit-loss': 'Profit & Loss Statement',
+      'balance-sheet': 'Balance Sheet',
+      'cash-flow': 'Cash Flow Statement',
+      'ar-aging': 'Accounts Receivable Aging',
+    };
+    return labels[type] || type;
+  };
+
+  const generatePDF = (report: FinancialReport, fileName: string) => {
+    const doc = new jsPDF();
+    const data = report.generated_data || {};
+    
+    // Title
+    doc.setFontSize(18);
+    doc.text(report.report_name, 20, 20);
+    
+    // Report type subtitle
+    doc.setFontSize(12);
+    doc.text(`Report Type: ${getReportTypeLabel(report.report_type)}`, 20, 30);
+    doc.text(`Generated: ${new Date().toLocaleDateString()}`, 20, 38);
+    
+    // Date range if available
+    if (report.date_range_start && report.date_range_end) {
+      doc.text(`Period: ${report.date_range_start} to ${report.date_range_end}`, 20, 46);
+    }
+    
+    // Separator line
+    doc.line(20, 52, 190, 52);
+    
+    // Report data based on type
+    let yPos = 62;
+    
+    switch (report.report_type) {
+      case 'profit-loss':
+        doc.text(`Revenue: $${formatCurrency(data.revenue)}`, 20, yPos);
+        doc.text(`Expenses: $${formatCurrency(data.expenses)}`, 20, yPos + 10);
+        doc.text(`Net Income: $${formatCurrency(data.net_income)}`, 20, yPos + 20);
+        break;
+      case 'balance-sheet':
+        doc.text(`Total Assets: $${formatCurrency(data.assets)}`, 20, yPos);
+        doc.text(`Total Liabilities: $${formatCurrency(data.liabilities)}`, 20, yPos + 10);
+        doc.text(`Total Equity: $${formatCurrency(data.equity)}`, 20, yPos + 20);
+        break;
+      case 'cash-flow':
+        doc.text(`Operating Activities: $${formatCurrency(data.operating)}`, 20, yPos);
+        doc.text(`Investing Activities: $${formatCurrency(data.investing)}`, 20, yPos + 10);
+        doc.text(`Financing Activities: $${formatCurrency(data.financing)}`, 20, yPos + 20);
+        doc.text(`Net Cash Flow: $${formatCurrency(data.net_cash_flow)}`, 20, yPos + 30);
+        break;
+      case 'ar-aging':
+        doc.text(`Current (0-30 days): $${formatCurrency(data.current)}`, 20, yPos);
+        doc.text(`31-60 days: $${formatCurrency(data['31-60'])}`, 20, yPos + 10);
+        doc.text(`61-90 days: $${formatCurrency(data['61-90'])}`, 20, yPos + 20);
+        doc.text(`Over 90 days: $${formatCurrency(data['over-90'])}`, 20, yPos + 30);
+        break;
+    }
+    
+    doc.save(`${fileName}.pdf`);
+  };
+
+  const generateExcel = (report: FinancialReport, fileName: string) => {
+    const data = report.generated_data || {};
+    let rows: any[] = [];
+    
+    // Convert report data to rows based on type
+    switch (report.report_type) {
+      case 'profit-loss':
+        rows = [
+          { Category: 'Revenue', Amount: data.revenue || 0 },
+          { Category: 'Expenses', Amount: data.expenses || 0 },
+          { Category: 'Net Income', Amount: data.net_income || 0 },
+        ];
+        break;
+      case 'balance-sheet':
+        rows = [
+          { Category: 'Total Assets', Amount: data.assets || 0 },
+          { Category: 'Total Liabilities', Amount: data.liabilities || 0 },
+          { Category: 'Total Equity', Amount: data.equity || 0 },
+        ];
+        break;
+      case 'cash-flow':
+        rows = [
+          { Category: 'Operating Activities', Amount: data.operating || 0 },
+          { Category: 'Investing Activities', Amount: data.investing || 0 },
+          { Category: 'Financing Activities', Amount: data.financing || 0 },
+          { Category: 'Net Cash Flow', Amount: data.net_cash_flow || 0 },
+        ];
+        break;
+      case 'ar-aging':
+        rows = [
+          { 'Aging Period': 'Current (0-30 days)', Amount: data.current || 0 },
+          { 'Aging Period': '31-60 days', Amount: data['31-60'] || 0 },
+          { 'Aging Period': '61-90 days', Amount: data['61-90'] || 0 },
+          { 'Aging Period': 'Over 90 days', Amount: data['over-90'] || 0 },
+        ];
+        break;
+    }
+    
+    const worksheet = XLSX.utils.json_to_sheet(rows);
+    worksheet['!cols'] = [{ wch: 25 }, { wch: 15 }];
+    
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, report.report_type);
+    
+    XLSX.writeFile(workbook, `${fileName}.xlsx`);
+  };
+
   const downloadReport = (report: FinancialReport) => {
-    // Convert generated_data to JSON and create downloadable file
-    const dataStr = JSON.stringify(report.generated_data, null, 2);
-    const dataBlob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(dataBlob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `${report.report_name}_${new Date().toISOString().split('T')[0]}.json`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    const fileName = `${report.report_name}_${new Date().toISOString().split('T')[0]}`;
+    
+    if (report.file_format === 'PDF') {
+      generatePDF(report, fileName);
+    } else if (report.file_format === 'Excel') {
+      generateExcel(report, fileName);
+    } else {
+      // Fallback to JSON
+      const dataStr = JSON.stringify(report.generated_data, null, 2);
+      const dataBlob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(dataBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${fileName}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
 
     toast({
       title: 'Success',
