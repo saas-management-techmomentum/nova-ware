@@ -64,7 +64,12 @@ export const useExpenseManagement = () => {
     try {
       let query = supabase
         .from('billing_transactions')
-        .select('*')
+        .select(`
+          *,
+          warehouses:warehouse_id (
+            name
+          )
+        `)
         .eq('transaction_type', 'expense')
         .order('transaction_date', { ascending: false });
 
@@ -75,8 +80,14 @@ export const useExpenseManagement = () => {
       const { data, error } = await query;
 
       if (error) throw error;
-      setExpenses((data as any) || []);
-      calculateMetrics((data as any) || []);
+      
+      const formattedExpenses = (data || []).map((item: any) => ({
+        ...item,
+        warehouse_name: item.warehouses?.name || null
+      }));
+      
+      setExpenses(formattedExpenses);
+      calculateMetrics(formattedExpenses);
     } catch (error: any) {
       console.error('Error fetching expenses:', error);
       toast.error('Failed to load expenses');
@@ -129,12 +140,25 @@ export const useExpenseManagement = () => {
       .sort((a, b) => b.amount - a.amount)
       .slice(0, 5);
 
+    // Calculate top vendor
+    const vendorMap = new Map<string, number>();
+    expenseData.forEach(e => {
+      if (e.vendor) {
+        vendorMap.set(e.vendor, (vendorMap.get(e.vendor) || 0) + e.amount);
+      }
+    });
+    const topVendorEntry = Array.from(vendorMap.entries())
+      .sort((a, b) => b[1] - a[1])[0];
+    const topVendor = topVendorEntry 
+      ? { name: topVendorEntry[0], amount: topVendorEntry[1] } 
+      : null;
+
     setMetrics({
       totalThisMonth,
       lastMonthChange,
       totalUnpaid,
       topCategories,
-      topVendor: null,
+      topVendor,
       recurringExpenses: 0,
       categoriesBreakdown
     });
@@ -166,6 +190,7 @@ export const useExpenseManagement = () => {
           status: expenseData.status || 'pending',
           warehouse_id: selectedWarehouse || expenseData.warehouse_id || null,
           company_id: companyData?.company_id!,
+          vendor: expenseData.vendor || null,
         }])
         .select()
         .single();

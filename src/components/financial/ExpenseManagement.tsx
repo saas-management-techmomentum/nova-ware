@@ -443,7 +443,9 @@ export const ExpenseManagement: React.FC = () => {
                     {filteredExpenses.map((expense) => (
                       <TableRow key={expense.id}>
                         <TableCell className="text-muted-foreground">
-                          {new Date(expense.entry_date).toLocaleDateString()}
+                          {expense.transaction_date 
+                            ? new Date(expense.transaction_date).toLocaleDateString() 
+                            : 'No date'}
                         </TableCell>
                         <TableCell>
                           <div>
