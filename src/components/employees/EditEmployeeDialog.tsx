@@ -31,7 +31,15 @@ const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmploye
     position: '',
     role: 'employee',
     department: '',
-    assignedWarehouseId: 'unassigned'
+    assignedWarehouseId: 'unassigned',
+    pay_type: 'hourly',
+    hourly_rate: '',
+    annual_salary: '',
+    tax_withholding_status: '',
+    health_insurance_amount: '',
+    dental_insurance_amount: '',
+    retirement_401k_amount: '',
+    other_deductions_amount: ''
   });
   const [pagePermissions, setPagePermissions] = useState<PagePermissions>({ ...defaultPagePermissions });
   const [effectiveRole, setEffectiveRole] = useState<string>('employee');
@@ -48,7 +56,15 @@ const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmploye
         position: selectedEmployee.position || '',
         role: selectedEmployee.role || 'employee',
         department: selectedEmployee.department || '',
-        assignedWarehouseId: selectedEmployee.assigned_warehouse_id || 'unassigned'
+        assignedWarehouseId: selectedEmployee.assigned_warehouse_id || 'unassigned',
+        pay_type: selectedEmployee.pay_type || 'hourly',
+        hourly_rate: selectedEmployee.hourly_rate?.toString() || '',
+        annual_salary: selectedEmployee.annual_salary?.toString() || '',
+        tax_withholding_status: selectedEmployee.tax_withholding_status || '',
+        health_insurance_amount: selectedEmployee.health_insurance_amount?.toString() || '',
+        dental_insurance_amount: selectedEmployee.dental_insurance_amount?.toString() || '',
+        retirement_401k_amount: selectedEmployee.retirement_401k_amount?.toString() || '',
+        other_deductions_amount: selectedEmployee.other_deductions_amount?.toString() || ''
       });
       
       // Load employee's current page permissions or use defaults
@@ -106,7 +122,15 @@ const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmploye
         role: formData.role,
         department: formData.department,
         assigned_warehouse_id: formData.assignedWarehouseId === 'unassigned' ? null : formData.assignedWarehouseId,
-        page_permissions: pagePermissions
+        page_permissions: pagePermissions,
+        pay_type: formData.pay_type as 'hourly' | 'salary',
+        hourly_rate: formData.hourly_rate ? parseFloat(formData.hourly_rate) : null,
+        annual_salary: formData.annual_salary ? parseFloat(formData.annual_salary) : null,
+        tax_withholding_status: formData.tax_withholding_status ? formData.tax_withholding_status as 'single' | 'married' | 'head-of-household' : null,
+        health_insurance_amount: formData.health_insurance_amount ? parseFloat(formData.health_insurance_amount) : null,
+        dental_insurance_amount: formData.dental_insurance_amount ? parseFloat(formData.dental_insurance_amount) : null,
+        retirement_401k_amount: formData.retirement_401k_amount ? parseFloat(formData.retirement_401k_amount) : null,
+        other_deductions_amount: formData.other_deductions_amount ? parseFloat(formData.other_deductions_amount) : null
       });
 
       toast({
@@ -270,6 +294,123 @@ const EditEmployeeDialog = ({ open, onOpenChange, userPermissions }: EditEmploye
                   </div>
                 </div>
               )}
+
+              {/* Payroll Information */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-medium text-white border-b border-slate-700 pb-2">
+                  Payroll Information
+                </h3>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label className="text-slate-300">Pay Type</Label>
+                    <Select value={formData.pay_type} onValueChange={(value) => handleInputChange('pay_type', value)}>
+                      <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-gray-600">
+                        <SelectValue placeholder="Select pay type" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-slate-800 border-slate-700">
+                        <SelectItem value="hourly">Hourly</SelectItem>
+                        <SelectItem value="salary">Salary</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  {formData.pay_type === 'hourly' ? (
+                    <div>
+                      <Label className="text-slate-300">Hourly Rate ($)</Label>
+                      <Input
+                        type="number"
+                        step="0.01"
+                        placeholder="e.g. 25.00"
+                        value={formData.hourly_rate}
+                        onChange={(e) => handleInputChange('hourly_rate', e.target.value)}
+                        className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      <Label className="text-slate-300">Annual Salary ($)</Label>
+                      <Input
+                        type="number"
+                        step="0.01"
+                        placeholder="e.g. 52000.00"
+                        value={formData.annual_salary}
+                        onChange={(e) => handleInputChange('annual_salary', e.target.value)}
+                        className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
+                      />
+                    </div>
+                  )}
+                </div>
+                
+                <div>
+                  <Label className="text-slate-300">Tax Withholding Status</Label>
+                  <Select value={formData.tax_withholding_status} onValueChange={(value) => handleInputChange('tax_withholding_status', value)}>
+                    <SelectTrigger className="bg-slate-800 border-slate-600 text-white focus:border-gray-600">
+                      <SelectValue placeholder="Select tax status" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-slate-800 border-slate-700">
+                      <SelectItem value="single">Single</SelectItem>
+                      <SelectItem value="married-filing-jointly">Married Filing Jointly</SelectItem>
+                      <SelectItem value="married-filing-separately">Married Filing Separately</SelectItem>
+                      <SelectItem value="head-of-household">Head of Household</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              
+              {/* Deductions */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-medium text-white border-b border-slate-700 pb-2">
+                  Deductions (per pay period)
+                </h3>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label className="text-slate-300">Health Insurance ($)</Label>
+                    <Input
+                      type="number"
+                      step="0.01"
+                      placeholder="0.00"
+                      value={formData.health_insurance_amount}
+                      onChange={(e) => handleInputChange('health_insurance_amount', e.target.value)}
+                      className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-slate-300">Dental Insurance ($)</Label>
+                    <Input
+                      type="number"
+                      step="0.01"
+                      placeholder="0.00"
+                      value={formData.dental_insurance_amount}
+                      onChange={(e) => handleInputChange('dental_insurance_amount', e.target.value)}
+                      className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-slate-300">401(k) Contribution ($)</Label>
+                    <Input
+                      type="number"
+                      step="0.01"
+                      placeholder="0.00"
+                      value={formData.retirement_401k_amount}
+                      onChange={(e) => handleInputChange('retirement_401k_amount', e.target.value)}
+                      className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-slate-300">Other Deductions ($)</Label>
+                    <Input
+                      type="number"
+                      step="0.01"
+                      placeholder="0.00"
+                      value={formData.other_deductions_amount}
+                      onChange={(e) => handleInputChange('other_deductions_amount', e.target.value)}
+                      className="bg-slate-800 border-slate-600 text-white focus:border-gray-600"
+                    />
+                  </div>
+                </div>
+              </div>
 
               {/* Page Access Permissions */}
               <div className="space-y-4">
