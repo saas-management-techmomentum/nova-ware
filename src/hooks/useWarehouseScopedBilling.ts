@@ -51,9 +51,26 @@ export interface Invoice {
   items?: any[];
 }
 
+export interface RecurringInvoice {
+  id: string;
+  client_id: string;
+  template_data: any;
+  frequency: 'weekly' | 'monthly' | 'quarterly' | 'yearly';
+  interval_count: number;
+  next_invoice_date: string;
+  end_date?: string;
+  is_active: boolean;
+  warehouse_id?: string;
+  company_id?: string;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
+}
+
 export const useWarehouseScopedBilling = () => {
   const [billingRates, setBillingRates] = useState<BillingRate[]>([]);
   const [invoices, setInvoices] = useState<Invoice[]>([]);
+  const [recurringInvoices, setRecurringInvoices] = useState<RecurringInvoice[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { selectedWarehouse, companyId } = useWarehouse();
   const { toast } = useToast();
@@ -134,9 +151,47 @@ export const useWarehouseScopedBilling = () => {
     }
   };
 
+  const fetchRecurringInvoices = async () => {
+    try {
+      console.log('🔄 Fetching recurring invoices for warehouse:', selectedWarehouse);
+      
+      const { data, error } = await supabase
+        .from('recurring_invoices')
+        .select(`
+          *,
+          clients(
+            name
+          )
+        `)
+        .order('next_invoice_date', { ascending: true });
+
+      if (error) {
+        console.error('Error fetching recurring invoices:', error);
+        throw error;
+      }
+
+      const processedData = (data || []).map(item => ({
+        ...item,
+        frequency: item.frequency as 'weekly' | 'monthly' | 'quarterly' | 'yearly',
+        end_date: item.end_date || undefined,
+        warehouse_id: item.warehouse_id || undefined,
+        company_id: item.company_id || undefined
+      }));
+
+      setRecurringInvoices(processedData);
+    } catch (error: any) {
+      console.error('Error in fetchRecurringInvoices:', error);
+      toast({
+        title: "Error fetching recurring invoices",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   const refetch = async () => {
     setIsLoading(true);
-    await Promise.all([fetchBillingRates(), fetchInvoices()]);
+    await Promise.all([fetchBillingRates(), fetchInvoices(), fetchRecurringInvoices()]);
     setIsLoading(false);
   };
 
@@ -683,14 +738,73 @@ export const useWarehouseScopedBilling = () => {
     }
   };
 
+  const updateRecurringInvoice = async (id: string, updates: Partial<RecurringInvoice>) => {
+    try {
+      const { error } = await supabase
+        .from('recurring_invoices')
+        .update(updates)
+        .eq('id', id);
+
+      if (error) throw error;
+
+      setRecurringInvoices(prev => 
+        prev.map(recurring => 
+          recurring.id === id 
+            ? { ...recurring, ...updates }
+            : recurring
+        )
+      );
+
+      toast({
+        title: "Recurring invoice updated",
+        description: "Recurring invoice schedule has been updated successfully.",
+      });
+    } catch (error: any) {
+      console.error('Error updating recurring invoice:', error);
+      toast({
+        title: "Error updating recurring invoice",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const deleteRecurringInvoice = async (id: string) => {
+    try {
+      const { error } = await supabase
+        .from('recurring_invoices')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
+
+      setRecurringInvoices(prev => prev.filter(recurring => recurring.id !== id));
+
+      toast({
+        title: "Recurring invoice deleted",
+        description: "Recurring invoice schedule has been removed.",
+      });
+    } catch (error: any) {
+      console.error('Error deleting recurring invoice:', error);
+      toast({
+        title: "Error deleting recurring invoice",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   return {
     billingRates,
     invoices,
+    recurringInvoices,
     isLoading,
     addBillingRate,
     addInvoice,
     updateInvoiceStatus,
     createRecurringInvoice,
+    updateRecurringInvoice,
+    deleteRecurringInvoice,
     validateInventoryAvailability,
     generateInvoicePDF,
     sendInvoiceEmail,
