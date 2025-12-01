@@ -134,6 +134,10 @@ const AppSidebar = () => {
   return (
     <Sidebar className="w-24">
       <SidebarContent className="bg-neutral-950 h-full overflow-hidden">
+        {/* LogistiX Title */}
+        <div className="flex items-center justify-center py-4 border-b border-neutral-800">
+          <h1 className="text-lg font-semibold text-white">LogistiX</h1>
+        </div>
         
         <SidebarGroup>
           <SidebarGroupContent>

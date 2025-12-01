@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Switch } from "@/components/ui/switch";
-import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import WarehouseSelector from "@/components/warehouse/WarehouseSelector";
@@ -19,8 +18,7 @@ import { useOnboarding } from "@/contexts/OnboardingContext";
 import ApprovalStatusIndicator from "@/components/user/ApprovalStatusIndicator";
 
 const AppHeader = () => {
-  const [companyName] = useState("LogistiX");
-  const { user, employee, signOut } = useAuth(); // Add employee from context
+  const { user, employee, signOut } = useAuth();
   const navigate = useNavigate();
   const { isOnboardingEnabled, toggleOnboarding, startOnboarding, isLoading: onboardingLoading } = useOnboarding();
 
@@ -89,10 +87,6 @@ const AppHeader = () => {
     <header className="h-16 border-b border-neutral-800 bg-neutral-950/80 backdrop-blur-sm z-20">
       <div className="h-full px-6">
         <div className="flex items-center justify-between h-full">
-          <div className="flex items-center gap-3">
-            <h1 className="text-lg font-semibold text-white">{companyName}</h1>
-          </div>
-
           <div className="flex items-center gap-4">
             {/* Warehouse Selector */}
             <div data-onboarding="warehouse-selector">
