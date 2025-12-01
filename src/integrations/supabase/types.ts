@@ -2656,6 +2656,7 @@ export type Database = {
           id: string
           issue_date: string
           notes: string | null
+          paid_amount: number | null
           po_id: string | null
           status: string | null
           updated_at: string | null
@@ -2673,6 +2674,7 @@ export type Database = {
           id?: string
           issue_date: string
           notes?: string | null
+          paid_amount?: number | null
           po_id?: string | null
           status?: string | null
           updated_at?: string | null
@@ -2690,6 +2692,7 @@ export type Database = {
           id?: string
           issue_date?: string
           notes?: string | null
+          paid_amount?: number | null
           po_id?: string | null
           status?: string | null
           updated_at?: string | null
