@@ -344,7 +344,7 @@ const AppSidebar = () => {
             }
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className="grid grid-cols-2 gap-3 px-3">
+            <SidebarMenu className="grid grid-cols-2 gap-2 px-3">
               {permissionsLoading ? (
                 <div className="col-span-2 flex items-center justify-center py-4">
                   <Loader2 className="h-5 w-5 animate-spin text-neutral-400" />
@@ -355,14 +355,22 @@ const AppSidebar = () => {
                   <SidebarMenuItem key={item.title}>
                     <Link 
                       to={item.path}
-                      className={`flex flex-col items-center justify-center p-4 rounded-lg border transition-all duration-200 aspect-square ${
-                        location.pathname === item.path 
-                          ? 'bg-neutral-800 border-neutral-600 text-white shadow-lg' 
-                          : 'border-neutral-700/50 text-neutral-400 hover:border-neutral-600 hover:text-white hover:bg-neutral-800/50'
-                      }`}
+                      className="flex flex-col items-center gap-1.5 p-2 transition-all duration-200"
                     >
-                      <item.icon className="w-8 h-8 mb-2" />
-                      <span className="text-xs text-center leading-tight">{item.title}</span>
+                      <div className={`p-2.5 rounded-lg border transition-all ${
+                        location.pathname === item.path 
+                          ? 'bg-neutral-800 border-neutral-600 shadow-md' 
+                          : 'border-neutral-700/50 hover:border-neutral-600 hover:bg-neutral-800/50'
+                      }`}>
+                        <item.icon className="w-6 h-6" />
+                      </div>
+                      <span className={`text-[10px] text-center leading-tight ${
+                        location.pathname === item.path 
+                          ? 'text-white font-medium' 
+                          : 'text-neutral-400'
+                      }`}>
+                        {item.title}
+                      </span>
                     </Link>
                   </SidebarMenuItem>
                 ))
