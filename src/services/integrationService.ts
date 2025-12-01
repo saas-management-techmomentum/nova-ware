@@ -141,7 +141,6 @@ export class IntegrationService {
     }
     
     this.configs.set(type, config);
-    console.log(`Service ${type} configured successfully`);
   }
   
   /**
@@ -179,12 +178,6 @@ export class IntegrationService {
       error,
       connectionDetails: details
     });
-    
-    if (connected) {
-      console.log(`✅ ${type} service connected successfully`);
-    } else {
-      console.error(`❌ ${type}service connection failed:`, error);
-    }
   }
   
   /**
@@ -267,7 +260,6 @@ export class IntegrationService {
    * Simulate financial data extraction from platform
    */
   private async performFinancialDataExtraction(type: ServiceType): Promise<FinancialData> {
-    console.log(`🔍 Extracting financial data from ${type}...`);
     
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 2000 + Math.random() * 3000));
@@ -365,12 +357,10 @@ export class IntegrationService {
    * Perform actual sync operation
    */
   private async performSync(type: ServiceType, operation: string, data?: any[]): Promise<void> {
-    console.log(`🔄 Syncing ${operation} with ${type}:`, data?.length || 0, 'records');
     
     // Simulate sync process
     return new Promise((resolve) => {
       setTimeout(() => {
-        console.log(`✅ ${operation} sync with ${type} completed`);
         resolve();
       }, 2000 + Math.random() * 3000); // 2-5 second delay
     });
@@ -391,7 +381,6 @@ export class IntegrationService {
     this.status.delete(type);
     this.syncHistory.delete(type);
     this.financialData.delete(type);
-    console.log(`🔌 ${type} service disconnected`);
   }
   
   /**

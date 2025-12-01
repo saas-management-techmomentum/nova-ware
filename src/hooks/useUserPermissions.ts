@@ -88,16 +88,16 @@ export const useUserPermissions = () => {
   };
 
   const getPrimaryCompanyId = (): string | null => {
-    console.log('Getting primary company ID. User roles:', userRoles);
+ 
     
     const adminCompany = userRoles.find(role => role.role === 'admin');
     if (adminCompany) {
-      console.log('Found admin company:', adminCompany.company_id);
+
       return adminCompany.company_id;
     }
     
     const fallbackId = userCompanyIds[0] || null;
-    console.log('Using fallback company ID:', fallbackId);
+
     
     return fallbackId;
   };

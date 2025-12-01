@@ -40,7 +40,7 @@ export const useWarehouseMetrics = () => {
   return useQuery({
     queryKey: ['warehouseMetrics', selectedWarehouse],
     queryFn: async (): Promise<WarehouseMetrics> => {
-      console.log('Fetching warehouse metrics for:', selectedWarehouse || 'corporate overview');
+
       
       const { data, error } = await supabase.rpc('calculate_warehouse_metrics_enhanced', {
         warehouse_uuid: selectedWarehouse

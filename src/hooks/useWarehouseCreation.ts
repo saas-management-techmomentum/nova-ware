@@ -28,11 +28,7 @@ export const useWarehouseCreation = () => {
     setIsLoading(true);
     
     try {
-      console.log('Creating warehouse:', { 
-        warehouseData: data, 
-        userId: user?.id,
-        isAdmin 
-      });
+
 
       // Enhanced validation with new constraints
       if (!user?.id) {
@@ -71,7 +67,7 @@ export const useWarehouseCreation = () => {
         is_active: true
       };
       
-      console.log('Inserting warehouse with data:', warehouseData);
+  
 
       const { data: newWarehouse, error: warehouseError } = await supabase
         .from('warehouses')
@@ -128,7 +124,7 @@ export const useWarehouseCreation = () => {
         return false;
       }
 
-      console.log('Warehouse created successfully:', newWarehouse);
+
 
       // Create warehouse-user relationship with enhanced error handling
       try {
@@ -145,7 +141,7 @@ export const useWarehouseCreation = () => {
           
           // Handle specific constraint violations
           if (warehouseUserError.code === '23505') {
-            console.log('User-warehouse relationship already exists, continuing...');
+          
           } else if (warehouseUserError.message?.includes('User cannot be assigned to warehouse in different company')) {
             toast({
               title: 'Assignment Error',

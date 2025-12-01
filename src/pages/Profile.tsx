@@ -71,11 +71,6 @@ const Profile = () => {
 
         setIsLoading(true);
         
-        console.log('Fetching comprehensive profile for user:', user.id);
-        console.log('Debug - User metadata:', user.user_metadata);
-        console.log('Debug - Employee name from metadata:', user.user_metadata?.['employee_name']);
-        console.log('Debug - First name from metadata:', user.user_metadata?.first_name);
-        console.log('Debug - Last name from metadata:', user.user_metadata?.last_name);
         
         // Fetch user profile from profiles table
         const { data: profileData, error: profileError } = await supabase
@@ -88,7 +83,7 @@ const Profile = () => {
           console.error('Error fetching profile:', profileError);
         }
         
-        console.log('Debug - Profile data from table:', profileData);
+
         setProfile(profileData || null);
         
         // Fetch user roles and company information (without permissions column)
@@ -161,27 +156,22 @@ const Profile = () => {
         // First priority: employee_name (set during invitation)
         if (user.user_metadata?.['employee_name']) {
           fullName = user.user_metadata['employee_name'];
-          console.log('Debug - Using employee_name:', fullName);
         }
         // Second priority: first_name + last_name
         else if (user.user_metadata?.first_name || user.user_metadata?.last_name) {
           const firstName = user.user_metadata?.first_name || '';
           const lastName = user.user_metadata?.last_name || '';
           fullName = [firstName, lastName].filter(Boolean).join(' ');
-          console.log('Debug - Using first_name + last_name:', fullName);
         }
         // Third priority: display_name from profiles table
         else if (profileData?.display_name) {
           fullName = profileData.display_name;
-          console.log('Debug - Using display_name from profile:', fullName);
         }
         // Final fallback
         else {
           fullName = 'User';
-          console.log('Debug - Using fallback name: User');
         }
         
-        console.log('Debug - Final name determined:', fullName);
         
         // Get primary role and company
         const primaryRole = companyRolesData?.[0];
@@ -205,15 +195,6 @@ const Profile = () => {
           role: userRole,
           accountStatus: 'active',
           emailVerified: user.email_confirmed_at ? true : false,
-        });
-
-        console.log('Comprehensive profile data loaded:', {
-          fullName,
-          primaryCompany,
-          userRole,
-          hasProfile: !!profileData,
-          rolesCount: companyRolesData?.length || 0,
-          warehousesCount: warehouseData?.length || 0
         });
         
       } catch (error) {

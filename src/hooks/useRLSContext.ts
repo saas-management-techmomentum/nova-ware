@@ -17,7 +17,7 @@ export const useRLSContext = () => {
     }
 
     try {
-      console.log('Fetching RLS context for user:', user.id);
+
       
       // Get user's data access scope
       const scope = await getUserDataScope();
@@ -27,10 +27,7 @@ export const useRLSContext = () => {
       const warehouses = await getAccessibleWarehouses();
       setAccessibleWarehouses(warehouses);
       
-      console.log('RLS Context loaded:', {
-        scope,
-        warehouseCount: warehouses.length
-      });
+
       
     } catch (error) {
       console.error('Error fetching RLS context:', error);
@@ -42,14 +39,13 @@ export const useRLSContext = () => {
   };
 
   const runRLSTests = async () => {
-    console.log('Running RLS policy tests...');
+
     const results = await testRLSPolicies();
     setRlsTestResults(results);
     return results;
   };
 
   const refreshRLSContext = async () => {
-    console.log('Refreshing RLS context...');
     setLoading(true);
     await fetchRLSContext();
   };

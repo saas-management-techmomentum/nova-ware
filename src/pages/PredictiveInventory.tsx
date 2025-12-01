@@ -37,17 +37,6 @@ const PredictiveInventory = () => {
   const { inventoryItems, transactions, generatePredictions, refreshPredictions } = useInventory();
   
   // Debug logging to understand the filtering issue
-  React.useEffect(() => {
-    console.log('PredictiveInventory Debug:', {
-      inventoryItemsCount: inventoryItems.length,
-      transactionsCount: transactions.length,
-      sampleInventoryItems: inventoryItems.slice(0, 3).map(item => ({
-        id: item.id,
-        name: item.name,
-        sku: item.sku
-      }))
-    });
-  }, [inventoryItems, transactions]);
   
   const [searchTerm, setSearchTerm] = useState('');
   const [timeFilter, setTimeFilter] = useState<string>('all');
@@ -60,26 +49,18 @@ const PredictiveInventory = () => {
     const mappedTransactions = mapTransactionsForPrediction(transactions);
     const result = checkDataSufficiency(mappedTransactions);
     
-    console.log('Data sufficiency result:', {
-      hasSufficientData: result.hasSufficientData,
-      dataAge: result.dataAge,
-      daysUntilReady: result.daysUntilReady,
-      transactionCount: mappedTransactions.length,
-      message: result.message
-    });
-    
     return result;
   }, [transactions]);
   
   // Use memoized predictions to avoid recalculating on every render
   const predictions = useMemo(() => {
     if (!dataSufficiency.hasSufficientData) {
-      console.log('Skipping prediction generation - insufficient data');
+    
       return []; // No predictions when insufficient data
     }
-    console.log('Generating predictions...');
+
     const result = generatePredictions();
-    console.log('Generated predictions:', result.length, result.slice(0, 3));
+
     return result;
   }, [generatePredictions, dataSufficiency.hasSufficientData]);
   
@@ -193,13 +174,13 @@ const PredictiveInventory = () => {
   }, []);
   
   const handleRefreshPredictions = () => {
-    console.log('Manually refreshing AI predictions...');
+
     refreshPredictions();
   };
 
   // Show loading overlay if data is insufficient
   if (!dataSufficiency.hasSufficientData) {
-    console.log('Showing loading overlay - insufficient data');
+
     return (
       <>
         {/* Render the underlying page content (dimmed) */}
@@ -255,7 +236,7 @@ const PredictiveInventory = () => {
     );
   }
   
-  console.log('Rendering full predictive inventory page - sufficient data available');
+
   
   return (
     <div className="space-y-6 animate-fade-in">
