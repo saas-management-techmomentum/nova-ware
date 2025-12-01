@@ -57,16 +57,17 @@ export const usePalletLocations = () => {
       if (isAssignedEmployee) {
         // Warehouse-assigned employees see ALL pallets for their assigned warehouse
         palletQuery = palletQuery.eq('warehouse_id', employees.assigned_warehouse_id);
-      } else {
-        // Unassigned employees and admins see only their own pallets
+      } else if (!isAdmin) {
+        // Only non-admin, non-assigned employees see their own pallets
         palletQuery = palletQuery.eq('user_id', user.id);
       }
+      // Admins see all locations in their company (RLS handles company filtering)
 
       const { data: palletData, error: palletError } = await palletQuery;
       if (palletError) throw palletError;
 
-      // Fetch pallet products with product details - simplified filtering
-      const { data: productData, error: productError } = await supabase
+      // Fetch pallet products with product details
+      let productQuery = supabase
         .from('pallet_products')
         .select(`
           *,
@@ -75,8 +76,17 @@ export const usePalletLocations = () => {
             sku,
             upc
           )
-        `)
-        .eq('user_id', user.id);
+        `);
+
+      // Apply filtering based on user type
+      if (isAssignedEmployee) {
+        productQuery = productQuery.eq('warehouse_id', employees.assigned_warehouse_id);
+      } else if (!isAdmin) {
+        productQuery = productQuery.eq('user_id', user.id);
+      }
+      // Admins see all products in their company (RLS handles filtering)
+
+      const { data: productData, error: productError } = await productQuery;
       if (productError) throw productError;
 
       // Combine pallet locations with their products
@@ -240,10 +250,10 @@ export const usePalletLocations = () => {
   };
 
   useEffect(() => {
-    if (user && employees.length > 0) { // Wait for employees to load
+    if (user) {
       fetchPallets();
     }
-  }, [user, employees.length]);
+  }, [user]);
 
   return {
     pallets,
