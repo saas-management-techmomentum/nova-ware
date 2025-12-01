@@ -8,7 +8,7 @@ import { OnboardingModal } from '@/components/onboarding/OnboardingModal';
 
 const AppLayout = () => {
   return (
-    <SidebarProvider>
+    <SidebarProvider style={{ '--sidebar-width': '6rem' } as React.CSSProperties}>
       <div className="min-h-screen flex w-full bg-gradient-to-br from-neutral-950 to-neutral-950">
         {/* Improved background elements */}
         <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
