@@ -2057,6 +2057,7 @@ export type Database = {
           client_id: string | null
           company_id: string | null
           created_at: string | null
+          end_date: string | null
           frequency: string
           id: string
           interval_count: number | null
@@ -2071,6 +2072,7 @@ export type Database = {
           client_id?: string | null
           company_id?: string | null
           created_at?: string | null
+          end_date?: string | null
           frequency: string
           id?: string
           interval_count?: number | null
@@ -2085,6 +2087,7 @@ export type Database = {
           client_id?: string | null
           company_id?: string | null
           created_at?: string | null
+          end_date?: string | null
           frequency?: string
           id?: string
           interval_count?: number | null
