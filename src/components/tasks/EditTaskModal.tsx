@@ -90,7 +90,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
         status: formData.status,
         time_tracking_status: getTimeTrackingStatus(formData.status),
         due_date: formData.due_date?.toISOString(),
-        assigned_to: formData.assigned_to === 'unassigned' ? undefined : formData.assigned_to
+        assigned_to: formData.assigned_to === 'unassigned' ? null : formData.assigned_to
       };
       
       // If status changed to completed, also set completed_at
@@ -100,7 +100,6 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
       }
 
       await onSave(task.id, updates);
-      onClose();
     } catch (error) {
       console.error('Error updating task:', error);
     } finally {
