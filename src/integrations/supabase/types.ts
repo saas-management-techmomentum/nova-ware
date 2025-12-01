@@ -1652,6 +1652,121 @@ export type Database = {
           },
         ]
       }
+      payroll_entries: {
+        Row: {
+          bonus_amount: number | null
+          company_id: string | null
+          created_at: string | null
+          dental_insurance: number | null
+          employee_id: string
+          federal_tax: number | null
+          gross_pay: number
+          health_insurance: number | null
+          hourly_rate: number
+          hours_worked: number
+          id: string
+          medicare: number | null
+          net_pay: number
+          notes: string | null
+          other_deductions: number | null
+          overtime_hours: number | null
+          overtime_rate: number | null
+          pay_date: string | null
+          pay_period_end: string
+          pay_period_start: string
+          retirement_401k: number | null
+          social_security: number | null
+          state_tax: number | null
+          status: string | null
+          total_deductions: number | null
+          updated_at: string | null
+          user_id: string
+          warehouse_id: string | null
+        }
+        Insert: {
+          bonus_amount?: number | null
+          company_id?: string | null
+          created_at?: string | null
+          dental_insurance?: number | null
+          employee_id: string
+          federal_tax?: number | null
+          gross_pay?: number
+          health_insurance?: number | null
+          hourly_rate?: number
+          hours_worked?: number
+          id?: string
+          medicare?: number | null
+          net_pay?: number
+          notes?: string | null
+          other_deductions?: number | null
+          overtime_hours?: number | null
+          overtime_rate?: number | null
+          pay_date?: string | null
+          pay_period_end: string
+          pay_period_start: string
+          retirement_401k?: number | null
+          social_security?: number | null
+          state_tax?: number | null
+          status?: string | null
+          total_deductions?: number | null
+          updated_at?: string | null
+          user_id: string
+          warehouse_id?: string | null
+        }
+        Update: {
+          bonus_amount?: number | null
+          company_id?: string | null
+          created_at?: string | null
+          dental_insurance?: number | null
+          employee_id?: string
+          federal_tax?: number | null
+          gross_pay?: number
+          health_insurance?: number | null
+          hourly_rate?: number
+          hours_worked?: number
+          id?: string
+          medicare?: number | null
+          net_pay?: number
+          notes?: string | null
+          other_deductions?: number | null
+          overtime_hours?: number | null
+          overtime_rate?: number | null
+          pay_date?: string | null
+          pay_period_end?: string
+          pay_period_start?: string
+          retirement_401k?: number | null
+          social_security?: number | null
+          state_tax?: number | null
+          status?: string | null
+          total_deductions?: number | null
+          updated_at?: string | null
+          user_id?: string
+          warehouse_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payroll_entries_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payroll_entries_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payroll_entries_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       petty_cash_entries: {
         Row: {
           amount: number
