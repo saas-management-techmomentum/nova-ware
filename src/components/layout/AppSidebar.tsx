@@ -59,7 +59,7 @@ const AppSidebar = () => {
       icon: ClipboardList,
     },
     {
-      title: "Product Locations",
+      title: "Locations",
       path: "/app/locations",
       icon: MapPin,
     },
