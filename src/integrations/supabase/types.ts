@@ -724,6 +724,90 @@ export type Database = {
           },
         ]
       }
+      financial_reports: {
+        Row: {
+          company_id: string | null
+          created_at: string | null
+          date_range_end: string | null
+          date_range_start: string | null
+          description: string | null
+          file_format: string | null
+          file_size: string | null
+          file_url: string | null
+          frequency: string | null
+          generated_data: Json | null
+          id: string
+          is_template: boolean | null
+          last_generated_at: string | null
+          parameters: Json | null
+          report_name: string
+          report_type: string
+          status: string | null
+          updated_at: string | null
+          user_id: string
+          warehouse_id: string | null
+        }
+        Insert: {
+          company_id?: string | null
+          created_at?: string | null
+          date_range_end?: string | null
+          date_range_start?: string | null
+          description?: string | null
+          file_format?: string | null
+          file_size?: string | null
+          file_url?: string | null
+          frequency?: string | null
+          generated_data?: Json | null
+          id?: string
+          is_template?: boolean | null
+          last_generated_at?: string | null
+          parameters?: Json | null
+          report_name: string
+          report_type: string
+          status?: string | null
+          updated_at?: string | null
+          user_id: string
+          warehouse_id?: string | null
+        }
+        Update: {
+          company_id?: string | null
+          created_at?: string | null
+          date_range_end?: string | null
+          date_range_start?: string | null
+          description?: string | null
+          file_format?: string | null
+          file_size?: string | null
+          file_url?: string | null
+          frequency?: string | null
+          generated_data?: Json | null
+          id?: string
+          is_template?: boolean | null
+          last_generated_at?: string | null
+          parameters?: Json | null
+          report_name?: string
+          report_type?: string
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string
+          warehouse_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "financial_reports_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "financial_reports_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       inventory_history: {
         Row: {
           company_id: string | null
