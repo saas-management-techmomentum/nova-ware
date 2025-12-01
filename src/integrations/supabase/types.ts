@@ -1775,6 +1775,7 @@ export type Database = {
           expiration_date: string | null
           id: string
           location_id: string | null
+          location_name: string | null
           notes: string | null
           product_id: string | null
           quantity: number
@@ -1792,6 +1793,7 @@ export type Database = {
           expiration_date?: string | null
           id?: string
           location_id?: string | null
+          location_name?: string | null
           notes?: string | null
           product_id?: string | null
           quantity?: number
@@ -1809,6 +1811,7 @@ export type Database = {
           expiration_date?: string | null
           id?: string
           location_id?: string | null
+          location_name?: string | null
           notes?: string | null
           product_id?: string | null
           quantity?: number
@@ -2816,6 +2819,8 @@ export type Database = {
         Returns: {
           allocated_qty: number
           batch_id: string
+          batch_number: string
+          location_name: string
         }[]
       }
       allocate_inventory_fifo: {
