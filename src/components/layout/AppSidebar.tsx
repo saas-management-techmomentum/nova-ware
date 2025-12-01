@@ -8,7 +8,6 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
   SidebarTrigger
 } from '@/components/ui/sidebar';
@@ -345,32 +344,26 @@ const AppSidebar = () => {
             }
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="grid grid-cols-2 gap-3 px-3">
               {permissionsLoading ? (
-                <div className="flex items-center justify-center py-4">
+                <div className="col-span-2 flex items-center justify-center py-4">
                   <Loader2 className="h-5 w-5 animate-spin text-neutral-400" />
                   <span className="ml-2 text-sm text-neutral-400">Loading permissions...</span>
                 </div>
               ) : (
                 menuItems.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <Link 
-                        to={item.path}
-                        className={`transition-all duration-200 ${
-                          location.pathname === item.path 
-                            ? 'bg-gradient-to-r from-neutral-700/20 to-transparent text-white border-l-2 border-neutral-600 shadow-[0_0_10px_rgba(64,64,64,0.3)] backdrop-blur-sm'
-                            : 'hover:bg-neutral-800 border-l-2 border-transparent text-neutral-300 hover:text-white'
-                        }`}
-                      >
-                        <item.icon className={`w-5 h-5 ${location.pathname === item.path ? 'text-neutral-400' : ''}`} />
-                        <span>{item.title}</span>
-                        
-                        {location.pathname === item.path && (
-                          <span className="ml-auto h-1.5 w-1.5 rounded-full bg-neutral-500 shadow-[0_0_8px_rgba(64,64,64,0.8)]"></span>
-                        )}
-                      </Link>
-                    </SidebarMenuButton>
+                    <Link 
+                      to={item.path}
+                      className={`flex flex-col items-center justify-center p-4 rounded-lg border transition-all duration-200 aspect-square ${
+                        location.pathname === item.path 
+                          ? 'bg-neutral-800 border-neutral-600 text-white shadow-lg' 
+                          : 'border-neutral-700/50 text-neutral-400 hover:border-neutral-600 hover:text-white hover:bg-neutral-800/50'
+                      }`}
+                    >
+                      <item.icon className="w-8 h-8 mb-2" />
+                      <span className="text-xs text-center leading-tight">{item.title}</span>
+                    </Link>
                   </SidebarMenuItem>
                 ))
               )}
