@@ -32,7 +32,7 @@ export const useWarehouseScopedAccounts = () => {
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [accountTypes, setAccountTypes] = useState<AccountType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { selectedWarehouse, canViewAllWarehouses } = useWarehouse();
+  const { selectedWarehouse, canViewAllWarehouses, companyId } = useWarehouse();
   const { user } = useAuth();
   const { employees } = useEmployees();
   const { userRoles } = useUserPermissions();
@@ -211,13 +211,13 @@ export const useWarehouseScopedAccounts = () => {
   }, [selectedWarehouse, user]);
 
   const createAccount = async (accountData: any) => {
-    if (!user || !selectedWarehouse) {
+    if (!user || !selectedWarehouse || !companyId) {
       toast({
         title: 'Error creating account',
-        description: 'No warehouse selected',
+        description: 'No warehouse or company selected',
         variant: 'destructive',
       });
-      throw new Error('No warehouse selected');
+      throw new Error('No warehouse or company selected');
     }
 
     try {
@@ -226,7 +226,8 @@ export const useWarehouseScopedAccounts = () => {
         .insert([{
           ...accountData,
           user_id: user.id,
-          warehouse_id: selectedWarehouse
+          warehouse_id: selectedWarehouse,
+          company_id: companyId
         }])
         .select()
         .single();
