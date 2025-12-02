@@ -230,15 +230,6 @@ const NewOrderDialog: React.FC = () => {
     e.preventDefault();
     
     if (isSubmitting) return;
-    
-    if (!selectedInvoiceId) {
-      toast({
-        title: "Select Invoice",
-        description: "Please select an invoice for this order.",
-        variant: "destructive"
-      });
-      return;
-    }
 
     if (!clientId) {
       toast({
@@ -277,6 +268,7 @@ const NewOrderDialog: React.FC = () => {
         invoice_id: selectedInvoiceId,
         invoice_number: selectedInvoice?.invoice_number || '',
         client: clientName,
+        clientId: clientId,
         date: format(orderDate, 'yyyy-MM-dd'),
         status,
         items: orderItems.map(item => ({ 
@@ -326,31 +318,32 @@ const NewOrderDialog: React.FC = () => {
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 pt-4">
           <div className="grid gap-2">
-            <Label htmlFor="invoice">Invoice</Label>
+            <Label htmlFor="invoice">Invoice (Optional)</Label>
             <Select
               value={selectedInvoiceId}
               onValueChange={setSelectedInvoiceId}
               disabled={invoicesLoading}
             >
               <SelectTrigger className="w-full">
-                <SelectValue placeholder={invoicesLoading ? "Loading invoices..." : invoices.length > 0 ? "Select invoice" : "No invoices found"} />
+                <SelectValue placeholder={invoicesLoading ? "Loading invoices..." : "None - Create draft invoice"} />
               </SelectTrigger>
               <SelectContent className="max-h-[300px]">
-                {invoices.length === 0 && !invoicesLoading ? (
-                  <div className="px-2 py-4 text-center text-sm text-muted-foreground">
-                    No invoices found
-                  </div>
-                ) : (
-                  invoices
-                    .filter(inv => inv.status === 'sent' || inv.status === 'approved' || inv.status === 'paid')
-                    .map((invoice) => (
-                      <SelectItem key={invoice.id} value={invoice.id}>
-                        {invoice.invoice_number} - {invoice.client_name} - ${invoice.total_amount.toFixed(2)}
-                      </SelectItem>
-                    ))
-                )}
+                <SelectItem value="">None - Create draft invoice</SelectItem>
+                {invoices
+                  .filter(inv => inv.status === 'sent' || inv.status === 'approved' || inv.status === 'paid')
+                  .map((invoice) => (
+                    <SelectItem key={invoice.id} value={invoice.id}>
+                      {invoice.invoice_number} - {invoice.client_name} - ${invoice.total_amount.toFixed(2)}
+                    </SelectItem>
+                  ))
+                }
               </SelectContent>
             </Select>
+            {!selectedInvoiceId && (
+              <p className="text-xs text-muted-foreground">
+                A draft invoice will be automatically created from this order
+              </p>
+            )}
           </div>
           
           <div className="grid gap-2">
