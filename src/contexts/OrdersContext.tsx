@@ -207,12 +207,114 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
 
       const companyId = warehouseData?.company_id;
 
+      let invoiceId = orderData.invoice_id;
+      let invoiceNumber = orderData.invoice_number;
+      
+      // If no invoice is provided, auto-generate a draft invoice
+      if (!invoiceId) {
+        console.log('No invoice provided, creating draft invoice...');
+        
+        // Get client details by ID
+        const { data: clientData } = await supabase
+          .from('clients')
+          .select('*')
+          .eq('id', orderData.clientId)
+          .single();
+        
+        if (!clientData) {
+          throw new Error('Client not found');
+        }
+        
+        // Calculate totals
+        const subtotal = orderData.items.reduce((sum: number, item: any) => 
+          sum + (item.qty * (item.unit_price || 0)), 0
+        );
+        const taxAmount = subtotal * 0.1; // 10% tax
+        const totalAmount = subtotal + taxAmount;
+        
+        // Generate invoice number
+        const timestamp = Date.now();
+        invoiceNumber = `INV-${timestamp}`;
+        
+        // Calculate dates
+        const invoiceDate = new Date();
+        const dueDate = new Date();
+        dueDate.setDate(dueDate.getDate() + 30);
+        
+        // Create draft invoice
+        const { data: newInvoice, error: invoiceError } = await supabase
+          .from('invoices')
+          .insert([{
+            id: invoiceNumber,
+            invoice_number: invoiceNumber,
+            client_id: clientData.id,
+            client_name: clientData.name,
+            client_contact_email: clientData.contact_email,
+            client_contact_phone: clientData.contact_phone,
+            client_billing_address: clientData.billing_address,
+            client_payment_terms_days: clientData.payment_terms_days || 30,
+            invoice_date: invoiceDate.toISOString().split('T')[0],
+            due_date: dueDate.toISOString().split('T')[0],
+            billing_period_start: invoiceDate.toISOString().split('T')[0],
+            billing_period_end: invoiceDate.toISOString().split('T')[0],
+            status: 'draft',
+            subtotal,
+            tax_amount: taxAmount,
+            total_amount: totalAmount,
+            user_id: user.id,
+            warehouse_id: selectedWarehouse,
+            company_id: companyId
+          }])
+          .select()
+          .single();
+        
+        if (invoiceError) {
+          console.error('Error creating draft invoice:', invoiceError);
+          throw new Error('Failed to create draft invoice');
+        }
+        
+        // Create invoice items
+        const invoiceItems = await Promise.all(orderData.items.map(async (item: any) => {
+          // Get product details for accurate names
+          const { data: productData } = await supabase
+            .from('products')
+            .select('name, description')
+            .eq('id', item.product_id)
+            .single();
+          
+          return {
+            invoice_id: newInvoice.id,
+            product_id: item.product_id,
+            sku: item.sku,
+            name: productData?.name || item.sku,
+            product_description: productData?.description,
+            quantity: item.qty,
+            unit_price: item.unit_price || 0,
+            total_amount: item.qty * (item.unit_price || 0),
+            stock_at_creation: 0
+          };
+        }));
+        
+        const { error: itemsError } = await supabase
+          .from('invoice_items')
+          .insert(invoiceItems);
+        
+        if (itemsError) {
+          console.error('Error creating invoice items:', itemsError);
+          await supabase.from('invoices').delete().eq('id', newInvoice.id);
+          throw new Error('Failed to create invoice items');
+        }
+        
+        invoiceId = newInvoice.id;
+        console.log('Draft invoice created:', invoiceId);
+      }
+
       // Insert the order
       const { data: order, error: orderError } = await supabase
         .from('orders')
         .insert([{
-          invoice_id: orderData.invoice_id,
-          invoice_number: orderData.invoice_number,
+          invoice_id: invoiceId,
+          invoice_number: invoiceNumber,
           customer_name: orderData.client,
           status: orderData.status,
           user_id: user.id,
@@ -302,7 +404,9 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
 
       toast({
         title: "Success",
-        description: `Order created successfully using ${allocationStrategy} allocation`,
+        description: orderData.invoice_id 
+          ? `Order created successfully using ${allocationStrategy} allocation`
+          : `Order and draft invoice created successfully using ${allocationStrategy} allocation`,
       });
 
       // Trigger refetch to show the new order

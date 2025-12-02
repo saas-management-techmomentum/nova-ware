@@ -7,8 +7,13 @@ import { useAuth } from '@/contexts/AuthContext';
 import { toast } from '@/hooks/use-toast';
 
 const SetupCompletionBanner = () => {
-  const { user, userRole, isUserAdmin, completeUserSetup, fixIncompleteSetup } = useAuth();
+  const { user, userRole, isUserAdmin, isRoleLoading, completeUserSetup, fixIncompleteSetup } = useAuth();
   const [isCompleting, setIsCompleting] = useState(false);
+
+  // Don't show anything while role is still loading
+  if (isRoleLoading) {
+    return null;
+  }
 
   // Don't show banner if user has proper role assignment
   if (!user || userRole || isUserAdmin) {
