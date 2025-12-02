@@ -8,7 +8,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CalendarIcon, Plus, Edit, Trash2 } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { CalendarIcon, Plus, Edit, Trash2, AlertTriangle, RefreshCw } from "lucide-react";
 import { format } from "date-fns";
 import { ProductBatch, InventoryItem } from "@/types/inventory";
 import { useProductBatches } from "@/hooks/useProductBatches";
@@ -69,6 +70,31 @@ export const BatchManagementDialog: React.FC<BatchManagementDialogProps> = ({
   const availableStock = calculateAvailableStock();
   const isQuantityValid = validateQuantity(formData.quantity);
   const totalAllocated = batches.reduce((sum, batch) => sum + batch.quantity, 0);
+  const hasDataInconsistency = totalAllocated > product.stock;
+
+  const syncBatchesToStock = async () => {
+    if (!confirm('This will proportionally reduce all batch quantities to match product stock. Continue?')) {
+      return;
+    }
+
+    try {
+      const ratio = product.stock / totalAllocated;
+      
+      for (const batch of batches) {
+        const newQuantity = Math.floor(batch.quantity * ratio);
+        if (newQuantity > 0) {
+          await updateBatch(batch.id, { quantity: newQuantity });
+        } else {
+          await deleteBatch(batch.id);
+        }
+      }
+      
+      toast.success('Batches synchronized with product stock');
+      onBatchesUpdated?.();
+    } catch (error) {
+      toast.error('Failed to sync batches');
+    }
+  };
 
   const handleCreateBatch = () => {
     resetForm();
@@ -157,6 +183,28 @@ export const BatchManagementDialog: React.FC<BatchManagementDialogProps> = ({
         </DialogHeader>
 
         <div className="space-y-6">
+          {/* Data Inconsistency Warning */}
+          {hasDataInconsistency && (
+            <Alert variant="destructive">
+              <AlertTriangle className="h-4 w-4" />
+              <AlertDescription className="flex items-center justify-between">
+                <span>
+                  Batch quantities ({totalAllocated}) exceed product stock ({product.stock}). 
+                  This may have been caused by a product transfer.
+                </span>
+                <Button 
+                  size="sm" 
+                  variant="outline" 
+                  onClick={syncBatchesToStock}
+                  className="ml-4"
+                >
+                  <RefreshCw className="h-3 w-3 mr-1" />
+                  Sync Batches
+                </Button>
+              </AlertDescription>
+            </Alert>
+          )}
+
           {/* Summary */}
           <div className="grid grid-cols-4 gap-4 p-4 bg-muted/50 rounded-lg">
             <div>

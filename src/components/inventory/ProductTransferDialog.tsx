@@ -10,7 +10,10 @@ import { Badge } from '@/components/ui/badge';
 import { Search, ArrowRight, Package, Warehouse, AlertTriangle } from 'lucide-react';
 import { useWarehouse } from '@/contexts/WarehouseContext';
 import { useInventory } from '@/contexts/InventoryContext';
-import { useProductTransfer, TransferItem } from '@/hooks/useProductTransfer';
+import { useProductTransfer, TransferItem, BatchAllocation } from '@/hooks/useProductTransfer';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { ChevronDown } from 'lucide-react';
+import { format } from 'date-fns';
 
 interface ProductTransferDialogProps {
   open: boolean;
@@ -57,14 +60,29 @@ export const ProductTransferDialog: React.FC<ProductTransferDialogProps> = ({
     const reservedQuantity = productReservations[productId] || 0;
     const maxTransferQuantity = Math.max(0, product.stock - reservedQuantity);
 
+    const hasBatches = product.has_batches && product.batches && product.batches.length > 0;
+    const batchAllocations: BatchAllocation[] = hasBatches
+      ? product.batches!.map(batch => ({
+          batchId: batch.id,
+          batchNumber: batch.batch_number,
+          quantity: 0,
+          maxQuantity: batch.quantity,
+          expirationDate: batch.expiration_date ? new Date(batch.expiration_date) : null,
+          costPrice: batch.cost_price || product.unit_price || 0,
+          locationId: batch.location_id,
+        }))
+      : [];
+
     const transferItem: TransferItem = {
       productId: product.id,
       productName: product.name,
       sku: product.sku,
       currentStock: product.stock,
-      transferQuantity: Math.min(1, maxTransferQuantity),
+      transferQuantity: hasBatches ? 0 : Math.min(1, maxTransferQuantity),
       reservedQuantity,
-      maxTransferQuantity
+      maxTransferQuantity,
+      hasBatches,
+      batchAllocations,
     };
 
     setSelectedProducts(prev => [...prev, transferItem]);
@@ -141,6 +159,28 @@ export const ProductTransferDialog: React.FC<ProductTransferDialogProps> = ({
             }
           : p
       )
+    );
+  };
+
+  const updateBatchQuantity = (productId: string, batchId: string, quantity: number) => {
+    setSelectedProducts(prev =>
+      prev.map(p => {
+        if (p.productId !== productId || !p.batchAllocations) return p;
+
+        const updatedAllocations = p.batchAllocations.map(b =>
+          b.batchId === batchId
+            ? { ...b, quantity: Math.max(0, Math.min(quantity, b.maxQuantity)) }
+            : b
+        );
+
+        const totalTransferQty = updatedAllocations.reduce((sum, b) => sum + b.quantity, 0);
+
+        return {
+          ...p,
+          batchAllocations: updatedAllocations,
+          transferQuantity: totalTransferQty,
+        };
+      })
     );
   };
 
@@ -356,44 +396,107 @@ export const ProductTransferDialog: React.FC<ProductTransferDialogProps> = ({
                 </div>
               </CardHeader>
               <CardContent className="space-y-3">
-                {selectedProducts.map(item => (
-                  <div key={item.productId} className="flex items-center justify-between p-3 bg-neutral-700/50 rounded">
-                     <div className="flex-1">
-                       <p className="text-white font-medium">{item.productName}</p>
-                       <div className="text-neutral-400 text-sm space-y-1">
-                         <div>SKU: {item.sku} • Stock: {item.currentStock}</div>
-                         {item.reservedQuantity && item.reservedQuantity > 0 && (
-                           <div className="text-amber-400">
-                             Reserved: {item.reservedQuantity} • Max Transfer: {item.maxTransferQuantity}
-                           </div>
-                         )}
+                 {selectedProducts.map(item => (
+                   <div key={item.productId} className="p-3 bg-neutral-700/50 rounded space-y-3">
+                     <div className="flex items-center justify-between">
+                       <div className="flex-1">
+                         <p className="text-white font-medium">{item.productName}</p>
+                         <div className="text-neutral-400 text-sm space-y-1">
+                           <div>SKU: {item.sku} • Stock: {item.currentStock}</div>
+                           {item.reservedQuantity && item.reservedQuantity > 0 && (
+                             <div className="text-amber-400">
+                               Reserved: {item.reservedQuantity} • Max Transfer: {item.maxTransferQuantity}
+                             </div>
+                           )}
+                         </div>
                        </div>
+
+                       {!item.hasBatches && (
+                         <div className="flex items-center gap-2">
+                           <div>
+                             <Label className="text-neutral-400 text-xs">Quantity</Label>
+                             <Input
+                               type="number"
+                               min="1"
+                               max={item.maxTransferQuantity || item.currentStock}
+                               value={item.transferQuantity}
+                               onChange={(e) => updateTransferQuantity(item.productId, parseInt(e.target.value) || 1)}
+                               className="w-20 bg-neutral-800 border-neutral-700 text-white"
+                             />
+                           </div>
+
+                           <Button
+                             size="sm"
+                             variant="outline"
+                             onClick={() => removeProductFromTransfer(item.productId)}
+                             className="border-red-600 text-red-400 hover:bg-red-600/10 mt-5"
+                           >
+                             Remove
+                           </Button>
+                         </div>
+                       )}
+
+                       {item.hasBatches && (
+                         <Button
+                           size="sm"
+                           variant="outline"
+                           onClick={() => removeProductFromTransfer(item.productId)}
+                           className="border-red-600 text-red-400 hover:bg-red-600/10"
+                         >
+                           Remove
+                         </Button>
+                       )}
                      </div>
-                    
-                    <div className="flex items-center gap-2">
-                      <div>
-                        <Label className="text-neutral-400 text-xs">Quantity</Label>
-                         <Input
-                           type="number"
-                           min="1"
-                           max={item.maxTransferQuantity || item.currentStock}
-                           value={item.transferQuantity}
-                           onChange={(e) => updateTransferQuantity(item.productId, parseInt(e.target.value) || 1)}
-                           className="w-20 bg-neutral-800 border-neutral-700 text-white"
-                         />
-                      </div>
-                      
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => removeProductFromTransfer(item.productId)}
-                        className="border-red-600 text-red-400 hover:bg-red-600/10"
-                      >
-                        Remove
-                      </Button>
-                    </div>
-                  </div>
-                ))}
+
+                     {/* Batch Selection */}
+                     {item.hasBatches && item.batchAllocations && item.batchAllocations.length > 0 && (
+                       <Collapsible defaultOpen className="space-y-2">
+                         <CollapsibleTrigger className="flex items-center gap-2 text-sm text-neutral-300 hover:text-white w-full">
+                           <ChevronDown className="h-4 w-4" />
+                           Select batches to transfer (Total: {item.transferQuantity} units)
+                         </CollapsibleTrigger>
+                         <CollapsibleContent className="space-y-2 pl-6">
+                           {item.batchAllocations.map(batch => (
+                             <div
+                               key={batch.batchId}
+                               className="flex items-center justify-between p-2 bg-neutral-800/50 rounded border border-neutral-700"
+                             >
+                               <div className="flex-1 space-y-1">
+                                 <div className="text-sm text-white font-medium">
+                                   {batch.batchNumber}
+                                 </div>
+                                 <div className="text-xs text-neutral-400 space-x-3">
+                                   <span>Available: {batch.maxQuantity}</span>
+                                   {batch.expirationDate && (
+                                     <span>Exp: {format(batch.expirationDate, 'MMM dd, yyyy')}</span>
+                                   )}
+                                 </div>
+                               </div>
+                               <div>
+                                 <Label className="text-neutral-400 text-xs">Transfer</Label>
+                                 <Input
+                                   type="number"
+                                   min="0"
+                                   max={batch.maxQuantity}
+                                   value={batch.quantity}
+                                   onChange={(e) =>
+                                     updateBatchQuantity(item.productId, batch.batchId, parseInt(e.target.value) || 0)
+                                   }
+                                   className="w-20 bg-neutral-800 border-neutral-700 text-white"
+                                 />
+                               </div>
+                             </div>
+                           ))}
+                           {item.transferQuantity === 0 && (
+                             <div className="text-xs text-amber-400 mt-1">
+                               ⚠️ Please allocate quantities from batches above
+                             </div>
+                           )}
+                         </CollapsibleContent>
+                       </Collapsible>
+                     )}
+                   </div>
+                 ))}
               </CardContent>
             </Card>
           )}

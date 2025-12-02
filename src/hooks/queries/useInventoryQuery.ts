@@ -156,6 +156,39 @@ export const useInventoryQuery = ({
         warehouse_sources: undefined, // Initialize for type safety
       }));
 
+      // Fetch batches for all products
+      const productIds = mappedData.map(item => item.id);
+      if (productIds.length > 0) {
+        const { data: batchData } = await supabase
+          .from('product_batches')
+          .select('*')
+          .in('product_id', productIds)
+          .order('expiration_date', { ascending: true });
+
+        // Group batches by product_id
+        const batchesByProduct = new Map<string, any[]>();
+        (batchData || []).forEach(batch => {
+          if (!batchesByProduct.has(batch.product_id)) {
+            batchesByProduct.set(batch.product_id, []);
+          }
+          batchesByProduct.get(batch.product_id)!.push({
+            id: batch.id,
+            batch_number: batch.batch_number,
+            quantity: batch.quantity,
+            expiration_date: batch.expiration_date,
+            cost_price: batch.cost_price,
+            location_id: batch.location_id,
+          });
+        });
+
+        // Attach batches to products
+        mappedData = mappedData.map(item => ({
+          ...item,
+          batches: batchesByProduct.get(item.id) || [],
+          has_batches: batchesByProduct.has(item.id) && batchesByProduct.get(item.id)!.length > 0
+        }));
+      }
+
       // Handle Corporate Overview aggregation (when admin has no warehouse selected)
       const isCorporateOverview = isAdmin && !selectedWarehouse && !ignoreWarehouseFilter;
       
