@@ -160,7 +160,7 @@ serve(async (req) => {
         }
       }
     } catch (error) {
-      console.log('No template found, using default company info');
+      console.error(error);
     }
 
     // Create professional HTML email template

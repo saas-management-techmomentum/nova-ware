@@ -18,7 +18,6 @@ serve(async (req) => {
     let requestBody;
     try {
       requestBody = await req.json()
-      console.log('Request body parsed:', { user_id: requestBody?.user_id ? 'present' : 'missing' })
     } catch (parseError) {
       console.error('Failed to parse request body:', parseError)
       return new Response(

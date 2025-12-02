@@ -34,7 +34,7 @@ import LoadingOverlay from '@/components/inventory/predictive/LoadingOverlay';
 const PredictiveInventory = () => {
   // For predictive analysis, we want to see ALL products and transactions regardless of warehouse filtering
   // This gives the AI more comprehensive data to work with
-  const { inventoryItems, transactions, generatePredictions, refreshPredictions } = useInventory();
+  const { inventoryItems, transactions, generatePredictions } = useInventory();
   
   // Debug logging to understand the filtering issue
   
@@ -173,10 +173,6 @@ const PredictiveInventory = () => {
     }
   }, []);
   
-  const handleRefreshPredictions = () => {
-
-    refreshPredictions();
-  };
 
   // Show loading overlay if data is insufficient
   if (!dataSufficiency.hasSufficientData) {
@@ -199,10 +195,6 @@ const PredictiveInventory = () => {
               Machine learning predictions based on historical distribution patterns and demand trends
             </p>
           </div>
-          <Button onClick={handleRefreshPredictions} className="gap-2 bg-gray-800 hover:bg-gray-900" disabled>
-              <RefreshCw className="h-4 w-4" />
-              Refresh AI Analysis
-            </Button>
           </div>
           
           {/* Placeholder content */}
@@ -254,10 +246,6 @@ const PredictiveInventory = () => {
             Machine learning predictions based on historical distribution patterns and demand trends
           </p>
         </div>
-        <Button onClick={handleRefreshPredictions} className="gap-2">
-          <RefreshCw className="h-4 w-4" />
-          Refresh AI Analysis
-        </Button>
       </div>
       
       {/* AI-Enhanced Summary cards */}

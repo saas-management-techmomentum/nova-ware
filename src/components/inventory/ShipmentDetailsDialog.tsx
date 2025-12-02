@@ -156,9 +156,7 @@ const ShipmentDetailsDialog: React.FC<ShipmentDetailsDialogProps> = ({
       // Only update inventory if there are items actually received
       if (receivedItems.length > 0) {
         await processShipmentItems(receivedItems);
-      } else {
-        console.log('No items received - inventory will not be updated');
-      }
+      } 
 
       toast({
         title: "Shipment Updated",

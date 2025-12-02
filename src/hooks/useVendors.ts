@@ -231,7 +231,7 @@ export function useVendors() {
     if (!user) return null;
 
     try {
-      console.log('Fetching vendor dashboard data for user:', user.id);
+
       
       // Get total active vendors
       const { data: activeVendorsData, error: vendorsError } = await supabase
@@ -242,8 +242,6 @@ export function useVendors() {
 
       if (vendorsError) {
         console.error('Error fetching vendors:', vendorsError);
-      } else {
-        console.log('Active vendors found:', activeVendorsData?.length || 0);
       }
 
       // Get vendor transactions for analytics
@@ -257,9 +255,7 @@ export function useVendors() {
 
       if (transactionsError) {
         console.error('Error fetching vendor transactions:', transactionsError);
-      } else {
-        console.log('Vendor transactions found:', transactionsData?.length || 0);
-      }
+      } 
 
       // Calculate top vendors by spend
       const vendorSpendMap = new Map<string, { vendor_name: string; total_spend: number }>();
@@ -300,7 +296,7 @@ export function useVendors() {
         recentActivity: recentActivity as VendorTransaction[],
       };
 
-      console.log('Dashboard data:', dashboardData);
+  
       return dashboardData;
     } catch (err) {
       console.error('Error fetching vendor dashboard data:', err);

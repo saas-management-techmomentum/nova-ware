@@ -14,7 +14,6 @@ export const useShipmentsRealtime = ({ onShipmentChange, warehouseId }: UseShipm
   useEffect(() => {
     if (!user) return;
 
-    console.log('Setting up real-time subscription for shipments');
 
     const channel = supabase
       .channel('shipments-changes')
@@ -27,12 +26,12 @@ export const useShipmentsRealtime = ({ onShipmentChange, warehouseId }: UseShipm
           filter: `user_id=eq.${user.id}`,
         },
         (payload) => {
-          console.log('Real-time shipment change detected:', payload);
+      
           
           // For incoming shipments from confirmed POs, always trigger refresh regardless of warehouse filter
           // This ensures new shipments appear immediately
           if (payload.eventType === 'INSERT') {
-            console.log('New shipment created, triggering refresh');
+  
             onShipmentChange();
             return;
           }
@@ -54,7 +53,7 @@ export const useShipmentsRealtime = ({ onShipmentChange, warehouseId }: UseShipm
           table: 'shipment_items',
         },
         (payload) => {
-          console.log('Real-time shipment item change detected:', payload);
+    
           
           // Trigger refresh for shipment items changes too
           onShipmentChange();
@@ -63,7 +62,6 @@ export const useShipmentsRealtime = ({ onShipmentChange, warehouseId }: UseShipm
       .subscribe();
 
     return () => {
-      console.log('Cleaning up real-time subscription');
       supabase.removeChannel(channel);
     };
   }, [user, onShipmentChange, warehouseId]);

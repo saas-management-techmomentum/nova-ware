@@ -80,8 +80,7 @@ export const useEmployees = () => {
     if (!user?.id) return;
 
     try {
-      console.log('🔍 Fetching employees for user:', user.id);
-      console.log('📋 User permissions - isAdmin:', isAdmin, 'warehouseAssignments:', warehouseAssignments);
+
       
       let query = supabase.from('employees').select('*');
       
@@ -94,11 +93,11 @@ export const useEmployees = () => {
         
         if (companyIds && companyIds.length > 0) {
           const companyIdList = companyIds.map(c => c.company_id);
-          console.log('📋 Admin filtering by company IDs:', companyIdList);
+    
           query = query.in('company_id', companyIdList);
         } else {
           // Fallback to original filter for admins without company assignments
-          console.log('📋 Admin fallback to original filter');
+    
           query = query.or(`user_id.eq.${user.id},user_id_auth.eq.${user.id}`);
         }
       } else {
@@ -107,15 +106,15 @@ export const useEmployees = () => {
           .filter(w => w.role === 'manager' || w.role === 'admin')
           .map(w => w.warehouse_id);
         
-        console.log('📋 Manager warehouse IDs:', managerWarehouseIds);
+
         
         if (managerWarehouseIds.length > 0) {
           // Managers see employees in warehouses they manage + employees they created + their own record
-          console.log('📋 Manager query with warehouse filter');
+
           query = query.or(`user_id.eq.${user.id},user_id_auth.eq.${user.id},assigned_warehouse_id.in.(${managerWarehouseIds.join(',')})`);
         } else {
           // Regular employees only see employees they created + their own record
-          console.log('📋 Employee query - own records only');
+     
           query = query.or(`user_id.eq.${user.id},user_id_auth.eq.${user.id}`);
         }
       }
@@ -127,15 +126,6 @@ export const useEmployees = () => {
         throw error;
       }
 
-      console.log('📋 Fetched employees:', data?.length || 0);
-      console.log('📋 Employee records:', data?.map(emp => ({
-        id: emp.id,
-        name: emp.name,
-        email: emp.email,
-        user_id: emp.user_id,
-        user_id_auth: emp.user_id_auth,
-        assigned_warehouse_id: emp.assigned_warehouse_id
-      })));
 
       // Type the data properly to handle database schema differences
       const typedEmployees = (data || []).map(emp => ({
@@ -210,7 +200,7 @@ export const useEmployees = () => {
         throw error;
       }
 
-      console.log('Employee created:', data);
+   
 
       // Create warehouse_users entry if warehouse is assigned
       if (employeeData.assigned_warehouse_id) {
@@ -219,7 +209,7 @@ export const useEmployees = () => {
           
           // Note: user_id_auth will be null initially, but the trigger will handle this
           // when the employee accepts the invitation and user_id_auth gets populated
-          console.log('Creating initial warehouse assignment for employee:', data.id);
+  
         } catch (error) {
           console.error('Error creating warehouse assignment:', error);
           // Don't fail the entire operation for this
@@ -247,16 +237,7 @@ export const useEmployees = () => {
             warehouseName = warehouseData?.name;
           }
 
-          console.log('Calling invite-employee function with:', {
-            employeeId: data.id,
-            companyId: companyId,
-            companyName: companyData?.name,
-            role: employeeData.role || 'employee',
-            warehouseId: employeeData.assigned_warehouse_id,
-            warehouseName: warehouseName,
-            email: employeeData.email,
-            temporaryPassword: null // Let the function generate it
-          });
+
 
           const { error: inviteError } = await supabase.functions.invoke('invite-employee', {
             body: {
@@ -278,9 +259,7 @@ export const useEmployees = () => {
               description: "Employee added but invitation email failed to send",
               variant: "destructive",
             });
-          } else {
-            console.log('Invitation sent successfully');
-          }
+          } 
         } catch (inviteError) {
           console.error('Error invoking invite function:', inviteError);
           toast({

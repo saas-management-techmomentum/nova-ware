@@ -77,7 +77,7 @@ export const useWarehouseScopedBilling = () => {
 
   const fetchBillingRates = async () => {
     try {
-      console.log('🔄 Fetching billing rates for warehouse:', selectedWarehouse);
+
       
       const { data, error } = await supabase
         .from('billing_rates')
@@ -102,7 +102,7 @@ export const useWarehouseScopedBilling = () => {
 
   const fetchInvoices = async () => {
     try {
-      console.log('🔄 Fetching invoices for warehouse:', selectedWarehouse);
+    
       
       const { data, error } = await supabase
         .from('invoices')
@@ -121,7 +121,6 @@ export const useWarehouseScopedBilling = () => {
         .neq('status', 'cancelled')
         .order('created_at', { ascending: false });
 
-      console.log('📊 Invoice query result:', { data: data?.length || 0, error });
 
       if (error) {
         console.error('Error fetching invoices:', error);
@@ -153,7 +152,7 @@ export const useWarehouseScopedBilling = () => {
 
   const fetchRecurringInvoices = async () => {
     try {
-      console.log('🔄 Fetching recurring invoices for warehouse:', selectedWarehouse);
+     
       
       const { data, error } = await supabase
         .from('recurring_invoices')
@@ -276,7 +275,7 @@ export const useWarehouseScopedBilling = () => {
       // Extract items from invoiceData to handle separately
       const { items, ...invoiceFields } = invoiceData;
       
-      console.log('Creating invoice with two-step process to ensure trigger fires...');
+
       
       // STEP 1: Create invoice with 'draft' status first to avoid timing issues
       const newInvoice = {
@@ -296,7 +295,7 @@ export const useWarehouseScopedBilling = () => {
         .single();
 
       if (error) throw error;
-      console.log('Invoice created with ID:', data.id);
+    
 
       // Insert invoice items immediately after invoice creation
       if (invoiceData.items && invoiceData.items.length > 0) {
@@ -320,12 +319,12 @@ export const useWarehouseScopedBilling = () => {
           console.error('Error inserting invoice items:', itemsError);
           throw itemsError;
         }
-        console.log('Invoice items inserted successfully');
+
       }
 
       // STEP 2: Update status to trigger inventory reduction (with timeout to avoid race conditions)
       if (invoiceData.status !== 'draft') {
-        console.log(`Updating invoice status to ${invoiceData.status} to trigger inventory reduction...`);
+
         
         // Small delay to ensure all items are inserted
         await new Promise(resolve => setTimeout(resolve, 500));
@@ -340,7 +339,7 @@ export const useWarehouseScopedBilling = () => {
           throw statusError;
         }
         
-        console.log('Invoice status updated, database trigger will handle inventory reduction automatically');
+
         
         // Update the data object to reflect the new status
         data.status = invoiceData.status;
@@ -461,7 +460,7 @@ export const useWarehouseScopedBilling = () => {
         throw new Error('Company ID not available. Please select a warehouse first.');
       }
 
-      console.log('Creating recurring invoice:', recurringData);
+
 
       // Fetch the template invoice with all items
       const { data: templateInvoice, error: templateError } = await supabase
@@ -514,7 +513,7 @@ export const useWarehouseScopedBilling = () => {
 
       if (error) throw error;
 
-      console.log('Recurring invoice created successfully:', data);
+
       
       toast({
         title: "Recurring invoice created",
@@ -594,7 +593,7 @@ export const useWarehouseScopedBilling = () => {
 
   const generateInvoicePDF = async (invoiceId: string): Promise<string | undefined> => {
     try {
-      console.log('Generating PDF for invoice:', invoiceId);
+
       
       // Get the user's auth token
       const { data: { session } } = await supabase.auth.getSession();
@@ -657,7 +656,7 @@ export const useWarehouseScopedBilling = () => {
 
   const sendInvoiceEmail = async (invoiceId: string, recipientEmail: string, customMessage?: string) => {
     try {
-      console.log('Sending invoice email for:', invoiceId, 'to:', recipientEmail);
+
       
       const { data, error } = await supabase.functions.invoke('send-invoice-email', {
         body: { 

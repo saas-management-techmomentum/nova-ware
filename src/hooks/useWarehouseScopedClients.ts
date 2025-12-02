@@ -54,9 +54,6 @@ export const useWarehouseScopedClients = () => {
       // Get companyId from warehouses
       const companyId = warehouses.length > 0 ? warehouses[0].company_id : null;
       
-      console.log('Fetching clients for warehouse:', selectedWarehouse || 'all warehouses');
-      console.log('User ID:', user.id);
-      console.log('Company ID:', companyId);
       
       // Get employee info to check for warehouse assignment
       const { data: employeeData } = await supabase
@@ -81,19 +78,15 @@ export const useWarehouseScopedClients = () => {
       // Apply filtering logic based on user type
       if (isAssignedEmployee) {
         // Warehouse-assigned employees see ALL clients for their assigned warehouse
-        console.log('Filtering clients by assigned warehouse:', employeeData.assigned_warehouse_id);
         query = query.eq('warehouse_id', employeeData.assigned_warehouse_id);
       } else if (isUserAdmin && selectedWarehouse) {
         // Admin with warehouse selected - show all clients for that warehouse
-        console.log('Admin: Filtering clients by selected warehouse:', selectedWarehouse);
         query = query.eq('warehouse_id', selectedWarehouse);
       } else if (isUserAdmin && !selectedWarehouse && companyId) {
         // Admin with "All Warehouses" (Corporate View) - show all clients for company
-        console.log('Admin: Showing all clients for company:', companyId);
         query = query.eq('company_id', companyId);
       } else {
         // Unassigned employee - show only their own clients
-        console.log('Unassigned employee: Showing only own clients');
         query = query.eq('user_id', user.id);
         if (selectedWarehouse) {
           query = query.eq('warehouse_id', selectedWarehouse);
@@ -107,7 +100,6 @@ export const useWarehouseScopedClients = () => {
         return;
       }
       
-      console.log('Clients fetched:', { count: data?.length || 0 });
       setClients(data || []);
     } catch (error) {
       console.error('Exception fetching clients:', error);
@@ -160,8 +152,6 @@ export const useWarehouseScopedClients = () => {
 
   const updateClient = async (id: string, updates: Partial<Client>): Promise<void> => {
     try {
-      console.log('Updating client with ID:', id);
-      console.log('Updates:', updates);
       
       const { error, data } = await supabase
         .from('clients')
@@ -169,8 +159,6 @@ export const useWarehouseScopedClients = () => {
         .eq('id', id)
         .select();
 
-      console.log('Update response data:', data);
-      console.log('Update response error:', error);
 
       if (error) {
         console.error('Error updating client:', error);

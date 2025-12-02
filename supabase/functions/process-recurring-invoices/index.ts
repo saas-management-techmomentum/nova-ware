@@ -174,8 +174,6 @@ Deno.serve(async (req) => {
 
         if (shouldDeactivate) {
           results.deactivated++;
-        } else {
-          console.log(`📅 Updated next invoice date to ${nextInvoiceDate}`);
         }
 
         results.processed++;

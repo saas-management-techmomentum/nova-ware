@@ -112,7 +112,7 @@ export const checkDataSufficiency = (transactions: InventoryTransaction[]): {
   daysUntilReady: number;
   message: string;
 } => {
-  console.log('checkDataSufficiency: Starting with', transactions.length, 'transactions');
+
   
   if (transactions.length === 0) {
     return {
@@ -158,14 +158,12 @@ export const checkDataSufficiency = (transactions: InventoryTransaction[]): {
     
     if (!isValidDate) {
       console.warn('Invalid transaction date:', date, 'for transaction:', transaction.id, 'parsed as:', validDate);
-    } else {
-      console.log('Valid transaction date:', date, 'for transaction:', transaction.id, 'parsed as:', validDate.toISOString());
-    }
+    } 
     
     return isValidDate;
   });
   
-  console.log('checkDataSufficiency: After filtering,', validTransactions.length, 'valid transactions');
+ 
   
   if (validTransactions.length === 0) {
     return {
@@ -190,10 +188,7 @@ export const checkDataSufficiency = (transactions: InventoryTransaction[]): {
     return transactionTime > newestTime ? transaction : newest;
   }, validTransactions[0]);
   
-  console.log('Date range analysis:');
-  console.log('- Oldest transaction:', oldestTransaction.date, 'ID:', oldestTransaction.id);
-  console.log('- Newest transaction:', newestTransaction.date, 'ID:', newestTransaction.id);
-  console.log('- Today:', today.toISOString());
+
   
   const oldestDate = new Date(oldestTransaction.date);
   
@@ -203,23 +198,12 @@ export const checkDataSufficiency = (transactions: InventoryTransaction[]): {
   const msPerDay = 24 * 60 * 60 * 1000;
   const dataAge = Math.floor((todayMs - oldestMs) / msPerDay);
   
-  console.log('- Manual calculation details:');
-  console.log('  - Today ms:', todayMs);
-  console.log('  - Oldest ms:', oldestMs);
-  console.log('  - Difference ms:', todayMs - oldestMs);
-  console.log('  - Data age (manual):', dataAge, 'days');
   
   const daysUntilReady = Math.max(0, 30 - dataAge);
   
   // STRICT 30 day requirement - no fallbacks for partial data
   const hasSufficientData = dataAge >= 30;
   
-  console.log('Data sufficiency check result:', {
-    hasSufficientData,
-    dataAge,
-    daysUntilReady,
-    transactionCount: validTransactions.length
-  });
   
   return {
     hasSufficientData,
@@ -238,12 +222,6 @@ export const generateInventoryPredictions = (
   daysToAnalyze: number = 90,
   minTransactionsRequired: number = 2
 ): PredictionResult[] => {
-  console.log('Starting prediction generation:', {
-    inventoryItemsCount: inventoryItems.length,
-    transactionsCount: transactions.length,
-    daysToAnalyze,
-    minTransactionsRequired
-  });
 
   // Map transactions to the expected format if needed
   const mappedTransactions = Array.isArray(transactions) && transactions.length > 0 && !transactions[0].itemId 
@@ -253,11 +231,9 @@ export const generateInventoryPredictions = (
   // Check data sufficiency first - but allow basic predictions with partial data
   const dataSufficiency = checkDataSufficiency(mappedTransactions);
   if (!dataSufficiency.hasSufficientData) {
-    console.log('Insufficient data for predictions:', dataSufficiency);
     return []; // Return empty array when insufficient data
   }
 
-  console.log('Data sufficiency check passed:', dataSufficiency);
 
   const predictions: PredictionResult[] = [];
   const today = new Date();
@@ -270,14 +246,12 @@ export const generateInventoryPredictions = (
   const relevantTransactions = mappedTransactions.filter(t => 
     isAfter(t.date, startDate) && isBefore(t.date, today)
   );
-  
-  console.log('Relevant transactions in period:', relevantTransactions.length);
+
   
   // Calculate number of weeks in analysis period
   const weeksToAnalyze = daysToAnalyze / 7;
   
   inventoryItems.forEach(item => {
-    console.log(`Processing item: ${item.name} (${item.sku}) - Current stock: ${item.stock}`);
     
     // Get cached transactions or filter and cache them
     let itemTransactions = itemTransactionsCache.get(item.id);
@@ -286,16 +260,16 @@ export const generateInventoryPredictions = (
       itemTransactionsCache.set(item.id, itemTransactions);
     }
     
-    console.log(`Item ${item.name} has ${itemTransactions.length} transactions`);
+  
     
     // Get outgoing transactions (sales)
     const outgoingTransactions = itemTransactions.filter(t => t.type === 'outgoing');
     
-    console.log(`Item ${item.name} has ${outgoingTransactions.length} outgoing transactions`);
+   
     
     // Skip items with insufficient transaction history
     if (outgoingTransactions.length < minTransactionsRequired) {
-      console.log(`Skipping ${item.name} - insufficient transaction history (${outgoingTransactions.length} < ${minTransactionsRequired})`);
+    
       return;
     }
     
@@ -308,16 +282,16 @@ export const generateInventoryPredictions = (
     // Calculate weekly usage rate based on trend analysis
     const baseWeeklyUsageRate = totalUnitsSold / weeksToAnalyze;
     
-    console.log(`Item ${item.name} - Total units sold: ${totalUnitsSold}, Base weekly rate: ${baseWeeklyUsageRate.toFixed(2)}`);
+   
     
     // Apply trend adjustment factor (increase or decrease based on recent trends)
     const weeklyUsageRate = applyUsageTrendFactor(baseWeeklyUsageRate, weeklyUsageData);
     
-    console.log(`Item ${item.name} - Adjusted weekly rate: ${weeklyUsageRate.toFixed(2)}`);
+    
     
     // Skip items with no usage
     if (weeklyUsageRate <= 0) {
-      console.log(`Skipping ${item.name} - no usage detected`);
+
       return;
     }
     
@@ -347,13 +321,6 @@ export const generateInventoryPredictions = (
     // Calculate suggested order quantity (4 weeks supply, adjusted for trend)
     const suggestedOrderQuantity = Math.ceil(weeklyUsageRate * 4);
     
-    console.log(`Item ${item.name} prediction:`, {
-      weeksUntilRestock: weeksUntilRestock.toFixed(2),
-      daysUntilRestock,
-      restockUrgency,
-      confidence: Math.round(confidence * 100),
-      suggestedOrderQuantity
-    });
     
     predictions.push({
       itemId: item.id,
@@ -370,7 +337,6 @@ export const generateInventoryPredictions = (
     });
   });
   
-  console.log(`Generated ${predictions.length} predictions`);
   
   // Sort by urgency (critical first, then by days until restock)
   return predictions.sort((a, b) => {

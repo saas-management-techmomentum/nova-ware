@@ -227,7 +227,6 @@ export const useBatchAllocation = () => {
 
       if (deleteError) throw deleteError;
 
-      console.log(`Reversed allocations for order ${orderId}:`, allocations);
       toast({
         title: "Allocation Reversed",
         description: "Inventory has been restored to batches.",

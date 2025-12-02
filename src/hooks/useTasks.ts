@@ -98,7 +98,7 @@ export const useTasks = () => {
           
           userCompanyId = companyData?.company_id || null;
         } catch (error) {
-          console.log('No company found for user, using null');
+          console.error(error);
         }
       }
 

@@ -69,7 +69,6 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
   // Set up real-time updates for shipments
   useShipmentsRealtime({
     onShipmentChange: () => {
-      console.log('Real-time update triggered, refetching shipments...');
       refetchShipments();
     },
     warehouseId: selectedWarehouse || undefined,
@@ -83,7 +82,7 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
       return;
     }
 
-    console.log('Order marked as shipped/ready/delivered, checking for outgoing shipment...');
+
     
     // Get the order details to create shipment
     const { data: orderData } = await supabase
@@ -103,11 +102,10 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
       .maybeSingle();
 
     if (existingShipment) {
-      console.log('Outgoing shipment already exists for this order');
       return;
     }
 
-    console.log('Creating outgoing shipment for order:', orderId);
+ 
     
     // Get warehouse and company info
     const { data: warehouseData } = await supabase
@@ -163,8 +161,6 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
 
       if (itemsError) {
         console.error('Error creating shipment items:', itemsError);
-      } else {
-        console.log('Outgoing shipment created successfully:', newShipment.id);
       }
     }
   };
@@ -191,7 +187,7 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
     }
 
     try {
-      console.log('Adding order to database with allocation strategy:', allocationStrategy, orderData);
+   
       
       // Get warehouse and company info
       const { data: warehouseData, error: warehouseError } = await supabase
@@ -212,7 +208,7 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
       
       // If no invoice is provided, auto-generate a draft invoice
       if (!invoiceId) {
-        console.log('No invoice provided, creating draft invoice...');
+    
         
         // Get client details by ID
         const { data: clientData } = await supabase
@@ -306,7 +302,7 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
         }
         
         invoiceId = newInvoice.id;
-        console.log('Draft invoice created:', invoiceId);
+  
       }
 
       // Insert the order
@@ -334,7 +330,7 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
         throw orderError;
       }
 
-      console.log('Order added successfully:', order);
+
 
       // If there are items, add them and allocate inventory using batch system
       if (orderData.items && orderData.items.length > 0) {
@@ -375,7 +371,7 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
                 allocationStrategy
               );
               
-              console.log(`Allocated ${orderItem.quantity} units for ${orderItem.sku} using ${allocationStrategy}:`, allocations);
+             
             } catch (allocationError: any) {
               console.error('Allocation error:', allocationError);
               
@@ -391,7 +387,7 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
             }
           }
 
-          console.log(`Order items added and inventory allocated using ${allocationStrategy} strategy`);
+  
           
         } catch (error) {
           console.error('Error in order items/allocation:', error);
@@ -429,8 +425,7 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
     }
 
     try {
-      console.log('Updating order:', id, updates);
-      
+
       // Map UI status values to database status values if needed
       let dbUpdates = { ...updates };
       if (updates.status) {
@@ -488,12 +483,12 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
     }
 
     try {
-      console.log('Deleting order:', id);
+
       
       // First, reverse any batch allocations
       try {
         await reverseAllocation(id);
-        console.log('Batch allocations reversed for order:', id);
+   
       } catch (reverseError) {
         console.warn('Error reversing allocations (order may not have allocations):', reverseError);
       }
@@ -537,7 +532,7 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
     }
 
     try {
-      console.log('Adding shipment to database:', shipmentData);
+
       
       // Get warehouse and company info if warehouse is selected
       let warehouseId = selectedWarehouse;
@@ -573,7 +568,6 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
         throw shipmentError;
       }
 
-      console.log('Shipment added successfully:', shipment);
 
       // If there are items, add them
       if (shipmentData.items && shipmentData.items.length > 0) {
@@ -612,7 +606,7 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
     }
 
     try {
-      console.log('Updating shipment:', shipmentData.id, shipmentData);
+
       
       // Update the shipment
       const { error: shipmentError } = await supabase
@@ -661,7 +655,6 @@ export const OrdersProvider: React.FC<OrdersProviderProps> = ({ children }) => {
         }
       }
 
-      console.log('Shipment updated successfully');
       await refetchShipments();
     } catch (error) {
       console.error('Exception updating shipment:', error);

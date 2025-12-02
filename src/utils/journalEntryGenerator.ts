@@ -108,8 +108,6 @@ async function createJournalEntry(entryData: JournalEntryData): Promise<boolean>
       .insert(validLines);
 
     if (linesError) throw linesError;
-
-    console.log(`✅ Journal entry ${entryNumber} created successfully`);
     return true;
   } catch (error) {
     console.error('Error creating journal entry:', error);

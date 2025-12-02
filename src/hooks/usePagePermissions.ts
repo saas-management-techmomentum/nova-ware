@@ -75,23 +75,10 @@ export const usePagePermissions = () => {
 
   const getCurrentUserEmployee = () => {
     if (!user?.id || employeesLoading) {
-      console.log('👤 getCurrentUserEmployee: User ID missing or employees still loading', { 
-        userId: user?.id, 
-        employeesLoading,
-        employeesCount: employees.length 
-      });
       return null;
     }
 
     const employee = employees.find(emp => emp.user_id_auth === user.id);
-    console.log('👤 getCurrentUserEmployee result:', {
-      userId: user.id,
-      employeeFound: !!employee,
-      employeeId: employee?.id,
-      employeeName: employee?.name,
-      hasCustomPermissions: !!(employee?.page_permissions),
-      customPermissions: employee?.page_permissions
-    });
     
     return employee;
   };
@@ -100,26 +87,19 @@ export const usePagePermissions = () => {
   const isWarehouseEmployee = () => {
     const currentEmployee = getCurrentUserEmployee();
     const result = currentEmployee?.assigned_warehouse_id != null;
-    console.log('🏢 isWarehouseEmployee:', {
-      employeeFound: !!currentEmployee,
-      assignedWarehouseId: currentEmployee?.assigned_warehouse_id,
-      isWarehouseEmployee: result
-    });
     return result;
   };
 
   const hasPageAccess = (page: keyof PagePermissions): boolean => {
-    console.log(`🔐 Checking page access for: ${page}`);
+  
     
     // Admins always have full access
     if (isAdmin) {
-      console.log(`✅ Admin access granted for ${page}`);
       return true;
     }
 
     // If employees are still loading, provide more permissive access to prevent flickering
     if (employeesLoading) {
-      console.log(`⏳ Employees loading, using permissive access for ${page}`);
       // During loading, allow access to commonly needed pages to prevent sidebar flickering
       const loadingPermissions: PagePermissions = {
         dashboard: true,
@@ -143,12 +123,12 @@ export const usePagePermissions = () => {
     if (currentEmployee?.page_permissions && typeof currentEmployee.page_permissions === 'object') {
       const customPermission = currentEmployee.page_permissions[page];
       if (customPermission !== undefined && customPermission !== null) {
-        console.log(`🎯 Using custom permission for ${page}:`, customPermission);
+     
         return customPermission;
       }
     }
 
-    console.log(`📋 No custom permission found for ${page}, using role-based defaults`);
+
 
     // **PRIORITY 2: Role-based defaults (only if no custom permissions exist)**
     // Managers have access to most pages by default
@@ -167,7 +147,7 @@ export const usePagePermissions = () => {
         vendors: true,
       };
       
-      console.log(`👨‍💼 Using manager defaults for ${page}:`, managerDefaults[page]);
+    
       return managerDefaults[page];
     }
 
@@ -187,12 +167,11 @@ export const usePagePermissions = () => {
         vendors: false, // Vendor management only for managers/admins
       };
       
-      console.log(`🏭 Using warehouse employee defaults for ${page}:`, warehouseEmployeeDefaults[page]);
+    
       return warehouseEmployeeDefaults[page];
     }
 
     // **PRIORITY 3: Default fallback for employees - only inventory access**
-    console.log(`📦 Using default permissions for ${page}:`, defaultPagePermissions[page]);
     return defaultPagePermissions[page];
   };
 
@@ -221,7 +200,6 @@ export const usePagePermissions = () => {
       }
       
       const hasAccess = hasPageAccess(pageKey);
-      console.log(`🗂️ Menu item ${item.title} (${pageKey}): ${hasAccess ? 'VISIBLE' : 'HIDDEN'}`);
       return hasAccess;
     });
   };

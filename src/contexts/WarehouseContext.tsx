@@ -101,7 +101,6 @@ export const WarehouseProvider: React.FC<WarehouseProviderProps> = ({ children }
   const [selectedWarehouse, setSelectedWarehouseState] = useState<string | null>(() => {
     // Initialize with persisted selection on mount
     const persisted = loadWarehouseSelection();
-    console.log('🚀 Initial load - persisted selection:', persisted);
     return persisted;
   });
   
@@ -134,68 +133,61 @@ export const WarehouseProvider: React.FC<WarehouseProviderProps> = ({ children }
 
   // Enhanced setSelectedWarehouse with persistence
   const setSelectedWarehouse = (warehouseId: string | null) => {
-    console.log('🔄 Setting warehouse selection:', warehouseId);
     setSelectedWarehouseState(warehouseId);
     saveWarehouseSelection(warehouseId);
-    console.log('💾 Warehouse selection saved to localStorage');
   };
 
   // Handle warehouse selection logic when data changes
   useEffect(() => {
     if (warehousesLoading || !warehouses.length) return;
 
-    console.log('🏭 Processing warehouse selection logic');
     
     const assignedWarehouseId = currentEmployee?.assigned_warehouse_id;
     
     // Check for persisted selection first
     const persistedSelection = loadWarehouseSelection();
-    console.log('💾 Loaded persisted selection:', persistedSelection);
     
     let shouldUsePersistedSelection = false;
     
     if (persistedSelection) {
       // Validate that the persisted warehouse is still accessible
       const isValidSelection = warehouses.some(warehouse => warehouse.warehouse_id === persistedSelection);
-      console.log('✅ Persisted selection valid:', isValidSelection);
+   
       
       if (isValidSelection) {
-        console.log('🎯 Using persisted selection:', persistedSelection);
+   
         setSelectedWarehouseState(persistedSelection);
         shouldUsePersistedSelection = true;
       } else {
-        console.log('❌ Clearing invalid persisted selection');
+ 
         clearWarehouseSelection();
       }
     }
     
     // Apply warehouse selection logic based on user role
     if (!shouldUsePersistedSelection) {
-      console.log('🤖 Applying role-based warehouse selection...');
+
       
       if (isAdmin) {
-        console.log('👑 Admin user: setting to Corporate Overview');
+
         setSelectedWarehouse(null); // Corporate overview for admins
       } else if (assignedWarehouseId && warehouses.some(w => w.warehouse_id === assignedWarehouseId)) {
         // Force employees to their assigned warehouse
-        console.log('👷 Employee forced to assigned warehouse:', assignedWarehouseId);
+   
         setSelectedWarehouse(assignedWarehouseId);
       } else if (warehouses.length === 1) {
         // Single warehouse access
-        console.log('🏠 Single warehouse: auto-selecting');
+       
         setSelectedWarehouse(warehouses[0].warehouse_id);
       } else if (warehouses.length > 0) {
         // Fallback to first available warehouse
-        console.log('🏢 Multiple warehouses: selecting first available');
+
         setSelectedWarehouse(warehouses[0].warehouse_id);
       }
-    } else {
-      console.log('✨ Skipping smart defaults - using persisted selection');
-    }
+    } 
   }, [warehousesData, currentEmployee, isAdmin, warehousesLoading]);
 
   const refreshWarehouses = async () => {
-    console.log('Refreshing warehouses - React Query will handle cache invalidation');
     // React Query automatically handles refetching via invalidation
   };
 

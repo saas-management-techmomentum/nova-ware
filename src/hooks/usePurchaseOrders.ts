@@ -69,7 +69,7 @@ export const usePurchaseOrders = () => {
 
     try {
       setIsLoading(true);
-      console.log('🔄 Fetching purchase orders via RLS policies');
+   
       
       const { data, error } = await supabase
         .from('purchase_orders')
@@ -79,7 +79,6 @@ export const usePurchaseOrders = () => {
         `)
         .order('created_at', { ascending: false });
 
-      console.log('📊 Purchase orders query result:', { data: data?.length || 0, error });
 
       if (error) throw error;
 
@@ -267,7 +266,7 @@ export const usePurchaseOrders = () => {
 
       // If a bill already exists, don't create another one
       if (existingBills && existingBills.length > 0) {
-        console.log(`Vendor bill already exists for PO ${po.po_number}, skipping creation`);
+
         return;
       }
 
@@ -298,8 +297,6 @@ export const usePurchaseOrders = () => {
         .insert([vendorBill]);
 
       if (error) throw error;
-
-      console.log(`Created pending vendor bill ${billNumber} for approved PO ${po.po_number} - Amount: $${po.total_amount}`);
       
     } catch (err) {
       console.error('Error creating pending vendor bill from PO:', err);
@@ -332,7 +329,7 @@ export const usePurchaseOrders = () => {
             .eq('id', existingBill.id);
 
           if (updateError) throw updateError;
-          console.log(`Updated pending bill to actual bill for received PO ${po.po_number}`);
+     
         }
         return;
       }
@@ -362,7 +359,7 @@ export const usePurchaseOrders = () => {
         .insert([vendorBill]);
 
       if (error) throw error;
-      console.log(`Created vendor bill ${billNumber} for received PO ${po.po_number} - Amount: $${po.total_amount}`);
+  
       
     } catch (err) {
       console.error('Error creating vendor bill from PO:', err);

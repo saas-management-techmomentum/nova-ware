@@ -108,7 +108,6 @@ export const useUserPermissions = () => {
   };
 
   const refreshPermissions = async () => {
-    console.log('Manual permissions refresh triggered - React Query will handle cache invalidation');
     // React Query automatically handles refetching via invalidation
   };
 

@@ -13,7 +13,7 @@ export const useInventoryRealtime = () => {
   useEffect(() => {
     if (!user) return;
 
-    console.log('🔄 Setting up real-time inventory updates for user:', user.id);
+ 
 
     const channel = supabase
       .channel('inventory-realtime-updates')
@@ -26,7 +26,7 @@ export const useInventoryRealtime = () => {
           filter: `user_id=eq.${user.id}`
         },
         (payload) => {
-          console.log('➕ Real-time: New product added', payload.new);
+          
           
           // Invalidate inventory queries to refetch data
           queryClient.invalidateQueries({ queryKey: ['inventory'] });
@@ -48,7 +48,7 @@ export const useInventoryRealtime = () => {
           filter: `user_id=eq.${user.id}`
         },
         (payload) => {
-          console.log('✏️ Real-time: Product updated', payload.new);
+          
           
           // Invalidate inventory queries
           queryClient.invalidateQueries({ queryKey: ['inventory'] });
@@ -75,7 +75,7 @@ export const useInventoryRealtime = () => {
           filter: `user_id=eq.${user.id}`
         },
         (payload) => {
-          console.log('🗑️ Real-time: Product deleted', payload.old);
+        
           
           // Invalidate inventory queries
           queryClient.invalidateQueries({ queryKey: ['inventory'] });
@@ -87,12 +87,8 @@ export const useInventoryRealtime = () => {
           });
         }
       )
-      .subscribe((status) => {
-        console.log('📡 Real-time subscription status:', status);
-      });
 
     return () => {
-      console.log('🔌 Cleaning up real-time inventory subscription');
       supabase.removeChannel(channel);
     };
   }, [user?.id, queryClient, toast]);

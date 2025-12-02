@@ -50,7 +50,6 @@ interface InventoryContextType {
   processShipmentItems: (items: any[]) => Promise<{ createdProducts: string[]; updatedProducts: string[] } | void>;
   addInventoryTransaction: (transaction: any) => void;
   transactions: any[];
-  refreshPredictions: () => void;
 }
 
 const InventoryContext = createContext<InventoryContextType | undefined>(undefined);
@@ -113,7 +112,6 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
     setIsAddingProduct(true);
 
     try {
-      console.log('Adding product to database:', product);
       
       // Get warehouse and company info if warehouse is selected
       let warehouseId = selectedWarehouse;
@@ -152,7 +150,6 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
         company_id: companyId
       };
 
-      console.log('Inserting product data:', productData);
 
       const { data, error } = await supabase
         .from('products')
@@ -165,7 +162,6 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
         throw error;
       }
 
-      console.log('Product added successfully:', data);
 
       // Invalidate queries instead of manual refetch
       await queryClient.invalidateQueries({ queryKey: ['inventory'] });
@@ -185,7 +181,6 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
     }
 
     try {
-      console.log('Updating product:', updatedProduct.id, updatedProduct);
       
       // Transform and save to database
       const updateData = {
@@ -217,7 +212,7 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
         throw error;
       }
 
-      console.log('Product updated successfully');
+  
       
       // Invalidate queries to trigger refetch
       await queryClient.invalidateQueries({ queryKey: ['inventory'] });
@@ -235,7 +230,6 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
     }
 
     try {
-      console.log('Deleting product:', id);
       
       const { error } = await supabase
         .from('products')
@@ -248,7 +242,6 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
         throw error;
       }
 
-      console.log('Product deleted successfully');
       
       // Invalidate queries to trigger refetch
       await queryClient.invalidateQueries({ queryKey: ['inventory'] });
@@ -259,13 +252,12 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
   };
 
   const generatePredictions = (): PredictionResult[] => {
-    console.log('Generating predictions with inventory items:', inventoryItems.length);
-    console.log('Raw transactions data:', transactions.length, transactions.slice(0, 2));
+
     
     // Use real transactions instead of mock data
     const realTransactions = transactions
       .map(t => {
-        console.log('Processing transaction:', t.id, 'created_at:', t.created_at, 'type:', typeof t.created_at);
+
         
         // Robust date parsing for Supabase timestamp format
         let date: Date;
@@ -303,7 +295,6 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
           return null;
         }
         
-        console.log('Successfully parsed transaction date:', dateString, 'as:', date.toISOString(), 'for transaction:', t.id);
         
         return {
           id: t.id, // Keep as string for now since database uses UUIDs
@@ -317,23 +308,21 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
       })
       .filter(t => t !== null) as InventoryTransaction[];
 
-    console.log('Valid transactions for predictions:', realTransactions.length);
+
     if (realTransactions.length > 0) {
       const oldest = realTransactions.reduce((a, b) => a.date < b.date ? a : b);
       const newest = realTransactions.reduce((a, b) => a.date > b.date ? a : b);
-      console.log('Transaction date range:', oldest.date.toISOString(), 'to', newest.date.toISOString());
     }
 
-    console.log('Using real transactions for predictions:', realTransactions.length);
+ 
 
     // Use the real prediction utility with actual transaction data
     const predictions = generateInventoryPredictions(inventoryItems, realTransactions, 30, 2);
-    
-    console.log('Generated predictions from utility:', predictions.length);
+
     
     // If no predictions from utility due to insufficient data, show data collection message
     if (predictions.length === 0 && realTransactions.length === 0) {
-      console.log('No real transaction data available for predictions');
+
       return []; // Return empty - let dashboard show "collecting data" message
     }
     
@@ -371,7 +360,7 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
           } as PredictionResult;
         });
       
-      console.log('Using basic predictions with real data insights:', fallbackPredictions.length);
+  
       return fallbackPredictions;
     }
     
@@ -384,7 +373,7 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
       return;
     }
 
-    console.log('Processing shipment items for inventory update:', items);
+   
 
     const createdProducts: string[] = [];
     const updatedProducts: string[] = [];
@@ -399,7 +388,7 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
 
         // If product doesn't exist, create it
         if (!product) {
-          console.log(`Product with SKU ${item.sku} not found - creating new product`);
+   
           
           const companyId = warehouses.find(w => w.warehouse_id === selectedWarehouse)?.company_id || null;
           
@@ -425,7 +414,7 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
             throw createError;
           }
 
-          console.log(`Created new product: ${newProduct.name} (${newProduct.sku})`);
+ 
           product = newProduct as any;
           createdProducts.push(product.name);
         } else {
@@ -438,14 +427,14 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
         const netQuantityToAdd = receivedQty - damagedQty;
 
         if (netQuantityToAdd <= 0) {
-          console.log(`No net quantity to add for SKU ${item.sku} (received: ${receivedQty}, damaged: ${damagedQty})`);
+       
           continue;
         }
 
         // Update the product quantity
         const newQuantity = product.stock + netQuantityToAdd;
         
-        console.log(`Updating ${product.name} (${item.sku}): ${product.stock} + ${netQuantityToAdd} = ${newQuantity}`);
+      
 
         const { error: updateError } = await supabase
           .from('products')
@@ -502,8 +491,7 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
         }
       }
 
-      console.log('Shipment processing completed successfully');
-      console.log(`Created products: ${createdProducts.length}, Updated products: ${updatedProducts.length}`);
+
       
       // Invalidate inventory queries to update UI
       await queryClient.invalidateQueries({ queryKey: ['inventory'] });
@@ -519,7 +507,7 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
   };
 
   const addInventoryTransaction = (transaction: any) => {
-    console.log('Adding inventory transaction:', transaction);
+ 
     // Invalidate queries to refresh data
     queryClient.invalidateQueries({ queryKey: ['inventory'] });
   };
@@ -532,7 +520,7 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
       if (!user) return;
 
       try {
-        console.log('Fetching inventory transactions for warehouse:', selectedWarehouse || 'all warehouses');
+        
         
         // Determine which warehouse to filter by
         const employeeAssignedWarehouse = getEmployeeAssignedWarehouse();
@@ -545,11 +533,11 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
         // Apply filtering logic based on user role
         if (employeeAssignedWarehouse) {
           // Employee assigned to warehouse: show all transactions in their assigned warehouse
-          console.log('Employee filtering: showing all transactions in assigned warehouse:', employeeAssignedWarehouse);
+  
           transactionQuery = transactionQuery.eq('warehouse_id', employeeAssignedWarehouse);
         } else {
           // Admin/Manager: For predictive analysis, get ALL transactions regardless of warehouse
-          console.log('Admin/Manager: Getting ALL transactions for predictive analysis');
+       
           transactionQuery = transactionQuery.eq('user_id', user.id);
         }
 
@@ -560,18 +548,6 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
           return;
         }
 
-        console.log('Fetched real inventory transactions:', {
-          totalCount: data?.length || 0,
-          employeeAssignedWarehouse,
-          selectedWarehouse,
-          sampleTransactions: data?.slice(0, 3).map(t => ({
-            id: t.id,
-            product_id: t.product_id,
-            warehouse_id: t.warehouse_id,
-            transaction_type: t.transaction_type,
-            user_id: t.user_id
-          }))
-        });
         setTransactions(data || []);
       } catch (error) {
         console.error('Exception fetching transactions:', error);
@@ -581,9 +557,6 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
     fetchTransactions();
   }, [user, selectedWarehouse, employees, userRoles]);
 
-  const refreshPredictions = () => {
-    console.log('Refreshing predictions');
-  };
 
   const value = {
     inventoryItems,
@@ -597,7 +570,6 @@ export const InventoryProvider: React.FC<InventoryProviderProps> = ({ children }
     processShipmentItems,
     addInventoryTransaction,
     transactions,
-    refreshPredictions,
   };
 
   return (
