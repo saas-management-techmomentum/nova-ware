@@ -4,6 +4,17 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 
+export interface BatchAllocation {
+  batchId: string;
+  batchNumber: string;
+  quantity: number;
+  maxQuantity: number;
+  expirationDate?: Date | null;
+  costPrice: number;
+  locationId?: string;
+  isUnallocated?: boolean;
+}
+
 export interface TransferItem {
   productId: string;
   productName: string;
@@ -12,6 +23,8 @@ export interface TransferItem {
   transferQuantity: number;
   reservedQuantity?: number;
   maxTransferQuantity?: number;
+  hasBatches?: boolean;
+  batchAllocations?: BatchAllocation[];
 }
 
 export interface TransferRequest {
@@ -97,6 +110,47 @@ export const useProductTransfer = () => {
           throw new Error(`Cannot transfer ${item.transferQuantity} units of ${item.sku}. ${reservedQuantity} units are reserved for active orders. Maximum transferable: ${availableForTransfer}`);
         }
 
+        // Handle batch-aware transfer
+        if (item.hasBatches && item.batchAllocations && item.batchAllocations.length > 0) {
+          // Transfer specific batches
+          for (const batchAlloc of item.batchAllocations) {
+            if (batchAlloc.quantity <= 0) continue;
+
+            // Skip unallocated inventory - it's just tracked at product level
+            if (batchAlloc.isUnallocated) {
+              continue;
+            }
+
+            // Get source batch
+            const { data: sourceBatch } = await supabase
+              .from('product_batches')
+              .select('*')
+              .eq('id', batchAlloc.batchId)
+              .single();
+
+            if (!sourceBatch || sourceBatch.quantity < batchAlloc.quantity) {
+              throw new Error(`Insufficient batch quantity for ${batchAlloc.batchNumber}`);
+            }
+
+            // Update or delete source batch
+            const newBatchQuantity = sourceBatch.quantity - batchAlloc.quantity;
+            if (newBatchQuantity > 0) {
+              await supabase
+                .from('product_batches')
+                .update({ 
+                  quantity: newBatchQuantity,
+                  updated_at: new Date().toISOString() 
+                })
+                .eq('id', sourceBatch.id);
+            } else {
+              await supabase
+                .from('product_batches')
+                .delete()
+                .eq('id', sourceBatch.id);
+            }
+          }
+        }
+
         // Extract base SKU from the source product
         const baseSku = getBaseSku(sourceProduct.sku);
         
@@ -124,6 +178,48 @@ export const useProductTransfer = () => {
 
           if (updateError) {
             throw new Error(`Failed to update destination product: ${updateError.message}`);
+          }
+
+          // Create or update batches in destination
+          if (item.hasBatches && item.batchAllocations && item.batchAllocations.length > 0) {
+            for (const batchAlloc of item.batchAllocations) {
+              if (batchAlloc.quantity <= 0 || batchAlloc.isUnallocated) continue;
+
+              // Check if batch already exists in destination
+              const { data: existingDestBatch } = await supabase
+                .from('product_batches')
+                .select('*')
+                .eq('product_id', existingDestProduct.id)
+                .eq('batch_number', batchAlloc.batchNumber)
+                .maybeSingle();
+
+              if (existingDestBatch) {
+                // Update existing batch
+                await supabase
+                  .from('product_batches')
+                  .update({
+                    quantity: existingDestBatch.quantity + batchAlloc.quantity,
+                    updated_at: new Date().toISOString()
+                  })
+                  .eq('id', existingDestBatch.id);
+              } else {
+                // Create new batch
+                await supabase
+                  .from('product_batches')
+                  .insert([{
+                    product_id: existingDestProduct.id,
+                    batch_number: batchAlloc.batchNumber,
+                    quantity: batchAlloc.quantity,
+                    expiration_date: batchAlloc.expirationDate ? batchAlloc.expirationDate.toISOString() : null,
+                    cost_price: batchAlloc.costPrice,
+                    received_date: new Date().toISOString(),
+                    user_id: user.id,
+                    warehouse_id: transferRequest.destinationWarehouseId,
+                    company_id: existingDestProduct.company_id,
+                    location_id: batchAlloc.locationId || null,
+                  }]);
+              }
+            }
           }
 
           // Create incoming inventory history for destination
@@ -161,6 +257,28 @@ export const useProductTransfer = () => {
 
           if (createError || !newProduct) {
             throw new Error(`Failed to create product in destination: ${createError?.message}`);
+          }
+
+          // Create batches in destination for new product
+          if (item.hasBatches && item.batchAllocations && item.batchAllocations.length > 0) {
+            for (const batchAlloc of item.batchAllocations) {
+              if (batchAlloc.quantity <= 0 || batchAlloc.isUnallocated) continue;
+
+              await supabase
+                .from('product_batches')
+                .insert([{
+                  product_id: newProduct.id,
+                  batch_number: batchAlloc.batchNumber,
+                  quantity: batchAlloc.quantity,
+                  expiration_date: batchAlloc.expirationDate ? batchAlloc.expirationDate.toISOString() : null,
+                  cost_price: batchAlloc.costPrice,
+                  received_date: new Date().toISOString(),
+                  user_id: user.id,
+                  warehouse_id: transferRequest.destinationWarehouseId,
+                  company_id: newProduct.company_id,
+                  location_id: batchAlloc.locationId || null,
+                }]);
+            }
           }
 
           // Create incoming inventory history for new product
