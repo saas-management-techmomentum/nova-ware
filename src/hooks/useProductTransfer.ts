@@ -12,6 +12,7 @@ export interface BatchAllocation {
   expirationDate?: Date | null;
   costPrice: number;
   locationId?: string;
+  isUnallocated?: boolean;
 }
 
 export interface TransferItem {
@@ -115,6 +116,11 @@ export const useProductTransfer = () => {
           for (const batchAlloc of item.batchAllocations) {
             if (batchAlloc.quantity <= 0) continue;
 
+            // Skip unallocated inventory - it's just tracked at product level
+            if (batchAlloc.isUnallocated) {
+              continue;
+            }
+
             // Get source batch
             const { data: sourceBatch } = await supabase
               .from('product_batches')
@@ -177,7 +183,7 @@ export const useProductTransfer = () => {
           // Create or update batches in destination
           if (item.hasBatches && item.batchAllocations && item.batchAllocations.length > 0) {
             for (const batchAlloc of item.batchAllocations) {
-              if (batchAlloc.quantity <= 0) continue;
+              if (batchAlloc.quantity <= 0 || batchAlloc.isUnallocated) continue;
 
               // Check if batch already exists in destination
               const { data: existingDestBatch } = await supabase
@@ -256,7 +262,7 @@ export const useProductTransfer = () => {
           // Create batches in destination for new product
           if (item.hasBatches && item.batchAllocations && item.batchAllocations.length > 0) {
             for (const batchAlloc of item.batchAllocations) {
-              if (batchAlloc.quantity <= 0) continue;
+              if (batchAlloc.quantity <= 0 || batchAlloc.isUnallocated) continue;
 
               await supabase
                 .from('product_batches')

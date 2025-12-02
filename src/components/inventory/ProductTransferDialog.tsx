@@ -61,8 +61,33 @@ export const ProductTransferDialog: React.FC<ProductTransferDialogProps> = ({
     const maxTransferQuantity = Math.max(0, product.stock - reservedQuantity);
 
     const hasBatches = product.has_batches && product.batches && product.batches.length > 0;
-    const batchAllocations: BatchAllocation[] = hasBatches
-      ? product.batches!.map(batch => ({
+    
+    // Calculate unallocated quantity
+    const totalBatchQuantity = hasBatches 
+      ? product.batches!.reduce((sum, b) => sum + b.quantity, 0) 
+      : 0;
+    const unallocatedQuantity = Math.max(0, product.stock - totalBatchQuantity);
+    
+    // Build allocations array with unallocated first if available
+    const batchAllocations: BatchAllocation[] = [];
+    
+    // Add unallocated row if there's unallocated inventory
+    if (unallocatedQuantity > 0) {
+      batchAllocations.push({
+        batchId: 'unallocated',
+        batchNumber: 'Unallocated Stock',
+        quantity: 0,
+        maxQuantity: unallocatedQuantity,
+        expirationDate: null,
+        costPrice: product.unit_price || 0,
+        isUnallocated: true,
+      });
+    }
+    
+    // Add batch allocations
+    if (hasBatches) {
+      product.batches!.forEach(batch => {
+        batchAllocations.push({
           batchId: batch.id,
           batchNumber: batch.batch_number,
           quantity: 0,
@@ -70,19 +95,24 @@ export const ProductTransferDialog: React.FC<ProductTransferDialogProps> = ({
           expirationDate: batch.expiration_date ? new Date(batch.expiration_date) : null,
           costPrice: batch.cost_price || product.unit_price || 0,
           locationId: batch.location_id,
-        }))
-      : [];
+          isUnallocated: false,
+        });
+      });
+    }
+
+    // Show batch selection UI if there are any allocations (unallocated OR batches)
+    const showBatchSelection = batchAllocations.length > 0;
 
     const transferItem: TransferItem = {
       productId: product.id,
       productName: product.name,
       sku: product.sku,
       currentStock: product.stock,
-      transferQuantity: hasBatches ? 0 : Math.min(1, maxTransferQuantity),
+      transferQuantity: showBatchSelection ? 0 : Math.min(1, maxTransferQuantity),
       reservedQuantity,
       maxTransferQuantity,
-      hasBatches,
-      batchAllocations,
+      hasBatches: showBatchSelection,
+      batchAllocations: showBatchSelection ? batchAllocations : [],
     };
 
     setSelectedProducts(prev => [...prev, transferItem]);
@@ -448,51 +478,56 @@ export const ProductTransferDialog: React.FC<ProductTransferDialogProps> = ({
                        )}
                      </div>
 
-                     {/* Batch Selection */}
-                     {item.hasBatches && item.batchAllocations && item.batchAllocations.length > 0 && (
-                       <Collapsible defaultOpen className="space-y-2">
-                         <CollapsibleTrigger className="flex items-center gap-2 text-sm text-neutral-300 hover:text-white w-full">
-                           <ChevronDown className="h-4 w-4" />
-                           Select batches to transfer (Total: {item.transferQuantity} units)
-                         </CollapsibleTrigger>
-                         <CollapsibleContent className="space-y-2 pl-6">
-                           {item.batchAllocations.map(batch => (
-                             <div
-                               key={batch.batchId}
-                               className="flex items-center justify-between p-2 bg-neutral-800/50 rounded border border-neutral-700"
-                             >
-                               <div className="flex-1 space-y-1">
-                                 <div className="text-sm text-white font-medium">
-                                   {batch.batchNumber}
-                                 </div>
-                                 <div className="text-xs text-neutral-400 space-x-3">
-                                   <span>Available: {batch.maxQuantity}</span>
-                                   {batch.expirationDate && (
-                                     <span>Exp: {format(batch.expirationDate, 'MMM dd, yyyy')}</span>
-                                   )}
-                                 </div>
-                               </div>
-                               <div>
-                                 <Label className="text-neutral-400 text-xs">Transfer</Label>
-                                 <Input
-                                   type="number"
-                                   min="0"
-                                   max={batch.maxQuantity}
-                                   value={batch.quantity}
-                                   onChange={(e) =>
-                                     updateBatchQuantity(item.productId, batch.batchId, parseInt(e.target.value) || 0)
-                                   }
-                                   className="w-20 bg-neutral-800 border-neutral-700 text-white"
-                                 />
-                               </div>
-                             </div>
-                           ))}
-                           {item.transferQuantity === 0 && (
-                             <div className="text-xs text-amber-400 mt-1">
-                               ⚠️ Please allocate quantities from batches above
-                             </div>
-                           )}
-                         </CollapsibleContent>
+                      {/* Batch Selection */}
+                      {item.hasBatches && item.batchAllocations && item.batchAllocations.length > 0 && (
+                        <Collapsible defaultOpen className="space-y-2">
+                          <CollapsibleTrigger className="flex items-center gap-2 text-sm text-neutral-300 hover:text-white w-full">
+                            <ChevronDown className="h-4 w-4" />
+                            Select sources to transfer (Total: {item.transferQuantity} units)
+                          </CollapsibleTrigger>
+                          <CollapsibleContent className="space-y-2 pl-6">
+                            {item.batchAllocations.map(batch => (
+                              <div
+                                key={batch.batchId}
+                                className={`flex items-center justify-between p-2 rounded border ${
+                                  batch.isUnallocated 
+                                    ? 'bg-blue-900/30 border-blue-700' 
+                                    : 'bg-neutral-800/50 border-neutral-700'
+                                }`}
+                              >
+                                <div className="flex-1 space-y-1">
+                                  <div className="text-sm text-white font-medium flex items-center gap-2">
+                                    {batch.isUnallocated && <Package className="h-4 w-4 text-blue-400" />}
+                                    {batch.batchNumber}
+                                  </div>
+                                  <div className="text-xs text-neutral-400 space-x-3">
+                                    <span>Available: {batch.maxQuantity}</span>
+                                    {!batch.isUnallocated && batch.expirationDate && (
+                                      <span>Exp: {format(batch.expirationDate, 'MMM dd, yyyy')}</span>
+                                    )}
+                                  </div>
+                                </div>
+                                <div>
+                                  <Label className="text-neutral-400 text-xs">Transfer</Label>
+                                  <Input
+                                    type="number"
+                                    min="0"
+                                    max={batch.maxQuantity}
+                                    value={batch.quantity}
+                                    onChange={(e) =>
+                                      updateBatchQuantity(item.productId, batch.batchId, parseInt(e.target.value) || 0)
+                                    }
+                                    className="w-20 bg-neutral-800 border-neutral-700 text-white"
+                                  />
+                                </div>
+                              </div>
+                            ))}
+                            {item.transferQuantity === 0 && (
+                              <div className="text-xs text-amber-400 mt-1">
+                                ⚠️ Please allocate quantities from sources above
+                              </div>
+                            )}
+                          </CollapsibleContent>
                        </Collapsible>
                      )}
                    </div>
