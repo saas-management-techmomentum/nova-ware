@@ -31,6 +31,7 @@ interface AuthContextType {
   isAuthReady: boolean;
   userRole: string | null;
   isUserAdmin: boolean;
+  isRoleLoading: boolean;
   refreshSession: () => Promise<void>;
   forceRefreshAuth: () => Promise<void>;
   completeUserSetup: () => Promise<void>;
@@ -55,6 +56,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [isAuthReady, setIsAuthReady] = useState(false);
   const [userRole, setUserRole] = useState<string | null>(null);
   const [isUserAdmin, setIsUserAdmin] = useState(false);
+  const [isRoleLoading, setIsRoleLoading] = useState(true);
   const [needsPasswordChange, setNeedsPasswordChange] = useState<boolean | null>(null);
 
   const checkPasswordChangeStatus = async (userId: string) => {
@@ -167,6 +169,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const fetchUserRole = async (userId: string) => {
     try {
+      setIsRoleLoading(true);
     
       await new Promise(resolve => setTimeout(resolve, 100));
       
@@ -175,6 +178,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         console.error('No valid session available for role fetch');
         setUserRole(null);
         setIsUserAdmin(false);
+        setIsRoleLoading(false);
         return;
       }
       
@@ -187,6 +191,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         console.error('Error fetching user role:', error);
         setUserRole(null);
         setIsUserAdmin(false);
+        setIsRoleLoading(false);
         return;
       }
       
@@ -201,10 +206,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setUserRole(null);
         setIsUserAdmin(false);
       }
+      
+      setIsRoleLoading(false);
     } catch (error) {
       console.error('Error in fetchUserRole:', error);
       setUserRole(null);
       setIsUserAdmin(false);
+      setIsRoleLoading(false);
     }
   };
 
@@ -318,6 +326,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         } else {
           setUserRole(null);
           setIsUserAdmin(false);
+          setIsRoleLoading(false);
           setNeedsPasswordChange(null);
           setEmployee(null);
         }
@@ -431,6 +440,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     isAuthReady,
     userRole,
     isUserAdmin,
+    isRoleLoading,
     refreshSession,
     forceRefreshAuth,
     completeUserSetup,
