@@ -3,6 +3,7 @@ import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ShopifyIntegration from '@/components/integrations/ShopifyIntegration';
 import AmazonFBAIntegration from '@/components/integrations/AmazonFBAIntegration';
+import ShippingSettings from '@/components/shipments/ShippingSettings';
 
 const IntegrationSettings = () => {
   return (
@@ -15,7 +16,7 @@ const IntegrationSettings = () => {
       </div>
 
       <Tabs defaultValue="shopify" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 bg-neutral-800/50 border-neutral-700">
+        <TabsList className="grid w-full grid-cols-3 bg-neutral-800/50 border-neutral-700">
           <TabsTrigger 
             value="shopify" 
             className="data-[state=active]:bg-neutral-700 data-[state=active]:text-white text-neutral-400"
@@ -28,6 +29,12 @@ const IntegrationSettings = () => {
           >
             Amazon FBA
           </TabsTrigger>
+          <TabsTrigger 
+            value="shipping" 
+            className="data-[state=active]:bg-neutral-700 data-[state=active]:text-white text-neutral-400"
+          >
+            Shipping Carriers
+          </TabsTrigger>
         </TabsList>
         
         <TabsContent value="shopify" className="mt-6">
@@ -36,6 +43,10 @@ const IntegrationSettings = () => {
         
         <TabsContent value="amazon" className="mt-6">
           <AmazonFBAIntegration />
+        </TabsContent>
+        
+        <TabsContent value="shipping" className="mt-6">
+          <ShippingSettings />
         </TabsContent>
       </Tabs>
     </div>
