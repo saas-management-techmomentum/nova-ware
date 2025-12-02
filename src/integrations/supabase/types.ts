@@ -3196,6 +3196,20 @@ export type Database = {
         Args: { comp_id: string; user_uuid: string }
         Returns: boolean
       }
+      notify_admins_managers: {
+        Args: {
+          p_action_type: string
+          p_company_id: string
+          p_entity_id: string
+          p_entity_type: string
+          p_message: string
+          p_metadata?: Json
+          p_title: string
+          p_type: string
+          p_warehouse_id: string
+        }
+        Returns: undefined
+      }
       safe_assign_user_to_warehouse: {
         Args: {
           p_access_level?: string

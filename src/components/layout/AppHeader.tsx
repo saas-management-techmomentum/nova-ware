@@ -11,15 +11,20 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Switch } from "@/components/ui/switch";
+import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import WarehouseSelector from "@/components/warehouse/WarehouseSelector";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import ApprovalStatusIndicator from "@/components/user/ApprovalStatusIndicator";
+import { useNotifications } from "@/hooks/useNotifications";
+import { NotificationItem } from "@/components/notifications/NotificationItem";
 const AppHeader = () => {
   const { user, employee, signOut } = useAuth();
   const navigate = useNavigate();
   const { isOnboardingEnabled, toggleOnboarding, startOnboarding, isLoading: onboardingLoading } = useOnboarding();
+  const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications();
   const handleSignOut = async () => {
     try {
       await signOut();
@@ -75,6 +80,30 @@ const AppHeader = () => {
   const handleStartOnboarding = () => {
     startOnboarding();
   };
+
+  const handleNotificationClick = async (notification: any) => {
+    await markAsRead(notification.id);
+    
+    // Navigate to relevant entity
+    if (notification.entity_type && notification.entity_id) {
+      switch (notification.entity_type) {
+        case 'orders':
+          navigate('/app/orders');
+          break;
+        case 'shipments':
+          navigate('/app/shipments');
+          break;
+        case 'invoices':
+          navigate('/app/billing');
+          break;
+        case 'tasks':
+          navigate('/app/todos');
+          break;
+        default:
+          break;
+      }
+    }
+  };
   return (
     <header className="h-16 border-b border-neutral-800 bg-neutral-950/80 backdrop-blur-sm z-20">
       <div className="h-full px-6">
@@ -88,22 +117,55 @@ const AppHeader = () => {
             {/* Notifications */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-10 w-10">
+                <Button variant="ghost" size="icon" className="h-10 w-10 relative">
                   <Bell className="h-5 w-5 text-neutral-400" />
+                  {unreadCount > 0 && (
+                    <Badge 
+                      variant="destructive" 
+                      className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs"
+                    >
+                      {unreadCount > 9 ? '9+' : unreadCount}
+                    </Badge>
+                  )}
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-80">
-                <div className="py-2 px-4">
+              <DropdownMenuContent align="end" className="w-96 p-0">
+                <div className="flex items-center justify-between py-3 px-4 border-b border-neutral-700">
                   <h3 className="font-medium text-sm">Notifications</h3>
+                  {unreadCount > 0 && (
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="h-7 text-xs"
+                      onClick={markAllAsRead}
+                    >
+                      Mark all as read
+                    </Button>
+                  )}
                 </div>
-                <DropdownMenuSeparator />
 
                 {/* Approval Status Indicator */}
-                <div className="px-4 py-2">
+                <div className="px-4 py-2 border-b border-neutral-700">
                   <ApprovalStatusIndicator />
                 </div>
 
-                <div className="py-6 text-center text-sm text-muted-foreground">No new notifications</div>
+                <ScrollArea className="h-[400px]">
+                  {notifications.length === 0 ? (
+                    <div className="py-8 text-center text-sm text-neutral-500">
+                      No notifications yet
+                    </div>
+                  ) : (
+                    <div>
+                      {notifications.map((notification) => (
+                        <NotificationItem
+                          key={notification.id}
+                          notification={notification}
+                          onClick={() => handleNotificationClick(notification)}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </ScrollArea>
               </DropdownMenuContent>
             </DropdownMenu>
 
