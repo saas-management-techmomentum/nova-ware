@@ -35,7 +35,6 @@ import { supabase } from '@/integrations/supabase/client';
 import { ShipmentExpectedDateEditor } from '@/components/shipments/ShipmentExpectedDateEditor';
 import ShipmentDetailsDialog from '@/components/inventory/ShipmentDetailsDialog';
 import OutgoingShipments from '@/components/shipments/OutgoingShipments';
-import ShippingSettings from '@/components/shipments/ShippingSettings';
 import OutgoingShipmentModal from '@/components/shipments/OutgoingShipmentModal';
 import CreateIncomingShipmentModal from '@/components/shipments/CreateIncomingShipmentModal';
 
@@ -428,10 +427,9 @@ const ShipmentsPage = () => {
       </div>
 
       <Tabs defaultValue="incoming" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="incoming">Incoming Shipments</TabsTrigger>
           <TabsTrigger value="outgoing">Outgoing Shipments</TabsTrigger>
-          <TabsTrigger value="settings">Shipping Settings</TabsTrigger>
         </TabsList>
 
         <TabsContent value="incoming" className="space-y-6">
@@ -541,10 +539,6 @@ const ShipmentsPage = () => {
 
         <TabsContent value="outgoing">
           <OutgoingShipments />
-        </TabsContent>
-
-        <TabsContent value="settings">
-          <ShippingSettings />
         </TabsContent>
       </Tabs>
 
