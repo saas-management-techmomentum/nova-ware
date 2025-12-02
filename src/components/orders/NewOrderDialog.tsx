@@ -80,7 +80,7 @@ const NewOrderDialog: React.FC = () => {
 
   // Auto-populate order items from selected invoice
   useEffect(() => {
-    if (selectedInvoiceId && !invoiceItemsLoaded) {
+    if (selectedInvoiceId && selectedInvoiceId !== 'none' && !invoiceItemsLoaded) {
       const selectedInvoice = invoices.find(inv => inv.id === selectedInvoiceId);
       if (selectedInvoice) {
         // Fetch invoice items from supabase
@@ -265,7 +265,7 @@ const NewOrderDialog: React.FC = () => {
       const selectedInvoice = invoices.find(inv => inv.id === selectedInvoiceId);
 
       const newOrder = {
-        invoice_id: selectedInvoiceId,
+        invoice_id: selectedInvoiceId === 'none' ? '' : selectedInvoiceId,
         invoice_number: selectedInvoice?.invoice_number || '',
         client: clientName,
         clientId: clientId,
@@ -328,7 +328,7 @@ const NewOrderDialog: React.FC = () => {
                 <SelectValue placeholder={invoicesLoading ? "Loading invoices..." : "None - Create draft invoice"} />
               </SelectTrigger>
               <SelectContent className="max-h-[300px]">
-                <SelectItem value="">None - Create draft invoice</SelectItem>
+                <SelectItem value="none">None - Create draft invoice</SelectItem>
                 {invoices
                   .filter(inv => inv.status === 'sent' || inv.status === 'approved' || inv.status === 'paid')
                   .map((invoice) => (
@@ -339,9 +339,9 @@ const NewOrderDialog: React.FC = () => {
                 }
               </SelectContent>
             </Select>
-            {!selectedInvoiceId && (
-              <p className="text-xs text-muted-foreground">
-                A draft invoice will be automatically created from this order
+            {(!selectedInvoiceId || selectedInvoiceId === 'none') && (
+              <p className="text-xs text-muted-foreground mt-1">
+                A draft invoice will be automatically created for this order
               </p>
             )}
           </div>
@@ -452,7 +452,7 @@ const NewOrderDialog: React.FC = () => {
           </div>
 
           {/* Product Selection Section - Only shown if invoice is NOT selected */}
-          {!selectedInvoiceId && (
+          {(!selectedInvoiceId || selectedInvoiceId === 'none') && (
             <div className="border-t pt-4">
               <div className="grid gap-2">
                 <Label>Add Products to Order</Label>
@@ -504,7 +504,7 @@ const NewOrderDialog: React.FC = () => {
             <div className="mt-4 border-t pt-4">
               <div className="flex items-center justify-between mb-2">
                 <Label className="text-sm font-medium">Order Items ({orderItems.length})</Label>
-                {selectedInvoiceId && (
+                {selectedInvoiceId && selectedInvoiceId !== 'none' && (
                   <Badge variant="secondary" className="text-xs">From Invoice</Badge>
                 )}
               </div>
@@ -522,7 +522,7 @@ const NewOrderDialog: React.FC = () => {
                       <Badge variant="outline" className="text-xs">
                         Qty: {item.qty}
                       </Badge>
-                      {!selectedInvoiceId && (
+                      {(!selectedInvoiceId || selectedInvoiceId === 'none') && (
                         <>
                           <Input
                             type="number"
