@@ -14,7 +14,7 @@ import { toast } from '@/hooks/use-toast';
 import { Eye, EyeOff } from 'lucide-react';
 
 const signInSchema = z.object({
-  email: z.string().email('Please enter a valid email address.'),
+  email: z.string().trim().min(1, 'Email is required.').email('Please enter a valid email address.'),
   password: z.string().min(6, 'Password must be at least 6 characters.'),
 });
 
@@ -22,7 +22,7 @@ const signUpSchema = z.object({
   invitationCode: z.string().min(1, 'Invitation code is required.'),
   firstName: z.string().min(2, 'First name must be at least 2 characters.'),
   lastName: z.string().min(2, 'Last name must be at least 2 characters.'),
-  email: z.string().email('Please enter a valid email address.'),
+  email: z.string().trim().min(1, 'Email is required.').email('Please enter a valid email address.'),
   password: z.string().min(6, 'Password must be at least 6 characters.'),
   confirmPassword: z.string().min(6, 'Password must be at least 6 characters.'),
   companyName: z.string().min(2, 'Company name must be at least 2 characters.'),
@@ -32,7 +32,7 @@ const signUpSchema = z.object({
 });
 
 const resetPasswordSchema = z.object({
-  email: z.string().email('Please enter a valid email address.'),
+  email: z.string().trim().min(1, 'Email is required.').email('Please enter a valid email address.'),
 });
 
 type SignInFormValues = z.infer<typeof signInSchema>;
@@ -231,7 +231,13 @@ const AuthPage = () => {
                     <div className="text-center">
                       <button
                         type="button"
-                        onClick={() => setShowResetPassword(true)}
+                        onClick={() => {
+                          const currentEmail = signInForm.getValues('email');
+                          if (currentEmail) {
+                            resetPasswordForm.setValue('email', currentEmail.trim());
+                          }
+                          setShowResetPassword(true);
+                        }}
                         className="text-sm text-white/70 hover:text-white underline"
                       >
                         Forgot Password?

@@ -142,7 +142,7 @@ serve(async (req) => {
     if (client.billing_address || client.shipping_address) {
       rightColumnY += 6;
       const address = client.billing_address || client.shipping_address || '';
-      address.split('\n').forEach(line => {
+      address.split('\n').forEach((line: string) => {
         doc.text(line, rightStart, rightColumnY);
         rightColumnY += 6;
       });
@@ -212,7 +212,7 @@ serve(async (req) => {
       doc.text('Notes:', margin, yPosition);
       yPosition += 6;
       doc.setFontSize(10);
-      invoice.notes.split('\n').forEach(line => {
+      invoice.notes.split('\n').forEach((line: string) => {
         doc.text(line, margin, yPosition);
         yPosition += 5;
       });
@@ -243,8 +243,9 @@ serve(async (req) => {
       },
     });
 
-  } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+    return new Response(JSON.stringify({ error: errorMessage }), {
       status: 400,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
