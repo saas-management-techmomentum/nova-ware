@@ -307,13 +307,14 @@ ${companyInfo.name}`;
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
 
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error sending invoice email:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
     
     return new Response(
       JSON.stringify({ 
         success: false,
-        error: error.message || 'Unknown error occurred'
+        error: errorMessage
       }),
       { 
         status: 400,

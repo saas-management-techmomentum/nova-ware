@@ -48,7 +48,7 @@ async function sendCustomInvitationEmail(
   password: string,
   loginUrl: string,
   warehouseName?: string
-): Promise<void> {
+): Promise<unknown> {
   const resendApiKey = Deno.env.get("RESEND_API_KEY");
   
   
@@ -338,9 +338,10 @@ const handler = async (req: Request): Promise<Response> => {
         loginUrl,
         warehouseName
       );
-    } catch (emailError) {
+    } catch (emailError: unknown) {
       console.error('Error sending custom email:', emailError);
-      throw new Error(`Failed to send invitation email: ${emailError.message}`);
+      const errorMessage = emailError instanceof Error ? emailError.message : 'Unknown email error';
+      throw new Error(`Failed to send invitation email: ${errorMessage}`);
     }
 
 
