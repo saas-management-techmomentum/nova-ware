@@ -74,18 +74,19 @@ export const useEmployees = () => {
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const { toast } = useToast();
-  const { getPrimaryCompanyId, isAdmin, warehouseAssignments } = useUserPermissions();
+  const { getPrimaryCompanyId, isAdmin, warehouseAssignments, userRoles } = useUserPermissions();
 
   const fetchEmployees = async () => {
     if (!user?.id) return;
 
     try {
-
-      
       let query = supabase.from('employees').select('*');
       
-      if (isAdmin) {
-        // Admins see all employees in their companies
+      // Check if user has company-level manager or admin role
+      const isCompanyManager = userRoles.some(role => role.role === 'manager' || role.role === 'admin');
+      
+      if (isAdmin || isCompanyManager) {
+        // Admins and company-level managers see all employees in their companies
         const { data: companyIds } = await supabase
           .from('company_users')
           .select('company_id')
@@ -93,28 +94,22 @@ export const useEmployees = () => {
         
         if (companyIds && companyIds.length > 0) {
           const companyIdList = companyIds.map(c => c.company_id);
-    
           query = query.in('company_id', companyIdList);
         } else {
-          // Fallback to original filter for admins without company assignments
-    
+          // Fallback to original filter
           query = query.or(`user_id.eq.${user.id},user_id_auth.eq.${user.id}`);
         }
       } else {
-        // For managers and employees, include warehouse-based access
+        // For warehouse-level managers and employees
         const managerWarehouseIds = warehouseAssignments
           .filter(w => w.role === 'manager' || w.role === 'admin')
           .map(w => w.warehouse_id);
         
-
-        
         if (managerWarehouseIds.length > 0) {
-          // Managers see employees in warehouses they manage + employees they created + their own record
-
+          // Warehouse managers see employees in warehouses they manage
           query = query.or(`user_id.eq.${user.id},user_id_auth.eq.${user.id},assigned_warehouse_id.in.(${managerWarehouseIds.join(',')})`);
         } else {
           // Regular employees only see employees they created + their own record
-     
           query = query.or(`user_id.eq.${user.id},user_id_auth.eq.${user.id}`);
         }
       }
@@ -472,7 +467,7 @@ export const useEmployees = () => {
     if (user?.id) {
       fetchEmployees();
     }
-  }, [user?.id, isAdmin, warehouseAssignments]);
+  }, [user?.id, isAdmin, warehouseAssignments, userRoles]);
 
   return {
     employees,
