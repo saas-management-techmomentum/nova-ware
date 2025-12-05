@@ -74,10 +74,11 @@ export const useEmployees = () => {
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const { toast } = useToast();
-  const { getPrimaryCompanyId, isAdmin, warehouseAssignments, userRoles } = useUserPermissions();
+  const { getPrimaryCompanyId, isAdmin, warehouseAssignments, userRoles, loading: permissionsLoading } = useUserPermissions();
 
   const fetchEmployees = async () => {
-    if (!user?.id) return;
+    // Wait for permissions to load before fetching
+    if (!user?.id || permissionsLoading) return;
 
     try {
       let query = supabase.from('employees').select('*');
@@ -464,10 +465,10 @@ export const useEmployees = () => {
   */
 
   useEffect(() => {
-    if (user?.id) {
+    if (user?.id && !permissionsLoading) {
       fetchEmployees();
     }
-  }, [user?.id, isAdmin, warehouseAssignments, userRoles]);
+  }, [user?.id, isAdmin, warehouseAssignments, userRoles, permissionsLoading]);
 
   return {
     employees,
