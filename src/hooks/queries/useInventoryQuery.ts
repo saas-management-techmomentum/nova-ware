@@ -6,6 +6,22 @@ import { useWarehouse } from '@/contexts/WarehouseContext';
 import { useEmployees } from '@/hooks/useEmployees';
 import { useUserPermissions } from '@/hooks/useUserPermissions';
 
+// Helper to check if all data is ready for querying
+const isDataReady = (
+  user: any,
+  isAdmin: boolean,
+  companyId: string | null,
+  employeesLoading: boolean,
+  permissionsLoading: boolean,
+  employeesLength: number
+): boolean => {
+  if (!user || permissionsLoading) return false;
+  if (isAdmin && !!companyId) return true;
+  if (!employeesLoading && employeesLength > 0) return true;
+  if (!employeesLoading) return true;
+  return false;
+};
+
 export interface InventoryItem {
   id: string;
   name: string;
@@ -52,8 +68,8 @@ export const useInventoryQuery = ({
 }: UseInventoryQueryProps = {}) => {
   const { user } = useAuth();
   const { selectedWarehouse, companyId } = useWarehouse();
-  const { employees } = useEmployees();
-  const { userRoles } = useUserPermissions();
+  const { employees, loading: employeesLoading } = useEmployees();
+  const { userRoles, loading: permissionsLoading } = useUserPermissions();
 
   const getEmployeeAssignedWarehouse = (): string | null => {
     if (!user || !employees.length) return null;
@@ -67,7 +83,7 @@ export const useInventoryQuery = ({
   const isAssignedEmployee = currentEmployee?.assigned_warehouse_id; // Prioritize warehouse assignment over admin status
 
   return useQuery({
-    queryKey: ['inventory', selectedWarehouse, user?.id, page, limit, search, category, lowStock, ignoreWarehouseFilter, employees.length],
+    queryKey: ['inventory', selectedWarehouse, user?.id, page, limit, search, category, lowStock, ignoreWarehouseFilter, employeesLoading, permissionsLoading],
     queryFn: async () => {
       if (!user) throw new Error('No authenticated user');
 
@@ -240,12 +256,7 @@ export const useInventoryQuery = ({
         hasMore: isCorporateOverview ? false : (count || 0) > page * limit
       };
     },
-    enabled: !!user && (
-      // Admins: wait until we know companyId for corporate view
-      (isAdmin && !!companyId) || 
-      // Employees: wait until employee data loads
-      employees.length > 0
-    ),
+    enabled: isDataReady(user, isAdmin, companyId, employeesLoading, permissionsLoading, employees.length),
   });
 };
 
