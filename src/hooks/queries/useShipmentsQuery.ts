@@ -5,6 +5,30 @@ import { useWarehouse } from '@/contexts/WarehouseContext';
 import { useEmployees } from '@/hooks/useEmployees';
 import { useUserPermissions } from '@/hooks/useUserPermissions';
 
+// Helper to check if all data is ready for querying
+const isDataReady = (
+  user: any,
+  isAdmin: boolean,
+  companyId: string | null,
+  employeesLoading: boolean,
+  permissionsLoading: boolean,
+  employeesLength: number
+): boolean => {
+  // Must have user and permissions loaded
+  if (!user || permissionsLoading) return false;
+  
+  // Admins need companyId for corporate view
+  if (isAdmin && !!companyId) return true;
+  
+  // Non-admins need employees to be loaded
+  if (!employeesLoading && employeesLength > 0) return true;
+  
+  // If employees finished loading but empty, allow query (fallback to user_id filter)
+  if (!employeesLoading) return true;
+  
+  return false;
+};
+
 export interface ShipmentItem {
   id: string;
   shipment_id: string;
@@ -69,8 +93,8 @@ export const useShipmentsQuery = ({
 }: UseShipmentsQueryProps = {}) => {
   const { user } = useAuth();
   const { selectedWarehouse, companyId } = useWarehouse();
-  const { employees } = useEmployees();
-  const { userRoles } = useUserPermissions();
+  const { employees, loading: employeesLoading } = useEmployees();
+  const { userRoles, loading: permissionsLoading } = useUserPermissions();
 
   const getEmployeeAssignedWarehouse = (): string | null => {
     if (!user || !employees.length) return null;
@@ -82,7 +106,7 @@ export const useShipmentsQuery = ({
   const isAdmin = userRoles.some(role => role.role === 'admin');
 
   return useQuery({
-    queryKey: ['shipments', selectedWarehouse, user?.id, page, limit, status, search],
+    queryKey: ['shipments', selectedWarehouse, user?.id, page, limit, status, search, employeesLoading, permissionsLoading],
     queryFn: async () => {
       if (!user) throw new Error('No authenticated user');
 
@@ -186,12 +210,7 @@ export const useShipmentsQuery = ({
         hasMore: (count || 0) > page * limit
       };
     },
-    enabled: !!user && (
-      // Admins: wait until we know companyId for corporate view
-      (isAdmin && !!companyId) || 
-      // Employees: wait until employee data loads or no employee needed
-      employees.length > 0 || !employees.length
-    ),
+    enabled: isDataReady(user, isAdmin, companyId, employeesLoading, permissionsLoading, employees.length),
   });
 };
 
