@@ -197,8 +197,8 @@ export const ExpenseManagement: React.FC = () => {
     return (
       <div className="space-y-6">
         <div className="flex justify-center items-center h-64">
-          <Loader2 className="h-8 w-8 animate-spin" />
-          <span className="ml-2">Loading expenses...</span>
+          <Loader2 className="h-8 w-8 animate-spin text-neutral-400" />
+          <span className="ml-2 text-neutral-400">Loading expenses...</span>
         </div>
       </div>
     );
@@ -209,48 +209,49 @@ export const ExpenseManagement: React.FC = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold">Expenses</h2>
-          <p className="text-muted-foreground mt-1">Real-time expense tracking and management</p>
+          <h2 className="text-2xl font-bold text-white">Expenses</h2>
+          <p className="text-neutral-400 mt-1">Real-time expense tracking and management</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={refetch} disabled={isLoading}>
+          <Button variant="outline" onClick={refetch} disabled={isLoading} className="bg-neutral-900 border-neutral-700 text-neutral-300 hover:bg-neutral-800">
             <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
             Refresh
           </Button>
           <Dialog open={isAddExpenseOpen} onOpenChange={setIsAddExpenseOpen}>
             <DialogTrigger asChild>
-              <Button>
+              <Button className="bg-white text-black hover:bg-neutral-200">
                 <Plus className="h-4 w-4 mr-2" />
                 Add Expense
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl">
+            <DialogContent className="max-w-2xl bg-neutral-900 border-neutral-800">
               <DialogHeader>
-                <DialogTitle>Add New Expense</DialogTitle>
-                <DialogDescription>
+                <DialogTitle className="text-white">Add New Expense</DialogTitle>
+                <DialogDescription className="text-neutral-400">
                   Record a new expense and automatically post it to the general ledger
                 </DialogDescription>
               </DialogHeader>
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-4">
                   <div>
-                    <Label>Expense Description *</Label>
+                    <Label className="text-neutral-300">Expense Description *</Label>
                     <Input 
                       placeholder="Describe the expense"
                       value={expenseForm.description}
                       onChange={(e) => setExpenseForm(prev => ({ ...prev, description: e.target.value }))}
+                      className="bg-neutral-900 border-neutral-700 text-white"
                     />
                   </div>
                   <div>
-                    <Label>Vendor/Payee *</Label>
+                    <Label className="text-neutral-300">Vendor/Payee *</Label>
                     <Select 
                       value={expenseForm.vendor}
                       onValueChange={(value) => setExpenseForm(prev => ({ ...prev, vendor: value }))}
                     >
-                      <SelectTrigger>
+                      <SelectTrigger className="bg-neutral-900 border-neutral-700 text-white">
                         <SelectValue placeholder="Select a vendor" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-neutral-900 border-neutral-700">
                         {vendors.filter(v => v.is_active).map((vendor) => (
                           <SelectItem key={vendor.id} value={vendor.vendor_name}>
                             {vendor.vendor_name}
@@ -260,15 +261,15 @@ export const ExpenseManagement: React.FC = () => {
                     </Select>
                   </div>
                   <div>
-                    <Label>Category *</Label>
+                    <Label className="text-neutral-300">Category *</Label>
                     <Select 
                       value={expenseForm.category}
                       onValueChange={(value) => setExpenseForm(prev => ({ ...prev, category: value }))}
                     >
-                      <SelectTrigger>
+                      <SelectTrigger className="bg-neutral-900 border-neutral-700 text-white">
                         <SelectValue placeholder="Select category" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-neutral-900 border-neutral-700">
                         <SelectItem value="Rent & Facilities">Rent & Facilities</SelectItem>
                         <SelectItem value="Utilities">Utilities</SelectItem>
                         <SelectItem value="Equipment & Maintenance">Equipment & Maintenance</SelectItem>
@@ -282,26 +283,27 @@ export const ExpenseManagement: React.FC = () => {
                     </Select>
                   </div>
                   <div>
-                    <Label>Amount *</Label>
+                    <Label className="text-neutral-300">Amount *</Label>
                     <Input 
                       type="number" 
                       placeholder="0.00"
                       value={expenseForm.amount || ''}
                       onChange={(e) => setExpenseForm(prev => ({ ...prev, amount: parseFloat(e.target.value) || 0 }))}
+                      className="bg-neutral-900 border-neutral-700 text-white"
                     />
                   </div>
                 </div>
                 <div className="space-y-4">
                   <div>
-                    <Label>Payment Method</Label>
+                    <Label className="text-neutral-300">Payment Method</Label>
                     <Select 
                       value={expenseForm.payment_method}
                       onValueChange={(value) => setExpenseForm(prev => ({ ...prev, payment_method: value }))}
                     >
-                      <SelectTrigger>
+                      <SelectTrigger className="bg-neutral-900 border-neutral-700 text-white">
                         <SelectValue placeholder="How was it paid" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-neutral-900 border-neutral-700">
                         <SelectItem value="cash">Cash</SelectItem>
                         <SelectItem value="bank">Bank Transfer</SelectItem>
                         <SelectItem value="check">Check</SelectItem>
@@ -311,29 +313,31 @@ export const ExpenseManagement: React.FC = () => {
                     </Select>
                   </div>
                   <div>
-                    <Label>Payment Date *</Label>
+                    <Label className="text-neutral-300">Payment Date *</Label>
                     <Input 
                       type="date"
                       value={expenseForm.payment_date}
                       onChange={(e) => setExpenseForm(prev => ({ ...prev, payment_date: e.target.value }))}
+                      className="bg-neutral-900 border-neutral-700 text-white"
                     />
                   </div>
                   <div>
-                    <Label>Notes</Label>
+                    <Label className="text-neutral-300">Notes</Label>
                     <Textarea 
                       placeholder="Additional notes..."
                       rows={3}
                       value={expenseForm.notes}
                       onChange={(e) => setExpenseForm(prev => ({ ...prev, notes: e.target.value }))}
+                      className="bg-neutral-900 border-neutral-700 text-white"
                     />
                   </div>
                 </div>
               </div>
               <div className="flex justify-end gap-2 mt-4">
-                <Button variant="outline" onClick={() => setIsAddExpenseOpen(false)}>
+                <Button variant="outline" onClick={() => setIsAddExpenseOpen(false)} className="bg-neutral-900 border-neutral-700 text-neutral-300 hover:bg-neutral-800">
                   Cancel
                 </Button>
-                <Button onClick={handleExpenseSubmit}>
+                <Button onClick={handleExpenseSubmit} className="bg-white text-black hover:bg-neutral-200">
                   Save Expense
                 </Button>
               </div>
@@ -344,15 +348,15 @@ export const ExpenseManagement: React.FC = () => {
 
       {/* Dashboard Metrics */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
+        <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="space-y-2">
-                <p className="text-sm font-medium text-muted-foreground">Total Expenses (Month)</p>
-                <p className="text-2xl font-bold">
+                <p className="text-sm font-medium text-neutral-400">Total Expenses (Month)</p>
+                <p className="text-2xl font-bold text-white">
                   {formatCurrency(metrics.totalThisMonth)}
                 </p>
-                <p className={`text-xs flex items-center ${metrics.lastMonthChange >= 0 ? 'text-red-600' : 'text-green-600'}`}>
+                <p className={`text-xs flex items-center ${metrics.lastMonthChange >= 0 ? 'text-red-400' : 'text-green-400'}`}>
                   {metrics.lastMonthChange >= 0 ? (
                     <TrendingUp className="h-3 w-3 mr-1" />
                   ) : (
@@ -361,63 +365,63 @@ export const ExpenseManagement: React.FC = () => {
                   {metrics.lastMonthChange >= 0 ? '+' : ''}{metrics.lastMonthChange.toFixed(1)}% vs last month
                 </p>
               </div>
-              <div className="bg-primary/10 p-3 rounded-xl">
-                <Receipt className="h-5 w-5 text-primary" />
+              <div className="bg-red-500/20 p-3 rounded-xl border border-red-500/20">
+                <Receipt className="h-5 w-5 text-red-400" />
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="space-y-2">
-                <p className="text-sm font-medium text-muted-foreground">Top Category</p>
-                <p className="text-lg font-bold">
+                <p className="text-sm font-medium text-neutral-400">Top Category</p>
+                <p className="text-lg font-bold text-white">
                   {metrics.topCategories[0]?.name || 'No expenses'}
                 </p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-neutral-400">
                   {metrics.topCategories[0] ? formatCurrency(metrics.topCategories[0].amount) : 'N/A'}
                 </p>
               </div>
-              <div className="bg-orange-500/10 p-3 rounded-xl">
-                {metrics.topCategories[0] ? getCategoryIcon(metrics.topCategories[0].name) : <Building className="h-5 w-5 text-orange-500" />}
+              <div className="bg-orange-500/20 p-3 rounded-xl border border-orange-500/20">
+                {metrics.topCategories[0] ? getCategoryIcon(metrics.topCategories[0].name) : <Building className="h-5 w-5 text-orange-400" />}
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="space-y-2">
-                <p className="text-sm font-medium text-muted-foreground">Top Vendor</p>
-                <p className="text-lg font-bold truncate">
+                <p className="text-sm font-medium text-neutral-400">Top Vendor</p>
+                <p className="text-lg font-bold text-white truncate">
                   {metrics.topVendor?.name || 'No vendors'}
                 </p>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-neutral-400">
                   {metrics.topVendor ? formatCurrency(metrics.topVendor.amount) : 'N/A'}
                 </p>
               </div>
-              <div className="bg-gray-700/10 p-3 rounded-xl">
-                <DollarSign className="h-5 w-5 text-gray-500" />
+              <div className="bg-gray-700/20 p-3 rounded-xl border border-gray-600/20">
+                <DollarSign className="h-5 w-5 text-gray-400" />
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="space-y-2">
-                <p className="text-sm font-medium text-muted-foreground">Unpaid Expenses</p>
-                <p className="text-2xl font-bold">
+                <p className="text-sm font-medium text-neutral-400">Unpaid Expenses</p>
+                <p className="text-2xl font-bold text-white">
                   {formatCurrency(metrics.totalUnpaid)}
                 </p>
-                <p className="text-xs text-muted-foreground">Pending payments</p>
+                <p className="text-xs text-neutral-400">Pending payments</p>
               </div>
-              <div className="bg-yellow-500/10 p-3 rounded-xl">
-                <Clock className="h-5 w-5 text-yellow-500" />
+              <div className="bg-yellow-500/20 p-3 rounded-xl border border-yellow-500/20">
+                <Clock className="h-5 w-5 text-yellow-400" />
               </div>
             </div>
           </CardContent>
@@ -426,30 +430,30 @@ export const ExpenseManagement: React.FC = () => {
 
       {/* Main Content Tabs */}
       <Tabs defaultValue="expenses" className="space-y-4">
-        <TabsList>
-          <TabsTrigger value="expenses">All Expenses</TabsTrigger>
-          <TabsTrigger value="categories">Categories</TabsTrigger>
+        <TabsList className="bg-neutral-900/50 border-neutral-800">
+          <TabsTrigger value="expenses" className="data-[state=active]:bg-neutral-800">All Expenses</TabsTrigger>
+          <TabsTrigger value="categories" className="data-[state=active]:bg-neutral-800">Categories</TabsTrigger>
         </TabsList>
 
         <TabsContent value="expenses" className="space-y-4">
           {/* Filters */}
-          <Card>
+          <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
             <CardContent className="p-4">
               <div className="flex gap-4 items-center">
                 <div className="relative flex-1 max-w-sm">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 h-4 w-4" />
                   <Input
                     placeholder="Search expenses..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
+                    className="pl-10 bg-neutral-900 border-neutral-700 text-white"
                   />
                 </div>
                 <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-                  <SelectTrigger className="w-48">
+                  <SelectTrigger className="w-48 bg-neutral-900 border-neutral-700 text-white">
                     <SelectValue placeholder="All Categories" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-neutral-900 border-neutral-700">
                     <SelectItem value="all">All Categories</SelectItem>
                     {categories.map(category => (
                       <SelectItem key={category} value={category}>
@@ -459,10 +463,10 @@ export const ExpenseManagement: React.FC = () => {
                   </SelectContent>
                 </Select>
                 <Select value={statusFilter} onValueChange={setStatusFilter}>
-                  <SelectTrigger className="w-32">
+                  <SelectTrigger className="w-32 bg-neutral-900 border-neutral-700 text-white">
                     <SelectValue placeholder="All Status" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-neutral-900 border-neutral-700">
                     <SelectItem value="all">All Status</SelectItem>
                     <SelectItem value="paid">Paid</SelectItem>
                     <SelectItem value="pending">Pending</SelectItem>
@@ -474,19 +478,19 @@ export const ExpenseManagement: React.FC = () => {
           </Card>
 
           {/* Expenses Table */}
-          <Card>
+          <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
             <CardHeader>
-              <CardTitle>Expense Records</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-white">Expense Records</CardTitle>
+              <CardDescription className="text-neutral-400">
                 All expense transactions from your general ledger
               </CardDescription>
             </CardHeader>
             <CardContent>
               {filteredExpenses.length === 0 ? (
                 <div className="text-center py-8">
-                  <Receipt className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                  <p className="text-muted-foreground">No expenses found</p>
-                  <p className="text-sm text-muted-foreground">
+                  <Receipt className="h-12 w-12 text-neutral-500 mx-auto mb-4" />
+                  <p className="text-neutral-400">No expenses found</p>
+                  <p className="text-sm text-neutral-500">
                     {searchTerm || categoryFilter !== 'all' || statusFilter !== 'all' 
                       ? 'Try adjusting your filters' 
                       : 'Add your first expense to get started'
@@ -496,55 +500,55 @@ export const ExpenseManagement: React.FC = () => {
               ) : (
                 <Table>
                   <TableHeader>
-                    <TableRow>
-                      <TableHead>Date</TableHead>
-                      <TableHead>Description</TableHead>
-                      <TableHead>Vendor</TableHead>
-                      <TableHead>Category</TableHead>
-                      <TableHead>Amount</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Warehouse</TableHead>
-                      <TableHead>Actions</TableHead>
+                    <TableRow className="border-neutral-800">
+                      <TableHead className="text-neutral-300">Date</TableHead>
+                      <TableHead className="text-neutral-300">Description</TableHead>
+                      <TableHead className="text-neutral-300">Vendor</TableHead>
+                      <TableHead className="text-neutral-300">Category</TableHead>
+                      <TableHead className="text-neutral-300">Amount</TableHead>
+                      <TableHead className="text-neutral-300">Status</TableHead>
+                      <TableHead className="text-neutral-300">Warehouse</TableHead>
+                      <TableHead className="text-neutral-300">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {filteredExpenses.map((expense) => (
-                      <TableRow key={expense.id}>
-                        <TableCell className="text-muted-foreground">
+                      <TableRow key={expense.id} className="border-neutral-800 hover:bg-neutral-800/30">
+                        <TableCell className="text-neutral-400">
                           {expense.transaction_date 
                             ? new Date(expense.transaction_date).toLocaleDateString() 
                             : 'No date'}
                         </TableCell>
                         <TableCell>
                           <div>
-                            <p className="font-medium">{expense.description}</p>
+                            <p className="font-medium text-white">{expense.description}</p>
                             {expense.reference && (
-                              <p className="text-xs text-muted-foreground">{expense.reference}</p>
+                              <p className="text-xs text-neutral-500">{expense.reference}</p>
                             )}
                           </div>
                         </TableCell>
-                        <TableCell>{expense.vendor || '-'}</TableCell>
+                        <TableCell className="text-neutral-300">{expense.vendor || '-'}</TableCell>
                         <TableCell>
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 text-neutral-300">
                             {getCategoryIcon(expense.category)}
                             <span className="text-sm">{expense.category}</span>
                           </div>
                         </TableCell>
-                        <TableCell className="font-medium">{formatCurrency(expense.amount)}</TableCell>
+                        <TableCell className="font-medium text-white">{formatCurrency(expense.amount)}</TableCell>
                         <TableCell>{getStatusBadge(expense.status)}</TableCell>
-                        <TableCell className="text-muted-foreground">
+                        <TableCell className="text-neutral-400">
                           {expense.warehouse_name || 'Unassigned'}
                         </TableCell>
                         <TableCell>
                           <div className="flex items-center gap-1">
-                            <Button variant="ghost" size="sm" onClick={() => handleViewExpense(expense)}>
+                            <Button variant="ghost" size="sm" onClick={() => handleViewExpense(expense)} className="hover:bg-neutral-800">
                               <Eye className="h-4 w-4" />
                             </Button>
-                            <Button variant="ghost" size="sm" onClick={() => handleEditExpense(expense)}>
+                            <Button variant="ghost" size="sm" onClick={() => handleEditExpense(expense)} className="hover:bg-neutral-800">
                               <Edit className="h-4 w-4" />
                             </Button>
-                            <Button variant="ghost" size="sm" onClick={() => handleDeleteExpense(expense)}>
-                              <Trash2 className="h-4 w-4 text-red-500" />
+                            <Button variant="ghost" size="sm" onClick={() => handleDeleteExpense(expense)} className="hover:bg-neutral-800">
+                              <Trash2 className="h-4 w-4 text-red-400" />
                             </Button>
                           </div>
                         </TableCell>
@@ -558,40 +562,40 @@ export const ExpenseManagement: React.FC = () => {
         </TabsContent>
 
         <TabsContent value="categories" className="space-y-4">
-          <Card>
+          <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
             <CardHeader>
-              <CardTitle>Expense Categories Breakdown</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-white">Expense Categories Breakdown</CardTitle>
+              <CardDescription className="text-neutral-400">
                 Spending analysis by category from real transaction data
               </CardDescription>
             </CardHeader>
             <CardContent>
               {metrics.topCategories.length === 0 ? (
                 <div className="text-center py-8">
-                  <BarChart3 className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                  <p className="text-muted-foreground">No category data available</p>
-                  <p className="text-sm text-muted-foreground">
+                  <BarChart3 className="h-12 w-12 text-neutral-500 mx-auto mb-4" />
+                  <p className="text-neutral-400">No category data available</p>
+                  <p className="text-sm text-neutral-500">
                     Category breakdown will appear here once you have expense records
                   </p>
                 </div>
               ) : (
                 <div className="space-y-4">
                   {metrics.topCategories.map((category, index) => (
-                    <div key={category.name} className="flex items-center justify-between p-4 border rounded-lg">
+                    <div key={category.name} className="flex items-center justify-between p-4 bg-neutral-800/30 rounded-lg border border-neutral-800/50">
                       <div className="flex items-center gap-3">
-                        <div className="flex items-center justify-center w-8 h-8 bg-primary/10 rounded-full">
+                        <div className="flex items-center justify-center w-8 h-8 bg-neutral-700/50 rounded-full">
                           {getCategoryIcon(category.name)}
                         </div>
                         <div>
-                          <p className="font-medium">{category.name}</p>
-                          <p className="text-sm text-muted-foreground">{category.percentage.toFixed(1)}% of total</p>
+                          <p className="font-medium text-white">{category.name}</p>
+                          <p className="text-sm text-neutral-400">{category.percentage.toFixed(1)}% of total</p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-bold">{formatCurrency(category.amount)}</p>
-                        <div className="w-24 h-2 bg-muted rounded-full overflow-hidden">
+                        <p className="font-bold text-white">{formatCurrency(category.amount)}</p>
+                        <div className="w-24 h-2 bg-neutral-700 rounded-full overflow-hidden">
                           <div 
-                            className="h-full bg-primary rounded-full transition-all duration-300"
+                            className="h-full bg-neutral-500 rounded-full transition-all duration-300"
                             style={{ width: `${category.percentage}%` }}
                           />
                         </div>
@@ -607,41 +611,41 @@ export const ExpenseManagement: React.FC = () => {
 
       {/* View Expense Dialog */}
       <Dialog open={isViewExpenseOpen} onOpenChange={setIsViewExpenseOpen}>
-        <DialogContent>
+        <DialogContent className="bg-neutral-900 border-neutral-800">
           <DialogHeader>
-            <DialogTitle>Expense Details</DialogTitle>
+            <DialogTitle className="text-white">Expense Details</DialogTitle>
           </DialogHeader>
           {selectedExpense && (
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-muted-foreground">Description</Label>
-                  <p className="font-medium">{selectedExpense.description}</p>
+                  <Label className="text-neutral-400">Description</Label>
+                  <p className="font-medium text-white">{selectedExpense.description}</p>
                 </div>
                 <div>
-                  <Label className="text-muted-foreground">Amount</Label>
-                  <p className="font-medium">{formatCurrency(selectedExpense.amount)}</p>
+                  <Label className="text-neutral-400">Amount</Label>
+                  <p className="font-medium text-white">{formatCurrency(selectedExpense.amount)}</p>
                 </div>
                 <div>
-                  <Label className="text-muted-foreground">Vendor</Label>
-                  <p className="font-medium">{selectedExpense.vendor || '-'}</p>
+                  <Label className="text-neutral-400">Vendor</Label>
+                  <p className="font-medium text-white">{selectedExpense.vendor || '-'}</p>
                 </div>
                 <div>
-                  <Label className="text-muted-foreground">Category</Label>
-                  <p className="font-medium">{selectedExpense.category || '-'}</p>
+                  <Label className="text-neutral-400">Category</Label>
+                  <p className="font-medium text-white">{selectedExpense.category || '-'}</p>
                 </div>
                 <div>
-                  <Label className="text-muted-foreground">Date</Label>
-                  <p className="font-medium">{new Date(selectedExpense.transaction_date).toLocaleDateString()}</p>
+                  <Label className="text-neutral-400">Date</Label>
+                  <p className="font-medium text-white">{new Date(selectedExpense.transaction_date).toLocaleDateString()}</p>
                 </div>
                 <div>
-                  <Label className="text-muted-foreground">Status</Label>
+                  <Label className="text-neutral-400">Status</Label>
                   {getStatusBadge(selectedExpense.status)}
                 </div>
                 {selectedExpense.reference && (
                   <div className="col-span-2">
-                    <Label className="text-muted-foreground">Notes</Label>
-                    <p className="font-medium">{selectedExpense.reference}</p>
+                    <Label className="text-neutral-400">Notes</Label>
+                    <p className="font-medium text-white">{selectedExpense.reference}</p>
                   </div>
                 )}
               </div>
@@ -652,30 +656,31 @@ export const ExpenseManagement: React.FC = () => {
 
       {/* Edit Expense Dialog */}
       <Dialog open={isEditExpenseOpen} onOpenChange={setIsEditExpenseOpen}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl bg-neutral-900 border-neutral-800">
           <DialogHeader>
-            <DialogTitle>Edit Expense</DialogTitle>
-            <DialogDescription>Update expense details and payment status</DialogDescription>
+            <DialogTitle className="text-white">Edit Expense</DialogTitle>
+            <DialogDescription className="text-neutral-400">Update expense details and payment status</DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-4">
               <div>
-                <Label>Description</Label>
+                <Label className="text-neutral-300">Description</Label>
                 <Input 
                   value={editForm.description}
                   onChange={(e) => setEditForm(prev => ({ ...prev, description: e.target.value }))}
+                  className="bg-neutral-900 border-neutral-700 text-white"
                 />
               </div>
               <div>
-                <Label>Vendor</Label>
+                <Label className="text-neutral-300">Vendor</Label>
                 <Select 
                   value={editForm.vendor}
                   onValueChange={(value) => setEditForm(prev => ({ ...prev, vendor: value }))}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-neutral-900 border-neutral-700 text-white">
                     <SelectValue placeholder="Select a vendor" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-neutral-900 border-neutral-700">
                     {vendors.filter(v => v.is_active).map((vendor) => (
                       <SelectItem key={vendor.id} value={vendor.vendor_name}>
                         {vendor.vendor_name}
@@ -685,15 +690,15 @@ export const ExpenseManagement: React.FC = () => {
                 </Select>
               </div>
               <div>
-                <Label>Category</Label>
+                <Label className="text-neutral-300">Category</Label>
                 <Select 
                   value={editForm.category}
                   onValueChange={(value) => setEditForm(prev => ({ ...prev, category: value }))}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-neutral-900 border-neutral-700 text-white">
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-neutral-900 border-neutral-700">
                     <SelectItem value="Rent & Facilities">Rent & Facilities</SelectItem>
                     <SelectItem value="Utilities">Utilities</SelectItem>
                     <SelectItem value="Equipment & Maintenance">Equipment & Maintenance</SelectItem>
@@ -709,23 +714,24 @@ export const ExpenseManagement: React.FC = () => {
             </div>
             <div className="space-y-4">
               <div>
-                <Label>Amount</Label>
+                <Label className="text-neutral-300">Amount</Label>
                 <Input 
                   type="number"
                   value={editForm.amount || ''}
                   onChange={(e) => setEditForm(prev => ({ ...prev, amount: parseFloat(e.target.value) || 0 }))}
+                  className="bg-neutral-900 border-neutral-700 text-white"
                 />
               </div>
               <div>
-                <Label>Payment Status</Label>
+                <Label className="text-neutral-300">Payment Status</Label>
                 <Select 
                   value={editForm.status}
                   onValueChange={(value) => setEditForm(prev => ({ ...prev, status: value }))}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-neutral-900 border-neutral-700 text-white">
                     <SelectValue placeholder="Select status" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-neutral-900 border-neutral-700">
                     <SelectItem value="pending">Pending</SelectItem>
                     <SelectItem value="paid">Paid</SelectItem>
                     <SelectItem value="overdue">Overdue</SelectItem>
@@ -733,28 +739,30 @@ export const ExpenseManagement: React.FC = () => {
                 </Select>
               </div>
               <div>
-                <Label>Date</Label>
+                <Label className="text-neutral-300">Date</Label>
                 <Input 
                   type="date"
                   value={editForm.payment_date}
                   onChange={(e) => setEditForm(prev => ({ ...prev, payment_date: e.target.value }))}
+                  className="bg-neutral-900 border-neutral-700 text-white"
                 />
               </div>
               <div>
-                <Label>Notes</Label>
+                <Label className="text-neutral-300">Notes</Label>
                 <Textarea 
                   value={editForm.notes}
                   onChange={(e) => setEditForm(prev => ({ ...prev, notes: e.target.value }))}
                   rows={3}
+                  className="bg-neutral-900 border-neutral-700 text-white"
                 />
               </div>
             </div>
           </div>
           <div className="flex justify-end gap-2 mt-4">
-            <Button variant="outline" onClick={() => setIsEditExpenseOpen(false)}>
+            <Button variant="outline" onClick={() => setIsEditExpenseOpen(false)} className="bg-neutral-900 border-neutral-700 text-neutral-300 hover:bg-neutral-800">
               Cancel
             </Button>
-            <Button onClick={handleSaveEdit}>
+            <Button onClick={handleSaveEdit} className="bg-white text-black hover:bg-neutral-200">
               Save Changes
             </Button>
           </div>

@@ -212,7 +212,7 @@ export const GeneralLedger = () => {
             {isInCorporateOverview && " across all warehouses"}
           </p>
         </div>
-        <Button onClick={exportToCSV} className="bg-gray-800 hover:bg-gray-900">
+        <Button onClick={exportToCSV} className="bg-white text-black hover:bg-neutral-200">
           <Download className="h-4 w-4 mr-2" />
           Export CSV
         </Button>
