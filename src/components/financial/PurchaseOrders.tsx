@@ -13,7 +13,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Plus, Minus, CheckCircle, FileText, Edit, Trash2, Package, Send, Copy, Download, CalendarIcon, MoreHorizontal, ShoppingCart } from 'lucide-react';
+import { Plus, Minus, CheckCircle, FileText, Edit, Trash2, Package, Send, Copy, Download, CalendarIcon, MoreHorizontal, ShoppingCart, Search } from 'lucide-react';
 import { usePurchaseOrders, CreatePOItemData, PurchaseOrder } from '@/hooks/usePurchaseOrders';
 import { useVendors } from '@/hooks/useVendors';
 import { useToast } from '@/hooks/use-toast';
@@ -61,7 +61,7 @@ export const PurchaseOrders = () => {
     { item_sku: '', item_name: '', quantity: 1, unit_price: 0 }
   ]);
 
-  // Get unique vendor names from POs for the existing filter (keeping for backwards compatibility)
+  // Get unique vendor names from POs for the existing filter
   const uniqueVendorNames = Array.from(new Set(purchaseOrders.map(po => po.vendor_name)));
 
   const handleAddItem = () => {
@@ -90,7 +90,6 @@ export const PurchaseOrders = () => {
 
   const handleCreatePO = async () => {
     try {
-      // Validate form
       if (!formData.vendorId || !formData.vendorName.trim()) {
         toast({ title: "Please select a vendor", variant: "destructive" });
         return;
@@ -116,7 +115,6 @@ export const PurchaseOrders = () => {
         items: validItems
       });
 
-      // Reset form
       setFormData({
         vendorId: '',
         vendorName: '',
@@ -158,7 +156,6 @@ export const PurchaseOrders = () => {
   };
 
   const handleDuplicatePO = (po: PurchaseOrder) => {
-    // Find the vendor from the vendors list if possible
     const selectedVendor = vendors.find(v => v.vendor_name === po.vendor_name);
     
     setFormData({
@@ -185,7 +182,6 @@ export const PurchaseOrders = () => {
   };
 
   const generatePOPDF = (po: PurchaseOrder) => {
-    // Simplified PDF generation - in real implementation, would use a proper PDF library
     const printContent = `
       Purchase Order: ${po.po_number}
       Vendor: ${po.vendor_name}
@@ -260,7 +256,6 @@ export const PurchaseOrders = () => {
       toast({ title: "Purchase order updated successfully" });
       setIsEditDialogOpen(false);
       setEditingPO(null);
-      // Reset form
       setFormData({
         vendorId: '',
         vendorName: '',
@@ -291,19 +286,18 @@ export const PurchaseOrders = () => {
 
   const getStatusBadge = (status: string) => {
     const statusMap = {
-      draft: { variant: 'secondary' as const, label: 'Draft' },
-      approved: { variant: 'default' as const, label: 'Approved' },
-      confirmed: { variant: 'default' as const, label: 'Confirmed' },
-      received: { variant: 'default' as const, label: 'Received' },
-      partially_received: { variant: 'outline' as const, label: 'Partially Received' },
-      closed: { variant: 'outline' as const, label: 'Closed' }
+      draft: { variant: 'secondary' as const, label: 'Draft', className: 'bg-gray-700/20 text-gray-400 border-gray-600/30' },
+      approved: { variant: 'default' as const, label: 'Approved', className: 'bg-green-500/20 text-green-400 border-green-500/30' },
+      confirmed: { variant: 'default' as const, label: 'Confirmed', className: 'bg-blue-500/20 text-blue-400 border-blue-500/30' },
+      received: { variant: 'default' as const, label: 'Received', className: 'bg-green-500/20 text-green-400 border-green-500/30' },
+      partially_received: { variant: 'outline' as const, label: 'Partially Received', className: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' },
+      closed: { variant: 'outline' as const, label: 'Closed', className: 'bg-gray-700/20 text-gray-400 border-gray-600/30' }
     };
     
     const statusInfo = statusMap[status as keyof typeof statusMap] || statusMap.draft;
-    return <Badge variant={statusInfo.variant}>{statusInfo.label}</Badge>;
+    return <Badge className={statusInfo.className}>{statusInfo.label}</Badge>;
   };
 
-  // Filter POs based on all filters
   const filteredPOs = purchaseOrders.filter(po => {
     const statusMatch = statusFilter === 'all' || po.status === statusFilter;
     const vendorMatch = vendorFilter === 'all' || po.vendor_name === vendorFilter;
@@ -315,33 +309,38 @@ export const PurchaseOrders = () => {
   });
 
   if (isLoading) {
-    return <div className="p-6">Loading purchase orders...</div>;
+    return (
+      <div className="p-6 text-neutral-400">Loading purchase orders...</div>
+    );
   }
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-primary">Purchase Order Management</h2>
+        <div>
+          <h2 className="text-2xl font-bold text-white">Purchase Order Management</h2>
+          <p className="text-neutral-400 mt-1">Create and manage vendor purchase orders</p>
+        </div>
         <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
           <DialogTrigger asChild>
-            <Button>
+            <Button className="bg-white text-black hover:bg-neutral-200">
               <Plus className="h-4 w-4 mr-2" />
               Create PO
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-neutral-900 border-neutral-800">
             <DialogHeader>
-              <DialogTitle>Create Purchase Order</DialogTitle>
+              <DialogTitle className="text-white">Create Purchase Order</DialogTitle>
             </DialogHeader>
             <div className="space-y-6">
               {/* Vendor Information */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label>Select Vendor *</Label>
+                  <Label className="text-neutral-300">Select Vendor *</Label>
                   {vendorsLoading ? (
-                    <div className="p-2 text-muted-foreground">Loading vendors...</div>
+                    <div className="p-2 text-neutral-400">Loading vendors...</div>
                   ) : vendors.length === 0 ? (
-                    <div className="p-2 text-muted-foreground">No vendors available. Please add vendors first.</div>
+                    <div className="p-2 text-neutral-400">No vendors available. Please add vendors first.</div>
                   ) : (
                     <Select 
                       value={formData.vendorId} 
@@ -358,10 +357,10 @@ export const PurchaseOrders = () => {
                         }
                       }}
                     >
-                      <SelectTrigger>
+                      <SelectTrigger className="bg-neutral-900 border-neutral-700 text-white">
                         <SelectValue placeholder="Choose a vendor" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-neutral-900 border-neutral-700">
                         {vendors.map(vendor => (
                           <SelectItem key={vendor.id} value={vendor.id}>
                             {vendor.vendor_name}
@@ -373,40 +372,42 @@ export const PurchaseOrders = () => {
                   )}
                 </div>
                 <div>
-                  <Label>Vendor Contact</Label>
+                  <Label className="text-neutral-300">Vendor Contact</Label>
                   <Input
                     value={formData.vendorContact}
                     onChange={(e) => setFormData(prev => ({ ...prev, vendorContact: e.target.value }))}
                     placeholder="Contact person"
                     disabled={!!formData.vendorId}
+                    className="bg-neutral-900 border-neutral-700 text-white"
                   />
                 </div>
                 <div>
-                  <Label>Vendor Email</Label>
+                  <Label className="text-neutral-300">Vendor Email</Label>
                   <Input
                     type="email"
                     value={formData.vendorEmail}
                     onChange={(e) => setFormData(prev => ({ ...prev, vendorEmail: e.target.value }))}
                     placeholder="vendor@email.com"
                     disabled={!!formData.vendorId}
+                    className="bg-neutral-900 border-neutral-700 text-white"
                   />
                 </div>
                 <div>
-                  <Label>Order Date *</Label>
+                  <Label className="text-neutral-300">Order Date *</Label>
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
                         variant="outline"
                         className={cn(
-                          "w-full justify-start text-left font-normal",
-                          !formData.orderDate && "text-muted-foreground"
+                          "w-full justify-start text-left font-normal bg-neutral-900 border-neutral-700 text-white",
+                          !formData.orderDate && "text-neutral-400"
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {formData.orderDate ? format(formData.orderDate, "PPP") : <span>Pick a date</span>}
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
+                    <PopoverContent className="w-auto p-0 bg-neutral-900 border-neutral-700" align="start">
                       <Calendar
                         mode="single"
                         selected={formData.orderDate}
@@ -418,25 +419,25 @@ export const PurchaseOrders = () => {
                   </Popover>
                 </div>
                 <div>
-                  <Label>Expected Delivery Date</Label>
+                  <Label className="text-neutral-300">Expected Delivery Date</Label>
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
                         variant="outline"
                         className={cn(
-                          "w-full justify-start text-left font-normal",
-                          !formData.expectedDeliveryDate && "text-muted-foreground"
+                          "w-full justify-start text-left font-normal bg-neutral-900 border-neutral-700 text-white",
+                          !formData.expectedDeliveryDate && "text-neutral-400"
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {formData.expectedDeliveryDate ? format(formData.expectedDeliveryDate, "PPP") : <span>Pick a date</span>}
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
+                    <PopoverContent className="w-auto p-0 bg-neutral-900 border-neutral-700" align="start">
                       <Calendar
                         mode="single"
                         selected={formData.expectedDeliveryDate}
-                        onSelect={(date) => setFormData(prev => ({ ...prev, expectedDeliveryDate: date }))}
+                        onSelect={(date) => setFormData(prev => ({ ...prev, expectedDeliveryDate: date || undefined }))}
                         initialFocus
                         className={cn("p-3 pointer-events-auto")}
                       />
@@ -445,97 +446,94 @@ export const PurchaseOrders = () => {
                 </div>
               </div>
 
-              {/* Items Section */}
+              {/* Items */}
               <div>
-                <div className="flex justify-between items-center mb-4">
-                  <Label className="text-lg">Items</Label>
+                <div className="flex justify-between items-center mb-3">
+                  <Label className="text-neutral-300">Order Items *</Label>
                   <div className="flex gap-2">
-                    <Button onClick={() => setIsInventorySelectorOpen(true)} size="sm" variant="outline">
-                      <ShoppingCart className="h-4 w-4 mr-2" />
+                    <Button 
+                      type="button" 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => setIsInventorySelectorOpen(true)}
+                      className="bg-neutral-900 border-neutral-700 text-neutral-300 hover:bg-neutral-800"
+                    >
+                      <ShoppingCart className="h-4 w-4 mr-1" />
                       From Inventory
                     </Button>
-                    <Button onClick={handleAddItem} size="sm" variant="outline">
-                      <Plus className="h-4 w-4 mr-2" />
+                    <Button type="button" variant="outline" size="sm" onClick={handleAddItem} className="bg-neutral-900 border-neutral-700 text-neutral-300 hover:bg-neutral-800">
+                      <Plus className="h-4 w-4 mr-1" />
                       Add Item
                     </Button>
                   </div>
                 </div>
-                
                 <div className="space-y-3">
                   {poItems.map((item, index) => (
-                    <div key={index} className="grid grid-cols-12 gap-2 items-end p-4 border rounded-lg">
-                      <div className="col-span-3">
-                        <Label>SKU</Label>
-                        <Input
-                          value={item.item_sku}
-                          onChange={(e) => handleItemChange(index, 'item_sku', e.target.value)}
-                          placeholder="Item SKU"
-                        />
-                      </div>
-                      <div className="col-span-4">
-                        <Label>Item Name</Label>
-                        <Input
-                          value={item.item_name}
-                          onChange={(e) => handleItemChange(index, 'item_name', e.target.value)}
-                          placeholder="Item description"
-                        />
-                      </div>
-                      <div className="col-span-2">
-                        <Label>Quantity</Label>
-                        <Input
-                          type="number"
-                          min="1"
-                          value={item.quantity}
-                          onChange={(e) => handleItemChange(index, 'quantity', parseInt(e.target.value) || 1)}
-                        />
-                      </div>
-                      <div className="col-span-2">
-                        <Label>Unit Price</Label>
+                    <div key={index} className="grid grid-cols-5 gap-2 items-center">
+                      <Input
+                        placeholder="SKU"
+                        value={item.item_sku}
+                        onChange={(e) => handleItemChange(index, 'item_sku', e.target.value)}
+                        className="bg-neutral-900 border-neutral-700 text-white"
+                      />
+                      <Input
+                        placeholder="Item Name"
+                        value={item.item_name}
+                        onChange={(e) => handleItemChange(index, 'item_name', e.target.value)}
+                        className="col-span-2 bg-neutral-900 border-neutral-700 text-white"
+                      />
+                      <Input
+                        type="number"
+                        placeholder="Qty"
+                        value={item.quantity}
+                        onChange={(e) => handleItemChange(index, 'quantity', parseInt(e.target.value) || 0)}
+                        className="bg-neutral-900 border-neutral-700 text-white"
+                      />
+                      <div className="flex items-center gap-2">
                         <Input
                           type="number"
-                          step="0.01"
-                          min="0"
+                          placeholder="Price"
                           value={item.unit_price}
                           onChange={(e) => handleItemChange(index, 'unit_price', parseFloat(e.target.value) || 0)}
+                          className="bg-neutral-900 border-neutral-700 text-white"
                         />
-                      </div>
-                      <div className="col-span-1">
-                        <Button
-                          onClick={() => handleRemoveItem(index)}
-                          size="sm"
-                          variant="outline"
-                          disabled={poItems.length === 1}
-                        >
-                          <Minus className="h-4 w-4" />
-                        </Button>
+                        {poItems.length > 1 && (
+                          <Button 
+                            type="button" 
+                            variant="ghost" 
+                            size="sm" 
+                            onClick={() => handleRemoveItem(index)}
+                            className="hover:bg-neutral-800"
+                          >
+                            <Minus className="h-4 w-4 text-red-400" />
+                          </Button>
+                        )}
                       </div>
                     </div>
                   ))}
                 </div>
-                
-                <div className="text-right mt-4">
-                  <div className="text-lg font-semibold">
-                    Total: ${calculateTotal().toFixed(2)}
-                  </div>
+                <div className="mt-4 text-right">
+                  <p className="text-lg font-semibold text-white">Total: ${calculateTotal().toFixed(2)}</p>
                 </div>
               </div>
 
               {/* Notes */}
               <div>
-                <Label>Notes</Label>
+                <Label className="text-neutral-300">Notes</Label>
                 <Textarea
                   value={formData.notes}
                   onChange={(e) => setFormData(prev => ({ ...prev, notes: e.target.value }))}
-                  placeholder="Additional notes or instructions"
-                  rows={3}
+                  placeholder="Additional notes..."
+                  className="bg-neutral-900 border-neutral-700 text-white"
                 />
               </div>
 
+              {/* Actions */}
               <div className="flex justify-end gap-2">
-                <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
+                <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)} className="bg-neutral-900 border-neutral-700 text-neutral-300 hover:bg-neutral-800">
                   Cancel
                 </Button>
-                <Button onClick={handleCreatePO}>
+                <Button onClick={handleCreatePO} className="bg-white text-black hover:bg-neutral-200">
                   Create Purchase Order
                 </Button>
               </div>
@@ -544,410 +542,189 @@ export const PurchaseOrders = () => {
         </Dialog>
       </div>
 
-      <Tabs defaultValue="dashboard" className="space-y-6">
-        <TabsList>
-          <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
-          <TabsTrigger value="orders">Purchase Orders</TabsTrigger>
-          <TabsTrigger value="reports">Reports</TabsTrigger>
+      <Tabs defaultValue="orders" className="space-y-6">
+        <TabsList className="bg-neutral-900/50 border-neutral-800">
+          <TabsTrigger value="orders" className="data-[state=active]:bg-neutral-800">Orders</TabsTrigger>
+          <TabsTrigger value="dashboard" className="data-[state=active]:bg-neutral-800">Dashboard</TabsTrigger>
+          <TabsTrigger value="reports" className="data-[state=active]:bg-neutral-800">Reports</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="dashboard">
-          <PurchaseOrderDashboard purchaseOrders={purchaseOrders} />
-        </TabsContent>
-
-        <TabsContent value="orders">
-          <Card>
-            <CardHeader>
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <CardTitle>Purchase Orders</CardTitle>
-                <div className="flex flex-wrap gap-2">
+        <TabsContent value="orders" className="space-y-6">
+          {/* Filters */}
+          <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
+            <CardContent className="p-4">
+              <div className="flex gap-4 items-center">
+                <div className="relative flex-1 max-w-sm">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 h-4 w-4" />
                   <Input
                     placeholder="Search PO number or vendor..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-64"
+                    className="pl-10 bg-neutral-900 border-neutral-700 text-white"
                   />
-                  <Select value={statusFilter} onValueChange={setStatusFilter}>
-                    <SelectTrigger className="w-48">
-                      <SelectValue placeholder="Filter by status" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Statuses</SelectItem>
-                      <SelectItem value="draft">Draft</SelectItem>
-                      <SelectItem value="approved">Approved</SelectItem>
-                      <SelectItem value="confirmed">Confirmed</SelectItem>
-                      <SelectItem value="received">Received</SelectItem>
-                      <SelectItem value="partially_received">Partially Received</SelectItem>
-                      <SelectItem value="closed">Closed</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Select value={vendorFilter} onValueChange={setVendorFilter}>
-                    <SelectTrigger className="w-48">
-                      <SelectValue placeholder="Filter by vendor" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Vendors</SelectItem>
-                      {uniqueVendorNames.map(vendorName => (
-                        <SelectItem key={vendorName} value={vendorName}>{vendorName}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <Select value={paymentStatusFilter} onValueChange={setPaymentStatusFilter}>
-                    <SelectTrigger className="w-48">
-                      <SelectValue placeholder="Payment status" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Payment Status</SelectItem>
-                      <SelectItem value="no-bill">No Bill Created</SelectItem>
-                      <SelectItem value="unpaid">Unpaid</SelectItem>
-                      <SelectItem value="partial">Partially Paid</SelectItem>
-                      <SelectItem value="paid">Paid</SelectItem>
-                      <SelectItem value="overdue">Overdue</SelectItem>
-                    </SelectContent>
-                  </Select>
                 </div>
+                <Select value={statusFilter} onValueChange={setStatusFilter}>
+                  <SelectTrigger className="w-40 bg-neutral-900 border-neutral-700 text-white">
+                    <SelectValue placeholder="All Status" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-neutral-900 border-neutral-700">
+                    <SelectItem value="all">All Status</SelectItem>
+                    <SelectItem value="draft">Draft</SelectItem>
+                    <SelectItem value="approved">Approved</SelectItem>
+                    <SelectItem value="confirmed">Confirmed</SelectItem>
+                    <SelectItem value="received">Received</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select value={vendorFilter} onValueChange={setVendorFilter}>
+                  <SelectTrigger className="w-48 bg-neutral-900 border-neutral-700 text-white">
+                    <SelectValue placeholder="All Vendors" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-neutral-900 border-neutral-700">
+                    <SelectItem value="all">All Vendors</SelectItem>
+                    {uniqueVendorNames.map(vendor => (
+                      <SelectItem key={vendor} value={vendor}>{vendor}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
+            </CardContent>
+          </Card>
+
+          {/* PO Table */}
+          <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
+            <CardHeader>
+              <CardTitle className="text-white">Purchase Orders ({filteredPOs.length})</CardTitle>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>PO Number</TableHead>
-                    <TableHead>Vendor</TableHead>
-                    <TableHead>Order Date</TableHead>
-                    <TableHead>Expected Delivery</TableHead>
-                    <TableHead>Total Amount</TableHead>
-                    <TableHead>PO Status</TableHead>
-                    <TableHead>Payment Status</TableHead>
-                    <TableHead>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredPOs.map((po) => (
-                    <TableRow key={po.id}>
-                      <TableCell className="font-medium">{po.po_number}</TableCell>
-                      <TableCell>{po.vendor_name}</TableCell>
-                      <TableCell>{format(new Date(po.order_date), 'MMM dd, yyyy')}</TableCell>
-                      <TableCell>
-                        {po.expected_delivery_date 
-                          ? format(new Date(po.expected_delivery_date), 'MMM dd, yyyy')
-                          : '-'
-                        }
-                      </TableCell>
-                      <TableCell>${po.total_amount.toFixed(2)}</TableCell>
-                      <TableCell>{getStatusBadge(po.status)}</TableCell>
-                       <TableCell>
-                         <PaymentStatusBadge purchaseOrder={po} />
-                       </TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-2">
-                          {/* Primary Actions */}
-                          {po.status === 'draft' && (
-                            <Button
-                              size="sm"
-                              onClick={() => handleStatusUpdate(po.id, 'approved')}
-                              className="bg-emerald-600 hover:bg-emerald-700 text-white"
-                            >
-                              <CheckCircle className="h-4 w-4 mr-1" />
-                              Approve
-                            </Button>
-                          )}
-                          {po.status === 'approved' && (
-                            <Button
-                              size="sm"
-                              onClick={() => handleConfirmPO(po)}
-                              className="bg-blue-600 hover:bg-blue-700 text-white"
-                            >
-                              <Package className="h-4 w-4 mr-1" />
-                              Confirmed
-                            </Button>
-                          )}
-                          {(po.status === 'received' || po.status === 'confirmed') && (
-                            <Button
-                              size="sm"
-                              onClick={() => createVendorBillFromPO(po)}
-                              className="bg-indigo-600 hover:bg-indigo-700 text-white"
-                            >
-                              <FileText className="h-4 w-4 mr-1" />
-                              Create AP Bill
-                            </Button>
-                          )}
-                          
-                          {/* Secondary Actions Dropdown */}
+              {filteredPOs.length === 0 ? (
+                <div className="text-center py-8">
+                  <Package className="h-12 w-12 text-neutral-500 mx-auto mb-4" />
+                  <p className="text-neutral-400">No purchase orders found</p>
+                </div>
+              ) : (
+                <Table>
+                  <TableHeader>
+                    <TableRow className="border-neutral-800">
+                      <TableHead className="text-neutral-300">PO Number</TableHead>
+                      <TableHead className="text-neutral-300">Vendor</TableHead>
+                      <TableHead className="text-neutral-300">Date</TableHead>
+                      <TableHead className="text-neutral-300">Items</TableHead>
+                      <TableHead className="text-neutral-300">Total</TableHead>
+                      <TableHead className="text-neutral-300">Status</TableHead>
+                      <TableHead className="text-neutral-300">Actions</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {filteredPOs.map((po) => (
+                      <TableRow key={po.id} className="border-neutral-800 hover:bg-neutral-800/30">
+                        <TableCell className="font-medium text-white">{po.po_number}</TableCell>
+                        <TableCell className="text-neutral-300">{po.vendor_name}</TableCell>
+                        <TableCell className="text-neutral-300">{format(new Date(po.order_date), 'MMM dd, yyyy')}</TableCell>
+                        <TableCell className="text-neutral-300">{po.po_items?.length || 0} items</TableCell>
+                        <TableCell className="font-medium text-white">${po.total_amount.toFixed(2)}</TableCell>
+                        <TableCell>{getStatusBadge(po.status)}</TableCell>
+                        <TableCell>
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                              <Button variant="outline" size="sm">
+                              <Button variant="ghost" size="sm" className="hover:bg-neutral-800">
                                 <MoreHorizontal className="h-4 w-4" />
                               </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="w-48">
-                              <DropdownMenuItem onClick={() => generatePOPDF(po)}>
-                                <Download className="h-4 w-4 mr-2" />
-                                Download PDF
-                              </DropdownMenuItem>
-                              <DropdownMenuItem 
-                                onClick={() => openEditDialog(po)}
-                                disabled={po.status === 'received' || po.status === 'closed'}
-                              >
+                            <DropdownMenuContent className="bg-neutral-900 border-neutral-700">
+                              <DropdownMenuItem onClick={() => openEditDialog(po)} className="text-neutral-300 focus:bg-neutral-800">
                                 <Edit className="h-4 w-4 mr-2" />
                                 Edit
                               </DropdownMenuItem>
-                              <DropdownMenuItem onClick={() => handleDuplicatePO(po)}>
+                              <DropdownMenuItem onClick={() => handleDuplicatePO(po)} className="text-neutral-300 focus:bg-neutral-800">
                                 <Copy className="h-4 w-4 mr-2" />
                                 Duplicate
                               </DropdownMenuItem>
-                              <DropdownMenuSeparator />
-                              <DropdownMenuItem 
-                                onClick={() => openDeleteDialog(po)}
-                                disabled={po.status === 'received' || po.status === 'closed'}
-                                className="text-red-600 focus:text-red-600"
-                              >
+                              <DropdownMenuItem onClick={() => generatePOPDF(po)} className="text-neutral-300 focus:bg-neutral-800">
+                                <Download className="h-4 w-4 mr-2" />
+                                Export
+                              </DropdownMenuItem>
+                              <DropdownMenuSeparator className="bg-neutral-700" />
+                              {po.status === 'draft' && (
+                                <DropdownMenuItem onClick={() => handleStatusUpdate(po.id, 'approved')} className="text-green-400 focus:bg-neutral-800">
+                                  <CheckCircle className="h-4 w-4 mr-2" />
+                                  Approve
+                                </DropdownMenuItem>
+                              )}
+                              {po.status === 'approved' && (
+                                <DropdownMenuItem onClick={() => handleConfirmPO(po)} className="text-blue-400 focus:bg-neutral-800">
+                                  <Send className="h-4 w-4 mr-2" />
+                                  Confirm & Create Shipment
+                                </DropdownMenuItem>
+                              )}
+                              {(po.status === 'confirmed' || po.status === 'partially_received') && (
+                                <DropdownMenuItem onClick={() => handleReceiveItems(po)} className="text-green-400 focus:bg-neutral-800">
+                                  <Package className="h-4 w-4 mr-2" />
+                                  Receive Items
+                                </DropdownMenuItem>
+                              )}
+                              <DropdownMenuSeparator className="bg-neutral-700" />
+                              <DropdownMenuItem onClick={() => openDeleteDialog(po)} className="text-red-400 focus:bg-neutral-800">
                                 <Trash2 className="h-4 w-4 mr-2" />
                                 Delete
                               </DropdownMenuItem>
                             </DropdownMenuContent>
                           </DropdownMenu>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
 
-        <TabsContent value="reports">
+        <TabsContent value="dashboard" className="space-y-6">
+          <PurchaseOrderDashboard purchaseOrders={purchaseOrders} />
+        </TabsContent>
+
+        <TabsContent value="reports" className="space-y-6">
           <PurchaseOrderReports purchaseOrders={purchaseOrders} />
         </TabsContent>
       </Tabs>
 
-      {/* Edit Purchase Order Dialog */}
-      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Edit Purchase Order</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-6">
-            {/* Same form content as create dialog */}
-            {/* Vendor Information */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Label>Vendor Name *</Label>
-                <Input
-                  value={formData.vendorName}
-                  onChange={(e) => setFormData(prev => ({ ...prev, vendorName: e.target.value }))}
-                  placeholder="Enter vendor name"
-                />
-              </div>
-              <div>
-                <Label>Vendor Contact</Label>
-                <Input
-                  value={formData.vendorContact}
-                  onChange={(e) => setFormData(prev => ({ ...prev, vendorContact: e.target.value }))}
-                  placeholder="Contact person"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Label>Vendor Email</Label>
-                <Input
-                  type="email"
-                  value={formData.vendorEmail}
-                  onChange={(e) => setFormData(prev => ({ ...prev, vendorEmail: e.target.value }))}
-                  placeholder="vendor@example.com"
-                />
-              </div>
-              <div>
-                <Label>Order Date *</Label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      className={cn(
-                        "w-full justify-start text-left font-normal",
-                        !formData.orderDate && "text-muted-foreground"
-                      )}
-                    >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {formData.orderDate ? format(formData.orderDate, "PPP") : <span>Pick a date</span>}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={formData.orderDate}
-                      onSelect={(date) => setFormData(prev => ({ ...prev, orderDate: date || new Date() }))}
-                      initialFocus
-                      className={cn("p-3 pointer-events-auto")}
-                    />
-                  </PopoverContent>
-                </Popover>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Label>Expected Delivery Date</Label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      className={cn(
-                        "w-full justify-start text-left font-normal",
-                        !formData.expectedDeliveryDate && "text-muted-foreground"
-                      )}
-                    >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {formData.expectedDeliveryDate ? format(formData.expectedDeliveryDate, "PPP") : <span>Pick a date</span>}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={formData.expectedDeliveryDate}
-                      onSelect={(date) => setFormData(prev => ({ ...prev, expectedDeliveryDate: date }))}
-                      initialFocus
-                      className={cn("p-3 pointer-events-auto")}
-                    />
-                  </PopoverContent>
-                </Popover>
-              </div>
-              <div>
-                <Label>Notes</Label>
-                <Textarea
-                  value={formData.notes}
-                  onChange={(e) => setFormData(prev => ({ ...prev, notes: e.target.value }))}
-                  placeholder="Additional notes..."
-                  className="min-h-[60px]"
-                />
-              </div>
-            </div>
-
-            {/* Items Section */}
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <Label className="text-lg font-semibold">Items</Label>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setPOItems([...poItems, { item_sku: '', item_name: '', quantity: 1, unit_price: 0 }])}
-                >
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add Item
-                </Button>
-              </div>
-
-              {poItems.map((item, index) => (
-                <div key={index} className="grid grid-cols-12 gap-2 items-end p-4 border rounded-lg">
-                  <div className="col-span-2">
-                    <Label>SKU</Label>
-                    <Input
-                      value={item.item_sku}
-                      onChange={(e) => handleItemChange(index, 'item_sku', e.target.value)}
-                      placeholder="Item SKU"
-                    />
-                  </div>
-                  <div className="col-span-4">
-                    <Label>Item Name</Label>
-                    <Input
-                      value={item.item_name}
-                      onChange={(e) => handleItemChange(index, 'item_name', e.target.value)}
-                      placeholder="Item description"
-                    />
-                  </div>
-                  <div className="col-span-2">
-                    <Label>Quantity</Label>
-                    <Input
-                      type="number"
-                      min="1"
-                      value={item.quantity}
-                      onChange={(e) => handleItemChange(index, 'quantity', parseInt(e.target.value) || 1)}
-                    />
-                  </div>
-                  <div className="col-span-2">
-                    <Label>Unit Price</Label>
-                    <Input
-                      type="number"
-                      step="0.01"
-                      min="0"
-                      value={item.unit_price}
-                      onChange={(e) => handleItemChange(index, 'unit_price', parseFloat(e.target.value) || 0)}
-                    />
-                  </div>
-                  <div className="col-span-1">
-                    <Label>Total</Label>
-                    <div className="p-2 bg-gray-50 rounded text-sm font-medium">
-                      ${(item.quantity * item.unit_price).toFixed(2)}
-                    </div>
-                  </div>
-                  <div className="col-span-1">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleRemoveItem(index)}
-                      disabled={poItems.length === 1}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              ))}
-
-              <div className="flex justify-between items-center pt-4 border-t">
-                <span className="text-lg font-semibold">
-                  Total: ${poItems.reduce((sum, item) => sum + (item.quantity * item.unit_price), 0).toFixed(2)}
-                </span>
-                <div className="flex gap-2">
-                  <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
-                    Cancel
-                  </Button>
-                  <Button onClick={handleEditPO}>Update Purchase Order</Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <AlertDialogContent>
+        <AlertDialogContent className="bg-neutral-900 border-neutral-800">
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Purchase Order</AlertDialogTitle>
-            <AlertDialogDescription>
-              Are you sure you want to delete purchase order {poToDelete?.po_number}? 
-              This action cannot be undone and will remove all associated items.
+            <AlertDialogTitle className="text-white">Delete Purchase Order</AlertDialogTitle>
+            <AlertDialogDescription className="text-neutral-400">
+              Are you sure you want to delete PO {poToDelete?.po_number}? This action cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDeletePO} className="bg-red-600 hover:bg-red-700">
-              Delete
-            </AlertDialogAction>
+            <AlertDialogCancel className="bg-neutral-900 border-neutral-700 text-neutral-300 hover:bg-neutral-800">Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDeletePO} className="bg-red-600 hover:bg-red-700">Delete</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
 
-      <PurchaseOrderReceivingDialog
-        isOpen={isReceivingDialogOpen}
-        onClose={() => setIsReceivingDialogOpen(false)}
-        purchaseOrder={selectedPOForReceiving}
-        onReceivingComplete={() => {
-          refetch();
-          setSelectedPOForReceiving(null);
-        }}
-      />
+      {/* Receiving Dialog */}
+      {selectedPOForReceiving && (
+        <PurchaseOrderReceivingDialog
+          purchaseOrder={selectedPOForReceiving}
+          isOpen={isReceivingDialogOpen}
+          onClose={() => {
+            setIsReceivingDialogOpen(false);
+            setSelectedPOForReceiving(null);
+          }}
+          onComplete={() => {
+            refetch();
+            setSelectedPOForReceiving(null);
+          }}
+        />
+      )}
 
+      {/* Inventory Selector */}
       <InventoryItemSelector
         isOpen={isInventorySelectorOpen}
         onClose={() => setIsInventorySelectorOpen(false)}
         onSelectItem={handleSelectFromInventory}
-        selectedItems={poItems}
       />
     </div>
   );

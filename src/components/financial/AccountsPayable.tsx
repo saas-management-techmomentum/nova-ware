@@ -134,7 +134,7 @@ export const AccountsPayable: React.FC = () => {
         </div>
         <Button 
           onClick={() => setAddBillDialogOpen(true)}
-          className="bg-gray-800 hover:bg-gray-900"
+          className="bg-white text-black hover:bg-neutral-200"
         >
           <Plus className="h-4 w-4 mr-2" />
           Add Bill

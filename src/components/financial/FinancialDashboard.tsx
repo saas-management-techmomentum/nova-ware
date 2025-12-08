@@ -85,10 +85,10 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = () => {
       <div className="space-y-8">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {[1, 2, 3, 4].map((i) => (
-            <Card key={i} className="animate-pulse">
+            <Card key={i} className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50 animate-pulse">
               <CardContent className="p-6">
-                <div className="h-4 bg-muted rounded w-1/2 mb-2"></div>
-                <div className="h-8 bg-muted rounded w-3/4"></div>
+                <div className="h-4 bg-neutral-700 rounded w-1/2 mb-2"></div>
+                <div className="h-8 bg-neutral-700 rounded w-3/4"></div>
               </CardContent>
             </Card>
           ))}
@@ -103,8 +103,8 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = () => {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold">Financial Overview</h2>
-            <p className="text-muted-foreground">
+            <h2 className="text-2xl font-bold text-white">Financial Overview</h2>
+            <p className="text-neutral-400">
               {isInCorporateOverview 
                 ? "Consolidated financial data across all warehouses"
                 : selectedWarehouse 
@@ -113,30 +113,30 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = () => {
               }
             </p>
           </div>
-          <Badge variant="secondary" className="text-xs">
+          <Badge variant="secondary" className="text-xs bg-neutral-800 text-neutral-300">
             Last updated: {new Date(metrics.lastUpdated).toLocaleTimeString()}
           </Badge>
         </div>
         
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
-          <Card className="hover:shadow-md transition-shadow">
+          <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50 hover:shadow-md transition-shadow">
             <CardContent className="p-4 h-full">
               <div className="flex flex-col justify-center items-center text-center space-y-3 h-full min-h-[120px]">
-                <div className="bg-cargo-green/10 p-2 rounded-full">
-                  <DollarSign className="h-5 w-5 text-cargo-green" />
+                <div className="bg-green-500/20 p-2 rounded-full border border-green-500/20">
+                  <DollarSign className="h-5 w-5 text-green-400" />
                 </div>
                 <div className="space-y-1">
-                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Total Revenue</p>
-                  <p className="text-xl md:text-2xl font-bold text-cargo-green break-all">
+                  <p className="text-xs font-medium text-neutral-400 uppercase tracking-wide">Total Revenue</p>
+                  <p className="text-xl md:text-2xl font-bold text-green-400 break-all">
                     {formatCurrency(metrics.totalRevenue)}
                   </p>
                   <div className="flex items-center justify-center gap-1">
                     {metrics.revenueGrowth >= 0 ? (
-                      <ArrowUpRight className="h-3 w-3 text-cargo-green" />
+                      <ArrowUpRight className="h-3 w-3 text-green-400" />
                     ) : (
-                      <ArrowDownRight className="h-3 w-3 text-destructive" />
+                      <ArrowDownRight className="h-3 w-3 text-red-400" />
                     )}
-                    <span className={`text-xs ${metrics.revenueGrowth >= 0 ? 'text-cargo-green' : 'text-destructive'}`}>
+                    <span className={`text-xs ${metrics.revenueGrowth >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                       {metrics.revenueGrowth > 0 ? '+' : ''}{metrics.revenueGrowth.toFixed(1)}% vs last month
                     </span>
                   </div>
@@ -145,24 +145,24 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = () => {
             </CardContent>
           </Card>
 
-          <Card className="hover:shadow-md transition-shadow">
+          <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50 hover:shadow-md transition-shadow">
             <CardContent className="p-4 h-full">
               <div className="flex flex-col justify-center items-center text-center space-y-3 h-full min-h-[120px]">
-                <div className="bg-destructive/10 p-2 rounded-full">
-                  <TrendingUp className="h-5 w-5 text-destructive" />
+                <div className="bg-red-500/20 p-2 rounded-full border border-red-500/20">
+                  <TrendingUp className="h-5 w-5 text-red-400" />
                 </div>
                 <div className="space-y-1">
-                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Total Expenses</p>
-                  <p className="text-xl md:text-2xl font-bold text-destructive break-all">
+                  <p className="text-xs font-medium text-neutral-400 uppercase tracking-wide">Total Expenses</p>
+                  <p className="text-xl md:text-2xl font-bold text-red-400 break-all">
                     {formatCurrency(metrics.totalExpenses)}
                   </p>
                   <div className="flex items-center justify-center gap-1">
                     {metrics.expenseGrowth >= 0 ? (
-                      <ArrowUpRight className="h-3 w-3 text-destructive" />
+                      <ArrowUpRight className="h-3 w-3 text-red-400" />
                     ) : (
-                      <ArrowDownRight className="h-3 w-3 text-cargo-green" />
+                      <ArrowDownRight className="h-3 w-3 text-green-400" />
                     )}
-                    <span className={`text-xs ${metrics.expenseGrowth >= 0 ? 'text-destructive' : 'text-cargo-green'}`}>
+                    <span className={`text-xs ${metrics.expenseGrowth >= 0 ? 'text-red-400' : 'text-green-400'}`}>
                       {metrics.expenseGrowth.toFixed(1)}% vs last month
                     </span>
                   </div>
@@ -171,24 +171,24 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = () => {
             </CardContent>
           </Card>
 
-          <Card className="hover:shadow-md transition-shadow">
+          <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50 hover:shadow-md transition-shadow">
             <CardContent className="p-4 h-full">
               <div className="flex flex-col justify-center items-center text-center space-y-3 h-full min-h-[120px]">
-                <div className={`p-2 rounded-full ${metrics.netIncome >= 0 ? 'bg-cargo-green/10' : 'bg-destructive/10'}`}>
-                  <PieChartIcon className={`h-5 w-5 ${metrics.netIncome >= 0 ? 'text-cargo-green' : 'text-destructive'}`} />
+                <div className={`p-2 rounded-full ${metrics.netIncome >= 0 ? 'bg-green-500/20 border border-green-500/20' : 'bg-red-500/20 border border-red-500/20'}`}>
+                  <PieChartIcon className={`h-5 w-5 ${metrics.netIncome >= 0 ? 'text-green-400' : 'text-red-400'}`} />
                 </div>
                 <div className="space-y-1">
-                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Net Profit</p>
-                  <p className={`text-xl md:text-2xl font-bold break-all ${metrics.netIncome >= 0 ? 'text-cargo-green' : 'text-destructive'}`}>
+                  <p className="text-xs font-medium text-neutral-400 uppercase tracking-wide">Net Profit</p>
+                  <p className={`text-xl md:text-2xl font-bold break-all ${metrics.netIncome >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                     {formatCurrency(metrics.netIncome)}
                   </p>
                   <div className="flex items-center justify-center gap-1">
                     {metrics.netIncome >= 0 ? (
-                      <ArrowUpRight className="h-3 w-3 text-cargo-green" />
+                      <ArrowUpRight className="h-3 w-3 text-green-400" />
                     ) : (
-                      <ArrowDownRight className="h-3 w-3 text-destructive" />
+                      <ArrowDownRight className="h-3 w-3 text-red-400" />
                     )}
-                    <span className={`text-xs ${metrics.netIncome >= 0 ? 'text-cargo-green' : 'text-destructive'}`}>
+                    <span className={`text-xs ${metrics.netIncome >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                       {metrics.grossMargin.toFixed(1)}% Gross Margin
                     </span>
                   </div>
@@ -197,40 +197,40 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = () => {
             </CardContent>
           </Card>
 
-          <Card className="hover:shadow-md transition-shadow">
+          <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50 hover:shadow-md transition-shadow">
             <CardContent className="p-4 h-full">
               <div className="flex flex-col justify-center items-center text-center space-y-3 h-full min-h-[120px]">
-                <div className="bg-gray-700/10 p-2 rounded-full">
-                  <Package className="h-5 w-5 text-gray-500" />
+                <div className="bg-gray-700/20 p-2 rounded-full border border-gray-600/20">
+                  <Package className="h-5 w-5 text-gray-400" />
                 </div>
                 <div className="space-y-1">
-                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Cash & Bank</p>
-                  <p className="text-xl md:text-2xl font-bold text-gray-500 break-all">
+                  <p className="text-xs font-medium text-neutral-400 uppercase tracking-wide">Cash & Bank</p>
+                  <p className="text-xl md:text-2xl font-bold text-gray-400 break-all">
                     {formatCurrency(metrics.cashBalance)}
                   </p>
                   <div className="flex items-center justify-center gap-1">
-                    <DollarSign className="h-3 w-3 text-gray-500" />
-                    <span className="text-xs text-gray-500">Available funds</span>
+                    <DollarSign className="h-3 w-3 text-gray-400" />
+                    <span className="text-xs text-gray-400">Available funds</span>
                   </div>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="hover:shadow-md transition-shadow">
+          <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50 hover:shadow-md transition-shadow">
             <CardContent className="p-4 h-full">
               <div className="flex flex-col justify-center items-center text-center space-y-3 h-full min-h-[120px]">
-                <div className="bg-amber-500/10 p-2 rounded-full">
-                  <Package className="h-5 w-5 text-amber-500" />
+                <div className="bg-amber-500/20 p-2 rounded-full border border-amber-500/20">
+                  <Package className="h-5 w-5 text-amber-400" />
                 </div>
                 <div className="space-y-1">
-                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Inventory Value</p>
-                  <p className="text-xl md:text-2xl font-bold text-amber-500 break-all">
+                  <p className="text-xs font-medium text-neutral-400 uppercase tracking-wide">Inventory Value</p>
+                  <p className="text-xl md:text-2xl font-bold text-amber-400 break-all">
                     {formatCurrency(metrics.inventoryValue)}
                   </p>
                   <div className="flex items-center justify-center gap-1">
-                    <Package className="h-3 w-3 text-amber-500" />
-                    <span className="text-xs text-amber-500">
+                    <Package className="h-3 w-3 text-amber-400" />
+                    <span className="text-xs text-amber-400">
                       {metrics.inventoryTurnover.toFixed(1)}x turnover
                     </span>
                   </div>
@@ -243,25 +243,25 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = () => {
 
       {/* Enhanced Charts */}
       <div className="grid gap-6 md:grid-cols-2">
-        <Card>
+        <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
           <CardHeader>
-            <CardTitle className="text-lg">Cash Flow Overview</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-lg text-white">Cash Flow Overview</CardTitle>
+            <CardDescription className="text-neutral-400">
               Monthly cash inflows vs outflows and net cash flow trends
             </CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={cashFlowData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--muted-foreground))" opacity={0.2} />
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--neutral-700))" opacity={0.3} />
                 <XAxis 
                   dataKey="month" 
-                  stroke="hsl(var(--muted-foreground))"
+                  stroke="hsl(var(--neutral-400))"
                   fontSize={12}
                 />
                 <YAxis 
                   tickFormatter={(value) => `$${(Math.abs(value) / 1000).toFixed(0)}k`}
-                  stroke="hsl(var(--muted-foreground))"
+                  stroke="hsl(var(--neutral-400))"
                   fontSize={12}
                 />
                 <Tooltip 
@@ -272,21 +272,21 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = () => {
                   ]}
                   labelFormatter={(label) => `Month: ${label}`}
                   contentStyle={{
-                    backgroundColor: 'hsl(var(--card))',
-                    border: '1px solid hsl(var(--border))',
+                    backgroundColor: 'hsl(var(--neutral-900))',
+                    border: '1px solid hsl(var(--neutral-700))',
                     borderRadius: '8px',
                     color: 'hsl(var(--foreground))'
                   }}
                 />
                 <Bar 
                   dataKey="inflows" 
-                  fill="hsl(var(--cargo-green))" 
+                  fill="#10B981" 
                   name="inflows"
                   radius={[2, 2, 0, 0]}
                 />
                 <Bar 
                   dataKey="outflows" 
-                  fill="hsl(var(--destructive))" 
+                  fill="#EF4444" 
                   name="outflows"
                   radius={[2, 2, 0, 0]}
                 />
@@ -294,22 +294,22 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = () => {
             </ResponsiveContainer>
             
             {/* Cash Flow Summary */}
-            <div className="mt-4 grid grid-cols-3 gap-4 pt-4 border-t">
+            <div className="mt-4 grid grid-cols-3 gap-4 pt-4 border-t border-neutral-800">
               <div className="text-center">
-                <p className="text-xs text-muted-foreground">Avg Monthly Inflows</p>
-                <p className="text-sm font-bold text-cargo-green">
+                <p className="text-xs text-neutral-400">Avg Monthly Inflows</p>
+                <p className="text-sm font-bold text-green-400">
                   {formatCurrency(cashFlowData.reduce((sum, month) => sum + month.inflows, 0) / cashFlowData.length)}
                 </p>
               </div>
               <div className="text-center">
-                <p className="text-xs text-muted-foreground">Avg Monthly Outflows</p>
-                <p className="text-sm font-bold text-destructive">
+                <p className="text-xs text-neutral-400">Avg Monthly Outflows</p>
+                <p className="text-sm font-bold text-red-400">
                   {formatCurrency(cashFlowData.reduce((sum, month) => sum + month.outflows, 0) / cashFlowData.length)}
                 </p>
               </div>
               <div className="text-center">
-                <p className="text-xs text-muted-foreground">Avg Net Cash Flow</p>
-                <p className={`text-sm font-bold ${cashFlowData.reduce((sum, month) => sum + month.netFlow, 0) >= 0 ? 'text-cargo-green' : 'text-destructive'}`}>
+                <p className="text-xs text-neutral-400">Avg Net Cash Flow</p>
+                <p className={`text-sm font-bold ${cashFlowData.reduce((sum, month) => sum + month.netFlow, 0) >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                   {formatCurrency(cashFlowData.reduce((sum, month) => sum + month.netFlow, 0) / cashFlowData.length)}
                 </p>
               </div>
@@ -317,10 +317,10 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
           <CardHeader>
-            <CardTitle className="text-lg">AR/AP Distribution</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-lg text-white">AR/AP Distribution</CardTitle>
+            <CardDescription className="text-neutral-400">
               Breakdown of receivables and payables
             </CardDescription>
           </CardHeader>
@@ -351,9 +351,9 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = () => {
                       className="w-3 h-3 rounded-full" 
                       style={{ backgroundColor: COLORS[index] }}
                     />
-                    <span className="text-sm">{entry.name}</span>
+                    <span className="text-sm text-neutral-300">{entry.name}</span>
                   </div>
-                  <span className="text-sm font-medium">{formatCurrency(entry.value)}</span>
+                  <span className="text-sm font-medium text-white">{formatCurrency(entry.value)}</span>
                 </div>
               ))}
             </div>
@@ -361,37 +361,37 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = () => {
         </Card>
 
         {/* Balance Sheet Summary */}
-        <Card>
+        <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
           <CardHeader>
-            <CardTitle className="text-lg">Balance Sheet Summary</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-lg text-white">Balance Sheet Summary</CardTitle>
+            <CardDescription className="text-neutral-400">
               Real-time balance sheet key metrics
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="flex justify-between items-center py-2 border-b">
-              <span className="text-sm font-medium">Total Assets</span>
-              <span className="text-sm font-bold text-cargo-green">{formatCurrency(metrics.totalAssets)}</span>
+            <div className="flex justify-between items-center py-2 border-b border-neutral-800">
+              <span className="text-sm font-medium text-neutral-300">Total Assets</span>
+              <span className="text-sm font-bold text-green-400">{formatCurrency(metrics.totalAssets)}</span>
             </div>
-            <div className="flex justify-between items-center py-2 border-b">
-              <span className="text-sm font-medium">Total Liabilities</span>
-              <span className="text-sm font-bold text-destructive">{formatCurrency(metrics.totalLiabilities)}</span>
+            <div className="flex justify-between items-center py-2 border-b border-neutral-800">
+              <span className="text-sm font-medium text-neutral-300">Total Liabilities</span>
+              <span className="text-sm font-bold text-red-400">{formatCurrency(metrics.totalLiabilities)}</span>
             </div>
-            <div className="flex justify-between items-center py-2 border-b">
-              <span className="text-sm font-medium">Equity</span>
-              <span className="text-sm font-bold text-gray-500">{formatCurrency(metrics.equity)}</span>
+            <div className="flex justify-between items-center py-2 border-b border-neutral-800">
+              <span className="text-sm font-medium text-neutral-300">Equity</span>
+              <span className="text-sm font-bold text-gray-400">{formatCurrency(metrics.equity)}</span>
             </div>
-            <div className="flex justify-between items-center py-2 border-b">
-              <span className="text-sm font-medium">Outstanding Invoices</span>
-              <span className="text-sm font-bold">{metrics.outstandingInvoices}</span>
+            <div className="flex justify-between items-center py-2 border-b border-neutral-800">
+              <span className="text-sm font-medium text-neutral-300">Outstanding Invoices</span>
+              <span className="text-sm font-bold text-white">{metrics.outstandingInvoices}</span>
             </div>
-            <div className="flex justify-between items-center py-2 border-b">
-              <span className="text-sm font-medium">Overdue Invoices</span>
-              <span className="text-sm font-bold text-amber-500">{metrics.overdueInvoices}</span>
+            <div className="flex justify-between items-center py-2 border-b border-neutral-800">
+              <span className="text-sm font-medium text-neutral-300">Overdue Invoices</span>
+              <span className="text-sm font-bold text-amber-400">{metrics.overdueInvoices}</span>
             </div>
             <div className="flex justify-between items-center py-2">
-              <span className="text-sm font-medium">COGS This Month</span>
-              <span className="text-sm font-bold text-neutral-600">{formatCurrency(metrics.monthlyCOGS)}</span>
+              <span className="text-sm font-medium text-neutral-300">COGS This Month</span>
+              <span className="text-sm font-bold text-neutral-400">{formatCurrency(metrics.monthlyCOGS)}</span>
             </div>
           </CardContent>
         </Card>
@@ -399,44 +399,37 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = () => {
 
       {/* Warehouse Breakdown for Corporate Overview */}
       {isInCorporateOverview && metrics.warehouseBreakdown.length > 0 && (
-        <Card>
+        <Card className="bg-neutral-900/60 backdrop-blur-sm border border-neutral-800/50">
           <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2">
-              <Building className="h-5 w-5" />
+            <CardTitle className="text-lg text-white flex items-center gap-2">
+              <Building className="h-5 w-5 text-gray-400" />
               Warehouse Performance Breakdown
             </CardTitle>
-            <CardDescription>
-              Financial performance across all warehouses
+            <CardDescription className="text-neutral-400">
+              Financial performance by warehouse location
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {metrics.warehouseBreakdown.map((warehouse) => (
-                <div key={warehouse.warehouse_id} className="p-4 border rounded-lg">
-                  <h4 className="font-medium text-sm mb-3">{warehouse.warehouse_name}</h4>
+            {metrics.warehouseBreakdown.map((warehouse) => (
+                <div 
+                  key={warehouse.warehouse_id} 
+                  className="p-4 bg-neutral-800/30 rounded-lg border border-neutral-700/50"
+                >
+                  <h4 className="font-medium text-white mb-3">{warehouse.warehouse_name}</h4>
                   <div className="space-y-2">
-                    <div className="flex justify-between text-xs">
-                      <span>Revenue:</span>
-                      <span className="font-medium text-cargo-green">
-                        {formatCurrency(warehouse.revenue)}
-                      </span>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-neutral-400">Revenue</span>
+                      <span className="font-medium text-green-400">{formatCurrency(warehouse.revenue)}</span>
                     </div>
-                    <div className="flex justify-between text-xs">
-                      <span>Expenses:</span>
-                      <span className="font-medium text-destructive">
-                        {formatCurrency(warehouse.expenses)}
-                      </span>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-neutral-400">Expenses</span>
+                      <span className="font-medium text-red-400">{formatCurrency(warehouse.expenses)}</span>
                     </div>
-                    <div className="flex justify-between text-xs">
-                      <span>Net Income:</span>
-                      <span className={`font-medium ${warehouse.netIncome >= 0 ? 'text-cargo-green' : 'text-destructive'}`}>
-                        {formatCurrency(warehouse.netIncome)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-xs">
-                      <span>Inventory:</span>
-                      <span className="font-medium text-amber-500">
-                        {formatCurrency(warehouse.inventoryValue)}
+                    <div className="flex justify-between text-sm border-t border-neutral-700 pt-2">
+                      <span className="text-neutral-400">Net</span>
+                      <span className={`font-bold ${warehouse.revenue - warehouse.expenses >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                        {formatCurrency(warehouse.revenue - warehouse.expenses)}
                       </span>
                     </div>
                   </div>
@@ -446,7 +439,6 @@ export const FinancialDashboard: React.FC<FinancialDashboardProps> = () => {
           </CardContent>
         </Card>
       )}
-
     </div>
   );
 };
