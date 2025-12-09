@@ -71,55 +71,55 @@ export const AddAccountDialog = ({ open, onOpenChange, onSuccess, accountTypes }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-slate-800 border-slate-700 text-white max-w-md">
+      <DialogContent className="bg-neutral-950 border-neutral-800 text-white max-w-md">
         <DialogHeader>
-          <DialogTitle>Add New Account</DialogTitle>
+          <DialogTitle className="text-white">Add New Account</DialogTitle>
         </DialogHeader>
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="account_code">Account Code *</Label>
+            <div className="space-y-2">
+              <Label htmlFor="account_code" className="text-neutral-300">Account Code *</Label>
               <Input
                 id="account_code"
                 value={formData.account_code}
                 onChange={(e) => setFormData({ ...formData, account_code: e.target.value })}
                 placeholder="e.g., 1000"
-                className="bg-slate-700 border-slate-600 text-white"
+                className="bg-neutral-950 border-neutral-800 text-white placeholder:text-neutral-500"
                 required
               />
             </div>
-            <div>
-              <Label htmlFor="account_name">Account Name *</Label>
+            <div className="space-y-2">
+              <Label htmlFor="account_name" className="text-neutral-300">Account Name *</Label>
               <Input
                 id="account_name"
                 value={formData.account_name}
                 onChange={(e) => setFormData({ ...formData, account_name: e.target.value })}
                 placeholder="e.g., Cash"
-                className="bg-slate-700 border-slate-600 text-white"
+                className="bg-neutral-950 border-neutral-800 text-white placeholder:text-neutral-500"
                 required
               />
             </div>
           </div>
 
-          <div>
-            <Label htmlFor="account_type">Account Type *</Label>
+          <div className="space-y-2">
+            <Label htmlFor="account_type" className="text-neutral-300">Account Type *</Label>
             <Select
               value={formData.account_type_id}
               onValueChange={(value) => setFormData({ ...formData, account_type_id: value })}
               required
             >
-              <SelectTrigger className="bg-slate-700 border-slate-600 text-white">
+              <SelectTrigger className="bg-neutral-950 border-neutral-800 text-white">
                 <SelectValue placeholder="Select account type" />
               </SelectTrigger>
-              <SelectContent className="bg-slate-700 border-slate-600">
+              <SelectContent className="bg-neutral-950 border-neutral-800">
                 {Object.entries(groupedAccountTypes).map(([category, types]) => (
                   <div key={category}>
-                    <div className="px-2 py-1 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                    <div className="px-2 py-1 text-xs font-semibold text-neutral-500 uppercase tracking-wider">
                       {category}
                     </div>
                     {types.map((type) => (
-                      <SelectItem key={type.id} value={type.id} className="text-white hover:bg-slate-600">
+                      <SelectItem key={type.id} value={type.id} className="text-white hover:bg-neutral-800">
                         {type.name}
                       </SelectItem>
                     ))}
@@ -129,8 +129,8 @@ export const AddAccountDialog = ({ open, onOpenChange, onSuccess, accountTypes }
             </Select>
           </div>
 
-          <div>
-            <Label htmlFor="opening_balance">Opening Balance</Label>
+          <div className="space-y-2">
+            <Label htmlFor="opening_balance" className="text-neutral-300">Opening Balance</Label>
             <Input
               id="opening_balance"
               type="number"
@@ -138,18 +138,18 @@ export const AddAccountDialog = ({ open, onOpenChange, onSuccess, accountTypes }
               value={formData.opening_balance}
               onChange={(e) => setFormData({ ...formData, opening_balance: parseFloat(e.target.value) || 0 })}
               placeholder="0.00"
-              className="bg-slate-700 border-slate-600 text-white"
+              className="bg-neutral-950 border-neutral-800 text-white placeholder:text-neutral-500"
             />
           </div>
 
-          <div>
-            <Label htmlFor="description">Description</Label>
+          <div className="space-y-2">
+            <Label htmlFor="description" className="text-neutral-300">Description (Optional)</Label>
             <Textarea
               id="description"
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              placeholder="Optional description"
-              className="bg-slate-700 border-slate-600 text-white resize-none"
+              placeholder="Add any notes or details about this account..."
+              className="bg-neutral-950 border-neutral-800 text-white placeholder:text-neutral-500 resize-none"
               rows={3}
             />
           </div>
@@ -157,17 +157,18 @@ export const AddAccountDialog = ({ open, onOpenChange, onSuccess, accountTypes }
           <div className="flex justify-end space-x-2 pt-4">
             <Button
               type="button"
-              variant="secondary"
+              variant="outline"
               onClick={() => onOpenChange(false)}
+              className="bg-transparent border-neutral-700 text-white hover:bg-neutral-800"
             >
               Cancel
             </Button>
             <Button
               type="submit"
               disabled={isLoading}
-              className="bg-indigo-600 hover:bg-indigo-700"
+              className="bg-neutral-700 hover:bg-neutral-600 text-white"
             >
-              {isLoading ? 'Creating...' : 'Create Account'}
+              {isLoading ? 'Creating...' : 'Create & Generate'}
             </Button>
           </div>
         </form>
