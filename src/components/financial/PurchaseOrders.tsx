@@ -713,7 +713,7 @@ export const PurchaseOrders = () => {
             setIsReceivingDialogOpen(false);
             setSelectedPOForReceiving(null);
           }}
-          onComplete={() => {
+          onReceivingComplete={() => {
             refetch();
             setSelectedPOForReceiving(null);
           }}
@@ -725,6 +725,7 @@ export const PurchaseOrders = () => {
         isOpen={isInventorySelectorOpen}
         onClose={() => setIsInventorySelectorOpen(false)}
         onSelectItem={handleSelectFromInventory}
+        selectedItems={poItems}
       />
     </div>
   );
