@@ -3166,7 +3166,6 @@ export type Database = {
       generate_batch_number: { Args: never; Returns: string }
       generate_po_number: { Args: never; Returns: string }
       get_accessible_warehouses:
-        | { Args: { user_uuid: string }; Returns: string[] }
         | {
             Args: never
             Returns: {
@@ -3177,6 +3176,7 @@ export type Database = {
               warehouse_name: string
             }[]
           }
+        | { Args: { user_uuid: string }; Returns: string[] }
       get_employee_assigned_warehouse: {
         Args: { user_uuid: string }
         Returns: string
