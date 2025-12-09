@@ -128,13 +128,13 @@ export const AddBillDialog: React.FC<AddBillDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-slate-900 border-slate-700">
+      <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-neutral-950 border-neutral-800">
         <DialogHeader>
           <DialogTitle className="text-white flex items-center gap-2">
             <FileText className="h-5 w-5 text-blue-400" />
             Add Vendor Bill
           </DialogTitle>
-          <DialogDescription className="text-slate-400">
+          <DialogDescription className="text-neutral-400">
             Create a new vendor bill and link it to a purchase order if applicable
           </DialogDescription>
         </DialogHeader>
@@ -142,17 +142,17 @@ export const AddBillDialog: React.FC<AddBillDialogProps> = ({
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Link to Purchase Order */}
           <div className="space-y-2">
-            <Label htmlFor="po" className="text-slate-300 flex items-center gap-2">
+            <Label htmlFor="po" className="text-neutral-300 flex items-center gap-2">
               <Link className="h-4 w-4" />
               Link to Purchase Order (Optional)
             </Label>
             <Select value={selectedPO} onValueChange={handlePOSelection}>
-              <SelectTrigger className="bg-slate-800 border-slate-600 text-white">
+              <SelectTrigger className="bg-neutral-950 border-neutral-800 text-white">
                 <SelectValue placeholder={loadingPOs ? "Loading POs..." : "Select a purchase order"} />
               </SelectTrigger>
-              <SelectContent className="bg-slate-800 border-slate-600">
+              <SelectContent className="bg-neutral-950 border-neutral-800 z-50">
                 {purchaseOrders.map((po) => (
-                  <SelectItem key={po.id} value={po.id}>
+                  <SelectItem key={po.id} value={po.id} className="text-white hover:bg-neutral-800">
                     {po.po_number} - {po.vendor_name} ({new Intl.NumberFormat('en-US', {
                       style: 'currency',
                       currency: 'USD',
@@ -166,21 +166,21 @@ export const AddBillDialog: React.FC<AddBillDialogProps> = ({
           {/* Bill Details */}
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="billNumber" className="text-slate-300">Bill Number</Label>
+              <Label htmlFor="billNumber" className="text-neutral-300">Bill Number</Label>
               <div className="flex gap-2">
                 <Input
                   id="billNumber"
                   value={billNumber}
                   onChange={(e) => setBillNumber(e.target.value)}
                   placeholder="BILL-001"
-                  className="bg-slate-800 border-slate-600 text-white"
+                  className="bg-neutral-950 border-neutral-800 text-white placeholder:text-neutral-500"
                   required
                 />
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setBillNumber(generateBillNumber())}
-                  className="px-3"
+                  className="px-3 bg-neutral-950 border-neutral-800 text-white hover:bg-neutral-800"
                 >
                   <Plus className="h-4 w-4" />
                 </Button>
@@ -188,13 +188,13 @@ export const AddBillDialog: React.FC<AddBillDialogProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="vendor" className="text-slate-300">Vendor Name</Label>
+              <Label htmlFor="vendor" className="text-neutral-300">Vendor Name</Label>
               <Input
                 id="vendor"
                 value={vendorName}
                 onChange={(e) => setVendorName(e.target.value)}
                 placeholder="ABC Supplies Inc."
-                className="bg-slate-800 border-slate-600 text-white"
+                className="bg-neutral-950 border-neutral-800 text-white placeholder:text-neutral-500"
                 required
               />
             </div>
@@ -202,7 +202,7 @@ export const AddBillDialog: React.FC<AddBillDialogProps> = ({
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="amount" className="text-slate-300">Bill Amount</Label>
+              <Label htmlFor="amount" className="text-neutral-300">Bill Amount</Label>
               <Input
                 id="amount"
                 type="number"
@@ -210,13 +210,13 @@ export const AddBillDialog: React.FC<AddBillDialogProps> = ({
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="0.00"
-                className="bg-slate-800 border-slate-600 text-white"
+                className="bg-neutral-950 border-neutral-800 text-white placeholder:text-neutral-500"
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-slate-300">Payment Terms</Label>
+              <Label className="text-neutral-300">Payment Terms</Label>
               <Select 
                 onValueChange={(value) => {
                   const days = parseInt(value);
@@ -225,15 +225,15 @@ export const AddBillDialog: React.FC<AddBillDialogProps> = ({
                   setDueDate(newDueDate);
                 }}
               >
-                <SelectTrigger className="bg-slate-800 border-slate-600 text-white">
+                <SelectTrigger className="bg-neutral-950 border-neutral-800 text-white">
                   <SelectValue placeholder="Select terms" />
                 </SelectTrigger>
-                <SelectContent className="bg-slate-800 border-slate-600">
-                  <SelectItem value="0">Due on Receipt</SelectItem>
-                  <SelectItem value="15">Net 15</SelectItem>
-                  <SelectItem value="30">Net 30</SelectItem>
-                  <SelectItem value="45">Net 45</SelectItem>
-                  <SelectItem value="60">Net 60</SelectItem>
+                <SelectContent className="bg-neutral-950 border-neutral-800 z-50">
+                  <SelectItem value="0" className="text-white hover:bg-neutral-800">Due on Receipt</SelectItem>
+                  <SelectItem value="15" className="text-white hover:bg-neutral-800">Net 15</SelectItem>
+                  <SelectItem value="30" className="text-white hover:bg-neutral-800">Net 30</SelectItem>
+                  <SelectItem value="45" className="text-white hover:bg-neutral-800">Net 45</SelectItem>
+                  <SelectItem value="60" className="text-white hover:bg-neutral-800">Net 60</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -241,21 +241,21 @@ export const AddBillDialog: React.FC<AddBillDialogProps> = ({
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="issueDate" className="text-slate-300">Issue Date</Label>
+              <Label htmlFor="issueDate" className="text-neutral-300">Issue Date</Label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
                     className={cn(
-                      "w-full justify-start text-left font-normal bg-slate-800 border-slate-600 text-white",
-                      !issueDate && "text-slate-400"
+                      "w-full justify-start text-left font-normal bg-neutral-950 border-neutral-800 text-white hover:bg-neutral-800",
+                      !issueDate && "text-neutral-500"
                     )}
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
                     {issueDate ? format(issueDate, "PPP") : <span>Pick a date</span>}
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0 bg-slate-800 border-slate-600" align="start">
+                <PopoverContent className="w-auto p-0 bg-neutral-950 border-neutral-800 z-50" align="start">
                   <Calendar
                     mode="single"
                     selected={issueDate}
@@ -268,21 +268,21 @@ export const AddBillDialog: React.FC<AddBillDialogProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="dueDate" className="text-slate-300">Due Date</Label>
+              <Label htmlFor="dueDate" className="text-neutral-300">Due Date</Label>
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
                     className={cn(
-                      "w-full justify-start text-left font-normal bg-slate-800 border-slate-600 text-white",
-                      !dueDate && "text-slate-400"
+                      "w-full justify-start text-left font-normal bg-neutral-950 border-neutral-800 text-white hover:bg-neutral-800",
+                      !dueDate && "text-neutral-500"
                     )}
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
                     {dueDate ? format(dueDate, "PPP") : <span>Pick a date</span>}
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0 bg-slate-800 border-slate-600" align="start">
+                <PopoverContent className="w-auto p-0 bg-neutral-950 border-neutral-800 z-50" align="start">
                   <Calendar
                     mode="single"
                     selected={dueDate}
@@ -296,24 +296,24 @@ export const AddBillDialog: React.FC<AddBillDialogProps> = ({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description" className="text-slate-300">Description</Label>
+            <Label htmlFor="description" className="text-neutral-300">Description</Label>
             <Input
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Brief description of goods/services"
-              className="bg-slate-800 border-slate-600 text-white"
+              className="bg-neutral-950 border-neutral-800 text-white placeholder:text-neutral-500"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="notes" className="text-slate-300">Notes</Label>
+            <Label htmlFor="notes" className="text-neutral-300">Notes</Label>
             <Textarea
               id="notes"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Additional notes or terms..."
-              className="bg-slate-800 border-slate-600 text-white resize-none"
+              className="bg-neutral-950 border-neutral-800 text-white placeholder:text-neutral-500 resize-none"
               rows={3}
             />
           </div>
@@ -323,13 +323,13 @@ export const AddBillDialog: React.FC<AddBillDialogProps> = ({
             <div className="bg-blue-500/10 border border-blue-500/20 p-4 rounded-lg">
               <div className="text-sm text-blue-400 font-medium mb-2">GL Impact</div>
               <div className="grid gap-2 text-sm">
-                <div className="text-slate-300">
+                <div className="text-neutral-300">
                   Debit: Expense Account - {new Intl.NumberFormat('en-US', {
                     style: 'currency',
                     currency: 'USD',
                   }).format(parseFloat(amount))}
                 </div>
-                <div className="text-slate-300">
+                <div className="text-neutral-300">
                   Credit: Accounts Payable - {new Intl.NumberFormat('en-US', {
                     style: 'currency',
                     currency: 'USD',
@@ -346,12 +346,13 @@ export const AddBillDialog: React.FC<AddBillDialogProps> = ({
               variant="outline" 
               onClick={onClose}
               disabled={loading}
+              className="bg-neutral-700 border-neutral-600 text-white hover:bg-neutral-600"
             >
               Cancel
             </Button>
             <Button 
               type="submit" 
-              className="bg-blue-600 hover:bg-blue-700"
+              className="bg-neutral-700 hover:bg-neutral-600 text-white"
               disabled={loading || !billNumber || !vendorName || !amount}
             >
               {loading ? 'Creating...' : 'Create Bill'}
