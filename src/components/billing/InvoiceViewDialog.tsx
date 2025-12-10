@@ -15,6 +15,7 @@ interface InvoiceViewDialogProps {
   onGeneratePDF: (invoiceId: string) => void;
   onSendEmail: (invoiceId: string) => void;
   onCreatePaymentLink: (invoiceId: string) => void;
+  canAccessPaymentFeatures?: boolean;
 }
 
 export const InvoiceViewDialog: React.FC<InvoiceViewDialogProps> = ({
@@ -23,7 +24,8 @@ export const InvoiceViewDialog: React.FC<InvoiceViewDialogProps> = ({
   invoice,
   onGeneratePDF,
   onSendEmail,
-  onCreatePaymentLink
+  onCreatePaymentLink,
+  canAccessPaymentFeatures = false
 }) => {
   const { clients } = useClients();
 
@@ -217,16 +219,18 @@ export const InvoiceViewDialog: React.FC<InvoiceViewDialogProps> = ({
               Download PDF
             </Button>
 
-            <Button 
-              variant="outline" 
-              onClick={() => onSendEmail(invoice.id)}
-              className="bg-white text-black border-slate-300 hover:bg-white hover:text-black"
-            >
-              <Send className="h-4 w-4 mr-2" />
-              Send Email
-            </Button>
+            {canAccessPaymentFeatures && (
+              <Button 
+                variant="outline" 
+                onClick={() => onSendEmail(invoice.id)}
+                className="bg-white text-black border-slate-300 hover:bg-white hover:text-black"
+              >
+                <Send className="h-4 w-4 mr-2" />
+                Send Email
+              </Button>
+            )}
 
-            {(invoice.status === 'sent' || invoice.status === 'overdue') && (
+            {canAccessPaymentFeatures && (invoice.status === 'sent' || invoice.status === 'approved' || invoice.status === 'overdue') && (
               <Button 
                 variant="outline" 
                 onClick={() => onCreatePaymentLink(invoice.id)}
