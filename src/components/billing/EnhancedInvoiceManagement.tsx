@@ -8,6 +8,7 @@ import { Pagination, PaginationContent, PaginationItem, PaginationLink, Paginati
 import { Badge } from '@/components/ui/badge';
 import { useBilling } from '@/contexts/BillingContext';
 import { useWarehouse } from '@/contexts/WarehouseContext';
+import { useUserPermissions } from '@/hooks/useUserPermissions';
 import { Plus, Send, Download, CreditCard, Eye, FileText, ArrowRight, Building2, AlertTriangle, Mail, MailCheck, Repeat, Pause, Play, Trash2 } from 'lucide-react';
 import { CreateInvoiceDialog } from './CreateInvoiceDialog';
 import { InvoiceViewDialog } from './InvoiceViewDialog';
@@ -18,6 +19,13 @@ import { InvoiceStatusBadge } from './InvoiceStatusBadge';
 export const EnhancedInvoiceManagement = () => {
   const { invoices, recurringInvoices, isLoading, updateInvoiceStatus, generateInvoicePDF, createPaymentLink, updateRecurringInvoice, deleteRecurringInvoice } = useBilling();
   const { selectedWarehouse, canViewAllWarehouses, warehouses } = useWarehouse();
+  const { isAdmin, userRoles } = useUserPermissions();
+  
+  // Check if user is admin or manager (can access payment features)
+  const canAccessPaymentFeatures = useMemo(() => {
+    if (isAdmin) return true;
+    return userRoles.some(role => role.role === 'manager' || role.role === 'admin');
+  }, [isAdmin, userRoles]);
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [showViewDialog, setShowViewDialog] = useState(false);
   const [showEmailDialog, setShowEmailDialog] = useState(false);
@@ -356,15 +364,17 @@ export const EnhancedInvoiceManagement = () => {
                               <SelectItem value="cancelled">Cancelled</SelectItem>
                             </SelectContent>
                           </Select>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => handleSendEmail(invoice.id)}
-                            className="border-gray-700 text-gray-400 hover:bg-gray-800/10"
-                            title="Send Invoice Email"
-                          >
-                            <Send className="h-4 w-4" />
-                          </Button>
+                          {canAccessPaymentFeatures && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handleSendEmail(invoice.id)}
+                              className="border-gray-700 text-gray-400 hover:bg-gray-800/10"
+                              title="Send Invoice Email"
+                            >
+                              <Send className="h-4 w-4" />
+                            </Button>
+                          )}
                           <Button
                             size="sm"
                             variant="outline"
@@ -373,7 +383,7 @@ export const EnhancedInvoiceManagement = () => {
                           >
                             <Download className="h-4 w-4" />
                           </Button>
-                          {(invoice.status === 'sent' || invoice.status === 'approved' || invoice.status === 'overdue') && (
+                          {canAccessPaymentFeatures && (invoice.status === 'sent' || invoice.status === 'approved' || invoice.status === 'overdue') && (
                             <Button
                               size="sm"
                               variant="outline"
@@ -576,6 +586,7 @@ export const EnhancedInvoiceManagement = () => {
         onGeneratePDF={handleGeneratePDF}
         onSendEmail={handleSendEmail}
         onCreatePaymentLink={handleCreatePaymentLink}
+        canAccessPaymentFeatures={canAccessPaymentFeatures}
       />
 
       <InvoiceEmailDialog

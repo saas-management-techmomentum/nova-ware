@@ -238,8 +238,9 @@ ${companyInfo.name}`;
         </div>
 
         ${invoice.payment_link ? `
-        <div class="payment-info">
-            <strong>🔗 Pay Online:</strong> <a href="${invoice.payment_link}" style="color: #3498db;">Click here to pay securely online</a>
+        <div class="payment-info" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 8px; text-align: center; margin: 20px 0;">
+            <p style="color: white; margin: 0 0 15px 0; font-size: 16px;">💳 Ready to pay? Click below to pay securely with Stripe</p>
+            <a href="${invoice.payment_link}" style="display: inline-block; background: white; color: #764ba2; padding: 12px 32px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 16px;">Pay Now - $${invoice.total_amount.toFixed(2)}</a>
         </div>
         ` : ''}
 

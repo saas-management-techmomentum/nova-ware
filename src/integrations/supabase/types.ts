@@ -1034,6 +1034,7 @@ export type Database = {
           payment_date: string
           payment_method: string | null
           reference_number: string | null
+          stripe_payment_id: string | null
           user_id: string
         }
         Insert: {
@@ -1045,6 +1046,7 @@ export type Database = {
           payment_date: string
           payment_method?: string | null
           reference_number?: string | null
+          stripe_payment_id?: string | null
           user_id: string
         }
         Update: {
@@ -1056,6 +1058,7 @@ export type Database = {
           payment_date?: string
           payment_method?: string | null
           reference_number?: string | null
+          stripe_payment_id?: string | null
           user_id?: string
         }
         Relationships: [
@@ -1142,6 +1145,8 @@ export type Database = {
           payment_link: string | null
           pdf_url: string | null
           status: string | null
+          stripe_checkout_session_id: string | null
+          stripe_payment_intent_id: string | null
           subtotal: number
           tax_amount: number | null
           template_id: string | null
@@ -1172,6 +1177,8 @@ export type Database = {
           payment_link?: string | null
           pdf_url?: string | null
           status?: string | null
+          stripe_checkout_session_id?: string | null
+          stripe_payment_intent_id?: string | null
           subtotal: number
           tax_amount?: number | null
           template_id?: string | null
@@ -1202,6 +1209,8 @@ export type Database = {
           payment_link?: string | null
           pdf_url?: string | null
           status?: string | null
+          stripe_checkout_session_id?: string | null
+          stripe_payment_intent_id?: string | null
           subtotal?: number
           tax_amount?: number | null
           template_id?: string | null

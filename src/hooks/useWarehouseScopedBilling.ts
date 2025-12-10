@@ -699,33 +699,56 @@ export const useWarehouseScopedBilling = () => {
 
   const createPaymentLink = async (invoiceId: string): Promise<string | undefined> => {
     try {
-      // Implementation for payment link creation
-      const paymentLink = `https://pay.logistixwms.com/invoice/${invoiceId}`;
+      // Get the user's auth token
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        throw new Error('User not authenticated');
+      }
+
+      // Call Stripe checkout edge function
+      const response = await fetch(`https://stejrgorjpuojorrwbvk.supabase.co/functions/v1/create-stripe-checkout`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json',
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN0ZWpyZ29yanB1b2pvcnJ3YnZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1ODA3MDksImV4cCI6MjA3ODE1NjcwOX0.i8SMUfbWmyTnO6h6k36XICqtjxBxRz37NhisCuIYaX8'
+        },
+        body: JSON.stringify({ 
+          invoiceId,
+          successUrl: `${window.location.origin}/app/billing?payment=success&invoice=${invoiceId}`,
+          cancelUrl: `${window.location.origin}/app/billing?payment=cancelled&invoice=${invoiceId}`,
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create payment link');
+      }
+
+      const data = await response.json();
       
-      const { error } = await supabase
-        .from('invoices')
-        .update({ payment_link: paymentLink })
-        .eq('id', invoiceId);
+      if (!data.success || !data.checkoutUrl) {
+        throw new Error('Failed to create Stripe checkout session');
+      }
 
-      if (error) throw error;
-
+      // Update local state with the payment link
       setInvoices(prev => 
         prev.map(invoice => 
           invoice.id === invoiceId 
-            ? { ...invoice, payment_link: paymentLink }
+            ? { ...invoice, payment_link: data.checkoutUrl }
             : invoice
         )
       );
 
       toast({
         title: "Payment link created",
-        description: "Payment link has been generated and copied to clipboard.",
+        description: "Stripe payment link has been generated and copied to clipboard.",
       });
 
       // Copy to clipboard
-      await navigator.clipboard.writeText(paymentLink);
+      await navigator.clipboard.writeText(data.checkoutUrl);
 
-      return paymentLink;
+      return data.checkoutUrl;
     } catch (error: any) {
       console.error('Error creating payment link:', error);
       toast({
