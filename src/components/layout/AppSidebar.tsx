@@ -22,14 +22,13 @@ import {
   Settings,
   DollarSign,
   Building2,
-  Loader2,
 } from "lucide-react";
 import { useWarehouse } from "@/contexts/WarehouseContext";
 import { usePagePermissions } from "@/hooks/usePagePermissions";
 const AppSidebar = () => {
   const location = useLocation();
   const { warehouses, selectedWarehouse, isUserAdmin } = useWarehouse();
-  const { getFilteredMenuItems, isLoading: permissionsLoading } = usePagePermissions();
+  const { getFilteredMenuItems } = usePagePermissions();
 
   // Define all menu items
   const allMenuItems = [
@@ -138,28 +137,22 @@ const AppSidebar = () => {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu className="flex flex-col gap-1 px-2">
-              {permissionsLoading ? (
-                <div className="flex flex-col items-center justify-center py-8 gap-2">
-                  <Loader2 className="h-5 w-5 animate-spin text-neutral-400" />
-                </div>
-              ) : (
-                menuItems.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <Link to={item.path} className="flex flex-col items-center gap-1 p-2 transition-all duration-200">
-                      <div
-                        className={`p-2 rounded-lg border transition-all ${location.pathname === item.path ? "bg-neutral-800 border-neutral-600 shadow-md" : "border-neutral-700/50 hover:border-neutral-600 hover:bg-neutral-800/50"}`}
-                      >
-                        <item.icon className="w-5 h-5" />
-                      </div>
-                      <span
-                        className={`text-[9px] leading-tight text-center ${location.pathname === item.path ? "text-white font-medium" : "text-neutral-400"}`}
-                      >
-                        {item.title}
-                      </span>
-                    </Link>
-                  </SidebarMenuItem>
-                ))
-              )}
+              {menuItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <Link to={item.path} className="flex flex-col items-center gap-1 p-2 transition-all duration-200">
+                    <div
+                      className={`p-2 rounded-lg border transition-all ${location.pathname === item.path ? "bg-neutral-800 border-neutral-600 shadow-md" : "border-neutral-700/50 hover:border-neutral-600 hover:bg-neutral-800/50"}`}
+                    >
+                      <item.icon className="w-5 h-5" />
+                    </div>
+                    <span
+                      className={`text-[9px] leading-tight text-center ${location.pathname === item.path ? "text-white font-medium" : "text-neutral-400"}`}
+                    >
+                      {item.title}
+                    </span>
+                  </Link>
+                </SidebarMenuItem>
+              ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
